@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/data/data_providers.dart';
 import '../../l10n/app_localizations.dart';
 
 /// Bottom-navigation shell for the five primary learner sections.
 /// Switches to a navigation rail on wide screens (tablets, desktop, web).
-class AppShell extends StatelessWidget {
+class AppShell extends ConsumerWidget {
   const AppShell({super.key, required this.shell});
 
   final StatefulNavigationShell shell;
@@ -14,7 +16,9 @@ class AppShell extends StatelessWidget {
       shell.goBranch(index, initialLocation: index == shell.currentIndex);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Keeps background sync running while signed in.
+    ref.watch(syncSchedulerProvider);
     final l10n = AppLocalizations.of(context);
     final items = [
       (Icons.home_outlined, Icons.home, l10n.navHome),

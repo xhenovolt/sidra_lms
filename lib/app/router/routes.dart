@@ -13,6 +13,11 @@ abstract final class Routes {
   static const course = '/courses/:courseId';
   static const lesson = '/courses/:courseId/lessons/:lessonId';
 
+  static const quizPath = '/quiz/:assessmentId';
+  static String quiz(String assessmentId) => '/quiz/$assessmentId';
+
+  static const teach = '/teach';
+
   static String courseDetail(String courseId) => '/courses/$courseId';
   static String lessonDetail(String courseId, String lessonId) =>
       '/courses/$courseId/lessons/$lessonId';

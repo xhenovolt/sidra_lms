@@ -165,4 +165,227 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get signInUnavailableDevHint =>
       'للمطوّر: أضف هذه القيم إلى ‎.env ثم شغّل  dart run tool/gen_config.dart';
+
+  @override
+  String get accessFree => 'مجاني';
+
+  @override
+  String get accessPaid => 'مدفوع';
+
+  @override
+  String get accessRestricted => 'بدعوة';
+
+  @override
+  String get difficultyBeginner => 'مبتدئ';
+
+  @override
+  String get difficultyIntermediate => 'متوسط';
+
+  @override
+  String get difficultyAdvanced => 'متقدم';
+
+  @override
+  String lessonsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count درس',
+      many: '$count درسًا',
+      few: '$count دروس',
+      two: 'درسان',
+      one: 'درس واحد',
+      zero: 'لا دروس بعد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String hoursShort(String hours) {
+    return '$hours س';
+  }
+
+  @override
+  String percentComplete(int percent) {
+    return 'أُنجز $percent٪';
+  }
+
+  @override
+  String get startCourse => 'ابدأ هذه الدورة';
+
+  @override
+  String get continueAction => 'متابعة';
+
+  @override
+  String get enrolling => 'جارٍ التسجيل…';
+
+  @override
+  String get accessRequiredTitle => 'التسجيل عبر المنتهى';
+
+  @override
+  String get accessRequiredBody =>
+      'يفتح فريق المنتهى هذه الدورة للطلاب. تواصل مع معلّمك أو مع المنتهى للانضمام.';
+
+  @override
+  String get courseOutline => 'محتوى الدورة';
+
+  @override
+  String get learningObjectives => 'ماذا ستتعلّم';
+
+  @override
+  String get prerequisitesTitle => 'قبل أن تبدأ';
+
+  @override
+  String get booksTitle => 'الكتب';
+
+  @override
+  String get lockedLessonTitle => 'بانتظار معلّمك';
+
+  @override
+  String get lockedLessonBody =>
+      'يفتح معلّمك هذا الدرس بعد مراجعة تقدّمك في الدرس السابق.';
+
+  @override
+  String get notEnrolledLessonBody => 'سجّل في هذه الدورة لفتح دروسها.';
+
+  @override
+  String get markComplete => 'أنهيتُ هذا الدرس';
+
+  @override
+  String get completedLabel => 'مكتمل';
+
+  @override
+  String get previousLesson => 'السابق';
+
+  @override
+  String get nextLesson => 'التالي';
+
+  @override
+  String get awaitingTeacherTitle => 'أحسنت!';
+
+  @override
+  String get awaitingTeacherBody =>
+      'أنهيتَ كل ما هو متاح لك. سيراجع معلّمك عملك ويفتح لك الدرس التالي.';
+
+  @override
+  String get savedOnDevice => 'محفوظ على هذا الجهاز · سيُزامَن عند الاتصال';
+
+  @override
+  String syncPending(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count تغييرات بانتظار المزامنة',
+      one: 'تغيير واحد بانتظار المزامنة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String syncRejected(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'لم تُقبل $count تغييرات',
+      one: 'لم يُقبل تغيير واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get offlineShowingSaved => 'غير متصل · يُعرض المحتوى المحفوظ';
+
+  @override
+  String get courseUnavailable => 'هذه الدورة غير متاحة.';
+
+  @override
+  String get lessonEmpty => 'لا يحتوي هذا الدرس على محتوى بعد.';
+
+  @override
+  String get continueWhereLeft => 'تابع من حيث توقفت';
+
+  @override
+  String get nextUp => 'التالي';
+
+  @override
+  String get teacherConsole => 'لوحة المعلّم';
+
+  @override
+  String get roleLearner => 'طالب';
+
+  @override
+  String get roleTeacher => 'معلّم';
+
+  @override
+  String get roleAdmin => 'مدير';
+
+  @override
+  String get downloadCourse => 'تنزيل للاستخدام دون اتصال';
+
+  @override
+  String get downloadedLabel => 'متاح دون اتصال';
+
+  @override
+  String get removeDownload => 'حذف التنزيل';
+
+  @override
+  String downloadingProgress(int percent) {
+    return 'جارٍ التنزيل… $percent٪';
+  }
+
+  @override
+  String get downloadFailed =>
+      'توقف التنزيل. تحقّق من الاتصال ومساحة التخزين ثم حاول مجددًا.';
+
+  @override
+  String get storageFull => 'لا توجد مساحة تخزين كافية على جهازك.';
+
+  @override
+  String sizeMb(String mb) {
+    return '$mb م.ب';
+  }
+
+  @override
+  String get quizTitle => 'اختبار';
+
+  @override
+  String get submitAnswers => 'إرسال الإجابات';
+
+  @override
+  String get quizPassed => 'ناجح';
+
+  @override
+  String get quizNotPassed => 'لم تنجح بعد';
+
+  @override
+  String quizScore(String score, String max) {
+    return 'الدرجة: $score / $max';
+  }
+
+  @override
+  String get quizAwaitingTeacher => 'أُرسلت. سيصحّح معلّمك الإجابات المكتوبة.';
+
+  @override
+  String get quizOfflineNote =>
+      'صُحّح على هذا الجهاز، وسيُعتمد عند عودة الاتصال.';
+
+  @override
+  String get quizNeedsConnection => 'يحتاج هذا الاختبار إلى اتصال بالإنترنت.';
+
+  @override
+  String get yourAnswer => 'إجابتك';
+
+  @override
+  String get recitationInClass => 'اتلُ هذا على معلّمك في الحلقة.';
+
+  @override
+  String get tryAgain => 'حاول مجددًا';
+
+  @override
+  String get done => 'تم';
+
+  @override
+  String get enrolFailed => 'تعذّر التسجيل. حاول مجددًا.';
+
+  @override
+  String get teacherFeedback => 'ملاحظات المعلّم';
 }

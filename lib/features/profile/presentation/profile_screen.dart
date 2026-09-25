@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../app/router/routes.dart';
+import '../../../core/data/data_providers.dart';
+import '../../../core/data/repository_providers.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../auth/presentation/auth_providers.dart';
+import '../data/profile_repository.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -13,6 +18,8 @@ class ProfileScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final user = ref.watch(authSessionProvider).user;
+    final profile = ref.watch(profileProvider).value;
+    final sync = ref.watch(syncStatusProvider).value;
     final initial = (user?.displayName ?? user?.email ?? '?').characters.first
         .toUpperCase();
 
@@ -48,12 +55,50 @@ class ProfileScreen extends ConsumerWidget {
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
                       ),
+                    if (profile != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: Space.xxs),
+                        child: Text(
+                          switch (profile.role) {
+                            UserRole.admin => l10n.roleAdmin,
+                            UserRole.teacher => l10n.roleTeacher,
+                            UserRole.learner => l10n.roleLearner,
+                          },
+                          style: theme.textTheme.labelMedium?.copyWith(
+                            color: theme.colorScheme.primary,
+                          ),
+                        ),
+                      ),
                   ],
                 ),
               ),
             ],
           ),
           const SizedBox(height: Space.xl),
+          if (profile?.isStaff ?? false) ...[
+            Card(
+              child: ListTile(
+                leading: Icon(
+                  Icons.school_outlined,
+                  color: theme.colorScheme.primary,
+                ),
+                title: Text(l10n.teacherConsole),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => context.push(Routes.teach),
+              ),
+            ),
+            const SizedBox(height: Space.md),
+          ],
+          if (sync != null && !sync.isClean)
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.cloud_upload_outlined),
+              title: Text(
+                sync.rejected > 0
+                    ? l10n.syncRejected(sync.rejected)
+                    : l10n.syncPending(sync.pending),
+              ),
+            ),
           const Divider(),
           ListTile(
             contentPadding: EdgeInsets.zero,

@@ -5,7 +5,10 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/domain/auth_session.dart';
 import '../../features/auth/presentation/auth_providers.dart';
 import '../../features/auth/presentation/sign_in_screen.dart';
+import '../../features/assessments/presentation/quiz_screen.dart';
+import '../../features/courses/presentation/course_detail_screen.dart';
 import '../../features/courses/presentation/tab_screens.dart';
+import '../../features/lessons/presentation/lesson_screen.dart';
 import '../../features/downloads/presentation/downloads_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/onboarding/data/onboarding_controller.dart';
@@ -57,6 +60,11 @@ final routerProvider = Provider<GoRouter>((ref) {
           courseId: state.pathParameters['courseId']!,
           lessonId: state.pathParameters['lessonId']!,
         ),
+      ),
+      GoRoute(
+        path: Routes.quizPath,
+        builder: (_, state) =>
+            QuizScreen(assessmentId: state.pathParameters['assessmentId']!),
       ),
     ],
   );

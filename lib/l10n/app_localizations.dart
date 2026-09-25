@@ -385,6 +385,366 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Developer: add these to .env, then run  dart run tool/gen_config.dart'**
   String get signInUnavailableDevHint;
+
+  /// No description provided for @accessFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get accessFree;
+
+  /// No description provided for @accessPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get accessPaid;
+
+  /// No description provided for @accessRestricted.
+  ///
+  /// In en, this message translates to:
+  /// **'By invitation'**
+  String get accessRestricted;
+
+  /// No description provided for @difficultyBeginner.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner'**
+  String get difficultyBeginner;
+
+  /// No description provided for @difficultyIntermediate.
+  ///
+  /// In en, this message translates to:
+  /// **'Intermediate'**
+  String get difficultyIntermediate;
+
+  /// No description provided for @difficultyAdvanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get difficultyAdvanced;
+
+  /// No description provided for @lessonsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No lessons yet} =1{1 lesson} other{{count} lessons}}'**
+  String lessonsCount(int count);
+
+  /// No description provided for @hoursShort.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h'**
+  String hoursShort(String hours);
+
+  /// No description provided for @percentComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% complete'**
+  String percentComplete(int percent);
+
+  /// No description provided for @startCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Start this course'**
+  String get startCourse;
+
+  /// No description provided for @continueAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueAction;
+
+  /// No description provided for @enrolling.
+  ///
+  /// In en, this message translates to:
+  /// **'Enrolling…'**
+  String get enrolling;
+
+  /// No description provided for @accessRequiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enrolment by Almuntahha'**
+  String get accessRequiredTitle;
+
+  /// No description provided for @accessRequiredBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This course is opened for learners by the Almuntahha team. Please contact your teacher or Almuntahha to join.'**
+  String get accessRequiredBody;
+
+  /// No description provided for @courseOutline.
+  ///
+  /// In en, this message translates to:
+  /// **'Course outline'**
+  String get courseOutline;
+
+  /// No description provided for @learningObjectives.
+  ///
+  /// In en, this message translates to:
+  /// **'What you will learn'**
+  String get learningObjectives;
+
+  /// No description provided for @prerequisitesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Before you start'**
+  String get prerequisitesTitle;
+
+  /// No description provided for @booksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Books'**
+  String get booksTitle;
+
+  /// No description provided for @lockedLessonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for your teacher'**
+  String get lockedLessonTitle;
+
+  /// No description provided for @lockedLessonBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your teacher opens this lesson after reviewing your progress on the previous one.'**
+  String get lockedLessonBody;
+
+  /// No description provided for @notEnrolledLessonBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enrol in this course to open its lessons.'**
+  String get notEnrolledLessonBody;
+
+  /// No description provided for @markComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'I have finished this lesson'**
+  String get markComplete;
+
+  /// No description provided for @completedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get completedLabel;
+
+  /// No description provided for @previousLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get previousLesson;
+
+  /// No description provided for @nextLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get nextLesson;
+
+  /// No description provided for @awaitingTeacherTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Well done!'**
+  String get awaitingTeacherTitle;
+
+  /// No description provided for @awaitingTeacherBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You have finished everything open to you. Your teacher will review your work and open the next lesson.'**
+  String get awaitingTeacherBody;
+
+  /// No description provided for @savedOnDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved on this device · will sync when you are online'**
+  String get savedOnDevice;
+
+  /// No description provided for @syncPending.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 change waiting to sync} other{{count} changes waiting to sync}}'**
+  String syncPending(int count);
+
+  /// No description provided for @syncRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 change was not accepted} other{{count} changes were not accepted}}'**
+  String syncRejected(int count);
+
+  /// No description provided for @offlineShowingSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline · showing saved content'**
+  String get offlineShowingSaved;
+
+  /// No description provided for @courseUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This course is not available.'**
+  String get courseUnavailable;
+
+  /// No description provided for @lessonEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'This lesson has no content yet.'**
+  String get lessonEmpty;
+
+  /// No description provided for @continueWhereLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue where you left off'**
+  String get continueWhereLeft;
+
+  /// No description provided for @nextUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Next up'**
+  String get nextUp;
+
+  /// No description provided for @teacherConsole.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher console'**
+  String get teacherConsole;
+
+  /// No description provided for @roleLearner.
+  ///
+  /// In en, this message translates to:
+  /// **'Learner'**
+  String get roleLearner;
+
+  /// No description provided for @roleTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher'**
+  String get roleTeacher;
+
+  /// No description provided for @roleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get roleAdmin;
+
+  /// No description provided for @downloadCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Download for offline'**
+  String get downloadCourse;
+
+  /// No description provided for @downloadedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Available offline'**
+  String get downloadedLabel;
+
+  /// No description provided for @removeDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove download'**
+  String get removeDownload;
+
+  /// No description provided for @downloadingProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading… {percent}%'**
+  String downloadingProgress(int percent);
+
+  /// No description provided for @downloadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Download stopped. Check your connection and storage, then try again.'**
+  String get downloadFailed;
+
+  /// No description provided for @storageFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Your device is out of storage space.'**
+  String get storageFull;
+
+  /// No description provided for @sizeMb.
+  ///
+  /// In en, this message translates to:
+  /// **'{mb} MB'**
+  String sizeMb(String mb);
+
+  /// No description provided for @quizTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz'**
+  String get quizTitle;
+
+  /// No description provided for @submitAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit answers'**
+  String get submitAnswers;
+
+  /// No description provided for @quizPassed.
+  ///
+  /// In en, this message translates to:
+  /// **'Passed'**
+  String get quizPassed;
+
+  /// No description provided for @quizNotPassed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not yet passed'**
+  String get quizNotPassed;
+
+  /// No description provided for @quizScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Score: {score} / {max}'**
+  String quizScore(String score, String max);
+
+  /// No description provided for @quizAwaitingTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitted. Your teacher will mark the written answers.'**
+  String get quizAwaitingTeacher;
+
+  /// No description provided for @quizOfflineNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Scored on this device. It will be confirmed when you are back online.'**
+  String get quizOfflineNote;
+
+  /// No description provided for @quizNeedsConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'This quiz needs an internet connection.'**
+  String get quizNeedsConnection;
+
+  /// No description provided for @yourAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answer'**
+  String get yourAnswer;
+
+  /// No description provided for @recitationInClass.
+  ///
+  /// In en, this message translates to:
+  /// **'Recite this to your teacher in class.'**
+  String get recitationInClass;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get tryAgain;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @enrolFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not enrol. Please try again.'**
+  String get enrolFailed;
+
+  /// No description provided for @teacherFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher feedback'**
+  String get teacherFeedback;
 }
 
 class _AppLocalizationsDelegate

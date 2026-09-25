@@ -53,6 +53,12 @@ class StorageFailure extends AppFailure {
   const StorageFailure(super.message, {super.cause});
 }
 
+/// Device storage is full (e.g. while downloading media).
+class InsufficientStorageFailure extends AppFailure {
+  const InsufficientStorageFailure()
+    : super('Not enough storage space on this device');
+}
+
 /// A required external integration has not been configured yet.
 class ConfigurationFailure extends AppFailure {
   const ConfigurationFailure(super.message);

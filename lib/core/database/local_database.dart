@@ -102,6 +102,7 @@ class LocalDatabase {
       create table outbox (
         op_id text primary key,
         op_type text not null,
+        ref_key text,
         payload text not null,
         created_at text not null,
         attempts integer not null default 0,
@@ -109,6 +110,7 @@ class LocalDatabase {
         last_error text,
         state text not null default 'pending'
       )''');
+    b.execute('create index outbox_ref on outbox (op_type, ref_key)');
     b.execute('''
       create table media_files (
         asset_id text primary key,

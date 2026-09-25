@@ -103,6 +103,7 @@ class SyncEngine {
 
   final LocalDatabase local;
   final PostgresApi api;
+
   /// Per op type: how to apply a successful server result locally.
   final Map<String, ResultApplier> appliers;
   final DateTime Function() _clock;
@@ -111,10 +112,15 @@ class SyncEngine {
 
   final status = ValueNotifier(const SyncStatus());
   Future<SyncReport>? _running;
-  bool _rerun = false;
+
+  /// Completes when the follow-up run (requested during a run) finishes.
+  Completer<SyncReport>? _followUp;
 
   static String newOpId() => _uuid.v4();
 
+  /// [refKey] identifies the entity the op touches (e.g. lesson id) so
+  /// pending work can be looked up without parsing JSON.
+  ///
   /// Adds an op inside [txn] (same transaction as the local change it
   /// represents, so the two can never diverge).
   static Future<void> enqueue(
@@ -122,9 +128,11 @@ class SyncEngine {
     required String opId,
     required String type,
     required Map<String, dynamic> payload,
+    String? refKey,
   }) => txn.insert('outbox', {
     'op_id': opId,
     'op_type': type,
+    'ref_key': refKey,
     'payload': LocalDatabase.encode(payload),
     'created_at': LocalDatabase.now(),
   });
@@ -151,18 +159,20 @@ class SyncEngine {
     );
   }
 
-  /// Runs the outbox. Concurrent calls share one run; a call made during a
-  /// run schedules exactly one follow-up run.
+  /// Runs the outbox. A call made while a run is in progress schedules
+  /// exactly one follow-up run (so newly queued ops are picked up) and
+  /// returns a future that completes when that follow-up finishes. Any
+  /// number of mid-run calls share the same follow-up.
   Future<SyncReport> run() {
     if (_running != null) {
-      _rerun = true;
-      return _running!;
+      return (_followUp ??= Completer<SyncReport>()).future;
     }
     final future = _runOnce().whenComplete(() {
       _running = null;
-      if (_rerun) {
-        _rerun = false;
-        unawaited(run());
+      final next = _followUp;
+      _followUp = null;
+      if (next != null) {
+        run().then(next.complete, onError: next.completeError);
       }
     });
     _running = future;

@@ -68,5 +68,124 @@
   "onboard3Body": "Download your lessons and keep learning without an internet connection. Your progress syncs when you are back online.",
   "signInUnavailableTitle": "Sign-in is not available yet",
   "signInUnavailableBody": "This build of Sidra has not been connected to its sign-in service. Please install the latest version or contact Almuntahha.",
-  "signInUnavailableDevHint": "Developer: add these to .env, then run  dart run tool/gen_config.dart"
+  "signInUnavailableDevHint": "Developer: add these to .env, then run  dart run tool/gen_config.dart",
+  "accessFree": "Free",
+  "accessPaid": "Paid",
+  "accessRestricted": "By invitation",
+  "difficultyBeginner": "Beginner",
+  "difficultyIntermediate": "Intermediate",
+  "difficultyAdvanced": "Advanced",
+  "lessonsCount": "{count, plural, =0{No lessons yet} =1{1 lesson} other{{count} lessons}}",
+  "@lessonsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hoursShort": "{hours} h",
+  "@hoursShort": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "percentComplete": "{percent}% complete",
+  "@percentComplete": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "startCourse": "Start this course",
+  "continueAction": "Continue",
+  "enrolling": "Enrolling…",
+  "accessRequiredTitle": "Enrolment by Almuntahha",
+  "accessRequiredBody": "This course is opened for learners by the Almuntahha team. Please contact your teacher or Almuntahha to join.",
+  "courseOutline": "Course outline",
+  "learningObjectives": "What you will learn",
+  "prerequisitesTitle": "Before you start",
+  "booksTitle": "Books",
+  "lockedLessonTitle": "Waiting for your teacher",
+  "lockedLessonBody": "Your teacher opens this lesson after reviewing your progress on the previous one.",
+  "notEnrolledLessonBody": "Enrol in this course to open its lessons.",
+  "markComplete": "I have finished this lesson",
+  "completedLabel": "Completed",
+  "previousLesson": "Previous",
+  "nextLesson": "Next",
+  "awaitingTeacherTitle": "Well done!",
+  "awaitingTeacherBody": "You have finished everything open to you. Your teacher will review your work and open the next lesson.",
+  "savedOnDevice": "Saved on this device · will sync when you are online",
+  "syncPending": "{count, plural, =1{1 change waiting to sync} other{{count} changes waiting to sync}}",
+  "@syncPending": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "syncRejected": "{count, plural, =1{1 change was not accepted} other{{count} changes were not accepted}}",
+  "@syncRejected": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "offlineShowingSaved": "Offline · showing saved content",
+  "courseUnavailable": "This course is not available.",
+  "lessonEmpty": "This lesson has no content yet.",
+  "continueWhereLeft": "Continue where you left off",
+  "nextUp": "Next up",
+  "teacherConsole": "Teacher console",
+  "roleLearner": "Learner",
+  "roleTeacher": "Teacher",
+  "roleAdmin": "Administrator",
+  "downloadCourse": "Download for offline",
+  "downloadedLabel": "Available offline",
+  "removeDownload": "Remove download",
+  "downloadingProgress": "Downloading… {percent}%",
+  "@downloadingProgress": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "downloadFailed": "Download stopped. Check your connection and storage, then try again.",
+  "storageFull": "Your device is out of storage space.",
+  "sizeMb": "{mb} MB",
+  "@sizeMb": {
+    "placeholders": {
+      "mb": {
+        "type": "String"
+      }
+    }
+  },
+  "quizTitle": "Quiz",
+  "submitAnswers": "Submit answers",
+  "quizPassed": "Passed",
+  "quizNotPassed": "Not yet passed",
+  "quizScore": "Score: {score} / {max}",
+  "@quizScore": {
+    "placeholders": {
+      "score": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "quizAwaitingTeacher": "Submitted. Your teacher will mark the written answers.",
+  "quizOfflineNote": "Scored on this device. It will be confirmed when you are back online.",
+  "quizNeedsConnection": "This quiz needs an internet connection.",
+  "yourAnswer": "Your answer",
+  "recitationInClass": "Recite this to your teacher in class.",
+  "tryAgain": "Try again",
+  "done": "Done",
+  "enrolFailed": "Could not enrol. Please try again.",
+  "teacherFeedback": "Teacher feedback"
 }
