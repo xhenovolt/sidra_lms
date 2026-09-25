@@ -35,7 +35,10 @@ is used by `tool/db.dart` for migrations and admin bootstrap.
 | `db/migrations/0004_api_functions.sql` | RPC functions: enrol, unlock, review, progress, quizzes, media |
 | `db/migrations/0005_rls_and_grants.sql` | RLS policies and Data API grants |
 | `db/migrations/0006_dashboards.sql` | `my_courses()`, `teacher_learners()` read models |
-| `db/tests/access_test.sql` | about 50 security and business-rule checks, run in a rolled-back transaction |
+| `db/migrations/0007_identity_definer.sql` | identity helper runs as owner (the `authenticated` role cannot read the `auth` schema on Neon) |
+| `db/migrations/0008_performance_indexes.sql` | indexes behind every per-row RLS check |
+| `db/tests/access_test.sql` | about 50 security and business-rule checks |
+| `db/tests/authoring_test.sql` | console permissions: teacher vs editor vs admin, learner uploads |
 
 ## Commands
 
