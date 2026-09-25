@@ -1,0 +1,72 @@
+{
+  "@@locale": "en",
+  "appName": "Sidra",
+  "appTagline": "Islamic learning by Almuntahha",
+  "navHome": "Home",
+  "navMyLearning": "My Learning",
+  "navExplore": "Explore",
+  "navDownloads": "Downloads",
+  "navProfile": "Profile",
+  "greetingMorning": "Good morning, {name}",
+  "@greetingMorning": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingAfternoon": "Good afternoon, {name}",
+  "@greetingAfternoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingEvening": "Good evening, {name}",
+  "@greetingEvening": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "learnerFallbackName": "learner",
+  "continueLearning": "Continue learning",
+  "enrolledCourses": "Your courses",
+  "noEnrolmentsTitle": "Begin your journey",
+  "noEnrolmentsBody": "You are not enrolled in any course yet. Explore the catalogue to find a course to start.",
+  "exploreCourses": "Explore courses",
+  "myLearningEmptyTitle": "Nothing here yet",
+  "myLearningEmptyBody": "Courses you enrol in will appear here with your progress.",
+  "exploreTitle": "Explore",
+  "exploreEmptyTitle": "Catalogue coming soon",
+  "exploreEmptyBody": "Published courses from Almuntahha will be listed here.",
+  "downloadsTitle": "Downloads",
+  "downloadsEmptyTitle": "No downloads",
+  "downloadsEmptyBody": "Download a course to study it without an internet connection.",
+  "profileTitle": "Profile",
+  "signOut": "Sign out",
+  "adminConsole": "Teacher & admin console",
+  "courseTitle": "Course",
+  "lessonTitle": "Lesson",
+  "comingSoon": "This section is being built.",
+  "signInTitle": "Welcome to Sidra",
+  "signInSubtitle": "Sign in or create an account to continue your studies.",
+  "retry": "Try again",
+  "genericError": "Something went wrong.",
+  "offlineError": "You appear to be offline.",
+  "loading": "Loading…",
+  "skip": "Skip",
+  "next": "Next",
+  "getStarted": "Get started",
+  "onboard1Title": "Learn with structure",
+  "onboard1Body": "Courses prepared by Almuntahha teachers — from Quran reading for beginners to Islamic theology — organised into clear units and lessons.",
+  "onboard2Title": "Guided by your teacher",
+  "onboard2Body": "Your teacher reviews your progress and opens each next lesson when you are ready, so you always know what to study next.",
+  "onboard3Title": "Study anywhere",
+  "onboard3Body": "Download your lessons and keep learning without an internet connection. Your progress syncs when you are back online.",
+  "signInUnavailableTitle": "Sign-in is not available yet",
+  "signInUnavailableBody": "This build of Sidra has not been connected to its sign-in service. Please install the latest version or contact Almuntahha.",
+  "signInUnavailableDevHint": "Developer: add these to .env, then run  dart run tool/gen_config.dart"
+}

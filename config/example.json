@@ -1,0 +1,7 @@
+{
+  "SIDRA_ENV": "dev",
+  "NEON_DATA_API_URL": "https://<endpoint>.apirest.<region>.aws.neon.tech/sidra_lms/rest/v1",
+  "CLERK_PUBLISHABLE_KEY": "pk_test_...",
+  "CLERK_JWT_TEMPLATE": "neon",
+  "CLOUDINARY_CLOUD_NAME": "drg4idqod"
+}
