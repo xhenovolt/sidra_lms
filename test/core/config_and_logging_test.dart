@@ -7,28 +7,26 @@ void main() {
     test('reports missing keys and unconfigured auth', () {
       const config = AppConfig(
         environment: 'dev',
-        neonDataApiUrl: '',
-        authUrl: '',
+        appDatabaseUrl: '',
         cloudinaryCloudName: '',
       );
-      expect(config.missingKeys, [
-        'NEON_DATA_API_URL',
-        'AUTH_URL',
-        'CLOUDINARY_CLOUD_NAME',
-      ]);
+      expect(config.missingKeys, ['APP_DATABASE_URL', 'CLOUDINARY_CLOUD_NAME']);
       expect(config.isAuthConfigured, isFalse);
-      expect(config.isDataApiConfigured, isFalse);
     });
 
-    test('auth requires an https URL', () {
-      const config = AppConfig(
+    test('database URL must be a postgres URL', () {
+      const bad = AppConfig(
         environment: 'dev',
-        neonDataApiUrl: 'https://x.neon.tech/db/rest/v1',
-        authUrl: 'http://insecure.example',
+        appDatabaseUrl: 'https://example.com',
         cloudinaryCloudName: 'demo',
       );
-      expect(config.isAuthConfigured, isFalse);
-      expect(config.isDataApiConfigured, isTrue);
+      expect(bad.isDatabaseConfigured, isFalse);
+      const good = AppConfig(
+        environment: 'dev',
+        appDatabaseUrl: 'postgresql://sidra_app:x@host/db',
+        cloudinaryCloudName: 'demo',
+      );
+      expect(good.isAuthConfigured, isTrue);
     });
   });
 

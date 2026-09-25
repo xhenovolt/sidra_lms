@@ -1,9 +1,0 @@
-name = "sidra-auth"
-main = "src/index.js"
-compatibility_date = "2026-09-01"
-
-[vars]
-# Must match the issuer/audience configured for the JWT provider in Neon.
-# Set JWT_ISSUER to this Worker's URL after the first deploy.
-JWT_ISSUER = "https://sidra-auth.example.workers.dev"
-JWT_AUDIENCE = "sidra"

@@ -59,7 +59,10 @@ class AppUserRow {
     required this.id,
     required this.role,
     this.displayName,
+    this.phone,
     this.email,
+    this.username,
+    this.isSuperadmin = false,
     this.isActive = true,
   });
 
@@ -67,17 +70,60 @@ class AppUserRow {
     id: j.str('id'),
     role: enumByName(UserRole.values, j.strOrNull('role'), UserRole.learner),
     displayName: j.strOrNull('display_name'),
-    email: j.strOrNull('email') ?? j.strOrNull('phone'),
+    phone: j.strOrNull('phone'),
+    email: j.strOrNull('email'),
+    username: j.strOrNull('username'),
+    isSuperadmin: j.boolean('is_superadmin'),
     isActive: j.boolean('is_active', fallback: true),
   );
 
   final String id;
   final UserRole role;
   final String? displayName;
+  final String? phone;
   final String? email;
+  final String? username;
+  final bool isSuperadmin;
   final bool isActive;
 
-  String get name => displayName ?? email ?? id.substring(0, 8);
+  String get name =>
+      displayName ?? username ?? phone ?? email ?? id.substring(0, 8);
+
+  /// Phone, email or username, whichever exist.
+  String get contact =>
+      [?phone, ?email, if (username != null) '@$username'].join(' · ');
+}
+
+/// A person on a course (learner enrolment or staff assignment).
+class CoursePerson {
+  const CoursePerson({
+    required this.userId,
+    required this.isStaff,
+    required this.status,
+    this.displayName,
+    this.contact,
+    this.enrolmentId,
+  });
+
+  factory CoursePerson.fromJson(Json j) => CoursePerson(
+    userId: j.str('user_id'),
+    displayName: j.strOrNull('display_name'),
+    contact: j.strOrNull('contact'),
+    isStaff: j.strOrNull('kind') == 'staff',
+    status: j.strOrNull('status') ?? '',
+    enrolmentId: j.strOrNull('enrolment_id'),
+  );
+
+  final String userId;
+  final String? displayName;
+  final String? contact;
+  final bool isStaff;
+
+  /// Enrolment status (learners) or staff role (teacher / editor).
+  final String status;
+  final String? enrolmentId;
+
+  String get name => displayName ?? contact ?? '—';
 }
 
 /// Staff operations. Every call is re-authorised by PostgreSQL (RLS and
@@ -195,7 +241,7 @@ class AdminRepository {
     }
   }
 
-  /// Swaps two rows' positions. Each Data API call is its own
+  /// Swaps two rows' positions. Each API call is its own
   /// transaction, so for tables with UNIQUE (parent, position) a temporary
   /// position is used to avoid a transient duplicate.
   Future<void> swapPositions(
@@ -282,10 +328,81 @@ class AdminRepository {
 
   // -------------------------------------------------------------- people --
 
-  Future<List<AppUserRow>> users() async => (await api.select(
-    'users',
-    order: 'display_name.asc.nullslast',
+  /// Everyone (admins only), with contact details. [search] matches name,
+  /// phone, email or username.
+  Future<List<AppUserRow>> users({String? search}) async => (await api.rpcRows(
+    'admin_list_users',
+    params: {'p_search': ?search},
   )).map(AppUserRow.fromJson).toList();
+
+  /// Creates an account with a temporary password (must change at first
+  /// sign-in). Admins/superadmins can only be created by a superadmin.
+  Future<void> createUser({
+    required String displayName,
+    required UserRole role,
+    required String temporaryPassword,
+    String? phone,
+    String? email,
+    String? username,
+    bool superadmin = false,
+  }) => api.rpc(
+    'admin_create_user',
+    params: {
+      'p_display_name': displayName,
+      'p_role': role.name,
+      'p_temporary_password': temporaryPassword,
+      'p_phone': phone,
+      'p_email': email,
+      'p_username': username,
+      'p_superadmin': superadmin,
+    },
+  );
+
+  Future<void> updateUser(
+    String userId, {
+    required String displayName,
+    String? phone,
+    String? email,
+    String? username,
+  }) => api.rpc(
+    'admin_update_user',
+    params: {
+      'p_user_id': userId,
+      'p_display_name': displayName,
+      'p_phone': phone,
+      'p_email': email,
+      'p_username': username,
+    },
+  );
+
+  Future<void> setActive(String userId, bool active) => api.rpc(
+    'set_user_active',
+    params: {'p_user_id': userId, 'p_active': active},
+  );
+
+  Future<void> setSuperadmin(String userId, bool value) => api.rpc(
+    'set_superadmin',
+    params: {'p_user_id': userId, 'p_superadmin': value},
+  );
+
+  Future<Json> overview() async =>
+      Json.from((await api.rpc('admin_overview') as Map?) ?? const {});
+
+  Future<List<CoursePerson>> coursePeople(String courseId) async =>
+      (await api.rpcRows(
+        'course_people',
+        params: {'p_course_id': courseId},
+      )).map(CoursePerson.fromJson).toList();
+
+  Future<void> setEnrolmentStatus(String enrolmentId, String status) => api.rpc(
+    'set_enrolment_status',
+    params: {'p_enrolment_id': enrolmentId, 'p_status': status},
+  );
+
+  Future<void> removeStaff(String courseId, String userId) => api.delete(
+    'course_staff',
+    filters: {'course_id': Pg.eq(courseId), 'user_id': Pg.eq(userId)},
+  );
 
   Future<void> setRole(String userId, UserRole role) => api.rpc(
     'set_user_role',
@@ -305,11 +422,12 @@ class AdminRepository {
   );
 
   Future<void> assignStaff(String courseId, String userId, String role) =>
-      api.insert('course_staff', {
-        'course_id': courseId,
-        'user_id': userId,
-        'role': role,
-      }, upsert: true);
+      api.insert(
+        'course_staff',
+        {'course_id': courseId, 'user_id': userId, 'role': role},
+        upsert: true,
+        onConflict: 'course_id,user_id',
+      );
 
   // --------------------------------------------------------------- media --
 

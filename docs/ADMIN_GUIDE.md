@@ -75,19 +75,39 @@ Nothing is visible to learners until you switch on **Published** at the
 top of the course. While a course is live, new sections and lessons start
 **hidden**. Publish each one from its menu when it's ready.
 
+## Overview (administrators)
+
+The first tab shows live numbers (learners, teachers, courses, enrolments,
+activity this week) and quick buttons to **Add person** and **New course**.
+
 ## People tab (administrators)
 
-- **Make teacher / admin / learner:** change someone's role.
-- **Give access to a course:** for paid or invitation-only courses.
-- **Make teacher of a course:** lets a teacher review that course's learners
-  and edit its lessons.
+Search by name, phone, email or username, or filter by role. Tap a person to:
 
-A person appears here after they have signed in to Sidra once.
+- **Edit details:** name, phone, email, username.
+- **Change role:** learner, teacher, or (superadmins only) administrator.
+- **Superadmin** (superadmins only): can manage other administrators.
+- **Reset password:** gives a temporary password.
+- **Give access to a course:** for paid or invitation-only courses.
+- **Make teacher of a course.**
+- **Disable account:** signs them out everywhere. Nothing is deleted, and
+  you can enable it again later.
+
+**Add person** creates an account straight away. Sidra shows a temporary
+password; give it to the person, and they choose their own the first time
+they sign in. Only superadmins can create administrators, and Sidra always
+keeps at least one superadmin.
+
+## Course people
+
+At the bottom of each course: its **teachers** (add or remove) and its
+**learners** (add; set active, suspended or withdrawn). **Delete course** is
+there too. To hide a course instead, switch **Published** off.
 
 ## Forgotten passwords
 
-Learners sign in with their **phone number** (with country code, e.g.
-+256…) or **email**, plus a password. If a learner forgets their password:
+Everyone signs in with their **phone number** (with country code, e.g.
++256…), **email** or **username**, plus a password. If a learner forgets their password:
 
 - **Teacher:** Learners tab → tap the learner → **Reset password**.
 - **Administrator:** People tab → ⋮ → **Reset password**.

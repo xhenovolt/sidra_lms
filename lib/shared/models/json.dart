@@ -1,4 +1,4 @@
-/// Small, strict helpers for decoding Data API / SQLite JSON maps.
+/// Small, strict helpers for decoding database / SQLite JSON maps.
 ///
 /// Models are hand-written (no code generation) so the wire format is
 /// explicit and reviewable next to the SQL schema.

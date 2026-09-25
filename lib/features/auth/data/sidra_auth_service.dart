@@ -1,15 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../core/errors/app_failure.dart';
 import '../../../core/logging/app_logger.dart';
-import '../../../core/network/api_client.dart';
 import '../domain/auth_service.dart';
 import '../domain/auth_session.dart';
+import 'auth_backend.dart';
 
 /// Key/value storage for credentials (Keychain / Android Keystore).
 abstract interface class SecureStore {
@@ -31,40 +30,29 @@ class FlutterSecureStore implements SecureStore {
   Future<void> delete(String key) => _storage.delete(key: key);
 }
 
-/// Sidra's own authentication, talking to the auth service (Worker).
+/// Sidra's own authentication (phone / email / username + password).
 ///
 /// * The refresh token (60 days, rotating) lives in secure storage; the
-///   access token (15 min JWT) only in memory.
+///   session token (1 hour) only in memory.
 /// * A saved session restores immediately, even offline. The learner is
 ///   signed out only when the server REJECTS the refresh token, never
 ///   because the network is down.
 /// * Refreshes are single-flight: concurrent callers share one request,
-///   because replaying a rotated token would revoke the whole session.
+///   because replaying a rotated token would end the whole session.
 class SidraAuthService extends ChangeNotifier implements AuthService {
   SidraAuthService({
-    required this._http,
+    required this._backend,
     required this._store,
     DateTime Function()? clock,
   }) : _clock = clock ?? DateTime.now;
 
-  final Dio _http;
+  final AuthBackend _backend;
   final SecureStore _store;
   final DateTime Function() _clock;
   static const _log = AppLogger('auth');
 
   static const _kRefresh = 'sidra.auth.refresh';
   static const _kUser = 'sidra.auth.user';
-
-  /// Builds the HTTP client for the auth service base URL.
-  static Dio httpFor(String baseUrl) => Dio(
-    BaseOptions(
-      baseUrl: baseUrl,
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 20),
-      contentType: Headers.jsonContentType,
-      responseType: ResponseType.json,
-    ),
-  );
 
   AuthSession _session = const AuthSession.initializing();
   String? _access;
@@ -101,7 +89,7 @@ class SidraAuthService extends ChangeNotifier implements AuthService {
     }
     // Validate in the background; offline keeps the saved session.
     unawaited(
-      dataApiToken().then<void>(
+      sessionToken().then<void>(
         (_) {},
         onError: (Object e) {
           _log.debug('background refresh deferred', {'reason': '$e'});
@@ -111,10 +99,11 @@ class SidraAuthService extends ChangeNotifier implements AuthService {
   }
 
   @override
-  Future<String?> dataApiToken() {
+  Future<String?> sessionToken({bool forceRefresh = false}) {
     if (!_session.isSignedIn) return Future.value(null);
     final exp = _accessExpiry;
-    if (_access != null &&
+    if (!forceRefresh &&
+        _access != null &&
         exp != null &&
         exp.isAfter(_clock().add(const Duration(seconds: 60)))) {
       return Future.value(_access);
@@ -129,25 +118,20 @@ class SidraAuthService extends ChangeNotifier implements AuthService {
       return null;
     }
     try {
-      final res = await _http.post<Map<String, dynamic>>(
-        '/v1/refresh',
-        data: {'refresh_token': token},
-      );
-      await _apply(res.data!);
+      await _apply(await _backend.refresh(token));
       return _access;
-    } on DioException catch (e) {
-      final failure = _map(e);
-      if (failure is AuthFailure) {
-        // Server says this session is over (revoked, expired, disabled).
-        await _clearLocal();
-        throw const UnauthenticatedFailure('Session ended');
-      }
-      throw failure; // offline / timeout / server: keep the session
+    } on AuthFailure {
+      // The server says this session is over (revoked, expired, disabled).
+      await _clearLocal();
+      throw const UnauthenticatedFailure('Session ended');
     }
+    // Offline / timeout / server errors propagate; the session is kept.
   }
 
   Future<void> _apply(Map<String, dynamic> body) async {
-    final user = AppUser.fromJson(body['user'] as Map<String, dynamic>);
+    final user = AppUser.fromJson(
+      Map<String, dynamic>.from(body['user'] as Map),
+    );
     _access = body['access_token'] as String;
     _accessExpiry = _clock().add(
       Duration(seconds: (body['expires_in'] as num).toInt()),
@@ -165,76 +149,43 @@ class SidraAuthService extends ChangeNotifier implements AuthService {
     _set(const AuthSession.signedOut());
   }
 
-  Future<void> _post(
-    String path,
-    Map<String, dynamic> data, {
-    String? bearer,
-  }) async {
-    try {
-      final res = await _http.post<Map<String, dynamic>>(
-        path,
-        data: data,
-        options: bearer == null
-            ? null
-            : Options(headers: {'Authorization': 'Bearer $bearer'}),
-      );
-      await _apply(res.data!);
-    } on DioException catch (e) {
-      throw _map(e);
-    }
-  }
-
   @override
-  Future<void> signIn({required String identifier, required String password}) =>
-      _post('/v1/login', {'identifier': identifier, 'password': password});
+  Future<void> signIn({
+    required String identifier,
+    required String password,
+  }) async => _apply(await _backend.login(identifier.trim(), password));
 
   @override
   Future<void> signUp({
     required String displayName,
     required String identifier,
     required String password,
-  }) => _post('/v1/register', {
-    'display_name': displayName,
-    'identifier': identifier,
-    'password': password,
-  });
+  }) async => _apply(
+    await _backend.register(identifier.trim(), password, displayName.trim()),
+  );
 
   @override
   Future<void> changePassword({
     required String oldPassword,
     required String newPassword,
   }) async {
-    final token = await dataApiToken();
+    final token = await sessionToken();
     if (token == null) throw const UnauthenticatedFailure();
-    await _post('/v1/password', {
-      'old_password': oldPassword,
-      'new_password': newPassword,
-    }, bearer: token);
+    await _apply(
+      await _backend.changePassword(token, oldPassword, newPassword),
+    );
   }
 
   @override
   Future<void> signOut() async {
-    final token = await _store.read(_kRefresh);
+    final refresh = await _store.read(_kRefresh);
+    final access = _access;
     await _clearLocal();
-    if (token != null) {
+    if (refresh != null) {
       // Best effort: revoke on the server; signing out never waits on it.
       unawaited(
-        _http
-            .post<void>('/v1/logout', data: {'refresh_token': token})
-            .then<void>((_) {}, onError: (_) {}),
+        _backend.logout(refresh, access).then<void>((_) {}, onError: (_) {}),
       );
     }
-  }
-
-  AppFailure _map(DioException e) {
-    final data = e.response?.data;
-    final status = e.response?.statusCode ?? 0;
-    if (data is Map &&
-        data['error'] is String &&
-        status >= 400 &&
-        status < 500) {
-      return AuthFailure(data['error'] as String);
-    }
-    return mapDioError(e);
   }
 }

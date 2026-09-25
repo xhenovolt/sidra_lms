@@ -6,11 +6,12 @@
 
 | Kind | Keys | Goes into the app? |
 |---|---|---|
-| Public | `AUTH_URL`, `NEON_DATA_API_URL`, `CLOUDINARY_CLOUD_NAME` | yes, via `config/<channel>.json` |
+| Public | `APP_DATABASE_URL` (the `sidra_app` login: public by design), `CLOUDINARY_CLOUD_NAME` | yes, via `config/<channel>.json` |
 | Secret | `DATABASE_URL`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` | **never** (used by `tool/db.dart`, or stored inside Postgres) |
 
 `dart run tool/gen_config.dart <channel>` copies only the allow-listed
-public keys into `config/<channel>.json` (and requires https URLs).
+public keys into `config/<channel>.json` and refuses any database login other than
+`sidra_app`. Create or rotate it with `dart run tool/db.dart app-role`.
 
 ## 2. Database
 
@@ -71,7 +72,6 @@ signed with a different key won't install over it.
 
 - [ ] `flutter analyze` clean, `flutter test` green
 - [ ] `dart run tool/db.dart test` green; `migrate` applied to production
-- [ ] Auth service deployed; its JWKS URL registered with the Neon Data API
 - [ ] After `migrate`, run `dart run tool/db.dart test` twice (the first run right
       after DDL can hit stale pooled connections)
 - [ ] Version bumped; APK/AAB named correctly

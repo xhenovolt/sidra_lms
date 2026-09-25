@@ -16,9 +16,12 @@ import '../network/postgres_api.dart';
 import '../providers.dart';
 import '../sync/sync_engine.dart';
 
-final postgresApiProvider = Provider<PostgresApi>(
-  (ref) => PostgresApi(ref.watch(neonDioProvider)),
-);
+/// Tables and SQL functions, over the direct PostgreSQL connection. Each
+/// call carries the signed-in person's session token.
+final postgresApiProvider = Provider<PostgresApi>((ref) {
+  final auth = ref.watch(authServiceProvider);
+  return PgWireApi(ref.watch(pgClientProvider), auth.sessionToken);
+});
 
 /// Opens the signed-in user's own SQLite file. Re-opens on user change and
 /// closes on sign-out. The file name is a hash, so it doesn't expose the id.

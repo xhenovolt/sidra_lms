@@ -58,7 +58,7 @@ void main() {
     await tester.pumpWidget(await buildTestApp(FakeAuthService()));
     await tester.pumpAndSettle();
     expect(find.text('Sign-in is not available yet'), findsOneWidget);
-    expect(find.text('• AUTH_URL'), findsOneWidget);
+    expect(find.text('• APP_DATABASE_URL'), findsOneWidget);
   });
 
   testWidgets('onboarding renders right-to-left in Arabic', (tester) async {

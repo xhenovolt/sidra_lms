@@ -53,7 +53,7 @@ void main() {
     await tester.tap(find.widgetWithText(FilledButton, 'Sign in'));
     await tester.pumpAndSettle();
     expect(
-      find.text("That phone/email and password don't match."),
+      find.text("Those sign-in details and password don't match."),
       findsOneWidget,
     );
     expect(auth.session.isSignedIn, isFalse);

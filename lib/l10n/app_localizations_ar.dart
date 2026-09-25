@@ -112,7 +112,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get signInSubtitle =>
-      'سجّل الدخول برقم هاتفك أو بريدك الإلكتروني لمتابعة دراستك.';
+      'سجّل الدخول برقم هاتفك أو بريدك أو اسم المستخدم لمتابعة دراستك.';
 
   @override
   String get retry => 'حاول مجددًا';
@@ -165,7 +165,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get signInUnavailableDevHint =>
-      'للمطوّر: أضف AUTH_URL إلى ‎.env ثم شغّل  dart run tool/gen_config.dart';
+      'للمطوّر: شغّل  dart run tool/db.dart app-role  ثم  dart run tool/gen_config.dart';
 
   @override
   String get accessFree => 'مجاني';
@@ -999,7 +999,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get authErrorInvalidCredentials =>
-      'رقم الهاتف أو البريد وكلمة المرور غير متطابقة.';
+      'بيانات الدخول وكلمة المرور غير متطابقة.';
 
   @override
   String get authErrorTaken =>
@@ -1038,4 +1038,131 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get adminPasswordReset =>
       'أُعيد التعيين. شارك الكلمة المؤقتة مع الطالب.';
+
+  @override
+  String get roleSuperadmin => 'مدير عام';
+
+  @override
+  String get authUsername => 'اسم المستخدم';
+
+  @override
+  String get authUsernameInvalid => '٣–٣٠ حرفًا أو رقمًا أو نقطة أو شرطة سفلية';
+
+  @override
+  String get adminTabOverview => 'نظرة عامة';
+
+  @override
+  String get adminStatLearners => 'الطلاب';
+
+  @override
+  String get adminStatTeachers => 'المعلّمون';
+
+  @override
+  String get adminStatAdmins => 'المديرون';
+
+  @override
+  String get adminStatPublished => 'دورات منشورة';
+
+  @override
+  String get adminStatDrafts => 'دورات مسودة';
+
+  @override
+  String get adminStatEnrolments => 'تسجيلات نشطة';
+
+  @override
+  String get adminStatActive7d => 'طلاب نشطون (٧ أيام)';
+
+  @override
+  String get adminStatCompleted7d => 'دروس مكتملة (٧ أيام)';
+
+  @override
+  String get adminQuickActions => 'إجراءات سريعة';
+
+  @override
+  String get adminAddPerson => 'إضافة شخص';
+
+  @override
+  String get adminSearchPeople =>
+      'ابحث بالاسم أو الهاتف أو البريد أو اسم المستخدم';
+
+  @override
+  String get adminEveryone => 'الجميع';
+
+  @override
+  String get adminNoPeople => 'لا يوجد أحد';
+
+  @override
+  String get adminDisabled => 'معطّل';
+
+  @override
+  String get adminDisabledNote => 'هذا الحساب معطّل ولا يمكنه تسجيل الدخول.';
+
+  @override
+  String get adminEditDetails => 'تعديل البيانات';
+
+  @override
+  String get adminSuperadminHint => 'يمكنه إنشاء المديرين الآخرين وإدارتهم';
+
+  @override
+  String get adminDisableAccount => 'تعطيل الحساب';
+
+  @override
+  String get adminEnableAccount => 'تفعيل الحساب';
+
+  @override
+  String get adminDisableHint =>
+      'يُسجَّل خروجه من كل الأجهزة ولا يمكنه الدخول حتى يُفعَّل مجددًا. لا يُحذف شيء.';
+
+  @override
+  String get adminUsernameHint => 'اختياري، مثل ustadh_ali';
+
+  @override
+  String get adminOneIdentifier =>
+      'أدخل واحدًا على الأقل: الهاتف أو البريد أو اسم المستخدم، وبه يسجّل الدخول.';
+
+  @override
+  String get adminRole => 'الدور';
+
+  @override
+  String get adminPersonCreated => 'تم إنشاء الحساب';
+
+  @override
+  String get adminPersonCreatedBody =>
+      'أعطِ هذه الكلمة المؤقتة للشخص، وعليه اختيار كلمة مرور خاصة عند أول دخول.';
+
+  @override
+  String get adminCourseTeachers => 'معلّمو هذه الدورة';
+
+  @override
+  String get adminAddTeacher => 'إضافة معلّم';
+
+  @override
+  String get adminAddLearner => 'إضافة طالب';
+
+  @override
+  String get adminNoTeachersYet =>
+      'لم يُعيَّن معلّمون بعد. يستطيع المديرون دائمًا مراجعة الطلاب.';
+
+  @override
+  String get adminRemove => 'إزالة';
+
+  @override
+  String get adminEnrolActive => 'نشط';
+
+  @override
+  String get adminEnrolSuspended => 'موقوف';
+
+  @override
+  String get adminEnrolWithdrawn => 'منسحب';
+
+  @override
+  String get adminEnrolPending => 'قيد الانتظار';
+
+  @override
+  String get adminDeleteCourse => 'حذف الدورة';
+
+  @override
+  String adminDeleteCourseBody(String title) {
+    return 'حذف «$title» نهائيًا مع كل دروسه وتسجيلاته وتقدّم طلابه؟ لا يمكن التراجع. لإخفائها فقط، أوقف النشر بدلًا من ذلك.';
+  }
 }

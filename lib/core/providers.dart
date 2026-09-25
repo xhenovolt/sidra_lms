@@ -1,20 +1,16 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../features/auth/presentation/auth_providers.dart';
 import 'config/app_config.dart';
-import 'network/api_client.dart';
+import 'network/pg_client.dart';
 
 /// Build-time configuration. Overridden in bootstrap and tests.
 final appConfigProvider = Provider<AppConfig>(
   (ref) => AppConfig.fromEnvironment(),
 );
 
-/// Authenticated Dio client for the Neon Data API.
-final neonDioProvider = Provider<Dio>((ref) {
-  final config = ref.watch(appConfigProvider);
-  final auth = ref.watch(authServiceProvider);
-  final dio = createNeonDio(config: config, tokenProvider: auth.dataApiToken);
-  ref.onDispose(dio.close);
-  return dio;
+/// The app's PostgreSQL connection (as `sidra_app`). Overridden in bootstrap.
+final pgClientProvider = Provider<PgClient>((ref) {
+  final client = PgClient(ref.watch(appConfigProvider).appDatabaseUrl);
+  ref.onDispose(client.close);
+  return client;
 });

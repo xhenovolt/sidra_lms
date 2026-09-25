@@ -10,8 +10,9 @@ import 'dart:convert';
 import 'dart:io';
 
 const publicKeys = [
-  'NEON_DATA_API_URL',
-  'AUTH_URL',
+  // Login of the low-privilege sidra_app role (public by design; see
+  // db/migrations/0011). Never DATABASE_URL, which is the owner.
+  'APP_DATABASE_URL',
   'CLOUDINARY_CLOUD_NAME',
 ];
 
@@ -29,10 +30,16 @@ void main(List<String> args) {
     final v = values[key];
     if (v != null && v.isNotEmpty) out[key] = v;
   }
-  final auth = out['AUTH_URL'];
-  if (auth != null && !auth.startsWith('https://')) {
-    stderr.writeln('AUTH_URL must be an https:// URL. Aborting.');
-    exit(1);
+  final app = out['APP_DATABASE_URL'];
+  if (app != null) {
+    final user = Uri.tryParse(app)?.userInfo.split(':').first;
+    if (user != 'sidra_app') {
+      stderr.writeln(
+        'APP_DATABASE_URL must log in as sidra_app (never the owner). '
+        'Run: dart run tool/db.dart app-role. Aborting.',
+      );
+      exit(1);
+    }
   }
 
   Directory('config').createSync();

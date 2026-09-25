@@ -7,6 +7,7 @@ import '../../../shared/widgets/state_views.dart';
 import 'books_people_tabs.dart';
 import 'courses_tab.dart';
 import 'learners_tab.dart';
+import 'people_tab.dart';
 
 /// Teacher & admin console. Teachers see learners and their courses;
 /// admins also manage books and people. Postgres enforces the same split.
@@ -23,13 +24,14 @@ class TeachScreen extends ConsumerWidget {
         body: EmptyView(icon: Icons.lock_outline, title: l10n.adminNotAllowed),
       ),
       AsyncData(:final value) => DefaultTabController(
-        length: value.isAdmin ? 4 : 2,
+        length: value.isAdmin ? 5 : 2,
         child: Scaffold(
           appBar: AppBar(
             title: Text(l10n.teacherConsole),
             bottom: TabBar(
               isScrollable: true,
               tabs: [
+                if (value.isAdmin) Tab(text: l10n.adminTabOverview),
                 Tab(text: l10n.adminTabLearners),
                 Tab(text: l10n.adminTabCourses),
                 if (value.isAdmin) Tab(text: l10n.booksTitle),
@@ -39,6 +41,7 @@ class TeachScreen extends ConsumerWidget {
           ),
           body: TabBarView(
             children: [
+              if (value.isAdmin) const OverviewTab(),
               const LearnersTab(),
               CoursesTab(canCreate: value.isAdmin),
               if (value.isAdmin) const BooksTab(),

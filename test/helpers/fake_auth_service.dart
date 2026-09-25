@@ -27,7 +27,8 @@ class FakeAuthService extends ChangeNotifier implements AuthService {
   }
 
   @override
-  Future<String?> dataApiToken() async => _session.isSignedIn ? token : null;
+  Future<String?> sessionToken({bool forceRefresh = false}) async =>
+      _session.isSignedIn ? token : null;
 
   void _maybeFail() {
     final f = failWith;

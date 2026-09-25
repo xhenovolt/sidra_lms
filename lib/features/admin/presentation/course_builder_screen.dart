@@ -9,7 +9,9 @@ import '../../../shared/widgets/state_views.dart';
 import '../../curriculum/domain/curriculum_models.dart';
 import '../../curriculum/domain/curriculum_tree.dart';
 import '../../../core/network/postgres_api.dart';
+import '../../../core/data/repository_providers.dart';
 import 'admin_common.dart';
+import 'course_people_section.dart';
 import 'courses_tab.dart';
 import 'node_forms.dart';
 
@@ -256,6 +258,26 @@ class _Builder extends ConsumerWidget {
               siblings: tree.items,
               onChanged: () => _reload(ref),
             ),
+          CoursePeopleSection(
+            courseId: course.id,
+            isAdmin: ref.watch(profileProvider).value?.isAdmin ?? false,
+          ),
+          if (ref.watch(profileProvider).value?.isAdmin ?? false) ...[
+            const SizedBox(height: Space.xl),
+            OutlinedButton.icon(
+              style: OutlinedButton.styleFrom(
+                foregroundColor: theme.colorScheme.error,
+              ),
+              onPressed: () => deleteCourseFlow(
+                context,
+                ref,
+                courseId: course.id,
+                title: course.title,
+              ),
+              icon: const Icon(Icons.delete_outline),
+              label: Text(l10n.adminDeleteCourse),
+            ),
+          ],
           const SizedBox(height: Space.xxl),
         ],
       ),

@@ -5,7 +5,8 @@
 //   dart run tool/db.dart test               # pending migrations + db/tests/*.sql, rolled back
 //   dart run tool/db.dart migrate            # apply pending migrations + sync settings
 //   dart run tool/db.dart promote <phone|email> <admin|teacher|learner>
-//   dart run tool/db.dart auth-role          # (re)set the auth service DB password
+//   SIDRA_NEW_PASSWORD=… dart run tool/db.dart create-user --name "Full Name" \n//       [--phone +256…] [--email …] [--username …] --role superadmin|admin|teacher|learner
+//   dart run tool/db.dart app-role           # (re)create the app's own login → .env APP_DATABASE_URL
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
@@ -45,8 +46,10 @@ Future<void> main(List<String> args) async {
           exit(64);
         }
         await _promote(conn, args[1], args[2]);
-      case 'auth-role':
-        await _authRole(conn, url);
+      case 'create-user':
+        await _createUser(conn, _flags(args.skip(1).toList()));
+      case 'app-role':
+        await _appRole(conn, url);
       default:
         _usage();
         exit(64);
@@ -65,7 +68,7 @@ Future<void> main(List<String> args) async {
 
 void _usage() => stderr.writeln(
   'Usage: dart run tool/db.dart status | test | migrate | '
-  'promote <phone|email> <admin|teacher|learner> | auth-role',
+  'promote <phone|email> <admin|teacher|learner> | app-role | create-user',
 );
 
 class _Abort implements Exception {
@@ -280,28 +283,90 @@ Future<void> _promote(Connection conn, String identifier, String role) async {
   });
 }
 
-/// Gives the auth service its own login with a fresh random password and
-/// prints the connection string to store as a Worker secret. The role can
-/// only EXECUTE auth_api functions (see migration 0009).
-Future<void> _authRole(Connection conn, String ownerUrl) async {
+Map<String, String> _flags(List<String> a) {
+  final out = <String, String>{};
+  for (var i = 0; i + 1 < a.length; i += 2) {
+    if (!a[i].startsWith('--')) throw _Abort('Unexpected argument ${a[i]}');
+    out[a[i].substring(2)] = a[i + 1];
+  }
+  return out;
+}
+
+/// Creates an account directly (owner connection). The password comes from
+/// the SIDRA_NEW_PASSWORD environment variable, never from the command line.
+Future<void> _createUser(Connection conn, Map<String, String> f) async {
+  final password = Platform.environment['SIDRA_NEW_PASSWORD'];
+  final role = f['role'] ?? 'learner';
+  if (password == null || password.length < 8) {
+    throw _Abort('Set SIDRA_NEW_PASSWORD (8+ characters).');
+  }
+  if (f['name'] == null) throw _Abort('--name is required');
+  if (!{'superadmin', 'admin', 'teacher', 'learner'}.contains(role)) {
+    throw _Abort('--role must be superadmin, admin, teacher or learner');
+  }
+  final r = await conn.execute(
+    Sql.named(
+      'select app_private.create_account('
+      '@name, @phone, @email, @username, @role::app_role, @super, @pw, false)',
+    ),
+    parameters: {
+      'name': f['name'],
+      'phone': f['phone'],
+      'email': f['email'],
+      'username': f['username'],
+      'role': role == 'superadmin' ? 'admin' : role,
+      'super': role == 'superadmin',
+      'pw': password,
+    },
+  );
+  // Separate statement: a STABLE function in the same statement would not
+  // see the row just inserted.
+  final id = r.first.first;
+  final p =
+      (await conn.execute(
+            Sql.named('select auth_api._profile(@id::uuid)'),
+            parameters: {'id': '$id'},
+          )).first.first!
+          as Map;
+  stdout.writeln(
+    'Created ${p['display_name']} ('
+    '${p['is_superadmin'] == true ? 'superadmin' : p['role']}): '
+    'phone ${p['phone']}, email ${p['email']}, username ${p['username']}',
+  );
+}
+
+/// Gives the app its own low-privilege login (sidra_app) and writes the
+/// connection string to .env as APP_DATABASE_URL, from where
+/// tool/gen_config.dart puts it in the build. This login is PUBLIC by design
+/// (it ships in the APK); see migration 0011 for why that is safe.
+Future<void> _appRole(Connection conn, String ownerUrl) async {
   final rnd = Random.secure();
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
   final password = List.generate(
     40,
     (_) => chars[rnd.nextInt(chars.length)],
   ).join();
-  await conn.execute(
-    "alter role sidra_auth_service with login password '$password'",
-  );
+  await conn.execute("alter role sidra_app with login password '$password'");
   final owner = Uri.parse(ownerUrl);
   final url = owner.replace(
-    userInfo: 'sidra_auth_service:${Uri.encodeComponent(password)}',
+    userInfo: 'sidra_app:${Uri.encodeComponent(password)}',
+    queryParameters: {'sslmode': 'require'},
   );
-  stdout.writeln(
-    'sidra_auth_service can log in. Store this as the Worker '
-    'secret AUTH_DATABASE_URL (it is not saved anywhere):\n',
-  );
-  stdout.writeln(url.toString());
+  final envFile = File('.env');
+  final lines = envFile.readAsLinesSync()
+    ..removeWhere((l) => l.startsWith('APP_DATABASE_URL='));
+  final at = lines.indexWhere((l) => l.startsWith('CLOUDINARY_CLOUD_NAME='));
+  final entry = [
+    '# App login (sidra_app): public by design, can only act as a signed-in user',
+    'APP_DATABASE_URL=$url',
+  ];
+  if (at < 0) {
+    lines.addAll(entry);
+  } else {
+    lines.insertAll(at, entry);
+  }
+  envFile.writeAsStringSync('${lines.join('\n')}\n');
+  stdout.writeln('sidra_app can log in; APP_DATABASE_URL written to .env.');
 }
 
 /// Splits a SQL script into statements on top-level `;`, respecting

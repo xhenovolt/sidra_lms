@@ -12,6 +12,7 @@ class UserProfile {
     required this.role,
     this.displayName,
     this.email,
+    this.isSuperadmin = false,
   });
 
   factory UserProfile.fromJson(Json j) => UserProfile(
@@ -19,12 +20,16 @@ class UserProfile {
     role: enumByName(UserRole.values, j.strOrNull('role'), UserRole.learner),
     displayName: j.strOrNull('display_name'),
     email: j.strOrNull('email'),
+    isSuperadmin: j.boolean('is_superadmin'),
   );
 
   final String id;
   final UserRole role;
   final String? displayName;
   final String? email;
+
+  /// Can manage administrators (creating, promoting, disabling admins).
+  final bool isSuperadmin;
 
   bool get isStaff => role == UserRole.teacher || role == UserRole.admin;
   bool get isAdmin => role == UserRole.admin;
@@ -34,6 +39,7 @@ class UserProfile {
     'role': role.name,
     'display_name': displayName,
     'email': email,
+    'is_superadmin': isSuperadmin,
   };
 }
 

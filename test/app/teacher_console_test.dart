@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sidra_lms/features/auth/domain/auth_session.dart';
+import 'package:sidra_lms/features/profile/data/profile_repository.dart';
 
 import '../helpers/fake_auth_service.dart';
 import '../helpers/fake_postgres_api.dart';
@@ -9,7 +10,11 @@ import '../helpers/test_app.dart';
 
 FakePostgresApi staffServer(String role) {
   final api = emptyServer();
-  api.rpcHandlers['ensure_profile'] = (_) => {'id': 'u1', 'role': role};
+  api.rpcHandlers['ensure_profile'] = (_) => {
+    'id': 'u1',
+    'role': role == 'superadmin' ? 'admin' : role,
+    'is_superadmin': role == 'superadmin',
+  };
   api.selectHandlers['courses'] = (_) => [
     {
       'id': 'c1',
@@ -32,6 +37,31 @@ FakePostgresApi staffServer(String role) {
       'awaiting_review': true,
     },
   ];
+  api.rpcHandlers['admin_overview'] = (_) => {
+    'learners': 12,
+    'teachers': 2,
+    'admins': 1,
+    'courses_published': 3,
+  };
+  api.rpcHandlers['admin_list_users'] = (_) => [
+    {
+      'id': 'u1',
+      'display_name': 'Hamuza Ibrahim',
+      'phone': '+256741341483',
+      'username': 'hamibra',
+      'role': 'admin',
+      'is_superadmin': true,
+      'is_active': true,
+    },
+    {
+      'id': 'u2',
+      'display_name': 'Bilal',
+      'phone': '+256700000009',
+      'role': 'learner',
+      'is_active': true,
+    },
+  ];
+  api.rpcHandlers['admin_create_user'] = (p) => {'id': 'new'};
   api.rpcHandlers['review_lesson'] = (p) => {
     'review': {'id': 'r1'},
     'unlocked_lesson_id': p['p_unlock_next'] == true ? 'l2' : null,
@@ -83,9 +113,55 @@ void main() {
     expect(call.$2['p_feedback'], 'Beautiful tajweed');
   });
 
-  testWidgets('admin sees books and people management', (tester) async {
+  testWidgets('admin sees overview, books and people', (tester) async {
     await openConsole(tester, staffServer('admin'));
+    expect(find.text('Overview'), findsOneWidget);
+    expect(find.text('12'), findsOneWidget); // learners stat
     expect(find.text('Books'), findsOneWidget);
     expect(find.text('People'), findsOneWidget);
+  });
+
+  testWidgets('superadmin adds a teacher and gets a temporary password', (
+    tester,
+  ) async {
+    final api = staffServer('superadmin');
+    await openConsole(tester, api);
+    await tester.tap(find.text('People'));
+    await tester.pumpAndSettle();
+    expect(find.text('Hamuza Ibrahim'), findsOneWidget);
+    expect(find.textContaining('Superadmin'), findsOneWidget);
+
+    await tester.tap(find.text('Add person').last);
+    await tester.pumpAndSettle();
+    await tester.enterText(
+      find.widgetWithText(TextFormField, 'Full name *'),
+      'Ustadh Ali',
+    );
+    await tester.enterText(
+      find.widgetWithText(TextFormField, 'Username'),
+      'ustadh_ali',
+    );
+    // Admin role is offered to superadmins.
+    await tester.tap(find.byType(DropdownButtonFormField<UserRole>));
+    await tester.pumpAndSettle();
+    expect(find.text('Administrator').last, findsOneWidget);
+    await tester.tap(find.text('Teacher').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Create'));
+    await tester.pumpAndSettle();
+
+    final call = api.rpcCalls.lastWhere((c) => c.$1 == 'admin_create_user');
+    expect(call.$2['p_display_name'], 'Ustadh Ali');
+    expect(call.$2['p_role'], 'teacher');
+    expect(call.$2['p_username'], 'ustadh_ali');
+    expect(
+      (call.$2['p_temporary_password'] as String).length,
+      greaterThanOrEqualTo(8),
+    );
+    expect(find.text('Account created'), findsOneWidget);
+    expect(
+      find.text(call.$2['p_temporary_password'] as String),
+      findsOneWidget,
+    );
   });
 }

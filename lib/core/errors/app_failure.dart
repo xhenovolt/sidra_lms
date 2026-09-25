@@ -1,6 +1,6 @@
 /// A typed failure surfaced to the application and presentation layers.
 ///
-/// Data sources translate transport-level errors (Dio, SQLite, Clerk) into
+/// Data sources translate transport-level errors (PostgreSQL, Dio, SQLite) into
 /// one of these so the UI never has to understand HTTP or SQL details.
 sealed class AppFailure implements Exception {
   const AppFailure(this.message, {this.cause});

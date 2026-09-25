@@ -1,6 +1,5 @@
 {
   "SIDRA_ENV": "dev",
-  "NEON_DATA_API_URL": "https://<endpoint>.apirest.<region>.aws.neon.tech/sidra_lms/rest/v1",
-  "AUTH_URL": "https://sidra-auth.<account>.workers.dev",
+  "APP_DATABASE_URL": "postgresql://sidra_app:<password>@<neon-pooler-host>/sidra_lms?sslmode=require",
   "CLOUDINARY_CLOUD_NAME": "drg4idqod"
 }

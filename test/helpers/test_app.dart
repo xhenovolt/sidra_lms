@@ -33,8 +33,7 @@ Future<Widget> buildTestApp(
         appConfigProvider.overrideWithValue(
           const AppConfig(
             environment: 'test',
-            neonDataApiUrl: 'https://db.test',
-            authUrl: 'https://auth.test',
+            appDatabaseUrl: 'postgresql://sidra_app:x@db.test/sidra',
             cloudinaryCloudName: 'demo',
           ),
         ),

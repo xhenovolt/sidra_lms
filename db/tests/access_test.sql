@@ -27,6 +27,20 @@ end $$;
 
 grant execute on function pg_temp.expect_error(text, text), pg_temp.check(boolean, text) to authenticated;
 
+-- Signs a fixture user in the same way app_private.authenticate() does:
+-- binds them to this backend + transaction. (Owner-only; tests run it
+-- before switching to the authenticated role.)
+create function pg_temp.login_as_id(p_user uuid) returns void
+language sql as $$
+  insert into app_private.connection_identity (backend_pid, xact, user_id)
+  values (pg_backend_pid(), pg_current_xact_id(), p_user)
+  on conflict (backend_pid) do update set xact = excluded.xact, user_id = excluded.user_id
+$$;
+create function pg_temp.login_as(p_subject text) returns void
+language sql as $$
+  select pg_temp.login_as_id((select id from users where auth_subject = p_subject))
+$$;
+
 insert into app_private.settings (key, value) values
   ('cloudinary_cloud_name', 'testcloud'),
   ('cloudinary_api_key', '123'),
@@ -131,8 +145,8 @@ select pg_temp.check(
   'sequence has only live lessons, in tree order');
 
 -- ============================================================ learner A ==
+select pg_temp.login_as('learner_a');
 set local role authenticated;
-select set_config('request.jwt.claims', '{"sub":"learner_a"}', true);
 
 select pg_temp.check((public.ensure_profile('Aisha R', 'a@example.com'))->>'role' = 'learner',
   'new profile is a learner');
@@ -200,8 +214,8 @@ select pg_temp.check((select title from courses where id = '00000000-0000-0000-0
   = 'Quran Intermediate', 'learners cannot edit curriculum (RLS matches no rows)');
 select pg_temp.expect_error($q$select public.set_user_role('00000000-0000-0000-0000-0000000000a1', 'admin')$q$,
   'administrators only');
-select pg_temp.check((select array_agg(auth_subject order by auth_subject) from users)
-  = array['learner_a', 'teacher_1'],
+select pg_temp.check((select array_agg(display_name order by display_name) from users)
+  = array['Aisha R', 'Ustadh Musa'],
   'learner sees self and course teachers only, not other learners or admins');
 
 -- Quiz: graded answers never exposed; server scores.
@@ -242,8 +256,8 @@ select pg_temp.check(exists (select 1 from lesson_unlocks
 reset role;
 
 -- ============================================================ learner B ==
+select pg_temp.login_as('learner_b');
 set local role authenticated;
-select set_config('request.jwt.claims', '{"sub":"learner_b"}', true);
 select pg_temp.check(not exists (select 1 from learner_progress), 'cannot see other learners progress');
 select pg_temp.check(not exists (select 1 from quiz_attempts), 'cannot see other learners attempts');
 select pg_temp.check(not exists (select 1 from course_enrolments), 'cannot see other learners enrolments');
@@ -252,8 +266,8 @@ select pg_temp.check(public.attempt_result('00000000-0000-0000-0000-00000000ab01
 reset role;
 
 -- ====================================================== unrelated teacher ==
+select pg_temp.login_as('teacher_2');
 set local role authenticated;
-select set_config('request.jwt.claims', '{"sub":"teacher_2"}', true);
 select pg_temp.expect_error($q$select public.unlock_lesson('00000000-0000-0000-0000-0000000000a1',
   '00000000-0000-0000-0000-000000001002')$q$, 'only the course teacher');
 select pg_temp.check(not exists (select 1 from public.teacher_learners()),
@@ -261,8 +275,8 @@ select pg_temp.check(not exists (select 1 from public.teacher_learners()),
 reset role;
 
 -- ========================================================= course teacher ==
+select pg_temp.login_as('teacher_1');
 set local role authenticated;
-select set_config('request.jwt.claims', '{"sub":"teacher_1"}', true);
 select pg_temp.check((select awaiting_review from public.teacher_learners()
                       where user_id = '00000000-0000-0000-0000-0000000000a1'),
   'learner shows as awaiting review');
@@ -272,8 +286,8 @@ select pg_temp.check((public.review_lesson('00000000-0000-0000-0000-0000000000a1
   'passing review unlocks the next lesson');
 reset role;
 
+select pg_temp.login_as('learner_a');
 set local role authenticated;
-select set_config('request.jwt.claims', '{"sub":"learner_a"}', true);
 select pg_temp.check((select count(*) from lesson_content_blocks
                       where lesson_id = '00000000-0000-0000-0000-000000001002') = 2,
   'learner can now read lesson 2 content');
@@ -284,19 +298,19 @@ select pg_temp.check((select count(*) from lesson_reviews) = 1, 'learner sees ow
 reset role;
 
 -- ================================================================= admin ==
+select pg_temp.login_as('admin_1');
 set local role authenticated;
-select set_config('request.jwt.claims', '{"sub":"admin_1"}', true);
 select public.grant_enrolment('00000000-0000-0000-0000-0000000000b1', '00000000-0000-0000-0000-000000000c02');
 select public.set_user_role('00000000-0000-0000-0000-00000000000c', 'learner');
 select pg_temp.expect_error($q$select public.set_user_role('00000000-0000-0000-0000-00000000000a', 'learner')$q$,
-  'cannot remove your own administrator role');
+  'cannot change your own role');
 select pg_temp.check(exists (select 1 from courses where slug = 'draft-course'), 'admin sees drafts');
 select pg_temp.check((public.sign_media_upload('lessons'))->>'folder' = 'sidra/lessons',
   'staff upload signature');
 reset role;
 
+select pg_temp.login_as('learner_b');
 set local role authenticated;
-select set_config('request.jwt.claims', '{"sub":"learner_b"}', true);
 select pg_temp.check((public.sign_media_upload('lessons'))->>'folder'
   = 'sidra/submissions/00000000-0000-0000-0000-0000000000b1',
   'learner uploads confined to own submissions folder');

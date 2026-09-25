@@ -114,7 +114,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signInSubtitle =>
-      'Sign in with your phone number or email to continue your studies.';
+      'Sign in with your phone number, email or username to continue your studies.';
 
   @override
   String get retry => 'Try again';
@@ -167,7 +167,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signInUnavailableDevHint =>
-      'Developer: add AUTH_URL to .env, then run  dart run tool/gen_config.dart';
+      'Developer: run  dart run tool/db.dart app-role  then  dart run tool/gen_config.dart';
 
   @override
   String get accessFree => 'Free';
@@ -1013,7 +1013,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get authErrorInvalidCredentials =>
-      'That phone/email and password don\'t match.';
+      'Those sign-in details and password don\'t match.';
 
   @override
   String get authErrorTaken =>
@@ -1055,4 +1055,133 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get adminPasswordReset =>
       'Password reset. Share the temporary password with the learner.';
+
+  @override
+  String get roleSuperadmin => 'Superadmin';
+
+  @override
+  String get authUsername => 'Username';
+
+  @override
+  String get authUsernameInvalid =>
+      '3–30 letters, numbers, dots or underscores';
+
+  @override
+  String get adminTabOverview => 'Overview';
+
+  @override
+  String get adminStatLearners => 'Learners';
+
+  @override
+  String get adminStatTeachers => 'Teachers';
+
+  @override
+  String get adminStatAdmins => 'Administrators';
+
+  @override
+  String get adminStatPublished => 'Published courses';
+
+  @override
+  String get adminStatDrafts => 'Draft courses';
+
+  @override
+  String get adminStatEnrolments => 'Active enrolments';
+
+  @override
+  String get adminStatActive7d => 'Active learners (7 days)';
+
+  @override
+  String get adminStatCompleted7d => 'Lessons completed (7 days)';
+
+  @override
+  String get adminQuickActions => 'Quick actions';
+
+  @override
+  String get adminAddPerson => 'Add person';
+
+  @override
+  String get adminSearchPeople => 'Search by name, phone, email or username';
+
+  @override
+  String get adminEveryone => 'Everyone';
+
+  @override
+  String get adminNoPeople => 'No one found';
+
+  @override
+  String get adminDisabled => 'Disabled';
+
+  @override
+  String get adminDisabledNote =>
+      'This account is disabled and cannot sign in.';
+
+  @override
+  String get adminEditDetails => 'Edit details';
+
+  @override
+  String get adminSuperadminHint =>
+      'Can create and manage other administrators';
+
+  @override
+  String get adminDisableAccount => 'Disable account';
+
+  @override
+  String get adminEnableAccount => 'Enable account';
+
+  @override
+  String get adminDisableHint =>
+      'They are signed out everywhere and cannot sign in until enabled again. Nothing is deleted.';
+
+  @override
+  String get adminUsernameHint => 'Optional, e.g. ustadh_ali';
+
+  @override
+  String get adminOneIdentifier =>
+      'Give at least one of phone, email or username. They sign in with it.';
+
+  @override
+  String get adminRole => 'Role';
+
+  @override
+  String get adminPersonCreated => 'Account created';
+
+  @override
+  String get adminPersonCreatedBody =>
+      'Give this temporary password to the person. They must choose their own password the first time they sign in.';
+
+  @override
+  String get adminCourseTeachers => 'Teachers of this course';
+
+  @override
+  String get adminAddTeacher => 'Add teacher';
+
+  @override
+  String get adminAddLearner => 'Add learner';
+
+  @override
+  String get adminNoTeachersYet =>
+      'No teachers assigned yet. Administrators can always review learners.';
+
+  @override
+  String get adminRemove => 'Remove';
+
+  @override
+  String get adminEnrolActive => 'Active';
+
+  @override
+  String get adminEnrolSuspended => 'Suspended';
+
+  @override
+  String get adminEnrolWithdrawn => 'Withdrawn';
+
+  @override
+  String get adminEnrolPending => 'Pending';
+
+  @override
+  String get adminDeleteCourse => 'Delete course';
+
+  @override
+  String adminDeleteCourseBody(String title) {
+    return 'Delete “$title” permanently, with all its lessons, enrolments and learner progress? This cannot be undone. To only hide it, switch Published off instead.';
+  }
 }

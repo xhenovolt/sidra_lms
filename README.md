@@ -4,9 +4,9 @@ A mobile-first, local-first Flutter app for structured Islamic learning,
 with teacher-gated progression and an in-app console for teachers and
 administrators.
 
-**Stack:** Flutter · Riverpod · GoRouter · PostgreSQL 17 on Neon (Data API
-over HTTPS, Row Level Security) · own phone/email + password auth
-(Cloudflare Worker, `auth-service/`) · Cloudinary · SQLite (sqflite)
+**Stack:** Flutter · Riverpod · GoRouter · PostgreSQL 17 on Neon, reached
+directly from the app (Row Level Security; sign-in verified by Postgres) ·
+Cloudinary · SQLite (sqflite)
 
 ## Docs
 
@@ -14,19 +14,19 @@ over HTTPS, Row Level Security) · own phone/email + password auth
 |---|---|
 | [docs/BACKEND.md](docs/BACKEND.md) | database design, security model, Neon/Cloudinary setup |
 | [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | config, migrations, building named APKs, versioning, signing |
-| [auth-service/README.md](auth-service/README.md) | deploying the sign-in service |
 | [docs/ADMIN_GUIDE.md](docs/ADMIN_GUIDE.md) | the Almuntahha team: building courses, reviewing learners |
 
 ## Quick start
 
 ```sh
-cp .env.example .env                  # fill in values
+cp .env.example .env                  # DATABASE_URL (owner) + Cloudinary
 dart run tool/db.dart migrate         # database schema (owner connection)
+dart run tool/db.dart app-role        # app login → .env APP_DATABASE_URL
 dart run tool/gen_config.dart dev     # public build config from .env
 flutter run --dart-define-from-file=config/dev.json
 ```
 
-Without `AUTH_URL` the app still shows onboarding and a sign-in
+Without `APP_DATABASE_URL` the app still shows onboarding and a sign-in
 screen that explains what's missing. There is no fake login.
 
 ## What's inside
@@ -45,7 +45,7 @@ screen that explains what's missing. There is no fake login.
 ```
 lib/
   app/            bootstrap, root widget, router + shell
-  core/           config, errors, logging, network (PostgresApi), database
+  core/           config, errors, logging, network (PgClient, PostgresApi), database
                   (SQLite), sync (outbox engine), data providers, theme
   features/       auth · onboarding · home · courses · curriculum · lessons ·
                   progress · assessments · media · downloads · profile · admin

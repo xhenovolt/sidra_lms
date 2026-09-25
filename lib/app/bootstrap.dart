@@ -4,7 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/config/app_config.dart';
 import '../core/logging/app_logger.dart';
+import '../core/network/pg_client.dart';
 import '../core/providers.dart';
+import '../features/auth/data/auth_backend.dart';
 import '../features/auth/data/sidra_auth_service.dart';
 import '../features/auth/data/unconfigured_auth_service.dart';
 import '../features/auth/domain/auth_service.dart';
@@ -17,23 +19,27 @@ const _log = AppLogger('bootstrap');
 /// Starts the app: loads preferences, restores the saved session (works
 /// offline), then mounts [SidraApp] with real dependencies.
 ///
-/// Without AUTH_URL the app still runs (onboarding + an explanatory sign-in
-/// screen) using [UnconfiguredAuthService], which cannot sign anyone in.
+/// The app talks to PostgreSQL directly as `sidra_app`; sign-in is
+/// verified by the database. Without APP_DATABASE_URL the app still shows
+/// onboarding and an explanatory sign-in screen, and never a fake login.
 Future<void> bootstrap() async {
   WidgetsFlutterBinding.ensureInitialized();
   final config = AppConfig.fromEnvironment();
   final prefs = await SharedPreferences.getInstance();
 
+  final PgClient? db = config.isDatabaseConfigured
+      ? PgClient(config.appDatabaseUrl)
+      : null;
   final AuthService auth;
-  if (config.isAuthConfigured) {
+  if (db != null) {
     final sidra = SidraAuthService(
-      http: SidraAuthService.httpFor(config.authUrl),
+      backend: PgAuthBackend(db),
       store: const FlutterSecureStore(),
     );
     await sidra.restore();
     auth = sidra;
   } else {
-    _log.warning('auth not configured', {'missing': config.missingKeys});
+    _log.warning('database not configured', {'missing': config.missingKeys});
     auth = UnconfiguredAuthService();
   }
 
@@ -43,6 +49,7 @@ Future<void> bootstrap() async {
         appConfigProvider.overrideWithValue(config),
         sharedPreferencesProvider.overrideWithValue(prefs),
         authServiceProvider.overrideWithValue(auth),
+        if (db != null) pgClientProvider.overrideWithValue(db),
       ],
       child: const SidraApp(),
     ),

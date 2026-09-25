@@ -5,7 +5,7 @@ import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/sidra_mark.dart';
 
-enum IdentifierKind { phone, email }
+enum IdentifierKind { phone, email, username }
 
 /// Friendly message for an auth error.
 String authErrorText(AppLocalizations l10n, Object error) => switch (error) {
@@ -93,8 +93,11 @@ class IdentifierField extends StatelessWidget {
     required this.kind,
     required this.onKindChanged,
     required this.controller,
+    this.allowUsername = false,
   });
 
+  /// Sign-in accepts usernames (set by admins); sign-up doesn't.
+  final bool allowUsername;
   final IdentifierKind kind;
   final ValueChanged<IdentifierKind> onKindChanged;
   final TextEditingController controller;
@@ -103,6 +106,7 @@ class IdentifierField extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final phone = kind == IdentifierKind.phone;
+    final username = kind == IdentifierKind.username;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -118,6 +122,12 @@ class IdentifierField extends StatelessWidget {
               icon: const Icon(Icons.alternate_email),
               label: Text(l10n.authEmail),
             ),
+            if (allowUsername)
+              ButtonSegment(
+                value: IdentifierKind.username,
+                icon: const Icon(Icons.person_outline),
+                label: Text(l10n.authUsername),
+              ),
           ],
           selected: {kind},
           onSelectionChanged: (s) {
@@ -133,13 +143,21 @@ class IdentifierField extends StatelessWidget {
               ? TextInputType.phone
               : TextInputType.emailAddress,
           autofillHints: [
-            phone ? AutofillHints.telephoneNumber : AutofillHints.email,
+            phone
+                ? AutofillHints.telephoneNumber
+                : username
+                ? AutofillHints.username
+                : AutofillHints.email,
           ],
           textInputAction: TextInputAction.next,
           // Phone numbers and emails are always left-to-right, even in Arabic.
           textDirection: TextDirection.ltr,
           decoration: InputDecoration(
-            labelText: phone ? l10n.authPhoneLabel : l10n.authEmailLabel,
+            labelText: phone
+                ? l10n.authPhoneLabel
+                : username
+                ? l10n.authUsername
+                : l10n.authEmailLabel,
             helperText: phone ? l10n.authPhoneHint : null,
             prefixIcon: Icon(
               phone ? Icons.phone_outlined : Icons.email_outlined,

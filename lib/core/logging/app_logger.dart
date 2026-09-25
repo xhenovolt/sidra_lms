@@ -24,7 +24,7 @@ class AppLogger {
     RegExp(r'Bearer\s+[\w\-.~+/]+=*', caseSensitive: false),
     // Postgres connection strings
     RegExp(r'postgres(ql)?://[^\s]+'),
-    // Clerk secret / publishable keys
+    // API-style secret / publishable keys
     RegExp(r'\b(sk|pk)_(test|live)_[\w]+'),
   ];
 

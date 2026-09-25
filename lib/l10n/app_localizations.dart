@@ -287,7 +287,7 @@ abstract class AppLocalizations {
   /// No description provided for @signInSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Sign in with your phone number or email to continue your studies.'**
+  /// **'Sign in with your phone number, email or username to continue your studies.'**
   String get signInSubtitle;
 
   /// No description provided for @retry.
@@ -383,7 +383,7 @@ abstract class AppLocalizations {
   /// No description provided for @signInUnavailableDevHint.
   ///
   /// In en, this message translates to:
-  /// **'Developer: add AUTH_URL to .env, then run  dart run tool/gen_config.dart'**
+  /// **'Developer: run  dart run tool/db.dart app-role  then  dart run tool/gen_config.dart'**
   String get signInUnavailableDevHint;
 
   /// No description provided for @accessFree.
@@ -1937,7 +1937,7 @@ abstract class AppLocalizations {
   /// No description provided for @authErrorInvalidCredentials.
   ///
   /// In en, this message translates to:
-  /// **'That phone/email and password don\'t match.'**
+  /// **'Those sign-in details and password don\'t match.'**
   String get authErrorInvalidCredentials;
 
   /// No description provided for @authErrorTaken.
@@ -2005,6 +2005,246 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password reset. Share the temporary password with the learner.'**
   String get adminPasswordReset;
+
+  /// No description provided for @roleSuperadmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Superadmin'**
+  String get roleSuperadmin;
+
+  /// No description provided for @authUsername.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get authUsername;
+
+  /// No description provided for @authUsernameInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'3–30 letters, numbers, dots or underscores'**
+  String get authUsernameInvalid;
+
+  /// No description provided for @adminTabOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get adminTabOverview;
+
+  /// No description provided for @adminStatLearners.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners'**
+  String get adminStatLearners;
+
+  /// No description provided for @adminStatTeachers.
+  ///
+  /// In en, this message translates to:
+  /// **'Teachers'**
+  String get adminStatTeachers;
+
+  /// No description provided for @adminStatAdmins.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrators'**
+  String get adminStatAdmins;
+
+  /// No description provided for @adminStatPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Published courses'**
+  String get adminStatPublished;
+
+  /// No description provided for @adminStatDrafts.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft courses'**
+  String get adminStatDrafts;
+
+  /// No description provided for @adminStatEnrolments.
+  ///
+  /// In en, this message translates to:
+  /// **'Active enrolments'**
+  String get adminStatEnrolments;
+
+  /// No description provided for @adminStatActive7d.
+  ///
+  /// In en, this message translates to:
+  /// **'Active learners (7 days)'**
+  String get adminStatActive7d;
+
+  /// No description provided for @adminStatCompleted7d.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons completed (7 days)'**
+  String get adminStatCompleted7d;
+
+  /// No description provided for @adminQuickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick actions'**
+  String get adminQuickActions;
+
+  /// No description provided for @adminAddPerson.
+  ///
+  /// In en, this message translates to:
+  /// **'Add person'**
+  String get adminAddPerson;
+
+  /// No description provided for @adminSearchPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by name, phone, email or username'**
+  String get adminSearchPeople;
+
+  /// No description provided for @adminEveryone.
+  ///
+  /// In en, this message translates to:
+  /// **'Everyone'**
+  String get adminEveryone;
+
+  /// No description provided for @adminNoPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'No one found'**
+  String get adminNoPeople;
+
+  /// No description provided for @adminDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get adminDisabled;
+
+  /// No description provided for @adminDisabledNote.
+  ///
+  /// In en, this message translates to:
+  /// **'This account is disabled and cannot sign in.'**
+  String get adminDisabledNote;
+
+  /// No description provided for @adminEditDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit details'**
+  String get adminEditDetails;
+
+  /// No description provided for @adminSuperadminHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Can create and manage other administrators'**
+  String get adminSuperadminHint;
+
+  /// No description provided for @adminDisableAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable account'**
+  String get adminDisableAccount;
+
+  /// No description provided for @adminEnableAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable account'**
+  String get adminEnableAccount;
+
+  /// No description provided for @adminDisableHint.
+  ///
+  /// In en, this message translates to:
+  /// **'They are signed out everywhere and cannot sign in until enabled again. Nothing is deleted.'**
+  String get adminDisableHint;
+
+  /// No description provided for @adminUsernameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional, e.g. ustadh_ali'**
+  String get adminUsernameHint;
+
+  /// No description provided for @adminOneIdentifier.
+  ///
+  /// In en, this message translates to:
+  /// **'Give at least one of phone, email or username. They sign in with it.'**
+  String get adminOneIdentifier;
+
+  /// No description provided for @adminRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get adminRole;
+
+  /// No description provided for @adminPersonCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Account created'**
+  String get adminPersonCreated;
+
+  /// No description provided for @adminPersonCreatedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Give this temporary password to the person. They must choose their own password the first time they sign in.'**
+  String get adminPersonCreatedBody;
+
+  /// No description provided for @adminCourseTeachers.
+  ///
+  /// In en, this message translates to:
+  /// **'Teachers of this course'**
+  String get adminCourseTeachers;
+
+  /// No description provided for @adminAddTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Add teacher'**
+  String get adminAddTeacher;
+
+  /// No description provided for @adminAddLearner.
+  ///
+  /// In en, this message translates to:
+  /// **'Add learner'**
+  String get adminAddLearner;
+
+  /// No description provided for @adminNoTeachersYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No teachers assigned yet. Administrators can always review learners.'**
+  String get adminNoTeachersYet;
+
+  /// No description provided for @adminRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get adminRemove;
+
+  /// No description provided for @adminEnrolActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get adminEnrolActive;
+
+  /// No description provided for @adminEnrolSuspended.
+  ///
+  /// In en, this message translates to:
+  /// **'Suspended'**
+  String get adminEnrolSuspended;
+
+  /// No description provided for @adminEnrolWithdrawn.
+  ///
+  /// In en, this message translates to:
+  /// **'Withdrawn'**
+  String get adminEnrolWithdrawn;
+
+  /// No description provided for @adminEnrolPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get adminEnrolPending;
+
+  /// No description provided for @adminDeleteCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete course'**
+  String get adminDeleteCourse;
+
+  /// No description provided for @adminDeleteCourseBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete “{title}” permanently, with all its lessons, enrolments and learner progress? This cannot be undone. To only hide it, switch Published off instead.'**
+  String adminDeleteCourseBody(String title);
 }
 
 class _AppLocalizationsDelegate

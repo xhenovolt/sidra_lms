@@ -1,35 +1,30 @@
-/// Public, environment-specific configuration.
+/// Build-time configuration.
 ///
-/// Values are injected at build time with
-/// `flutter run --dart-define-from-file=config/dev.json`.
+/// Values are injected with `flutter run --dart-define-from-file=config/dev.json`
+/// (generated from `.env` by `dart run tool/gen_config.dart`).
 ///
-/// Everything here ships inside the app binary and is therefore PUBLIC.
-/// Never place database passwords, Clerk secret keys or Cloudinary API
-/// secrets here. Those live only in the tooling `.env` file.
+/// Everything here ships inside the app binary. [appDatabaseUrl] is the
+/// login of the low-privilege `sidra_app` database role: it is PUBLIC by
+/// design. It can only sign people in and act as a signed-in person
+/// (see db/migrations/0011). The owner connection string and the
+/// Cloudinary API secret never go here.
 class AppConfig {
   const AppConfig({
     required this.environment,
-    required this.neonDataApiUrl,
-    required this.authUrl,
+    required this.appDatabaseUrl,
     required this.cloudinaryCloudName,
   });
 
   factory AppConfig.fromEnvironment() => const AppConfig(
     environment: String.fromEnvironment('SIDRA_ENV', defaultValue: 'dev'),
-    neonDataApiUrl: String.fromEnvironment('NEON_DATA_API_URL'),
-    authUrl: String.fromEnvironment('AUTH_URL'),
+    appDatabaseUrl: String.fromEnvironment('APP_DATABASE_URL'),
     cloudinaryCloudName: String.fromEnvironment('CLOUDINARY_CLOUD_NAME'),
   );
 
   final String environment;
 
-  /// Base URL of the Neon Data API (PostgREST-compatible), e.g.
-  /// `https://<endpoint>.apirest.<region>.aws.neon.tech/<db>/rest/v1`.
-  final String neonDataApiUrl;
-
-  /// Base URL of Sidra's auth service (Cloudflare Worker), e.g.
-  /// `https://sidra-auth.<account>.workers.dev`. Public by design.
-  final String authUrl;
+  /// `postgresql://sidra_app:…@<neon-host>/sidra_lms?sslmode=require`
+  final String appDatabaseUrl;
 
   final String cloudinaryCloudName;
 
@@ -37,11 +32,14 @@ class AppConfig {
 
   /// Keys that are required but were not supplied at build time.
   List<String> get missingKeys => [
-    if (neonDataApiUrl.isEmpty) 'NEON_DATA_API_URL',
-    if (authUrl.isEmpty) 'AUTH_URL',
+    if (!isDatabaseConfigured) 'APP_DATABASE_URL',
     if (cloudinaryCloudName.isEmpty) 'CLOUDINARY_CLOUD_NAME',
   ];
 
-  bool get isAuthConfigured => authUrl.startsWith('https://');
-  bool get isDataApiConfigured => neonDataApiUrl.startsWith('https://');
+  bool get isDatabaseConfigured =>
+      appDatabaseUrl.startsWith('postgres://') ||
+      appDatabaseUrl.startsWith('postgresql://');
+
+  /// Sign-in works whenever the database is reachable.
+  bool get isAuthConfigured => isDatabaseConfigured;
 }

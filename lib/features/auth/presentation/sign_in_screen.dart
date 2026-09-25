@@ -90,6 +90,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 children: [
                   if (_error != null) ErrorBanner(_error!),
                   IdentifierField(
+                    allowUsername: true,
                     kind: _kind,
                     onKindChanged: (k) => setState(() => _kind = k),
                     controller: _identifier,

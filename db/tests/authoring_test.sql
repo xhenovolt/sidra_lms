@@ -3,8 +3,8 @@
 -- reuses those fixtures (courses c01/c02, teacher_1, learner_a, …).
 
 -- ============================================ teacher (not an editor) ==
+select pg_temp.login_as('teacher_1');
 set local role authenticated;
-select set_config('request.jwt.claims', '{"sub":"teacher_1"}', true);
 select pg_temp.expect_error($q$
   insert into lessons (course_id, title, position)
   values ('00000000-0000-0000-0000-000000000c01', 'teacher lesson', 9)$q$,
@@ -20,8 +20,8 @@ where course_id = '00000000-0000-0000-0000-000000000c01'
   and user_id = '00000000-0000-0000-0000-00000000000b';
 
 -- ============================================ course editor ==
+select pg_temp.login_as('teacher_1');
 set local role authenticated;
-select set_config('request.jwt.claims', '{"sub":"teacher_1"}', true);
 insert into lessons (id, course_id, node_id, title, position, status)
 values ('00000000-0000-0000-0000-000000001009', '00000000-0000-0000-0000-000000000c01',
         '00000000-0000-0000-0000-000000000e02', 'Editor lesson', 5, 'draft');
@@ -52,8 +52,8 @@ select pg_temp.expect_error($q$update courses set status = 'draft'
 reset role;
 
 -- ============================================ learner ==
+select pg_temp.login_as('learner_a');
 set local role authenticated;
-select set_config('request.jwt.claims', '{"sub":"learner_a"}', true);
 select pg_temp.check(not exists (select 1 from lessons
                                  where id = '00000000-0000-0000-0000-000000001009'),
   'draft lesson invisible to learners');
@@ -81,14 +81,14 @@ select pg_temp.expect_error($q$
 select pg_temp.expect_error($q$
   update users set display_name = 'Aisha Updated', role = 'admin'
   where auth_subject = 'learner_a'$q$, 'permission denied');
-update users set display_name = 'Aisha Updated' where auth_subject = 'learner_a';
-select pg_temp.check((select display_name from users where auth_subject = 'learner_a')
+update users set display_name = 'Aisha Updated' where id = '00000000-0000-0000-0000-0000000000a1';
+select pg_temp.check((select display_name from users where id = '00000000-0000-0000-0000-0000000000a1')
   = 'Aisha Updated', 'learner can edit own display name');
 reset role;
 
 -- ============================================ admin ==
+select pg_temp.login_as('admin_1');
 set local role authenticated;
-select set_config('request.jwt.claims', '{"sub":"admin_1"}', true);
 insert into courses (id, slug, title, subject)
 values ('00000000-0000-0000-0000-000000000c09', 'admin-course', 'Admin course', 'Fiqh');
 insert into books (id, title) values ('00000000-0000-0000-0000-000000000b09', 'Admin book');
