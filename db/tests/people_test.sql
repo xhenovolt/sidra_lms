@@ -31,7 +31,7 @@ select pg_temp.check((public.admin_create_user('New Teacher', 'teacher', 'temp-p
     p_username => 'Ustadh_Ali'))->>'username' = 'ustadh_ali',
   'admin creates a teacher by username');
 select pg_temp.expect_error($q$select public.admin_create_user('Sneaky', 'admin', 'temp-pass-1',
-    p_email => 'sneaky@example.org')$q$, 'only a superadmin');
+    p_email => 'sneaky@example.org')$q$, 'not allowed to create this kind of account');
 select pg_temp.expect_error($q$select public.admin_create_user('Dup', 'learner', 'temp-pass-1',
     p_phone => '+256755000111')$q$, 'already used');
 select pg_temp.expect_error($q$select public.admin_create_user('No id', 'learner', 'temp-pass-1')$q$,
@@ -100,7 +100,7 @@ select set_config('sidra.role_change', '', true);
 select pg_temp.login_as('learner_a');
 set local role authenticated;
 select pg_temp.expect_error($q$select public.admin_create_user('X', 'learner', 'temp-pass-1',
-    p_username => 'xlearner')$q$, 'administrators only');
+    p_username => 'xlearner')$q$, 'not allowed to create this kind of account');
 select pg_temp.check(public.admin_overview() is null, 'learners get no overview');
 select pg_temp.expect_error($q$update users set username = 'hacker' where auth_subject = 'learner_a'$q$,
   'permission denied');

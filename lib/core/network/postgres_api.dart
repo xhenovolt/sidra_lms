@@ -276,7 +276,16 @@ class PgWireApi implements PostgresApi {
       final text = r.first.first as String?;
       if (text == null || text.isEmpty) return null;
       final c = text[0];
-      return (c == '{' || c == '[') ? jsonDecode(text) : text;
+      if (c == '{' || c == '[') {
+        // JSON objects/arrays decode; a Postgres array literal ({a,b}) is
+        // not JSON and is returned as text (use rpcRows for arrays).
+        try {
+          return jsonDecode(text);
+        } on FormatException {
+          return text;
+        }
+      }
+      return text;
     });
   }
 

@@ -45,7 +45,7 @@ select pg_temp.check((public.set_course_status(
     '00000000-0000-0000-0000-000000000c01', 'published'))->>'status' = 'published',
   'editor can publish own course');
 select pg_temp.expect_error($q$select public.set_course_status(
-  '00000000-0000-0000-0000-000000000c02', 'draft')$q$, 'curriculum editors only');
+  '00000000-0000-0000-0000-000000000c02', 'draft')$q$, 'not allowed to change this course');
 -- Direct status edits are not a granted column.
 select pg_temp.expect_error($q$update courses set status = 'draft'
   where id = '00000000-0000-0000-0000-000000000c01'$q$, 'permission denied');

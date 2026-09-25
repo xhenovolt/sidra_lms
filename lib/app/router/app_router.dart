@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/admin/presentation/admin_shell.dart';
 import '../../features/admin/presentation/assessment_editor_screen.dart';
 import '../../features/admin/presentation/books_people_tabs.dart';
 import '../../features/admin/presentation/course_builder_screen.dart';
@@ -9,6 +10,7 @@ import '../../features/admin/presentation/courses_tab.dart';
 import '../../features/admin/presentation/learners_tab.dart';
 import '../../features/admin/presentation/lesson_editor_screen.dart';
 import '../../features/admin/presentation/people_tab.dart';
+import '../../features/admin/presentation/roles_audit_screens.dart';
 import '../../features/admin/presentation/staff_pages.dart';
 import '../../features/assessments/presentation/quiz_screen.dart';
 import '../../features/auth/domain/auth_session.dart';
@@ -24,6 +26,7 @@ import '../../features/home/presentation/home_screen.dart';
 import '../../features/lessons/presentation/lesson_screen.dart';
 import '../../features/onboarding/data/onboarding_controller.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
+import '../../features/profile/data/profile_repository.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/widgets/state_views.dart';
@@ -99,32 +102,49 @@ final routerProvider = Provider<GoRouter>((ref) {
         ],
       ),
 
-      // -------------------------------------------------- admin navigation
-      StatefulShellRoute.indexedStack(
-        builder: (_, _, shell) => AppShell(shell: shell, items: adminNav),
-        branches: [
-          _branch(
-            Routes.adminDashboard,
-            titled((l) => l.navDashboard, const OverviewTab()),
+      // ---------------------------------------- admin console (drawer)
+      ShellRoute(
+        builder: (_, state, child) =>
+            AdminShell(location: state.matchedLocation, child: child),
+        routes: [
+          GoRoute(
+            path: Routes.adminDashboard,
+            builder: (_, _) => const OverviewTab(),
           ),
-          _branch(
-            Routes.adminLearners,
-            titled((l) => l.adminTabLearners, const LearnersTab()),
+          GoRoute(
+            path: Routes.adminCourses,
+            builder: (_, _) => const CoursesTab(canCreate: true),
           ),
-          _branch(
-            Routes.adminCourses,
-            titled((l) => l.adminTabCourses, const CoursesTab(canCreate: true)),
+          GoRoute(path: Routes.adminBooks, builder: (_, _) => const BooksTab()),
+          GoRoute(
+            path: Routes.adminLearners,
+            builder: (_, _) => const LearnersTab(),
           ),
-          _branch(
-            Routes.adminPeople,
-            titled((l) => l.adminTabPeople, const PeopleTab()),
+          GoRoute(
+            path: Routes.adminPeopleLearners,
+            builder: (_, _) => const PeopleTab(persona: UserRole.learner),
           ),
-          _branch(Routes.adminMore, const StaffMoreScreen()),
+          GoRoute(
+            path: Routes.adminPeopleTeachers,
+            builder: (_, _) => const PeopleTab(persona: UserRole.teacher),
+          ),
+          GoRoute(
+            path: Routes.adminPeopleAdmins,
+            builder: (_, _) => const PeopleTab(persona: UserRole.admin),
+          ),
+          GoRoute(
+            path: Routes.adminRoles,
+            builder: (_, _) => const RolesScreen(),
+          ),
+          GoRoute(
+            path: Routes.adminAudit,
+            builder: (_, _) => const AuditScreen(),
+          ),
+          GoRoute(
+            path: Routes.adminMore,
+            builder: (_, _) => const StaffMoreScreen(embedded: true),
+          ),
         ],
-      ),
-      GoRoute(
-        path: Routes.adminBooks,
-        builder: (_, _) => titled((l) => l.booksTitle, const BooksTab()),
       ),
       GoRoute(path: Routes.catalogue, builder: (_, _) => const ExploreScreen()),
 

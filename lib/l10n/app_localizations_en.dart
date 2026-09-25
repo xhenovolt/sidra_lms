@@ -1197,4 +1197,93 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get moreBrowseCatalogueHint =>
       'See published courses as learners see them';
+
+  @override
+  String get drawerAcademic => 'Academic';
+
+  @override
+  String get drawerTeaching => 'Teaching';
+
+  @override
+  String get drawerReview => 'Review learners';
+
+  @override
+  String get drawerPeople => 'People';
+
+  @override
+  String get drawerRoles => 'Roles & permissions';
+
+  @override
+  String get drawerOversight => 'Oversight';
+
+  @override
+  String get drawerActivity => 'Activity log';
+
+  @override
+  String get drawerAccount => 'My account';
+
+  @override
+  String get rolesNew => 'New role';
+
+  @override
+  String get rolesIntro =>
+      'A role is a job in Sidra. Each person has one role; its permissions decide what they can see and do. Built-in roles can be adjusted; Super Admin always has everything.';
+
+  @override
+  String get rolesDeleteBody =>
+      'Delete this role? It must not be assigned to anyone.';
+
+  @override
+  String get rolesSuperAdminLocked =>
+      'Super Admin always has every permission and cannot be changed.';
+
+  @override
+  String get areaEnrolment => 'Enrolment';
+
+  @override
+  String get areaFinance => 'Finance';
+
+  @override
+  String get areaContent => 'Content';
+
+  @override
+  String get areaReports => 'Reports';
+
+  @override
+  String get areaSettings => 'Settings';
+
+  @override
+  String get auditEmpty => 'No activity recorded yet';
+
+  @override
+  String get auditSystem => 'System';
+
+  @override
+  String get auditCreated => 'created';
+
+  @override
+  String get auditRemoved => 'removed';
+
+  @override
+  String get auditChanged => 'changed';
+
+  @override
+  String get auditEnrolment => 'Enrolment';
+
+  @override
+  String get auditTeacherAssignment => 'Teacher assignment';
+
+  @override
+  String get auditAccount => 'Account';
+
+  @override
+  String get auditUnlock => 'Lesson unlock';
+
+  @override
+  String get auditReview => 'Review';
+
+  @override
+  String rolesSummary(int permissions, int members) {
+    return '$permissions permissions · $members people';
+  }
 }

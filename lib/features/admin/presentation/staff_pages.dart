@@ -27,7 +27,10 @@ class StaffPage extends StatelessWidget {
 /// "More" for teachers and admins: account, extra tools, sign out.
 /// (Staff are not learners, so they get this instead of the learner Profile.)
 class StaffMoreScreen extends ConsumerWidget {
-  const StaffMoreScreen({super.key});
+  const StaffMoreScreen({super.key, this.embedded = false});
+
+  /// Inside the admin console the shell already shows a title bar.
+  final bool embedded;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,7 +41,7 @@ class StaffMoreScreen extends ConsumerWidget {
     final role = UserRole.values.asNameMap()[user?.role] ?? UserRole.learner;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.navMore)),
+      appBar: embedded ? null : AppBar(title: Text(l10n.navMore)),
       body: ListView(
         padding: const EdgeInsets.all(Space.md),
         children: [
@@ -64,14 +67,6 @@ class StaffMoreScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: Space.md),
-          if (user?.isAdmin ?? false)
-            ListTile(
-              leading: const Icon(Icons.menu_book_outlined),
-              title: Text(l10n.booksTitle),
-              subtitle: Text(l10n.adminSetStructureHint),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => context.push(Routes.adminBooks),
-            ),
           ListTile(
             leading: const Icon(Icons.visibility_outlined),
             title: Text(l10n.moreBrowseCatalogue),

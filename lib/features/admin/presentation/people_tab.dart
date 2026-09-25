@@ -12,6 +12,7 @@ import '../../profile/data/profile_repository.dart';
 import '../data/admin_repository.dart';
 import 'admin_common.dart';
 import 'courses_tab.dart';
+import 'roles_audit_screens.dart';
 
 final peopleSearchProvider = StateProvider.autoDispose<String>((_) => '');
 
@@ -177,14 +178,17 @@ class _Stat extends StatelessWidget {
 
 /// Admin: everyone, searchable; add, edit, roles, access, disable.
 class PeopleTab extends ConsumerStatefulWidget {
-  const PeopleTab({super.key});
+  const PeopleTab({super.key, this.persona});
+
+  /// Shows only learners, teachers or administrators; null = everyone.
+  final UserRole? persona;
 
   @override
   ConsumerState<PeopleTab> createState() => _PeopleTabState();
 }
 
 class _PeopleTabState extends ConsumerState<PeopleTab> {
-  UserRole? _filter;
+  late UserRole? _filter = widget.persona;
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +196,7 @@ class _PeopleTabState extends ConsumerState<PeopleTab> {
     final people = ref.watch(peopleProvider);
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showPersonForm(context, ref),
+        onPressed: () => showPersonForm(context, ref, persona: widget.persona),
         icon: const Icon(Icons.person_add_alt),
         label: Text(l10n.adminAddPerson),
       ),
@@ -209,28 +213,30 @@ class _PeopleTabState extends ConsumerState<PeopleTab> {
                   ref.read(peopleSearchProvider.notifier).state = v.trim(),
             ),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(
-              horizontal: Space.md,
-              vertical: Space.xs,
-            ),
-            child: Row(
-              children: [
-                for (final r in [null, ...UserRole.values])
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(end: Space.xs),
-                    child: FilterChip(
-                      label: Text(
-                        r == null ? l10n.adminEveryone : roleLabel(l10n, r),
+          if (widget.persona == null)
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(
+                horizontal: Space.md,
+                vertical: Space.xs,
+              ),
+              child: Row(
+                children: [
+                  for (final r in [null, ...UserRole.values])
+                    Padding(
+                      padding: const EdgeInsetsDirectional.only(end: Space.xs),
+                      child: FilterChip(
+                        label: Text(
+                          r == null ? l10n.adminEveryone : roleLabel(l10n, r),
+                        ),
+                        selected: _filter == r,
+                        onSelected: (_) => setState(() => _filter = r),
                       ),
-                      selected: _filter == r,
-                      onSelected: (_) => setState(() => _filter = r),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
-          ),
+          const SizedBox(height: Space.xs),
           Expanded(
             child: RefreshIndicator(
               onRefresh: () => ref.refresh(peopleProvider.future),
@@ -344,15 +350,31 @@ class PersonSheet extends ConsumerWidget {
       }
     }
 
-    Future<void> changeRole(UserRole role) async {
-      if (await confirm(
-            context,
-            title: l10n.adminChangeRoleTitle,
-            message: l10n.adminChangeRoleBody(person.name),
-          ) &&
-          context.mounted) {
-        await done(() => repo.setRole(person.id, role));
-      }
+    Future<void> changeRole() async {
+      final roles = await ref.read(rolesProvider.future);
+      if (!context.mounted) return;
+      final choice = await showDialog<RoleRow>(
+        context: context,
+        builder: (context) => SimpleDialog(
+          title: Text(l10n.adminChangeRoleBody(person.name)),
+          children: [
+            for (final r in roles)
+              if (r.key != 'super_admin' || superadmin)
+                SimpleDialogOption(
+                  onPressed: () => Navigator.pop(context, r),
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(r.name),
+                    subtitle: r.description == null
+                        ? null
+                        : Text(r.description!),
+                  ),
+                ),
+          ],
+        ),
+      );
+      if (choice == null || !context.mounted) return;
+      await done(() => repo.setUserRole(person.id, choice.key));
     }
 
     Future<Course?> pickCourse(String title) async {
@@ -414,21 +436,8 @@ class PersonSheet extends ConsumerWidget {
               ListTile(
                 leading: const Icon(Icons.badge_outlined),
                 title: Text(l10n.adminChangeRoleTitle),
-                trailing: DropdownButton<UserRole>(
-                  value: person.role,
-                  underline: const SizedBox.shrink(),
-                  items: [
-                    for (final r in UserRole.values)
-                      if (r != UserRole.admin || superadmin)
-                        DropdownMenuItem(
-                          value: r,
-                          child: Text(roleLabel(l10n, r)),
-                        ),
-                  ],
-                  onChanged: (r) {
-                    if (r != null && r != person.role) changeRole(r);
-                  },
-                ),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: changeRole,
               ),
             if (superadmin && person.role == UserRole.admin && !isSelf)
               SwitchListTile(
@@ -538,17 +547,30 @@ Future<void> showPersonForm(
   BuildContext context,
   WidgetRef ref, {
   AppUserRow? existing,
+  UserRole? persona,
 }) async {
   final l10n = AppLocalizations.of(context);
   final me = await ref.read(profileProvider.future);
+  final allRoles = existing == null
+      ? await ref.read(rolesProvider.future)
+      : const <RoleRow>[];
   if (!context.mounted) return;
+  // Roles offered: those of the list you're on (or all); admin-level roles
+  // only for superadmins (the database enforces the same).
+  final roles = [
+    for (final r in allRoles)
+      if ((persona == null || r.persona == persona.name) &&
+          (r.persona != 'admin' || me.isSuperadmin))
+        r,
+  ];
+  var roleKey = roles.any((r) => r.key == (persona?.name ?? 'learner'))
+      ? (persona?.name ?? 'learner')
+      : (roles.isEmpty ? 'learner' : roles.first.key);
   final form = GlobalKey<FormState>();
   final name = TextEditingController(text: existing?.displayName);
   final phone = TextEditingController(text: existing?.phone);
   final email = TextEditingController(text: existing?.email);
   final username = TextEditingController(text: existing?.username);
-  var role = existing?.role ?? UserRole.learner;
-  var superadmin = false;
   final temp = temporaryPassword();
   final repo = ref.read(adminRepositoryProvider);
 
@@ -596,33 +618,18 @@ Future<void> showPersonForm(
                     l10n.adminOneIdentifier,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
-                  if (existing == null) ...[
+                  if (existing == null && roles.isNotEmpty) ...[
                     const SizedBox(height: Space.md),
-                    DropdownButtonFormField<UserRole>(
-                      initialValue: role,
+                    DropdownButtonFormField<String>(
+                      initialValue: roleKey,
+                      isExpanded: true,
                       decoration: InputDecoration(labelText: l10n.adminRole),
                       items: [
-                        for (final r in UserRole.values)
-                          if (r != UserRole.admin || me.isSuperadmin)
-                            DropdownMenuItem(
-                              value: r,
-                              child: Text(roleLabel(l10n, r)),
-                            ),
+                        for (final r in roles)
+                          DropdownMenuItem(value: r.key, child: Text(r.name)),
                       ],
-                      onChanged: (v) => setState(() {
-                        role = v!;
-                        if (role != UserRole.admin) superadmin = false;
-                      }),
+                      onChanged: (v) => setState(() => roleKey = v!),
                     ),
-                    if (role == UserRole.admin && me.isSuperadmin)
-                      CheckboxListTile(
-                        contentPadding: EdgeInsets.zero,
-                        value: superadmin,
-                        onChanged: (v) =>
-                            setState(() => superadmin = v ?? false),
-                        title: Text(l10n.roleSuperadmin),
-                        subtitle: Text(l10n.adminSuperadminHint),
-                      ),
                   ],
                 ],
               ),
@@ -640,14 +647,13 @@ Future<void> showPersonForm(
               final ok = await runAdminAction(
                 context,
                 () => existing == null
-                    ? repo.createUser(
+                    ? repo.createUserWithRole(
                         displayName: name.text.trim(),
-                        role: role,
+                        roleKey: roleKey,
                         temporaryPassword: temp,
                         phone: nullIfBlank(phone.text),
                         email: nullIfBlank(email.text),
                         username: nullIfBlank(username.text),
-                        superadmin: superadmin,
                       )
                     : repo.updateUser(
                         existing.id,

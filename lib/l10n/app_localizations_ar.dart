@@ -1178,4 +1178,92 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get moreBrowseCatalogueHint =>
       'اطّلع على الدورات المنشورة كما يراها الطلاب';
+
+  @override
+  String get drawerAcademic => 'الشؤون الأكاديمية';
+
+  @override
+  String get drawerTeaching => 'التعليم';
+
+  @override
+  String get drawerReview => 'مراجعة الطلاب';
+
+  @override
+  String get drawerPeople => 'الأشخاص';
+
+  @override
+  String get drawerRoles => 'الأدوار والصلاحيات';
+
+  @override
+  String get drawerOversight => 'الرقابة';
+
+  @override
+  String get drawerActivity => 'سجل النشاط';
+
+  @override
+  String get drawerAccount => 'حسابي';
+
+  @override
+  String get rolesNew => 'دور جديد';
+
+  @override
+  String get rolesIntro =>
+      'الدور وظيفة في سدرة. لكل شخص دور واحد، وصلاحياته تحدد ما يراه ويفعله. يمكن تعديل الأدوار المدمجة، ويملك المدير العام كل الصلاحيات دائمًا.';
+
+  @override
+  String get rolesDeleteBody => 'حذف هذا الدور؟ يجب ألّا يكون مسندًا لأحد.';
+
+  @override
+  String get rolesSuperAdminLocked =>
+      'يملك المدير العام كل الصلاحيات دائمًا ولا يمكن تغييره.';
+
+  @override
+  String get areaEnrolment => 'التسجيل';
+
+  @override
+  String get areaFinance => 'المالية';
+
+  @override
+  String get areaContent => 'المحتوى';
+
+  @override
+  String get areaReports => 'التقارير';
+
+  @override
+  String get areaSettings => 'الإعدادات';
+
+  @override
+  String get auditEmpty => 'لا يوجد نشاط مسجّل بعد';
+
+  @override
+  String get auditSystem => 'النظام';
+
+  @override
+  String get auditCreated => 'أنشأ';
+
+  @override
+  String get auditRemoved => 'حذف';
+
+  @override
+  String get auditChanged => 'عدّل';
+
+  @override
+  String get auditEnrolment => 'تسجيل';
+
+  @override
+  String get auditTeacherAssignment => 'إسناد معلّم';
+
+  @override
+  String get auditAccount => 'حساب';
+
+  @override
+  String get auditUnlock => 'فتح درس';
+
+  @override
+  String get auditReview => 'مراجعة';
+
+  @override
+  String rolesSummary(int permissions, int members) {
+    return '$permissions صلاحية · $members أشخاص';
+  }
 }

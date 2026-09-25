@@ -18,13 +18,18 @@ abstract final class Routes {
   static const teacherCourses = '/teacher/courses';
   static const teacherMore = '/teacher/more';
 
-  // Admin navigation.
+  // Admin console (drawer).
   static const adminDashboard = '/admin/dashboard';
-  static const adminLearners = '/admin/learners';
   static const adminCourses = '/admin/courses';
-  static const adminPeople = '/admin/people';
-  static const adminMore = '/admin/more';
   static const adminBooks = '/admin/books';
+  static const adminLearners = '/admin/review';
+  static const adminPeopleLearners = '/admin/people/learners';
+  static const adminPeopleTeachers = '/admin/people/teachers';
+  static const adminPeopleAdmins = '/admin/people/admins';
+  static const adminPeople = adminPeopleLearners;
+  static const adminRoles = '/admin/roles';
+  static const adminAudit = '/admin/activity';
+  static const adminMore = '/admin/account';
 
   /// The published catalogue as learners see it (for staff previews).
   static const catalogue = '/catalogue';

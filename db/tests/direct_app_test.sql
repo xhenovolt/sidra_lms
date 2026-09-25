@@ -68,7 +68,7 @@ select pg_temp.check(not exists (select 1 from learner_progress
                                  where user_id = '00000000-0000-0000-0000-0000000000a1'),
   'other learners progress stays private');
 select pg_temp.expect_error($q$select public.set_user_role('00000000-0000-0000-0000-00000000000a', 'learner')$q$,
-  'administrators only');
+  'only a superadmin can change administrators');
 select pg_temp.check(not exists (select 1 from public.admin_list_users()),
   'learners cannot list people');
 

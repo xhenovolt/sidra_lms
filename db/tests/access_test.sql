@@ -55,6 +55,11 @@ insert into users (id, auth_subject, display_name, role) values
   ('00000000-0000-0000-0000-00000000000c', 'teacher_2', 'Other Teacher', 'teacher'),
   ('00000000-0000-0000-0000-0000000000a1', 'learner_a', 'Aisha', 'learner'),
   ('00000000-0000-0000-0000-0000000000b1', 'learner_b', 'Bilal', 'learner');
+-- Staff abilities come from roles (0012).
+insert into user_roles (user_id, role_key) values
+  ('00000000-0000-0000-0000-00000000000a', 'admin'),
+  ('00000000-0000-0000-0000-00000000000b', 'teacher'),
+  ('00000000-0000-0000-0000-00000000000c', 'teacher');
 
 insert into media_assets (id, kind, resource_type, delivery, public_id, format, version) values
   ('00000000-0000-0000-0000-0000000000f1', 'image', 'image', 'upload', 'sidra/thumbs/quran', 'jpg', 1),
@@ -213,7 +218,11 @@ update courses set title = 'hacked' where id = '00000000-0000-0000-0000-00000000
 select pg_temp.check((select title from courses where id = '00000000-0000-0000-0000-000000000c01')
   = 'Quran Intermediate', 'learners cannot edit curriculum (RLS matches no rows)');
 select pg_temp.expect_error($q$select public.set_user_role('00000000-0000-0000-0000-0000000000a1', 'admin')$q$,
-  'administrators only');
+  'cannot change your own role');
+select pg_temp.expect_error($q$select public.set_user_role('00000000-0000-0000-0000-0000000000b1', 'admin')$q$,
+  'only a superadmin can change administrators');
+select pg_temp.expect_error($q$select public.set_user_role('00000000-0000-0000-0000-0000000000b1', 'teacher')$q$,
+  'not allowed to change roles');
 select pg_temp.check((select array_agg(display_name order by display_name) from users)
   = array['Aisha R', 'Ustadh Musa'],
   'learner sees self and course teachers only, not other learners or admins');

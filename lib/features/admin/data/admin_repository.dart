@@ -94,6 +94,78 @@ class AppUserRow {
       [?phone, ?email, if (username != null) '@$username'].join(' · ');
 }
 
+/// A role (a job in Sidra) and the permissions it grants.
+class RoleRow {
+  const RoleRow({
+    required this.key,
+    required this.name,
+    required this.persona,
+    required this.isSystem,
+    required this.permissions,
+    required this.members,
+    this.description,
+  });
+
+  factory RoleRow.fromJson(Json j) => RoleRow(
+    key: j.str('key'),
+    name: j.str('name'),
+    description: j.strOrNull('description'),
+    persona: j.strOrNull('persona') ?? 'admin',
+    isSystem: j.boolean('is_system'),
+    permissions: j.strList('permissions').toSet(),
+    members: j.integer('members', fallback: 0),
+  );
+
+  final String key;
+  final String name;
+  final String? description;
+
+  /// Which app the role uses: admin console, teaching app or learner app.
+  final String persona;
+  final bool isSystem;
+  final Set<String> permissions;
+  final int members;
+}
+
+class PermissionRow {
+  const PermissionRow(this.key, this.area, this.description);
+  factory PermissionRow.fromJson(Json j) =>
+      PermissionRow(j.str('key'), j.str('area'), j.str('description'));
+  final String key;
+  final String area;
+  final String description;
+}
+
+class AuditEntry {
+  const AuditEntry({
+    required this.id,
+    required this.at,
+    required this.action,
+    required this.entity,
+    this.actorName,
+    this.entityId,
+    this.changes = const {},
+  });
+
+  factory AuditEntry.fromJson(Json j) => AuditEntry(
+    id: j.integer('id'),
+    at: j.dateOrNull('at') ?? DateTime.now(),
+    actorName: j.strOrNull('actor_name'),
+    action: j.str('action'),
+    entity: j.str('entity'),
+    entityId: j.strOrNull('entity_id'),
+    changes: j.obj('changes'),
+  );
+
+  final int id;
+  final DateTime at;
+  final String? actorName;
+  final String action;
+  final String entity;
+  final String? entityId;
+  final Json changes;
+}
+
 /// A person on a course (learner enrolment or staff assignment).
 class CoursePerson {
   const CoursePerson({
@@ -428,6 +500,74 @@ class AdminRepository {
         upsert: true,
         onConflict: 'course_id,user_id',
       );
+
+  // ------------------------------------------------- roles & permissions --
+
+  Future<Set<String>> myPermissions() async {
+    final rows = await api.rpcRows('my_permissions');
+    if (rows.isEmpty) return const {};
+    return {
+      for (final p in (rows.first['my_permissions'] as List? ?? const []))
+        p as String,
+    };
+  }
+
+  Future<List<RoleRow>> roles() async =>
+      (await api.rpcRows('admin_roles')).map(RoleRow.fromJson).toList();
+
+  Future<List<PermissionRow>> permissionCatalog() async =>
+      (await api.rpcRows('admin_permissions'))
+          .map(PermissionRow.fromJson)
+          .toList();
+
+  Future<void> saveRole({
+    required String key,
+    required String name,
+    String? description,
+    required Set<String> permissions,
+  }) => api.rpc(
+    'save_role',
+    params: {
+      'p_key': key,
+      'p_name': name,
+      'p_description': description,
+      'p_permissions': permissions.toList(),
+    },
+  );
+
+  Future<void> deleteRole(String key) =>
+      api.rpc('delete_role', params: {'p_key': key});
+
+  /// Gives a person exactly one role (their job).
+  Future<void> setUserRole(String userId, String roleKey) => api.rpc(
+    'set_user_primary_role',
+    params: {'p_user_id': userId, 'p_role_key': roleKey},
+  );
+
+  Future<void> createUserWithRole({
+    required String displayName,
+    required String roleKey,
+    required String temporaryPassword,
+    String? phone,
+    String? email,
+    String? username,
+  }) => api.rpc(
+    'admin_create_user_with_role',
+    params: {
+      'p_display_name': displayName,
+      'p_role_key': roleKey,
+      'p_temporary_password': temporaryPassword,
+      'p_phone': phone,
+      'p_email': email,
+      'p_username': username,
+    },
+  );
+
+  Future<List<AuditEntry>> auditLog({String? entity, int? before}) async =>
+      (await api.rpcRows(
+        'admin_audit_log',
+        params: {'p_entity': entity, 'p_before': before, 'p_limit': 50},
+      )).map(AuditEntry.fromJson).toList();
 
   // --------------------------------------------------------------- media --
 

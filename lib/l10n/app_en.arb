@@ -455,5 +455,43 @@
   "navMore": "More",
   "navDashboard": "Dashboard",
   "moreBrowseCatalogue": "Browse the catalogue",
-  "moreBrowseCatalogueHint": "See published courses as learners see them"
+  "moreBrowseCatalogueHint": "See published courses as learners see them",
+  "drawerAcademic": "Academic",
+  "drawerTeaching": "Teaching",
+  "drawerReview": "Review learners",
+  "drawerPeople": "People",
+  "drawerRoles": "Roles & permissions",
+  "drawerOversight": "Oversight",
+  "drawerActivity": "Activity log",
+  "drawerAccount": "My account",
+  "rolesNew": "New role",
+  "rolesIntro": "A role is a job in Sidra. Each person has one role; its permissions decide what they can see and do. Built-in roles can be adjusted; Super Admin always has everything.",
+  "rolesDeleteBody": "Delete this role? It must not be assigned to anyone.",
+  "rolesSuperAdminLocked": "Super Admin always has every permission and cannot be changed.",
+  "areaEnrolment": "Enrolment",
+  "areaFinance": "Finance",
+  "areaContent": "Content",
+  "areaReports": "Reports",
+  "areaSettings": "Settings",
+  "auditEmpty": "No activity recorded yet",
+  "auditSystem": "System",
+  "auditCreated": "created",
+  "auditRemoved": "removed",
+  "auditChanged": "changed",
+  "auditEnrolment": "Enrolment",
+  "auditTeacherAssignment": "Teacher assignment",
+  "auditAccount": "Account",
+  "auditUnlock": "Lesson unlock",
+  "auditReview": "Review",
+  "rolesSummary": "{permissions} permissions · {members} people",
+  "@rolesSummary": {
+    "placeholders": {
+      "permissions": {
+        "type": "int"
+      },
+      "members": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -2269,6 +2269,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'See published courses as learners see them'**
   String get moreBrowseCatalogueHint;
+
+  /// No description provided for @drawerAcademic.
+  ///
+  /// In en, this message translates to:
+  /// **'Academic'**
+  String get drawerAcademic;
+
+  /// No description provided for @drawerTeaching.
+  ///
+  /// In en, this message translates to:
+  /// **'Teaching'**
+  String get drawerTeaching;
+
+  /// No description provided for @drawerReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review learners'**
+  String get drawerReview;
+
+  /// No description provided for @drawerPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'People'**
+  String get drawerPeople;
+
+  /// No description provided for @drawerRoles.
+  ///
+  /// In en, this message translates to:
+  /// **'Roles & permissions'**
+  String get drawerRoles;
+
+  /// No description provided for @drawerOversight.
+  ///
+  /// In en, this message translates to:
+  /// **'Oversight'**
+  String get drawerOversight;
+
+  /// No description provided for @drawerActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity log'**
+  String get drawerActivity;
+
+  /// No description provided for @drawerAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'My account'**
+  String get drawerAccount;
+
+  /// No description provided for @rolesNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New role'**
+  String get rolesNew;
+
+  /// No description provided for @rolesIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'A role is a job in Sidra. Each person has one role; its permissions decide what they can see and do. Built-in roles can be adjusted; Super Admin always has everything.'**
+  String get rolesIntro;
+
+  /// No description provided for @rolesDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this role? It must not be assigned to anyone.'**
+  String get rolesDeleteBody;
+
+  /// No description provided for @rolesSuperAdminLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Super Admin always has every permission and cannot be changed.'**
+  String get rolesSuperAdminLocked;
+
+  /// No description provided for @areaEnrolment.
+  ///
+  /// In en, this message translates to:
+  /// **'Enrolment'**
+  String get areaEnrolment;
+
+  /// No description provided for @areaFinance.
+  ///
+  /// In en, this message translates to:
+  /// **'Finance'**
+  String get areaFinance;
+
+  /// No description provided for @areaContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get areaContent;
+
+  /// No description provided for @areaReports.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get areaReports;
+
+  /// No description provided for @areaSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get areaSettings;
+
+  /// No description provided for @auditEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No activity recorded yet'**
+  String get auditEmpty;
+
+  /// No description provided for @auditSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get auditSystem;
+
+  /// No description provided for @auditCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'created'**
+  String get auditCreated;
+
+  /// No description provided for @auditRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'removed'**
+  String get auditRemoved;
+
+  /// No description provided for @auditChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'changed'**
+  String get auditChanged;
+
+  /// No description provided for @auditEnrolment.
+  ///
+  /// In en, this message translates to:
+  /// **'Enrolment'**
+  String get auditEnrolment;
+
+  /// No description provided for @auditTeacherAssignment.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher assignment'**
+  String get auditTeacherAssignment;
+
+  /// No description provided for @auditAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get auditAccount;
+
+  /// No description provided for @auditUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson unlock'**
+  String get auditUnlock;
+
+  /// No description provided for @auditReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get auditReview;
+
+  /// No description provided for @rolesSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{permissions} permissions · {members} people'**
+  String rolesSummary(int permissions, int members);
 }
 
 class _AppLocalizationsDelegate

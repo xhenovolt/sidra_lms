@@ -2,19 +2,70 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sidra_lms/features/auth/domain/auth_session.dart';
-import 'package:sidra_lms/features/profile/data/profile_repository.dart';
 
 import '../helpers/fake_auth_service.dart';
 import '../helpers/fake_postgres_api.dart';
 import '../helpers/test_app.dart';
 
+const _adminPerms = [
+  'dashboard.view',
+  'courses.view',
+  'courses.create',
+  'curriculum.edit',
+  'books.manage',
+  'learners.view',
+  'learners.create',
+  'learners.edit',
+  'teachers.view',
+  'teachers.create',
+  'teachers.assign',
+  'enrolments.manage',
+  'audit.view',
+  'teaching.review',
+];
+
+/// What each test persona may do (mirrors the seeded roles in 0012).
+List<String> permsFor(String role) => switch (role) {
+  'superadmin' => [..._adminPerms, 'admins.manage', 'roles.manage'],
+  'admin' => _adminPerms,
+  'finance_officer' => ['dashboard.view', 'finance.view', 'learners.view'],
+  'teacher' => ['teaching.review'],
+  _ => const [],
+};
+
+/// The app persona behind a test role.
+String personaOf(String role) => switch (role) {
+  'superadmin' || 'finance_officer' => 'admin',
+  _ => role,
+};
+
 FakePostgresApi staffServer(String role) {
   final api = emptyServer();
   api.rpcHandlers['ensure_profile'] = (_) => {
     'id': 'u1',
-    'role': role == 'superadmin' ? 'admin' : role,
+    'role': personaOf(role),
     'is_superadmin': role == 'superadmin',
   };
+  api.rpcHandlers['my_permissions'] = (_) => [
+    {'my_permissions': permsFor(role)},
+  ];
+  api.rpcHandlers['admin_roles'] = (_) => [
+    for (final (key, name, persona) in [
+      ('super_admin', 'Super Admin', 'admin'),
+      ('admin', 'Admin', 'admin'),
+      ('finance_officer', 'Finance Officer', 'admin'),
+      ('teacher', 'Teacher', 'teacher'),
+      ('learner', 'Learner', 'learner'),
+    ])
+      {
+        'key': key,
+        'name': name,
+        'persona': persona,
+        'is_system': true,
+        'permissions': const <String>[],
+        'members': 0,
+      },
+  ];
   api.selectHandlers['courses'] = (_) => [
     {
       'id': 'c1',
@@ -61,7 +112,7 @@ FakePostgresApi staffServer(String role) {
       'is_active': true,
     },
   ];
-  api.rpcHandlers['admin_create_user'] = (p) => {'id': 'new'};
+  api.rpcHandlers['admin_create_user_with_role'] = (_) => {'id': 'new'};
   api.rpcHandlers['review_lesson'] = (p) => {
     'review': {'id': 'r1'},
     'unlocked_lesson_id': p['p_unlock_next'] == true ? 'l2' : null,
@@ -69,8 +120,8 @@ FakePostgresApi staffServer(String role) {
   return api;
 }
 
-/// Signs in as [role] (learner | teacher | admin | superadmin) and lands on
-/// that role's own home.
+/// Signs in as [role] (learner | teacher | admin | superadmin |
+/// finance_officer) and lands on that role's own home.
 Future<void> signInAs(
   WidgetTester tester,
   String role, {
@@ -83,7 +134,7 @@ Future<void> signInAs(
           AppUser(
             id: 'u1',
             displayName: 'Hamuza Ibrahim',
-            role: role == 'superadmin' ? 'admin' : role,
+            role: personaOf(role),
             isSuperadmin: role == 'superadmin',
           ),
         ),
@@ -101,8 +152,18 @@ List<String> navLabels(WidgetTester tester) => [
     d.label,
 ];
 
+Future<void> openDrawer(WidgetTester tester) async {
+  await tester.tap(find.byTooltip('Open navigation menu'));
+  await tester.pumpAndSettle();
+}
+
+Finder inDrawer(String text) =>
+    find.descendant(of: find.byType(Drawer), matching: find.text(text));
+
 void main() {
-  testWidgets('each role gets its own navigation', (tester) async {
+  testWidgets('learners and teachers get their own bottom navigation', (
+    tester,
+  ) async {
     await signInAs(tester, 'learner');
     expect(navLabels(tester), [
       'Home',
@@ -114,34 +175,79 @@ void main() {
 
     await signInAs(tester, 'teacher');
     expect(navLabels(tester), ['Learners', 'Courses', 'More']);
+  });
 
-    await signInAs(tester, 'admin');
-    expect(navLabels(tester), [
-      'Dashboard',
-      'Learners',
-      'Courses',
-      'People',
-      'More',
-    ]);
+  testWidgets(
+    'admin lands on the dashboard with a permission-filtered drawer',
+    (tester) async {
+      await signInAs(tester, 'admin');
+      expect(find.byType(NavigationBar), findsNothing);
+      expect(find.text('12'), findsOneWidget); // learners stat
+
+      await openDrawer(tester);
+      for (final item in [
+        'Dashboard',
+        'Courses',
+        'Books',
+        'Review learners',
+        'Learners',
+        'Teachers',
+        'Activity log',
+        'My account',
+      ]) {
+        expect(inDrawer(item), findsOneWidget, reason: item);
+      }
+      // Only superadmins manage administrators and roles.
+      expect(inDrawer('Administrators'), findsNothing);
+      expect(inDrawer('Roles & permissions'), findsNothing);
+    },
+  );
+
+  testWidgets('superadmin also sees administrators and roles', (tester) async {
+    await signInAs(tester, 'superadmin');
+    await openDrawer(tester);
+    expect(inDrawer('Administrators'), findsOneWidget);
+    expect(inDrawer('Roles & permissions'), findsOneWidget);
+  });
+
+  testWidgets('a finance officer sees only what the role allows', (
+    tester,
+  ) async {
+    await signInAs(tester, 'finance_officer');
+    await openDrawer(tester);
+    expect(inDrawer('Dashboard'), findsOneWidget);
+    expect(inDrawer('Learners'), findsOneWidget);
+    expect(inDrawer('Courses'), findsNothing);
+    expect(inDrawer('Books'), findsNothing);
+    expect(inDrawer('Activity log'), findsNothing);
+  });
+
+  testWidgets('a page outside your permissions is refused', (tester) async {
+    await signInAs(tester, 'finance_officer');
+    GoRouter.of(tester.element(find.byType(Scaffold).first)).go('/admin/books');
+    await tester.pumpAndSettle();
+    expect(find.byIcon(Icons.lock_outline), findsOneWidget);
   });
 
   testWidgets('a learner cannot open staff pages', (tester) async {
     await signInAs(tester, 'learner');
     final context = tester.element(find.byType(NavigationBar));
-    GoRouter.of(context).go('/admin/people');
+    GoRouter.of(context).go('/admin/people/learners');
     await tester.pumpAndSettle();
     expect(navLabels(tester), contains('Home'));
     expect(find.text('Add person'), findsNothing);
   });
 
-  testWidgets('More holds account, books and sign out for admins', (
+  testWidgets('My account holds the catalogue, password and sign out', (
     tester,
   ) async {
     await signInAs(tester, 'admin');
-    await tester.tap(find.text('More'));
+    await openDrawer(tester);
+    await tester.ensureVisible(inDrawer('My account'));
+    await tester.pumpAndSettle();
+    await tester.tap(inDrawer('My account'));
     await tester.pumpAndSettle();
     expect(find.textContaining('Administrator'), findsOneWidget);
-    expect(find.text('Books'), findsOneWidget);
     expect(find.text('Browse the catalogue'), findsOneWidget);
     expect(find.text('Change password'), findsOneWidget);
     expect(find.text('Sign out'), findsOneWidget);
@@ -155,7 +261,6 @@ void main() {
 
     expect(find.text('Waiting for your review'), findsOneWidget);
     expect(find.text('Bilal'), findsOneWidget);
-    expect(find.text('People'), findsNothing, reason: 'admin-only');
 
     await tester.tap(find.text('Bilal'));
     await tester.pumpAndSettle();
@@ -172,46 +277,41 @@ void main() {
     expect(call.$2['p_feedback'], 'Beautiful tajweed');
   });
 
-  testWidgets('admin lands on the dashboard with live numbers', (tester) async {
-    await signInAs(tester, 'admin');
-    expect(find.text('Dashboard'), findsWidgets);
-    expect(find.text('12'), findsOneWidget); // learners stat
-    expect(find.text('Home'), findsNothing, reason: 'admins are not learners');
-  });
-
-  testWidgets('superadmin adds a teacher and gets a temporary password', (
+  testWidgets('superadmin adds a finance officer with a temporary password', (
     tester,
   ) async {
     final api = staffServer('superadmin');
     await signInAs(tester, 'superadmin', api: api);
-    await tester.tap(find.text('People'));
+    await openDrawer(tester);
+    await tester.tap(inDrawer('Administrators'));
     await tester.pumpAndSettle();
     expect(find.text('Hamuza Ibrahim'), findsOneWidget);
-    expect(find.textContaining('Superadmin'), findsOneWidget);
 
     await tester.tap(find.text('Add person').last);
     await tester.pumpAndSettle();
     await tester.enterText(
       find.widgetWithText(TextFormField, 'Full name *'),
-      'Ustadh Ali',
+      'Amina Finance',
     );
     await tester.enterText(
       find.widgetWithText(TextFormField, 'Username'),
-      'ustadh_ali',
+      'amina_fin',
     );
-    // Admin role is offered to superadmins.
-    await tester.tap(find.byType(DropdownButtonFormField<UserRole>));
+    await tester.tap(find.byType(DropdownButtonFormField<String>));
     await tester.pumpAndSettle();
-    expect(find.text('Administrator').last, findsOneWidget);
-    await tester.tap(find.text('Teacher').last);
+    // Only administrator-level roles are offered on this list.
+    expect(find.text('Teacher'), findsNothing);
+    await tester.tap(find.text('Finance Officer').last);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Create'));
     await tester.pumpAndSettle();
 
-    final call = api.rpcCalls.lastWhere((c) => c.$1 == 'admin_create_user');
-    expect(call.$2['p_display_name'], 'Ustadh Ali');
-    expect(call.$2['p_role'], 'teacher');
-    expect(call.$2['p_username'], 'ustadh_ali');
+    final call = api.rpcCalls.lastWhere(
+      (c) => c.$1 == 'admin_create_user_with_role',
+    );
+    expect(call.$2['p_display_name'], 'Amina Finance');
+    expect(call.$2['p_role_key'], 'finance_officer');
+    expect(call.$2['p_username'], 'amina_fin');
     expect(
       (call.$2['p_temporary_password'] as String).length,
       greaterThanOrEqualTo(8),
