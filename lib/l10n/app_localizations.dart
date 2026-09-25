@@ -745,6 +745,1014 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Teacher feedback'**
   String get teacherFeedback;
+
+  /// No description provided for @adminAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Who can join'**
+  String get adminAccess;
+
+  /// No description provided for @adminAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get adminAdd;
+
+  /// No description provided for @adminAddContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Add content'**
+  String get adminAddContent;
+
+  /// No description provided for @adminAddLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Add lesson'**
+  String get adminAddLesson;
+
+  /// No description provided for @adminAddLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Add level'**
+  String get adminAddLevel;
+
+  /// No description provided for @adminAddOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Add option'**
+  String get adminAddOption;
+
+  /// No description provided for @adminAddQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Add question'**
+  String get adminAddQuestion;
+
+  /// No description provided for @adminAddSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Add section'**
+  String get adminAddSection;
+
+  /// No description provided for @adminAddSubsection.
+  ///
+  /// In en, this message translates to:
+  /// **'Add part inside'**
+  String get adminAddSubsection;
+
+  /// No description provided for @adminAddUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Add unit'**
+  String get adminAddUnit;
+
+  /// No description provided for @adminAllLearners.
+  ///
+  /// In en, this message translates to:
+  /// **'All learners'**
+  String get adminAllLearners;
+
+  /// No description provided for @adminArabicText.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic text'**
+  String get adminArabicText;
+
+  /// No description provided for @adminAssignTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Make teacher of a course'**
+  String get adminAssignTeacher;
+
+  /// No description provided for @adminAuthor.
+  ///
+  /// In en, this message translates to:
+  /// **'Author'**
+  String get adminAuthor;
+
+  /// No description provided for @adminAwaitingReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for your review'**
+  String get adminAwaitingReview;
+
+  /// No description provided for @adminBlockAttachment.
+  ///
+  /// In en, this message translates to:
+  /// **'File'**
+  String get adminBlockAttachment;
+
+  /// No description provided for @adminBlockAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio'**
+  String get adminBlockAudio;
+
+  /// No description provided for @adminBlockCallout.
+  ///
+  /// In en, this message translates to:
+  /// **'Highlight box'**
+  String get adminBlockCallout;
+
+  /// No description provided for @adminBlockDivider.
+  ///
+  /// In en, this message translates to:
+  /// **'Divider'**
+  String get adminBlockDivider;
+
+  /// No description provided for @adminBlockHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Heading'**
+  String get adminBlockHeading;
+
+  /// No description provided for @adminBlockImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Picture'**
+  String get adminBlockImage;
+
+  /// No description provided for @adminBlockQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz'**
+  String get adminBlockQuiz;
+
+  /// No description provided for @adminBlockQuran.
+  ///
+  /// In en, this message translates to:
+  /// **'Quran text'**
+  String get adminBlockQuran;
+
+  /// No description provided for @adminBlockReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference'**
+  String get adminBlockReference;
+
+  /// No description provided for @adminBlockText.
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get adminBlockText;
+
+  /// No description provided for @adminBlockTranslation.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation'**
+  String get adminBlockTranslation;
+
+  /// No description provided for @adminBlockTransliteration.
+  ///
+  /// In en, this message translates to:
+  /// **'Transliteration'**
+  String get adminBlockTransliteration;
+
+  /// No description provided for @adminBlockVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Video'**
+  String get adminBlockVideo;
+
+  /// No description provided for @adminBook.
+  ///
+  /// In en, this message translates to:
+  /// **'Book'**
+  String get adminBook;
+
+  /// No description provided for @adminCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get adminCancel;
+
+  /// No description provided for @adminCaption.
+  ///
+  /// In en, this message translates to:
+  /// **'Caption'**
+  String get adminCaption;
+
+  /// No description provided for @adminChangeRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Change role?'**
+  String get adminChangeRoleTitle;
+
+  /// No description provided for @adminChapter.
+  ///
+  /// In en, this message translates to:
+  /// **'Chapter'**
+  String get adminChapter;
+
+  /// No description provided for @adminChooseFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a file from this device'**
+  String get adminChooseFile;
+
+  /// No description provided for @adminCitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Citation'**
+  String get adminCitation;
+
+  /// No description provided for @adminConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get adminConfirm;
+
+  /// No description provided for @adminContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get adminContent;
+
+  /// No description provided for @adminCopyright.
+  ///
+  /// In en, this message translates to:
+  /// **'Copyright / usage notes'**
+  String get adminCopyright;
+
+  /// No description provided for @adminCourseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Course name'**
+  String get adminCourseTitle;
+
+  /// No description provided for @adminCover.
+  ///
+  /// In en, this message translates to:
+  /// **'Cover picture'**
+  String get adminCover;
+
+  /// No description provided for @adminCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get adminCreate;
+
+  /// No description provided for @adminCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get adminCurrency;
+
+  /// No description provided for @adminCurrentLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Current lesson'**
+  String get adminCurrentLesson;
+
+  /// No description provided for @adminCustomStructure.
+  ///
+  /// In en, this message translates to:
+  /// **'My own levels'**
+  String get adminCustomStructure;
+
+  /// No description provided for @adminDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get adminDelete;
+
+  /// No description provided for @adminDeleteBlockBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This content will be removed from the lesson.'**
+  String get adminDeleteBlockBody;
+
+  /// No description provided for @adminDeleteLessonBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The lesson, its content and learners\' progress on it will be deleted.'**
+  String get adminDeleteLessonBody;
+
+  /// No description provided for @adminDeleteNodeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This part and everything inside it (including lessons) will be deleted.'**
+  String get adminDeleteNodeBody;
+
+  /// No description provided for @adminDeleteQuestionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This question will be removed from the quiz.'**
+  String get adminDeleteQuestionBody;
+
+  /// No description provided for @adminDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete?'**
+  String get adminDeleteTitle;
+
+  /// No description provided for @adminDeleteUnitBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The unit and everything inside it will be deleted.'**
+  String get adminDeleteUnitBody;
+
+  /// No description provided for @adminDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get adminDescription;
+
+  /// No description provided for @adminDifficulty.
+  ///
+  /// In en, this message translates to:
+  /// **'Level'**
+  String get adminDifficulty;
+
+  /// No description provided for @adminDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft'**
+  String get adminDraft;
+
+  /// No description provided for @adminEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get adminEdit;
+
+  /// No description provided for @adminEditCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit course details'**
+  String get adminEditCourse;
+
+  /// No description provided for @adminEditQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit questions'**
+  String get adminEditQuestions;
+
+  /// No description provided for @adminEdition.
+  ///
+  /// In en, this message translates to:
+  /// **'Edition'**
+  String get adminEdition;
+
+  /// No description provided for @adminEmptyLessonBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap “Add content” to write text, add Quran verses, pictures, audio or a quiz.'**
+  String get adminEmptyLessonBody;
+
+  /// No description provided for @adminEmptyLessonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This lesson is empty'**
+  String get adminEmptyLessonTitle;
+
+  /// No description provided for @adminEstimatedHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated hours'**
+  String get adminEstimatedHours;
+
+  /// No description provided for @adminExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Explanation shown after answering'**
+  String get adminExplanation;
+
+  /// No description provided for @adminFalse.
+  ///
+  /// In en, this message translates to:
+  /// **'False'**
+  String get adminFalse;
+
+  /// No description provided for @adminFileUploaded.
+  ///
+  /// In en, this message translates to:
+  /// **'File uploaded'**
+  String get adminFileUploaded;
+
+  /// No description provided for @adminFromBook.
+  ///
+  /// In en, this message translates to:
+  /// **'Comes from book'**
+  String get adminFromBook;
+
+  /// No description provided for @adminGradedQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Graded quiz'**
+  String get adminGradedQuiz;
+
+  /// No description provided for @adminGradedQuizHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Counts for the learner. Needs internet; answers stay hidden.'**
+  String get adminGradedQuizHint;
+
+  /// No description provided for @adminGrantCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Give access to a course'**
+  String get adminGrantCourse;
+
+  /// No description provided for @adminHidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden from learners'**
+  String get adminHidden;
+
+  /// No description provided for @adminLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get adminLanguage;
+
+  /// No description provided for @adminLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level'**
+  String get adminLevel;
+
+  /// No description provided for @adminLevelHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Surah, Page, Chapter'**
+  String get adminLevelHint;
+
+  /// No description provided for @adminLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Web link'**
+  String get adminLink;
+
+  /// No description provided for @adminLinkBook.
+  ///
+  /// In en, this message translates to:
+  /// **'Link a book'**
+  String get adminLinkBook;
+
+  /// No description provided for @adminMakeRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Make'**
+  String get adminMakeRole;
+
+  /// No description provided for @adminMaxAttempts.
+  ///
+  /// In en, this message translates to:
+  /// **'Attempts allowed'**
+  String get adminMaxAttempts;
+
+  /// No description provided for @adminMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes to complete'**
+  String get adminMinutes;
+
+  /// No description provided for @adminMoveDown.
+  ///
+  /// In en, this message translates to:
+  /// **'Move down'**
+  String get adminMoveDown;
+
+  /// No description provided for @adminMoveUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Move up'**
+  String get adminMoveUp;
+
+  /// No description provided for @adminNeedsConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'This needs an internet connection.'**
+  String get adminNeedsConnection;
+
+  /// No description provided for @adminNeedsRevision.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs revision'**
+  String get adminNeedsRevision;
+
+  /// No description provided for @adminNewBook.
+  ///
+  /// In en, this message translates to:
+  /// **'New book'**
+  String get adminNewBook;
+
+  /// No description provided for @adminNewCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'New course'**
+  String get adminNewCourse;
+
+  /// No description provided for @adminNoBook.
+  ///
+  /// In en, this message translates to:
+  /// **'Not from a book'**
+  String get adminNoBook;
+
+  /// No description provided for @adminNoBooksBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the books your courses teach from, then choose how each book is organised.'**
+  String get adminNoBooksBody;
+
+  /// No description provided for @adminNoBooksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No books yet'**
+  String get adminNoBooksTitle;
+
+  /// No description provided for @adminNoBooksToLink.
+  ///
+  /// In en, this message translates to:
+  /// **'All books are already linked. Add books in the Books tab.'**
+  String get adminNoBooksToLink;
+
+  /// No description provided for @adminNoCoursesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first course to start building the curriculum.'**
+  String get adminNoCoursesBody;
+
+  /// No description provided for @adminNoCoursesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No courses yet'**
+  String get adminNoCoursesTitle;
+
+  /// No description provided for @adminNoLearnersBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners enrolled in your courses will appear here.'**
+  String get adminNoLearnersBody;
+
+  /// No description provided for @adminNoLearnersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No learners yet'**
+  String get adminNoLearnersTitle;
+
+  /// No description provided for @adminNoQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'No questions yet. Tap “Add question”.'**
+  String get adminNoQuestions;
+
+  /// No description provided for @adminNoStructure.
+  ///
+  /// In en, this message translates to:
+  /// **'Organisation not set'**
+  String get adminNoStructure;
+
+  /// No description provided for @adminNoUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'No unit'**
+  String get adminNoUnit;
+
+  /// No description provided for @adminNotAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have permission for this.'**
+  String get adminNotAllowed;
+
+  /// No description provided for @adminOnePerLine.
+  ///
+  /// In en, this message translates to:
+  /// **'One per line'**
+  String get adminOnePerLine;
+
+  /// No description provided for @adminOpenNextLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the next lesson for this learner'**
+  String get adminOpenNextLesson;
+
+  /// No description provided for @adminOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Option'**
+  String get adminOption;
+
+  /// No description provided for @adminOptionsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tick the correct answer(s):'**
+  String get adminOptionsHint;
+
+  /// No description provided for @adminOutlineHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add sections (like a Surah, a page or a chapter) and lessons inside them.'**
+  String get adminOutlineHint;
+
+  /// No description provided for @adminPageFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Page from'**
+  String get adminPageFrom;
+
+  /// No description provided for @adminPageTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Page to'**
+  String get adminPageTo;
+
+  /// No description provided for @adminPassMark.
+  ///
+  /// In en, this message translates to:
+  /// **'Pass mark'**
+  String get adminPassMark;
+
+  /// No description provided for @adminPassed.
+  ///
+  /// In en, this message translates to:
+  /// **'Passed'**
+  String get adminPassed;
+
+  /// No description provided for @adminPickCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Tick at least one correct answer.'**
+  String get adminPickCorrect;
+
+  /// No description provided for @adminPracticeQuizHint.
+  ///
+  /// In en, this message translates to:
+  /// **'For practice. Works offline; learners see correct answers.'**
+  String get adminPracticeQuizHint;
+
+  /// No description provided for @adminPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get adminPreview;
+
+  /// No description provided for @adminPreviewAsLearner.
+  ///
+  /// In en, this message translates to:
+  /// **'See it as a learner'**
+  String get adminPreviewAsLearner;
+
+  /// No description provided for @adminPreviewLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Free preview'**
+  String get adminPreviewLesson;
+
+  /// No description provided for @adminPreviewLessonHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Every enrolled learner can open it without unlocking'**
+  String get adminPreviewLessonHint;
+
+  /// No description provided for @adminPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get adminPrice;
+
+  /// No description provided for @adminProgression.
+  ///
+  /// In en, this message translates to:
+  /// **'How learners move forward'**
+  String get adminProgression;
+
+  /// No description provided for @adminProgressionOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'All lessons open'**
+  String get adminProgressionOpen;
+
+  /// No description provided for @adminProgressionSequential.
+  ///
+  /// In en, this message translates to:
+  /// **'Next lesson opens after finishing'**
+  String get adminProgressionSequential;
+
+  /// No description provided for @adminProgressionTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher opens each next lesson'**
+  String get adminProgressionTeacher;
+
+  /// No description provided for @adminPublish.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish'**
+  String get adminPublish;
+
+  /// No description provided for @adminPublishCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Published'**
+  String get adminPublishCourse;
+
+  /// No description provided for @adminPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Published'**
+  String get adminPublished;
+
+  /// No description provided for @adminQMultiple.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose all that apply'**
+  String get adminQMultiple;
+
+  /// No description provided for @adminQRecitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Recitation (marked in class)'**
+  String get adminQRecitation;
+
+  /// No description provided for @adminQShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Written answer'**
+  String get adminQShort;
+
+  /// No description provided for @adminQSingle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose one'**
+  String get adminQSingle;
+
+  /// No description provided for @adminQTrueFalse.
+  ///
+  /// In en, this message translates to:
+  /// **'True or false'**
+  String get adminQTrueFalse;
+
+  /// No description provided for @adminQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Question'**
+  String get adminQuestion;
+
+  /// No description provided for @adminQuestionType.
+  ///
+  /// In en, this message translates to:
+  /// **'Question type'**
+  String get adminQuestionType;
+
+  /// No description provided for @adminReferenceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference shown to learners'**
+  String get adminReferenceLabel;
+
+  /// No description provided for @adminReferenceLabelHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Al-Fatihah 1–3, p. 12'**
+  String get adminReferenceLabelHint;
+
+  /// No description provided for @adminRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get adminRequired;
+
+  /// No description provided for @adminReviewSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Review saved'**
+  String get adminReviewSaved;
+
+  /// No description provided for @adminReviewSavedUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Review saved and the next lesson is open'**
+  String get adminReviewSavedUnlocked;
+
+  /// No description provided for @adminSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get adminSave;
+
+  /// No description provided for @adminSaveReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Save review'**
+  String get adminSaveReview;
+
+  /// No description provided for @adminSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get adminSaved;
+
+  /// No description provided for @adminScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Score'**
+  String get adminScore;
+
+  /// No description provided for @adminSectionType.
+  ///
+  /// In en, this message translates to:
+  /// **'Kind of section'**
+  String get adminSectionType;
+
+  /// No description provided for @adminSectionTypeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Chapter, Page, Topic'**
+  String get adminSectionTypeHint;
+
+  /// No description provided for @adminSetStructure.
+  ///
+  /// In en, this message translates to:
+  /// **'How is this book organised?'**
+  String get adminSetStructure;
+
+  /// No description provided for @adminSetStructureHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose levels such as Surah → Verse or Page'**
+  String get adminSetStructureHint;
+
+  /// No description provided for @adminSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Source'**
+  String get adminSource;
+
+  /// No description provided for @adminStructureExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick how this book is divided. Lessons are placed inside the smallest part.'**
+  String get adminStructureExplain;
+
+  /// No description provided for @adminSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject'**
+  String get adminSubject;
+
+  /// No description provided for @adminSubjectHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Quran, Aqeedah, Fiqh, Arabic'**
+  String get adminSubjectHint;
+
+  /// No description provided for @adminSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Short tagline'**
+  String get adminSubtitle;
+
+  /// No description provided for @adminSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Short summary'**
+  String get adminSummary;
+
+  /// No description provided for @adminSurah.
+  ///
+  /// In en, this message translates to:
+  /// **'Surah no.'**
+  String get adminSurah;
+
+  /// No description provided for @adminTabCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses'**
+  String get adminTabCourses;
+
+  /// No description provided for @adminTabLearners.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners'**
+  String get adminTabLearners;
+
+  /// No description provided for @adminTabPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'People'**
+  String get adminTabPeople;
+
+  /// No description provided for @adminText.
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get adminText;
+
+  /// No description provided for @adminTextHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Use **bold**, *italic*, and start lines with - for bullet points'**
+  String get adminTextHint;
+
+  /// No description provided for @adminThumbnail.
+  ///
+  /// In en, this message translates to:
+  /// **'Course picture'**
+  String get adminThumbnail;
+
+  /// No description provided for @adminTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get adminTitle;
+
+  /// No description provided for @adminToneInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Info'**
+  String get adminToneInfo;
+
+  /// No description provided for @adminToneNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get adminToneNote;
+
+  /// No description provided for @adminToneWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Important'**
+  String get adminToneWarning;
+
+  /// No description provided for @adminTranscript.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcript (optional)'**
+  String get adminTranscript;
+
+  /// No description provided for @adminTranslator.
+  ///
+  /// In en, this message translates to:
+  /// **'Translator'**
+  String get adminTranslator;
+
+  /// No description provided for @adminTrue.
+  ///
+  /// In en, this message translates to:
+  /// **'True'**
+  String get adminTrue;
+
+  /// No description provided for @adminUnitOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit'**
+  String get adminUnitOptional;
+
+  /// No description provided for @adminUnits.
+  ///
+  /// In en, this message translates to:
+  /// **'Units'**
+  String get adminUnits;
+
+  /// No description provided for @adminUnitsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Units group your course into big steps. They are optional.'**
+  String get adminUnitsHint;
+
+  /// No description provided for @adminUnlimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited'**
+  String get adminUnlimited;
+
+  /// No description provided for @adminUnpublish.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide from learners'**
+  String get adminUnpublish;
+
+  /// No description provided for @adminVerseFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Verse from'**
+  String get adminVerseFrom;
+
+  /// No description provided for @adminVerseTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Verse to'**
+  String get adminVerseTo;
+
+  /// No description provided for @adminVisibleToLearners.
+  ///
+  /// In en, this message translates to:
+  /// **'Visible to learners'**
+  String get adminVisibleToLearners;
+
+  /// No description provided for @adminWholeCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Whole course'**
+  String get adminWholeCourse;
+
+  /// No description provided for @adminChangeRoleBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Change the role of {name}? Their permissions change immediately.'**
+  String adminChangeRoleBody(String name);
 }
 
 class _AppLocalizationsDelegate

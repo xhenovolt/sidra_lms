@@ -388,4 +388,518 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get teacherFeedback => 'ملاحظات المعلّم';
+
+  @override
+  String get adminAccess => 'من يمكنه الانضمام';
+
+  @override
+  String get adminAdd => 'إضافة';
+
+  @override
+  String get adminAddContent => 'إضافة محتوى';
+
+  @override
+  String get adminAddLesson => 'إضافة درس';
+
+  @override
+  String get adminAddLevel => 'إضافة مستوى';
+
+  @override
+  String get adminAddOption => 'إضافة خيار';
+
+  @override
+  String get adminAddQuestion => 'إضافة سؤال';
+
+  @override
+  String get adminAddSection => 'إضافة قسم';
+
+  @override
+  String get adminAddSubsection => 'إضافة جزء بداخله';
+
+  @override
+  String get adminAddUnit => 'إضافة وحدة';
+
+  @override
+  String get adminAllLearners => 'جميع الطلاب';
+
+  @override
+  String get adminArabicText => 'النص العربي';
+
+  @override
+  String get adminAssignTeacher => 'تعيين معلّمًا لدورة';
+
+  @override
+  String get adminAuthor => 'المؤلف';
+
+  @override
+  String get adminAwaitingReview => 'بانتظار مراجعتك';
+
+  @override
+  String get adminBlockAttachment => 'ملف';
+
+  @override
+  String get adminBlockAudio => 'صوت';
+
+  @override
+  String get adminBlockCallout => 'مربع تنبيه';
+
+  @override
+  String get adminBlockDivider => 'فاصل';
+
+  @override
+  String get adminBlockHeading => 'عنوان';
+
+  @override
+  String get adminBlockImage => 'صورة';
+
+  @override
+  String get adminBlockQuiz => 'اختبار';
+
+  @override
+  String get adminBlockQuran => 'نص قرآني';
+
+  @override
+  String get adminBlockReference => 'مرجع';
+
+  @override
+  String get adminBlockText => 'نص';
+
+  @override
+  String get adminBlockTranslation => 'ترجمة';
+
+  @override
+  String get adminBlockTransliteration => 'نقحرة';
+
+  @override
+  String get adminBlockVideo => 'فيديو';
+
+  @override
+  String get adminBook => 'الكتاب';
+
+  @override
+  String get adminCancel => 'إلغاء';
+
+  @override
+  String get adminCaption => 'وصف الصورة';
+
+  @override
+  String get adminChangeRoleTitle => 'تغيير الدور؟';
+
+  @override
+  String get adminChapter => 'الفصل';
+
+  @override
+  String get adminChooseFile => 'اختر ملفًا من هذا الجهاز';
+
+  @override
+  String get adminCitation => 'التوثيق';
+
+  @override
+  String get adminConfirm => 'تأكيد';
+
+  @override
+  String get adminContent => 'المحتوى';
+
+  @override
+  String get adminCopyright => 'ملاحظات حقوق النشر والاستخدام';
+
+  @override
+  String get adminCourseTitle => 'اسم الدورة';
+
+  @override
+  String get adminCover => 'صورة الغلاف';
+
+  @override
+  String get adminCreate => 'إنشاء';
+
+  @override
+  String get adminCurrency => 'العملة';
+
+  @override
+  String get adminCurrentLesson => 'الدرس الحالي';
+
+  @override
+  String get adminCustomStructure => 'مستويات خاصة بي';
+
+  @override
+  String get adminDelete => 'حذف';
+
+  @override
+  String get adminDeleteBlockBody => 'سيُحذف هذا المحتوى من الدرس.';
+
+  @override
+  String get adminDeleteLessonBody => 'سيُحذف الدرس ومحتواه وتقدّم الطلاب فيه.';
+
+  @override
+  String get adminDeleteNodeBody =>
+      'سيُحذف هذا الجزء وكل ما بداخله بما فيه الدروس.';
+
+  @override
+  String get adminDeleteQuestionBody => 'سيُحذف هذا السؤال من الاختبار.';
+
+  @override
+  String get adminDeleteTitle => 'حذف؟';
+
+  @override
+  String get adminDeleteUnitBody => 'ستُحذف الوحدة وكل ما بداخلها.';
+
+  @override
+  String get adminDescription => 'الوصف';
+
+  @override
+  String get adminDifficulty => 'المستوى';
+
+  @override
+  String get adminDraft => 'مسودة';
+
+  @override
+  String get adminEdit => 'تعديل';
+
+  @override
+  String get adminEditCourse => 'تعديل بيانات الدورة';
+
+  @override
+  String get adminEditQuestions => 'تعديل الأسئلة';
+
+  @override
+  String get adminEdition => 'الطبعة';
+
+  @override
+  String get adminEmptyLessonBody =>
+      'اضغط «إضافة محتوى» لكتابة نص أو إضافة آيات أو صور أو صوت أو اختبار.';
+
+  @override
+  String get adminEmptyLessonTitle => 'هذا الدرس فارغ';
+
+  @override
+  String get adminEstimatedHours => 'عدد الساعات التقريبي';
+
+  @override
+  String get adminExplanation => 'شرح يظهر بعد الإجابة';
+
+  @override
+  String get adminFalse => 'خطأ';
+
+  @override
+  String get adminFileUploaded => 'تم رفع الملف';
+
+  @override
+  String get adminFromBook => 'من كتاب';
+
+  @override
+  String get adminGradedQuiz => 'اختبار مُقيَّم';
+
+  @override
+  String get adminGradedQuizHint =>
+      'يُحتسب للطالب. يحتاج إلى الإنترنت وتبقى الإجابات مخفية.';
+
+  @override
+  String get adminGrantCourse => 'منح الوصول إلى دورة';
+
+  @override
+  String get adminHidden => 'مخفية عن الطلاب';
+
+  @override
+  String get adminLanguage => 'اللغة';
+
+  @override
+  String get adminLevel => 'المستوى';
+
+  @override
+  String get adminLevelHint => 'مثل: سورة، صفحة، فصل';
+
+  @override
+  String get adminLink => 'رابط';
+
+  @override
+  String get adminLinkBook => 'ربط كتاب';
+
+  @override
+  String get adminMakeRole => 'اجعله';
+
+  @override
+  String get adminMaxAttempts => 'عدد المحاولات';
+
+  @override
+  String get adminMinutes => 'الدقائق اللازمة';
+
+  @override
+  String get adminMoveDown => 'تحريك للأسفل';
+
+  @override
+  String get adminMoveUp => 'تحريك للأعلى';
+
+  @override
+  String get adminNeedsConnection => 'يحتاج هذا إلى اتصال بالإنترنت.';
+
+  @override
+  String get adminNeedsRevision => 'يحتاج مراجعة';
+
+  @override
+  String get adminNewBook => 'كتاب جديد';
+
+  @override
+  String get adminNewCourse => 'دورة جديدة';
+
+  @override
+  String get adminNoBook => 'ليس من كتاب';
+
+  @override
+  String get adminNoBooksBody =>
+      'أضف الكتب التي تُدرَّس منها دوراتك ثم اختر طريقة تنظيم كل كتاب.';
+
+  @override
+  String get adminNoBooksTitle => 'لا توجد كتب بعد';
+
+  @override
+  String get adminNoBooksToLink => 'كل الكتب مرتبطة. أضف كتبًا من تبويب الكتب.';
+
+  @override
+  String get adminNoCoursesBody => 'أنشئ أول دورة لبدء بناء المنهج.';
+
+  @override
+  String get adminNoCoursesTitle => 'لا توجد دورات بعد';
+
+  @override
+  String get adminNoLearnersBody => 'سيظهر هنا الطلاب المسجّلون في دوراتك.';
+
+  @override
+  String get adminNoLearnersTitle => 'لا يوجد طلاب بعد';
+
+  @override
+  String get adminNoQuestions => 'لا أسئلة بعد. اضغط «إضافة سؤال».';
+
+  @override
+  String get adminNoStructure => 'لم يُحدَّد التنظيم';
+
+  @override
+  String get adminNoUnit => 'بدون وحدة';
+
+  @override
+  String get adminNotAllowed => 'ليس لديك صلاحية لهذا.';
+
+  @override
+  String get adminOnePerLine => 'عنصر في كل سطر';
+
+  @override
+  String get adminOpenNextLesson => 'افتح الدرس التالي لهذا الطالب';
+
+  @override
+  String get adminOption => 'خيار';
+
+  @override
+  String get adminOptionsHint => 'ضع علامة على الإجابة الصحيحة:';
+
+  @override
+  String get adminOutlineHint =>
+      'أضف أقسامًا (مثل سورة أو صفحة أو فصل) ودروسًا بداخلها.';
+
+  @override
+  String get adminPageFrom => 'من صفحة';
+
+  @override
+  String get adminPageTo => 'إلى صفحة';
+
+  @override
+  String get adminPassMark => 'درجة النجاح';
+
+  @override
+  String get adminPassed => 'ناجح';
+
+  @override
+  String get adminPickCorrect => 'اختر إجابة صحيحة واحدة على الأقل.';
+
+  @override
+  String get adminPracticeQuizHint =>
+      'للتدريب. يعمل دون اتصال ويرى الطلاب الإجابات الصحيحة.';
+
+  @override
+  String get adminPreview => 'معاينة';
+
+  @override
+  String get adminPreviewAsLearner => 'عرضها كما يراها الطالب';
+
+  @override
+  String get adminPreviewLesson => 'معاينة مجانية';
+
+  @override
+  String get adminPreviewLessonHint => 'يستطيع كل طالب مسجّل فتحه دون انتظار';
+
+  @override
+  String get adminPrice => 'السعر';
+
+  @override
+  String get adminProgression => 'طريقة تقدّم الطلاب';
+
+  @override
+  String get adminProgressionOpen => 'كل الدروس مفتوحة';
+
+  @override
+  String get adminProgressionSequential => 'يُفتح الدرس التالي بعد الإنهاء';
+
+  @override
+  String get adminProgressionTeacher => 'المعلّم يفتح كل درس تالٍ';
+
+  @override
+  String get adminPublish => 'نشر';
+
+  @override
+  String get adminPublishCourse => 'منشورة';
+
+  @override
+  String get adminPublished => 'منشور';
+
+  @override
+  String get adminQMultiple => 'اختيار متعدد';
+
+  @override
+  String get adminQRecitation => 'تلاوة (تُقيَّم في الحلقة)';
+
+  @override
+  String get adminQShort => 'إجابة مكتوبة';
+
+  @override
+  String get adminQSingle => 'اختيار واحد';
+
+  @override
+  String get adminQTrueFalse => 'صح أو خطأ';
+
+  @override
+  String get adminQuestion => 'السؤال';
+
+  @override
+  String get adminQuestionType => 'نوع السؤال';
+
+  @override
+  String get adminReferenceLabel => 'المرجع الظاهر للطلاب';
+
+  @override
+  String get adminReferenceLabelHint => 'مثل: الفاتحة ١–٣، ص ١٢';
+
+  @override
+  String get adminRequired => 'مطلوب';
+
+  @override
+  String get adminReviewSaved => 'حُفظت المراجعة';
+
+  @override
+  String get adminReviewSavedUnlocked => 'حُفظت المراجعة وفُتح الدرس التالي';
+
+  @override
+  String get adminSave => 'حفظ';
+
+  @override
+  String get adminSaveReview => 'حفظ المراجعة';
+
+  @override
+  String get adminSaved => 'تم الحفظ';
+
+  @override
+  String get adminScore => 'الدرجة';
+
+  @override
+  String get adminSectionType => 'نوع القسم';
+
+  @override
+  String get adminSectionTypeHint => 'مثل: فصل، صفحة، موضوع';
+
+  @override
+  String get adminSetStructure => 'كيف يُنظَّم هذا الكتاب؟';
+
+  @override
+  String get adminSetStructureHint => 'اختر مستويات مثل سورة ← آية أو صفحة';
+
+  @override
+  String get adminSource => 'المصدر';
+
+  @override
+  String get adminStructureExplain =>
+      'اختر طريقة تقسيم الكتاب. توضع الدروس داخل أصغر جزء.';
+
+  @override
+  String get adminSubject => 'المادة';
+
+  @override
+  String get adminSubjectHint => 'مثل: القرآن، العقيدة، الفقه، العربية';
+
+  @override
+  String get adminSubtitle => 'وصف مختصر';
+
+  @override
+  String get adminSummary => 'ملخص قصير';
+
+  @override
+  String get adminSurah => 'رقم السورة';
+
+  @override
+  String get adminTabCourses => 'الدورات';
+
+  @override
+  String get adminTabLearners => 'الطلاب';
+
+  @override
+  String get adminTabPeople => 'الأشخاص';
+
+  @override
+  String get adminText => 'النص';
+
+  @override
+  String get adminTextHint => 'استخدم **غامق** و*مائل* وابدأ السطر بـ - للنقاط';
+
+  @override
+  String get adminThumbnail => 'صورة الدورة';
+
+  @override
+  String get adminTitle => 'العنوان';
+
+  @override
+  String get adminToneInfo => 'معلومة';
+
+  @override
+  String get adminToneNote => 'ملاحظة';
+
+  @override
+  String get adminToneWarning => 'مهم';
+
+  @override
+  String get adminTranscript => 'النص المكتوب (اختياري)';
+
+  @override
+  String get adminTranslator => 'المترجم';
+
+  @override
+  String get adminTrue => 'صح';
+
+  @override
+  String get adminUnitOptional => 'الوحدة';
+
+  @override
+  String get adminUnits => 'الوحدات';
+
+  @override
+  String get adminUnitsHint =>
+      'تقسّم الوحدات الدورة إلى مراحل كبرى، وهي اختيارية.';
+
+  @override
+  String get adminUnlimited => 'غير محدود';
+
+  @override
+  String get adminUnpublish => 'إخفاء عن الطلاب';
+
+  @override
+  String get adminVerseFrom => 'من آية';
+
+  @override
+  String get adminVerseTo => 'إلى آية';
+
+  @override
+  String get adminVisibleToLearners => 'ظاهرة للطلاب';
+
+  @override
+  String get adminWholeCourse => 'الدورة كاملة';
+
+  @override
+  String adminChangeRoleBody(String name) {
+    return 'تغيير دور $name؟ تتغيّر صلاحياته فورًا.';
+  }
 }

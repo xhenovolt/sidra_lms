@@ -391,4 +391,529 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get teacherFeedback => 'Teacher feedback';
+
+  @override
+  String get adminAccess => 'Who can join';
+
+  @override
+  String get adminAdd => 'Add';
+
+  @override
+  String get adminAddContent => 'Add content';
+
+  @override
+  String get adminAddLesson => 'Add lesson';
+
+  @override
+  String get adminAddLevel => 'Add level';
+
+  @override
+  String get adminAddOption => 'Add option';
+
+  @override
+  String get adminAddQuestion => 'Add question';
+
+  @override
+  String get adminAddSection => 'Add section';
+
+  @override
+  String get adminAddSubsection => 'Add part inside';
+
+  @override
+  String get adminAddUnit => 'Add unit';
+
+  @override
+  String get adminAllLearners => 'All learners';
+
+  @override
+  String get adminArabicText => 'Arabic text';
+
+  @override
+  String get adminAssignTeacher => 'Make teacher of a course';
+
+  @override
+  String get adminAuthor => 'Author';
+
+  @override
+  String get adminAwaitingReview => 'Waiting for your review';
+
+  @override
+  String get adminBlockAttachment => 'File';
+
+  @override
+  String get adminBlockAudio => 'Audio';
+
+  @override
+  String get adminBlockCallout => 'Highlight box';
+
+  @override
+  String get adminBlockDivider => 'Divider';
+
+  @override
+  String get adminBlockHeading => 'Heading';
+
+  @override
+  String get adminBlockImage => 'Picture';
+
+  @override
+  String get adminBlockQuiz => 'Quiz';
+
+  @override
+  String get adminBlockQuran => 'Quran text';
+
+  @override
+  String get adminBlockReference => 'Reference';
+
+  @override
+  String get adminBlockText => 'Text';
+
+  @override
+  String get adminBlockTranslation => 'Translation';
+
+  @override
+  String get adminBlockTransliteration => 'Transliteration';
+
+  @override
+  String get adminBlockVideo => 'Video';
+
+  @override
+  String get adminBook => 'Book';
+
+  @override
+  String get adminCancel => 'Cancel';
+
+  @override
+  String get adminCaption => 'Caption';
+
+  @override
+  String get adminChangeRoleTitle => 'Change role?';
+
+  @override
+  String get adminChapter => 'Chapter';
+
+  @override
+  String get adminChooseFile => 'Choose a file from this device';
+
+  @override
+  String get adminCitation => 'Citation';
+
+  @override
+  String get adminConfirm => 'Confirm';
+
+  @override
+  String get adminContent => 'Content';
+
+  @override
+  String get adminCopyright => 'Copyright / usage notes';
+
+  @override
+  String get adminCourseTitle => 'Course name';
+
+  @override
+  String get adminCover => 'Cover picture';
+
+  @override
+  String get adminCreate => 'Create';
+
+  @override
+  String get adminCurrency => 'Currency';
+
+  @override
+  String get adminCurrentLesson => 'Current lesson';
+
+  @override
+  String get adminCustomStructure => 'My own levels';
+
+  @override
+  String get adminDelete => 'Delete';
+
+  @override
+  String get adminDeleteBlockBody =>
+      'This content will be removed from the lesson.';
+
+  @override
+  String get adminDeleteLessonBody =>
+      'The lesson, its content and learners\' progress on it will be deleted.';
+
+  @override
+  String get adminDeleteNodeBody =>
+      'This part and everything inside it (including lessons) will be deleted.';
+
+  @override
+  String get adminDeleteQuestionBody =>
+      'This question will be removed from the quiz.';
+
+  @override
+  String get adminDeleteTitle => 'Delete?';
+
+  @override
+  String get adminDeleteUnitBody =>
+      'The unit and everything inside it will be deleted.';
+
+  @override
+  String get adminDescription => 'Description';
+
+  @override
+  String get adminDifficulty => 'Level';
+
+  @override
+  String get adminDraft => 'Draft';
+
+  @override
+  String get adminEdit => 'Edit';
+
+  @override
+  String get adminEditCourse => 'Edit course details';
+
+  @override
+  String get adminEditQuestions => 'Edit questions';
+
+  @override
+  String get adminEdition => 'Edition';
+
+  @override
+  String get adminEmptyLessonBody =>
+      'Tap “Add content” to write text, add Quran verses, pictures, audio or a quiz.';
+
+  @override
+  String get adminEmptyLessonTitle => 'This lesson is empty';
+
+  @override
+  String get adminEstimatedHours => 'Estimated hours';
+
+  @override
+  String get adminExplanation => 'Explanation shown after answering';
+
+  @override
+  String get adminFalse => 'False';
+
+  @override
+  String get adminFileUploaded => 'File uploaded';
+
+  @override
+  String get adminFromBook => 'Comes from book';
+
+  @override
+  String get adminGradedQuiz => 'Graded quiz';
+
+  @override
+  String get adminGradedQuizHint =>
+      'Counts for the learner. Needs internet; answers stay hidden.';
+
+  @override
+  String get adminGrantCourse => 'Give access to a course';
+
+  @override
+  String get adminHidden => 'Hidden from learners';
+
+  @override
+  String get adminLanguage => 'Language';
+
+  @override
+  String get adminLevel => 'Level';
+
+  @override
+  String get adminLevelHint => 'e.g. Surah, Page, Chapter';
+
+  @override
+  String get adminLink => 'Web link';
+
+  @override
+  String get adminLinkBook => 'Link a book';
+
+  @override
+  String get adminMakeRole => 'Make';
+
+  @override
+  String get adminMaxAttempts => 'Attempts allowed';
+
+  @override
+  String get adminMinutes => 'Minutes to complete';
+
+  @override
+  String get adminMoveDown => 'Move down';
+
+  @override
+  String get adminMoveUp => 'Move up';
+
+  @override
+  String get adminNeedsConnection => 'This needs an internet connection.';
+
+  @override
+  String get adminNeedsRevision => 'Needs revision';
+
+  @override
+  String get adminNewBook => 'New book';
+
+  @override
+  String get adminNewCourse => 'New course';
+
+  @override
+  String get adminNoBook => 'Not from a book';
+
+  @override
+  String get adminNoBooksBody =>
+      'Add the books your courses teach from, then choose how each book is organised.';
+
+  @override
+  String get adminNoBooksTitle => 'No books yet';
+
+  @override
+  String get adminNoBooksToLink =>
+      'All books are already linked. Add books in the Books tab.';
+
+  @override
+  String get adminNoCoursesBody =>
+      'Create your first course to start building the curriculum.';
+
+  @override
+  String get adminNoCoursesTitle => 'No courses yet';
+
+  @override
+  String get adminNoLearnersBody =>
+      'Learners enrolled in your courses will appear here.';
+
+  @override
+  String get adminNoLearnersTitle => 'No learners yet';
+
+  @override
+  String get adminNoQuestions => 'No questions yet. Tap “Add question”.';
+
+  @override
+  String get adminNoStructure => 'Organisation not set';
+
+  @override
+  String get adminNoUnit => 'No unit';
+
+  @override
+  String get adminNotAllowed => 'You don\'t have permission for this.';
+
+  @override
+  String get adminOnePerLine => 'One per line';
+
+  @override
+  String get adminOpenNextLesson => 'Open the next lesson for this learner';
+
+  @override
+  String get adminOption => 'Option';
+
+  @override
+  String get adminOptionsHint => 'Tick the correct answer(s):';
+
+  @override
+  String get adminOutlineHint =>
+      'Add sections (like a Surah, a page or a chapter) and lessons inside them.';
+
+  @override
+  String get adminPageFrom => 'Page from';
+
+  @override
+  String get adminPageTo => 'Page to';
+
+  @override
+  String get adminPassMark => 'Pass mark';
+
+  @override
+  String get adminPassed => 'Passed';
+
+  @override
+  String get adminPickCorrect => 'Tick at least one correct answer.';
+
+  @override
+  String get adminPracticeQuizHint =>
+      'For practice. Works offline; learners see correct answers.';
+
+  @override
+  String get adminPreview => 'Preview';
+
+  @override
+  String get adminPreviewAsLearner => 'See it as a learner';
+
+  @override
+  String get adminPreviewLesson => 'Free preview';
+
+  @override
+  String get adminPreviewLessonHint =>
+      'Every enrolled learner can open it without unlocking';
+
+  @override
+  String get adminPrice => 'Price';
+
+  @override
+  String get adminProgression => 'How learners move forward';
+
+  @override
+  String get adminProgressionOpen => 'All lessons open';
+
+  @override
+  String get adminProgressionSequential => 'Next lesson opens after finishing';
+
+  @override
+  String get adminProgressionTeacher => 'Teacher opens each next lesson';
+
+  @override
+  String get adminPublish => 'Publish';
+
+  @override
+  String get adminPublishCourse => 'Published';
+
+  @override
+  String get adminPublished => 'Published';
+
+  @override
+  String get adminQMultiple => 'Choose all that apply';
+
+  @override
+  String get adminQRecitation => 'Recitation (marked in class)';
+
+  @override
+  String get adminQShort => 'Written answer';
+
+  @override
+  String get adminQSingle => 'Choose one';
+
+  @override
+  String get adminQTrueFalse => 'True or false';
+
+  @override
+  String get adminQuestion => 'Question';
+
+  @override
+  String get adminQuestionType => 'Question type';
+
+  @override
+  String get adminReferenceLabel => 'Reference shown to learners';
+
+  @override
+  String get adminReferenceLabelHint => 'e.g. Al-Fatihah 1–3, p. 12';
+
+  @override
+  String get adminRequired => 'Required';
+
+  @override
+  String get adminReviewSaved => 'Review saved';
+
+  @override
+  String get adminReviewSavedUnlocked =>
+      'Review saved and the next lesson is open';
+
+  @override
+  String get adminSave => 'Save';
+
+  @override
+  String get adminSaveReview => 'Save review';
+
+  @override
+  String get adminSaved => 'Saved';
+
+  @override
+  String get adminScore => 'Score';
+
+  @override
+  String get adminSectionType => 'Kind of section';
+
+  @override
+  String get adminSectionTypeHint => 'e.g. Chapter, Page, Topic';
+
+  @override
+  String get adminSetStructure => 'How is this book organised?';
+
+  @override
+  String get adminSetStructureHint =>
+      'Choose levels such as Surah → Verse or Page';
+
+  @override
+  String get adminSource => 'Source';
+
+  @override
+  String get adminStructureExplain =>
+      'Pick how this book is divided. Lessons are placed inside the smallest part.';
+
+  @override
+  String get adminSubject => 'Subject';
+
+  @override
+  String get adminSubjectHint => 'e.g. Quran, Aqeedah, Fiqh, Arabic';
+
+  @override
+  String get adminSubtitle => 'Short tagline';
+
+  @override
+  String get adminSummary => 'Short summary';
+
+  @override
+  String get adminSurah => 'Surah no.';
+
+  @override
+  String get adminTabCourses => 'Courses';
+
+  @override
+  String get adminTabLearners => 'Learners';
+
+  @override
+  String get adminTabPeople => 'People';
+
+  @override
+  String get adminText => 'Text';
+
+  @override
+  String get adminTextHint =>
+      'Use **bold**, *italic*, and start lines with - for bullet points';
+
+  @override
+  String get adminThumbnail => 'Course picture';
+
+  @override
+  String get adminTitle => 'Title';
+
+  @override
+  String get adminToneInfo => 'Info';
+
+  @override
+  String get adminToneNote => 'Note';
+
+  @override
+  String get adminToneWarning => 'Important';
+
+  @override
+  String get adminTranscript => 'Transcript (optional)';
+
+  @override
+  String get adminTranslator => 'Translator';
+
+  @override
+  String get adminTrue => 'True';
+
+  @override
+  String get adminUnitOptional => 'Unit';
+
+  @override
+  String get adminUnits => 'Units';
+
+  @override
+  String get adminUnitsHint =>
+      'Units group your course into big steps. They are optional.';
+
+  @override
+  String get adminUnlimited => 'Unlimited';
+
+  @override
+  String get adminUnpublish => 'Hide from learners';
+
+  @override
+  String get adminVerseFrom => 'Verse from';
+
+  @override
+  String get adminVerseTo => 'Verse to';
+
+  @override
+  String get adminVisibleToLearners => 'Visible to learners';
+
+  @override
+  String get adminWholeCourse => 'Whole course';
+
+  @override
+  String adminChangeRoleBody(String name) {
+    return 'Change the role of $name? Their permissions change immediately.';
+  }
 }

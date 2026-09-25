@@ -5,7 +5,13 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/domain/auth_session.dart';
 import '../../features/auth/presentation/auth_providers.dart';
 import '../../features/auth/presentation/sign_in_screen.dart';
+import '../../features/admin/presentation/assessment_editor_screen.dart';
+import '../../features/admin/presentation/course_builder_screen.dart';
+import '../../features/admin/presentation/courses_tab.dart';
+import '../../features/admin/presentation/lesson_editor_screen.dart';
+import '../../features/admin/presentation/teach_screen.dart';
 import '../../features/assessments/presentation/quiz_screen.dart';
+import '../../features/curriculum/domain/curriculum_models.dart';
 import '../../features/courses/presentation/course_detail_screen.dart';
 import '../../features/courses/presentation/tab_screens.dart';
 import '../../features/lessons/presentation/lesson_screen.dart';
@@ -59,6 +65,32 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, state) => LessonScreen(
           courseId: state.pathParameters['courseId']!,
           lessonId: state.pathParameters['lessonId']!,
+        ),
+      ),
+      // Teacher & admin console (screens re-check the role; Postgres enforces).
+      GoRoute(path: Routes.teach, builder: (_, _) => const TeachScreen()),
+      GoRoute(
+        path: '/teach/courses/new',
+        builder: (_, _) => const CourseFormScreen(),
+      ),
+      GoRoute(
+        path: '/teach/courses/:courseId',
+        builder: (_, state) =>
+            CourseBuilderScreen(courseId: state.pathParameters['courseId']!),
+      ),
+      GoRoute(
+        path: '/teach/courses/:courseId/edit',
+        builder: (_, state) => CourseFormScreen(course: state.extra as Course?),
+      ),
+      GoRoute(
+        path: '/teach/lessons/:lessonId',
+        builder: (_, state) =>
+            LessonEditorScreen(lessonId: state.pathParameters['lessonId']!),
+      ),
+      GoRoute(
+        path: '/teach/assessments/:assessmentId',
+        builder: (_, state) => AssessmentEditorScreen(
+          assessmentId: state.pathParameters['assessmentId']!,
         ),
       ),
       GoRoute(
