@@ -2245,6 +2245,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete “{title}” permanently, with all its lessons, enrolments and learner progress? This cannot be undone. To only hide it, switch Published off instead.'**
   String adminDeleteCourseBody(String title);
+
+  /// No description provided for @navMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get navMore;
+
+  /// No description provided for @navDashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get navDashboard;
+
+  /// No description provided for @moreBrowseCatalogue.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse the catalogue'**
+  String get moreBrowseCatalogue;
+
+  /// No description provided for @moreBrowseCatalogueHint.
+  ///
+  /// In en, this message translates to:
+  /// **'See published courses as learners see them'**
+  String get moreBrowseCatalogueHint;
 }
 
 class _AppLocalizationsDelegate

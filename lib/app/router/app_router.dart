@@ -2,26 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/admin/presentation/assessment_editor_screen.dart';
+import '../../features/admin/presentation/books_people_tabs.dart';
+import '../../features/admin/presentation/course_builder_screen.dart';
+import '../../features/admin/presentation/courses_tab.dart';
+import '../../features/admin/presentation/learners_tab.dart';
+import '../../features/admin/presentation/lesson_editor_screen.dart';
+import '../../features/admin/presentation/people_tab.dart';
+import '../../features/admin/presentation/staff_pages.dart';
+import '../../features/assessments/presentation/quiz_screen.dart';
 import '../../features/auth/domain/auth_session.dart';
 import '../../features/auth/presentation/auth_providers.dart';
 import '../../features/auth/presentation/change_password_screen.dart';
 import '../../features/auth/presentation/sign_in_screen.dart';
 import '../../features/auth/presentation/sign_up_screen.dart';
-import '../../features/admin/presentation/assessment_editor_screen.dart';
-import '../../features/admin/presentation/course_builder_screen.dart';
-import '../../features/admin/presentation/courses_tab.dart';
-import '../../features/admin/presentation/lesson_editor_screen.dart';
-import '../../features/admin/presentation/teach_screen.dart';
-import '../../features/assessments/presentation/quiz_screen.dart';
-import '../../features/curriculum/domain/curriculum_models.dart';
 import '../../features/courses/presentation/course_detail_screen.dart';
 import '../../features/courses/presentation/tab_screens.dart';
-import '../../features/lessons/presentation/lesson_screen.dart';
+import '../../features/curriculum/domain/curriculum_models.dart';
 import '../../features/downloads/presentation/downloads_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
+import '../../features/lessons/presentation/lesson_screen.dart';
 import '../../features/onboarding/data/onboarding_controller.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
+import '../../l10n/app_localizations.dart';
 import '../../shared/widgets/state_views.dart';
 import 'app_shell.dart';
 import 'routes.dart';
@@ -29,6 +33,13 @@ import 'routes.dart';
 final routerProvider = Provider<GoRouter>((ref) {
   final auth = ref.watch(authServiceProvider);
   final onboarding = ref.watch(onboardingControllerProvider);
+
+  Widget titled(String Function(AppLocalizations) title, Widget child) =>
+      Builder(
+        builder: (context) =>
+            StaffPage(title: title(AppLocalizations.of(context)), child: child),
+      );
+
   final router = GoRouter(
     initialLocation: Routes.home,
     refreshListenable: Listenable.merge([auth, onboarding]),
@@ -37,6 +48,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       state.matchedLocation,
       onboarded: onboarding.completed,
       mustChangePassword: auth.session.user?.mustChangePassword ?? false,
+      role: auth.session.user?.role,
     ),
     routes: [
       GoRoute(
@@ -55,8 +67,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           forced: auth.session.user?.mustChangePassword ?? false,
         ),
       ),
+
+      // ------------------------------------------------ learner navigation
       StatefulShellRoute.indexedStack(
-        builder: (_, _, shell) => AppShell(shell: shell),
+        builder: (_, _, shell) => AppShell(shell: shell, items: learnerNav),
         branches: [
           _branch(Routes.home, const HomeScreen()),
           _branch(Routes.myLearning, const MyLearningScreen()),
@@ -65,6 +79,56 @@ final routerProvider = Provider<GoRouter>((ref) {
           _branch(Routes.profile, const ProfileScreen()),
         ],
       ),
+
+      // ------------------------------------------------ teacher navigation
+      StatefulShellRoute.indexedStack(
+        builder: (_, _, shell) => AppShell(shell: shell, items: teacherNav),
+        branches: [
+          _branch(
+            Routes.teacherLearners,
+            titled((l) => l.adminTabLearners, const LearnersTab()),
+          ),
+          _branch(
+            Routes.teacherCourses,
+            titled(
+              (l) => l.adminTabCourses,
+              const CoursesTab(canCreate: false),
+            ),
+          ),
+          _branch(Routes.teacherMore, const StaffMoreScreen()),
+        ],
+      ),
+
+      // -------------------------------------------------- admin navigation
+      StatefulShellRoute.indexedStack(
+        builder: (_, _, shell) => AppShell(shell: shell, items: adminNav),
+        branches: [
+          _branch(
+            Routes.adminDashboard,
+            titled((l) => l.navDashboard, const OverviewTab()),
+          ),
+          _branch(
+            Routes.adminLearners,
+            titled((l) => l.adminTabLearners, const LearnersTab()),
+          ),
+          _branch(
+            Routes.adminCourses,
+            titled((l) => l.adminTabCourses, const CoursesTab(canCreate: true)),
+          ),
+          _branch(
+            Routes.adminPeople,
+            titled((l) => l.adminTabPeople, const PeopleTab()),
+          ),
+          _branch(Routes.adminMore, const StaffMoreScreen()),
+        ],
+      ),
+      GoRoute(
+        path: Routes.adminBooks,
+        builder: (_, _) => titled((l) => l.booksTitle, const BooksTab()),
+      ),
+      GoRoute(path: Routes.catalogue, builder: (_, _) => const ExploreScreen()),
+
+      // --------------------------------------------------- shared screens
       GoRoute(
         path: Routes.course,
         builder: (_, state) =>
@@ -77,8 +141,13 @@ final routerProvider = Provider<GoRouter>((ref) {
           lessonId: state.pathParameters['lessonId']!,
         ),
       ),
-      // Teacher & admin console (screens re-check the role; Postgres enforces).
-      GoRoute(path: Routes.teach, builder: (_, _) => const TeachScreen()),
+      GoRoute(
+        path: Routes.quizPath,
+        builder: (_, state) =>
+            QuizScreen(assessmentId: state.pathParameters['assessmentId']!),
+      ),
+
+      // ------------------------------------------- staff editing screens
       GoRoute(
         path: '/teach/courses/new',
         builder: (_, _) => const CourseFormScreen(),
@@ -103,11 +172,6 @@ final routerProvider = Provider<GoRouter>((ref) {
           assessmentId: state.pathParameters['assessmentId']!,
         ),
       ),
-      GoRoute(
-        path: Routes.quizPath,
-        builder: (_, state) =>
-            QuizScreen(assessmentId: state.pathParameters['assessmentId']!),
-      ),
     ],
   );
   ref.onDispose(router.dispose);
@@ -118,16 +182,29 @@ StatefulShellBranch _branch(String path, Widget screen) => StatefulShellBranch(
   routes: [GoRoute(path: path, builder: (_, _) => screen)],
 );
 
+/// Which roles may open a location (navigation RBAC). PostgreSQL still
+/// authorises every action; this keeps each role in its own app.
+bool roleAllows(String? role, String location) {
+  final staff = role == 'teacher' || role == 'admin';
+  if (location.startsWith('/admin/')) return role == 'admin';
+  if (location.startsWith('/teacher/')) return role == 'teacher';
+  if (location.startsWith('/teach/')) return staff;
+  if (location == Routes.catalogue) return staff;
+  if (Routes.learnerTabs.contains(location)) return !staff;
+  return true; // shared: course/lesson/quiz views, change password
+}
+
 /// Pure redirect rule, unit-tested in isolation.
 ///
-/// Order: restore session → first-launch onboarding → sign-in/up → app.
-/// Signed-in learners never see onboarding again; a learner whose password
-/// was reset by staff must choose a new one before anything else.
+/// Order: restore session → first-launch onboarding → sign-in/up → the
+/// signed-in person's own home (by role). A person whose password was
+/// reset by staff must choose a new one before anything else.
 String? authRedirect(
   AuthStatus status,
   String location, {
   required bool onboarded,
   bool mustChangePassword = false,
+  String? role,
 }) {
   String? to(String target) => location == target ? null : target;
   return switch (status) {
@@ -141,8 +218,8 @@ String? authRedirect(
     AuthStatus.signedIn =>
       mustChangePassword
           ? to(Routes.changePassword)
-          : Routes.public.contains(location)
-          ? Routes.home
+          : Routes.public.contains(location) || !roleAllows(role, location)
+          ? Routes.homeFor(role)
           : null,
   };
 }

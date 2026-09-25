@@ -1165,4 +1165,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String adminDeleteCourseBody(String title) {
     return 'حذف «$title» نهائيًا مع كل دروسه وتسجيلاته وتقدّم طلابه؟ لا يمكن التراجع. لإخفائها فقط، أوقف النشر بدلًا من ذلك.';
   }
+
+  @override
+  String get navMore => 'المزيد';
+
+  @override
+  String get navDashboard => 'لوحة التحكم';
+
+  @override
+  String get moreBrowseCatalogue => 'تصفّح الدورات';
+
+  @override
+  String get moreBrowseCatalogueHint =>
+      'اطّلع على الدورات المنشورة كما يراها الطلاب';
 }

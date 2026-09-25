@@ -18,6 +18,7 @@ class AppUser {
     this.phone,
     this.imageUrl,
     this.role = 'learner',
+    this.isSuperadmin = false,
     this.mustChangePassword = false,
   });
 
@@ -28,6 +29,7 @@ class AppUser {
     phone: j['phone'] as String?,
     imageUrl: j['avatar_url'] as String?,
     role: (j['role'] as String?) ?? 'learner',
+    isSuperadmin: (j['is_superadmin'] as bool?) ?? false,
     mustChangePassword: (j['must_change_password'] as bool?) ?? false,
   );
 
@@ -37,7 +39,17 @@ class AppUser {
   final String? email;
   final String? phone;
   final String? imageUrl;
+
+  /// learner | teacher | admin. Decides the navigation (RBAC); every action
+  /// is still authorised by PostgreSQL.
   final String role;
+
+  /// Admin who can also manage other administrators.
+  final bool isSuperadmin;
+
+  bool get isLearner => role != 'teacher' && role != 'admin';
+  bool get isTeacher => role == 'teacher';
+  bool get isAdmin => role == 'admin';
 
   /// Set after a teacher/admin reset: the learner must pick a new password.
   final bool mustChangePassword;
@@ -58,6 +70,7 @@ class AppUser {
     'phone': phone,
     'avatar_url': imageUrl,
     'role': role,
+    'is_superadmin': isSuperadmin,
     'must_change_password': mustChangePassword,
   };
 
@@ -70,6 +83,7 @@ class AppUser {
       other.phone == phone &&
       other.imageUrl == imageUrl &&
       other.role == role &&
+      other.isSuperadmin == isSuperadmin &&
       other.mustChangePassword == mustChangePassword;
 
   @override
@@ -80,6 +94,7 @@ class AppUser {
     phone,
     imageUrl,
     role,
+    isSuperadmin,
     mustChangePassword,
   );
 }

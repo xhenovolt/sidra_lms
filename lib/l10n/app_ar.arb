@@ -357,5 +357,9 @@
   "adminEnrolWithdrawn": "منسحب",
   "adminEnrolPending": "قيد الانتظار",
   "adminDeleteCourse": "حذف الدورة",
-  "adminDeleteCourseBody": "حذف «{title}» نهائيًا مع كل دروسه وتسجيلاته وتقدّم طلابه؟ لا يمكن التراجع. لإخفائها فقط، أوقف النشر بدلًا من ذلك."
+  "adminDeleteCourseBody": "حذف «{title}» نهائيًا مع كل دروسه وتسجيلاته وتقدّم طلابه؟ لا يمكن التراجع. لإخفائها فقط، أوقف النشر بدلًا من ذلك.",
+  "navMore": "المزيد",
+  "navDashboard": "لوحة التحكم",
+  "moreBrowseCatalogue": "تصفّح الدورات",
+  "moreBrowseCatalogueHint": "اطّلع على الدورات المنشورة كما يراها الطلاب"
 }

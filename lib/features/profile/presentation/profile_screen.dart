@@ -78,20 +78,6 @@ class ProfileScreen extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: Space.xl),
-          if (profile?.isStaff ?? false) ...[
-            Card(
-              child: ListTile(
-                leading: Icon(
-                  Icons.school_outlined,
-                  color: theme.colorScheme.primary,
-                ),
-                title: Text(l10n.teacherConsole),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => context.push(Routes.teach),
-              ),
-            ),
-            const SizedBox(height: Space.md),
-          ],
           if (sync != null && !sync.isClean)
             ListTile(
               contentPadding: EdgeInsets.zero,

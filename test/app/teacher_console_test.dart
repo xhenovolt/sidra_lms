@@ -69,34 +69,93 @@ FakePostgresApi staffServer(String role) {
   return api;
 }
 
-Future<void> openConsole(WidgetTester tester, FakePostgresApi api) async {
+/// Signs in as [role] (learner | teacher | admin | superadmin) and lands on
+/// that role's own home.
+Future<void> signInAs(
+  WidgetTester tester,
+  String role, {
+  FakePostgresApi? api,
+}) async {
   await tester.pumpWidget(
     await buildTestApp(
-      FakeAuthService(const AuthSession.signedIn(testUser)),
-      api: api,
+      FakeAuthService(
+        AuthSession.signedIn(
+          AppUser(
+            id: 'u1',
+            displayName: 'Hamuza Ibrahim',
+            role: role == 'superadmin' ? 'admin' : role,
+            isSuperadmin: role == 'superadmin',
+          ),
+        ),
+      ),
+      api: api ?? staffServer(role),
     ),
   );
   await tester.pumpAndSettle();
-  final context = tester.element(find.byType(NavigationBar));
-  GoRouter.of(context).push('/teach');
-  await tester.pumpAndSettle();
 }
 
+List<String> navLabels(WidgetTester tester) => [
+  for (final d in tester.widgetList<NavigationDestination>(
+    find.byType(NavigationDestination),
+  ))
+    d.label,
+];
+
 void main() {
-  testWidgets('learners cannot use the console', (tester) async {
-    await openConsole(tester, staffServer('learner'));
-    expect(find.text("You don't have permission for this."), findsOneWidget);
+  testWidgets('each role gets its own navigation', (tester) async {
+    await signInAs(tester, 'learner');
+    expect(navLabels(tester), [
+      'Home',
+      'My Learning',
+      'Explore',
+      'Downloads',
+      'Profile',
+    ]);
+
+    await signInAs(tester, 'teacher');
+    expect(navLabels(tester), ['Learners', 'Courses', 'More']);
+
+    await signInAs(tester, 'admin');
+    expect(navLabels(tester), [
+      'Dashboard',
+      'Learners',
+      'Courses',
+      'People',
+      'More',
+    ]);
+  });
+
+  testWidgets('a learner cannot open staff pages', (tester) async {
+    await signInAs(tester, 'learner');
+    final context = tester.element(find.byType(NavigationBar));
+    GoRouter.of(context).go('/admin/people');
+    await tester.pumpAndSettle();
+    expect(navLabels(tester), contains('Home'));
+    expect(find.text('Add person'), findsNothing);
+  });
+
+  testWidgets('More holds account, books and sign out for admins', (
+    tester,
+  ) async {
+    await signInAs(tester, 'admin');
+    await tester.tap(find.text('More'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Administrator'), findsOneWidget);
+    expect(find.text('Books'), findsOneWidget);
+    expect(find.text('Browse the catalogue'), findsOneWidget);
+    expect(find.text('Change password'), findsOneWidget);
+    expect(find.text('Sign out'), findsOneWidget);
   });
 
   testWidgets('teacher reviews a learner and opens the next lesson', (
     tester,
   ) async {
     final api = staffServer('teacher');
-    await openConsole(tester, api);
+    await signInAs(tester, 'teacher', api: api);
 
     expect(find.text('Waiting for your review'), findsOneWidget);
     expect(find.text('Bilal'), findsOneWidget);
-    expect(find.text('Books'), findsNothing, reason: 'admin-only tab');
+    expect(find.text('People'), findsNothing, reason: 'admin-only');
 
     await tester.tap(find.text('Bilal'));
     await tester.pumpAndSettle();
@@ -113,19 +172,18 @@ void main() {
     expect(call.$2['p_feedback'], 'Beautiful tajweed');
   });
 
-  testWidgets('admin sees overview, books and people', (tester) async {
-    await openConsole(tester, staffServer('admin'));
-    expect(find.text('Overview'), findsOneWidget);
+  testWidgets('admin lands on the dashboard with live numbers', (tester) async {
+    await signInAs(tester, 'admin');
+    expect(find.text('Dashboard'), findsWidgets);
     expect(find.text('12'), findsOneWidget); // learners stat
-    expect(find.text('Books'), findsOneWidget);
-    expect(find.text('People'), findsOneWidget);
+    expect(find.text('Home'), findsNothing, reason: 'admins are not learners');
   });
 
   testWidgets('superadmin adds a teacher and gets a temporary password', (
     tester,
   ) async {
     final api = staffServer('superadmin');
-    await openConsole(tester, api);
+    await signInAs(tester, 'superadmin', api: api);
     await tester.tap(find.text('People'));
     await tester.pumpAndSettle();
     expect(find.text('Hamuza Ibrahim'), findsOneWidget);

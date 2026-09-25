@@ -132,5 +132,43 @@ void main() {
         isNull,
       );
     });
+
+    test('each role starts on its own home', () {
+      for (final (role, home) in [
+        ('learner', Routes.home),
+        ('teacher', Routes.teacherLearners),
+        ('admin', Routes.adminDashboard),
+      ]) {
+        expect(
+          authRedirect(
+            AuthStatus.signedIn,
+            Routes.signIn,
+            onboarded: true,
+            role: role,
+          ),
+          home,
+          reason: role,
+        );
+      }
+    });
+
+    test('navigation RBAC: no crossing between learner and staff areas', () {
+      String? go(String role, String path) =>
+          authRedirect(AuthStatus.signedIn, path, onboarded: true, role: role);
+      expect(go('learner', Routes.adminPeople), Routes.home);
+      expect(go('learner', '/teach/courses/new'), Routes.home);
+      expect(go('learner', Routes.teacherLearners), Routes.home);
+      expect(go('teacher', Routes.adminPeople), Routes.teacherLearners);
+      expect(go('teacher', Routes.home), Routes.teacherLearners);
+      expect(go('teacher', '/teach/courses/c1'), isNull);
+      expect(go('admin', Routes.explore), Routes.adminDashboard);
+      expect(go('admin', Routes.teacherMore), Routes.adminDashboard);
+      expect(go('admin', Routes.adminBooks), isNull);
+      // Shared screens stay reachable (course preview, lessons, password).
+      for (final role in ['learner', 'teacher', 'admin']) {
+        expect(go(role, Routes.courseDetail('c1')), isNull, reason: role);
+        expect(go(role, Routes.changePassword), isNull, reason: role);
+      }
+    });
   });
 }

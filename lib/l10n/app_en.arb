@@ -451,5 +451,9 @@
         "type": "String"
       }
     }
-  }
+  },
+  "navMore": "More",
+  "navDashboard": "Dashboard",
+  "moreBrowseCatalogue": "Browse the catalogue",
+  "moreBrowseCatalogueHint": "See published courses as learners see them"
 }

@@ -1184,4 +1184,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String adminDeleteCourseBody(String title) {
     return 'Delete “$title” permanently, with all its lessons, enrolments and learner progress? This cannot be undone. To only hide it, switch Published off instead.';
   }
+
+  @override
+  String get navMore => 'More';
+
+  @override
+  String get navDashboard => 'Dashboard';
+
+  @override
+  String get moreBrowseCatalogue => 'Browse the catalogue';
+
+  @override
+  String get moreBrowseCatalogueHint =>
+      'See published courses as learners see them';
 }
