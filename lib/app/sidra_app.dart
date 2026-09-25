@@ -1,4 +1,3 @@
-import 'package:clerk_flutter/clerk_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,11 +6,9 @@ import '../core/theme/app_theme.dart';
 import '../l10n/app_localizations.dart';
 import 'router/app_router.dart';
 
-/// Root widget. [clerk] is null only in tests that fake [AuthService].
+/// Root widget.
 class SidraApp extends ConsumerWidget {
-  const SidraApp({super.key, this.clerk, this.locale});
-
-  final ClerkAuthState? clerk;
+  const SidraApp({super.key, this.locale});
 
   /// Forces a locale (tests / future in-app language switch). When null the
   /// device locale is used, falling back to English.
@@ -34,12 +31,6 @@ class SidraApp extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       routerConfig: router,
-      builder: (context, child) => clerk == null
-          ? child!
-          : ClerkAuth(
-              authState: clerk,
-              child: ClerkErrorListener(child: child!),
-            ),
     );
   }
 }

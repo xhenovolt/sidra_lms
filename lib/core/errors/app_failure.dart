@@ -28,6 +28,14 @@ class UnauthenticatedFailure extends AppFailure {
   const UnauthenticatedFailure([super.message = 'Not signed in']);
 }
 
+/// Sign-in/sign-up refused by the auth service. [code] is one of:
+/// invalid_credentials, identifier_taken, weak_password, invalid_identifier,
+/// name_required, same_password, locked, disabled, invalid_token.
+class AuthFailure extends AppFailure {
+  const AuthFailure(this.code) : super(code);
+  final String code;
+}
+
 /// Authenticated but not permitted (HTTP 403 / RLS denial).
 class ForbiddenFailure extends AppFailure {
   const ForbiddenFailure([super.message = 'Not permitted']);

@@ -114,7 +114,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signInSubtitle =>
-      'Sign in or create an account to continue your studies.';
+      'Sign in with your phone number or email to continue your studies.';
 
   @override
   String get retry => 'Try again';
@@ -167,7 +167,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get signInUnavailableDevHint =>
-      'Developer: add these to .env, then run  dart run tool/gen_config.dart';
+      'Developer: add AUTH_URL to .env, then run  dart run tool/gen_config.dart';
 
   @override
   String get accessFree => 'Free';
@@ -916,4 +916,143 @@ class AppLocalizationsEn extends AppLocalizations {
   String adminChangeRoleBody(String name) {
     return 'Change the role of $name? Their permissions change immediately.';
   }
+
+  @override
+  String get authPhone => 'Phone';
+
+  @override
+  String get authEmail => 'Email';
+
+  @override
+  String get authPhoneLabel => 'Phone number';
+
+  @override
+  String get authPhoneHint =>
+      'Include your country code, e.g. +256 700 123 456';
+
+  @override
+  String get authEmailLabel => 'Email address';
+
+  @override
+  String get authPassword => 'Password';
+
+  @override
+  String get authConfirmPassword => 'Confirm password';
+
+  @override
+  String get authFullName => 'Full name';
+
+  @override
+  String get authShowPassword => 'Show password';
+
+  @override
+  String get authHidePassword => 'Hide password';
+
+  @override
+  String get authSignIn => 'Sign in';
+
+  @override
+  String get authSignUp => 'Create account';
+
+  @override
+  String get authNoAccount => 'New to Sidra? Create an account';
+
+  @override
+  String get authHaveAccount => 'Already have an account? Sign in';
+
+  @override
+  String get authSignUpTitle => 'Create your account';
+
+  @override
+  String get authSignUpSubtitle =>
+      'Use your phone number or email. You will sign in with it and your password.';
+
+  @override
+  String get authForgot => 'Forgot your password?';
+
+  @override
+  String get authForgotBody =>
+      'Ask your teacher or Almuntahha to reset it. You will get a temporary password and choose a new one when you sign in.';
+
+  @override
+  String get authChangePasswordTitle => 'Choose a new password';
+
+  @override
+  String get authChangePasswordForced =>
+      'Your password was reset. Please choose a new one to continue.';
+
+  @override
+  String get authCurrentPassword => 'Current (or temporary) password';
+
+  @override
+  String get authNewPassword => 'New password';
+
+  @override
+  String get authSavePassword => 'Save password';
+
+  @override
+  String get authPasswordChanged => 'Password changed';
+
+  @override
+  String get authChangePassword => 'Change password';
+
+  @override
+  String get authRequired => 'Required';
+
+  @override
+  String get authPasswordRule => 'At least 8 characters';
+
+  @override
+  String get authPasswordsDiffer => 'Passwords do not match';
+
+  @override
+  String get authPhoneInvalid => 'Start with + and your country code';
+
+  @override
+  String get authEmailInvalid => 'Enter a valid email address';
+
+  @override
+  String get authErrorInvalidCredentials =>
+      'That phone/email and password don\'t match.';
+
+  @override
+  String get authErrorTaken =>
+      'An account already exists with this phone/email. Try signing in.';
+
+  @override
+  String get authErrorWeak => 'Password must be at least 8 characters.';
+
+  @override
+  String get authErrorIdentifier =>
+      'Check the phone number (with country code) or email.';
+
+  @override
+  String get authErrorLocked =>
+      'Too many attempts. Please wait 15 minutes and try again.';
+
+  @override
+  String get authErrorDisabled =>
+      'This account is disabled. Contact Almuntahha.';
+
+  @override
+  String get authErrorSamePassword =>
+      'Choose a password different from the current one.';
+
+  @override
+  String get authErrorOffline =>
+      'No connection. Check your internet and try again.';
+
+  @override
+  String get adminResetPassword => 'Reset password';
+
+  @override
+  String get adminResetPasswordBody =>
+      'Give this temporary password to the learner. They must choose a new one when they sign in.';
+
+  @override
+  String get adminTemporaryPassword => 'Temporary password';
+
+  @override
+  String get adminPasswordReset =>
+      'Password reset. Share the temporary password with the learner.';
 }

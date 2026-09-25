@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sidra_lms/app/sidra_app.dart';
+import 'package:sidra_lms/core/config/app_config.dart';
+import 'package:sidra_lms/core/providers.dart';
 import 'package:sidra_lms/core/data/data_providers.dart';
 import 'package:sidra_lms/features/auth/presentation/auth_providers.dart';
 import 'package:sidra_lms/features/onboarding/data/onboarding_controller.dart';
@@ -16,6 +18,7 @@ Future<Widget> buildTestApp(
   Locale? locale,
   bool onboarded = true,
   FakePostgresApi? api,
+  bool authConfigured = false,
 }) async {
   SharedPreferences.setMockInitialValues({
     if (onboarded) 'onboarding_completed_v1': true,
@@ -26,6 +29,15 @@ Future<Widget> buildTestApp(
   return ProviderScope(
     overrides: [
       authServiceProvider.overrideWithValue(auth),
+      if (authConfigured)
+        appConfigProvider.overrideWithValue(
+          const AppConfig(
+            environment: 'test',
+            neonDataApiUrl: 'https://db.test',
+            authUrl: 'https://auth.test',
+            cloudinaryCloudName: 'demo',
+          ),
+        ),
       sharedPreferencesProvider.overrideWithValue(prefs),
       postgresApiProvider.overrideWithValue(server),
       localDatabaseProvider.overrideWith((ref) async => db),

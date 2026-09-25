@@ -88,5 +88,49 @@ void main() {
         );
       }
     });
+
+    test('sign-up is reachable when signed out', () {
+      expect(
+        authRedirect(AuthStatus.signedOut, Routes.signUp, onboarded: true),
+        isNull,
+      );
+      expect(
+        authRedirect(AuthStatus.signedIn, Routes.signUp, onboarded: true),
+        Routes.home,
+      );
+    });
+
+    test('a staff-reset password must be changed first', () {
+      for (final path in [Routes.home, Routes.explore, Routes.signIn]) {
+        expect(
+          authRedirect(
+            AuthStatus.signedIn,
+            path,
+            onboarded: true,
+            mustChangePassword: true,
+          ),
+          Routes.changePassword,
+          reason: path,
+        );
+      }
+      expect(
+        authRedirect(
+          AuthStatus.signedIn,
+          Routes.changePassword,
+          onboarded: true,
+          mustChangePassword: true,
+        ),
+        isNull,
+      );
+      // Voluntary change from Profile is allowed.
+      expect(
+        authRedirect(
+          AuthStatus.signedIn,
+          Routes.changePassword,
+          onboarded: true,
+        ),
+        isNull,
+      );
+    });
   });
 }

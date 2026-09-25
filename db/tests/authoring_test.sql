@@ -80,9 +80,9 @@ select pg_temp.expect_error($q$
   'row-level security');
 select pg_temp.expect_error($q$
   update users set display_name = 'Aisha Updated', role = 'admin'
-  where clerk_user_id = 'learner_a'$q$, 'permission denied');
-update users set display_name = 'Aisha Updated' where clerk_user_id = 'learner_a';
-select pg_temp.check((select display_name from users where clerk_user_id = 'learner_a')
+  where auth_subject = 'learner_a'$q$, 'permission denied');
+update users set display_name = 'Aisha Updated' where auth_subject = 'learner_a';
+select pg_temp.check((select display_name from users where auth_subject = 'learner_a')
   = 'Aisha Updated', 'learner can edit own display name');
 reset role;
 

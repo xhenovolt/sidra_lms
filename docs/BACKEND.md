@@ -5,8 +5,9 @@ functions and Row Level Security in `db/migrations/`. There is no separate
 API server.
 
 ```
-Flutter app ──HTTPS + Clerk JWT──▶ Neon Data API ──▶ PostgreSQL 17
-                                    (validates JWT)    RLS + SQL functions
+Flutter app ──phone/email + password──▶ auth service (Cloudflare Worker) ──▶ auth_api.* (bcrypt, lockout)
+            ◀── access JWT (15 min) + refresh token (60 days, rotating)
+Flutter app ──HTTPS + JWT──▶ Neon Data API (checks JWKS) ──▶ PostgreSQL 17: RLS + SQL functions
 dev tools (tool/db.dart) ──postgres wire + owner password (.env)──▶ same DB
 ```
 
@@ -17,9 +18,9 @@ APK can be extracted in minutes. Whoever holds that password bypasses every
 rule: they can unlock their own lessons, grant themselves paid courses and
 read every learner's data.
 
-Instead, each learner calls the database with their own short-lived Clerk
-token. Postgres sees them as the `authenticated` role, and `auth.user_id()`
-(from `pg_session_jwt`) returns their Clerk user id. RLS policies and
+Instead, each learner calls the database with their own short-lived Sidra
+access token (issued by the auth service after Postgres verifies the password). Postgres sees them as the `authenticated` role, and `auth.user_id()`
+(from `pg_session_jwt`) returns their Sidra user id. RLS policies and
 `SECURITY DEFINER` functions then decide what that one learner may do.
 
 The owner connection string lives only in `.env` on developer machines and
@@ -38,6 +39,8 @@ is used by `tool/db.dart` for migrations and admin bootstrap.
 | `db/migrations/0007_identity_definer.sql` | identity helper runs as owner (the `authenticated` role cannot read the `auth` schema on Neon) |
 | `db/migrations/0008_performance_indexes.sql` | indexes behind every per-row RLS check |
 | `db/tests/access_test.sql` | about 50 security and business-rule checks |
+| `db/migrations/0009_own_auth.sql` | own authentication: credentials, lockout, rotating refresh tokens, staff resets, `auth_api` |
+| `db/tests/auth_test.sql` | authentication rules (71 statements) |
 | `db/tests/authoring_test.sql` | console permissions: teacher vs editor vs admin, learner uploads |
 
 ## Commands
@@ -46,7 +49,8 @@ is used by `tool/db.dart` for migrations and admin bootstrap.
 dart run tool/db.dart status     # applied / pending migrations
 dart run tool/db.dart test       # migrations + access tests in ONE rolled-back transaction
 dart run tool/db.dart migrate    # apply pending migrations, then sync app_private.settings from .env
-dart run tool/db.dart promote <clerk_user_id> admin|teacher|learner
+dart run tool/db.dart promote <phone|email> admin|teacher|learner
+dart run tool/db.dart auth-role  # (re)create the auth service DB login
 ```
 
 `migrate` records applied files in `public.schema_migrations`, keyed by
@@ -98,23 +102,14 @@ upgrade.
    present on this database).
 2. Copy the Data API URL into `.env` as `NEON_DATA_API_URL`
    (`https://….apirest.….neon.tech/sidra_lms/rest/v1`).
-3. Under **Authentication provider**, add **Clerk** and paste the JWKS URL
-   from step 2 below.
+3. Under **Authentication provider**, add the auth service JWKS URL
+   (step 2 below).
 
-### 2. Clerk
+### 2. Authentication
 
-1. Dashboard → **API Keys** → copy the publishable key into `.env` as
-   `CLERK_PUBLISHABLE_KEY` (`pk_test_…`).
-2. Dashboard → **JWT templates** → **New template** → name it `neon`
-   (must match `CLERK_JWT_TEMPLATE`). Claims:
-   ```json
-   { "aud": "sidra-neon" }
-   ```
-   `sub` (Clerk user id) is included automatically and is what RLS uses.
-   Lifetime: 60 seconds is fine, because the SDK refreshes it.
-3. JWKS URL: `https://<your-clerk-frontend-api>/.well-known/jwks.json`
-   (Dashboard → API Keys → Advanced). Give it to Neon (step 1.3). If Neon
-   asks for an audience, use `sidra-neon`.
+See [auth-service/README.md](../auth-service/README.md): deploy the Worker,
+register its JWKS URL with the Neon Data API (audience `sidra`), and put
+`AUTH_URL` in `.env`.
 
 ### 3. Cloudinary
 
@@ -129,7 +124,7 @@ exposed and not readable by `authenticated`. `media_url()` and
 After you sign in to the app once (which creates your `users` row):
 
 ```sh
-dart run tool/db.dart promote user_2abc…   # your Clerk user id
+dart run tool/db.dart promote user_2abc…   # your Sidra user id
 ```
 
 From then on, admins manage roles in the app.

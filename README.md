@@ -5,14 +5,16 @@ with teacher-gated progression and an in-app console for teachers and
 administrators.
 
 **Stack:** Flutter · Riverpod · GoRouter · PostgreSQL 17 on Neon (Data API
-over HTTPS, Row Level Security) · Clerk · Cloudinary · SQLite (sqflite)
+over HTTPS, Row Level Security) · own phone/email + password auth
+(Cloudflare Worker, `auth-service/`) · Cloudinary · SQLite (sqflite)
 
 ## Docs
 
 | Doc | For |
 |---|---|
-| [docs/BACKEND.md](docs/BACKEND.md) | database design, security model, Neon/Clerk/Cloudinary setup |
+| [docs/BACKEND.md](docs/BACKEND.md) | database design, security model, Neon/Cloudinary setup |
 | [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | config, migrations, building named APKs, versioning, signing |
+| [auth-service/README.md](auth-service/README.md) | deploying the sign-in service |
 | [docs/ADMIN_GUIDE.md](docs/ADMIN_GUIDE.md) | the Almuntahha team: building courses, reviewing learners |
 
 ## Quick start
@@ -24,7 +26,7 @@ dart run tool/gen_config.dart dev     # public build config from .env
 flutter run --dart-define-from-file=config/dev.json
 ```
 
-Without a Clerk publishable key the app still shows onboarding and a sign-in
+Without `AUTH_URL` the app still shows onboarding and a sign-in
 screen that explains what's missing. There is no fake login.
 
 ## What's inside
@@ -68,7 +70,7 @@ dart run tool/db.dart test
 - Every commit bumps `pubspec.yaml` version (semver + build number).
 - All UI strings go through `AppLocalizations` (English and Arabic), and
   layouts use directional insets.
-- Clerk is isolated behind `AuthService`, because its Flutter SDK is a
-  community beta.
+- Authentication is behind `AuthService`; passwords are only ever checked
+  by PostgreSQL.
 - Trusted rules (access, grading, unlocking) live in PostgreSQL, never only
   in the app.

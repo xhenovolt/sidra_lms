@@ -8,25 +8,23 @@ void main() {
       const config = AppConfig(
         environment: 'dev',
         neonDataApiUrl: '',
-        clerkPublishableKey: '',
-        clerkJwtTemplate: 'neon',
+        authUrl: '',
         cloudinaryCloudName: '',
       );
       expect(config.missingKeys, [
         'NEON_DATA_API_URL',
-        'CLERK_PUBLISHABLE_KEY',
+        'AUTH_URL',
         'CLOUDINARY_CLOUD_NAME',
       ]);
       expect(config.isAuthConfigured, isFalse);
       expect(config.isDataApiConfigured, isFalse);
     });
 
-    test('rejects secret keys posing as publishable keys', () {
+    test('auth requires an https URL', () {
       const config = AppConfig(
         environment: 'dev',
         neonDataApiUrl: 'https://x.neon.tech/db/rest/v1',
-        clerkPublishableKey: 'sk_test_abc',
-        clerkJwtTemplate: 'neon',
+        authUrl: 'http://insecure.example',
         cloudinaryCloudName: 'demo',
       );
       expect(config.isAuthConfigured, isFalse);

@@ -1,29 +1,49 @@
 /// Authentication status as seen by the rest of the app.
 enum AuthStatus {
-  /// Auth provider still initialising (restoring a persisted session).
+  /// Restoring a saved session at startup.
   initializing,
   signedOut,
   signedIn,
 }
 
-/// Minimal identity of the signed-in person.
+/// Identity of the signed-in person.
 ///
-/// Roles (learner / teacher / admin) are NOT taken from here: they are held
-/// in the database and enforced by Row Level Security, so a tampered client
-/// cannot elevate itself.
+/// [role] here only decides what the UI offers; PostgreSQL re-checks every
+/// action, so a tampered client cannot elevate itself.
 class AppUser {
   const AppUser({
     required this.id,
     this.displayName,
     this.email,
+    this.phone,
     this.imageUrl,
+    this.role = 'learner',
+    this.mustChangePassword = false,
   });
 
-  /// Clerk user id (`user_…`). Matches the JWT `sub` claim seen by Neon.
+  factory AppUser.fromJson(Map<String, dynamic> j) => AppUser(
+    id: j['id'] as String,
+    displayName: j['display_name'] as String?,
+    email: j['email'] as String?,
+    phone: j['phone'] as String?,
+    imageUrl: j['avatar_url'] as String?,
+    role: (j['role'] as String?) ?? 'learner',
+    mustChangePassword: (j['must_change_password'] as bool?) ?? false,
+  );
+
+  /// Sidra user id (= JWT `sub`, = `users.id` in Postgres).
   final String id;
   final String? displayName;
   final String? email;
+  final String? phone;
   final String? imageUrl;
+  final String role;
+
+  /// Set after a teacher/admin reset: the learner must pick a new password.
+  final bool mustChangePassword;
+
+  /// Phone or email, whichever the account uses.
+  String? get identifier => phone ?? email;
 
   String? get firstName {
     final n = displayName?.trim();
@@ -31,16 +51,37 @@ class AppUser {
     return n.split(RegExp(r'\s+')).first;
   }
 
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'display_name': displayName,
+    'email': email,
+    'phone': phone,
+    'avatar_url': imageUrl,
+    'role': role,
+    'must_change_password': mustChangePassword,
+  };
+
   @override
   bool operator ==(Object other) =>
       other is AppUser &&
       other.id == id &&
       other.displayName == displayName &&
       other.email == email &&
-      other.imageUrl == imageUrl;
+      other.phone == phone &&
+      other.imageUrl == imageUrl &&
+      other.role == role &&
+      other.mustChangePassword == mustChangePassword;
 
   @override
-  int get hashCode => Object.hash(id, displayName, email, imageUrl);
+  int get hashCode => Object.hash(
+    id,
+    displayName,
+    email,
+    phone,
+    imageUrl,
+    role,
+    mustChangePassword,
+  );
 }
 
 class AuthSession {

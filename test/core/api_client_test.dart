@@ -38,8 +38,7 @@ class _ScriptedAdapter implements HttpClientAdapter {
 const _config = AppConfig(
   environment: 'test',
   neonDataApiUrl: 'https://example.neon.tech/db/rest/v1',
-  clerkPublishableKey: 'pk_test_x',
-  clerkJwtTemplate: 'neon',
+  authUrl: 'https://auth.example.dev',
   cloudinaryCloudName: 'demo',
 );
 

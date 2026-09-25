@@ -3,6 +3,8 @@ abstract final class Routes {
   static const splash = '/splash';
   static const onboarding = '/welcome';
   static const signIn = '/sign-in';
+  static const signUp = '/sign-up';
+  static const changePassword = '/change-password';
 
   static const home = '/home';
   static const myLearning = '/learning';
@@ -23,5 +25,5 @@ abstract final class Routes {
       '/courses/$courseId/lessons/$lessonId';
 
   /// Routes reachable without a session.
-  static const public = {splash, onboarding, signIn};
+  static const public = {splash, onboarding, signIn, signUp};
 }

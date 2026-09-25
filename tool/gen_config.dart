@@ -4,15 +4,14 @@
 //   dart run tool/gen_config.dart prod     -> config/prod.json
 //
 // Only an explicit allow-list of PUBLIC keys is copied. Secrets in .env
-// (DATABASE_URL, CLOUDINARY_API_SECRET, Clerk secret keys, ...) are never
+// (DATABASE_URL, CLOUDINARY_API_SECRET, ...) are never
 // written, because everything in config/*.json is compiled into the app.
 import 'dart:convert';
 import 'dart:io';
 
 const publicKeys = [
   'NEON_DATA_API_URL',
-  'CLERK_PUBLISHABLE_KEY',
-  'CLERK_JWT_TEMPLATE',
+  'AUTH_URL',
   'CLOUDINARY_CLOUD_NAME',
 ];
 
@@ -30,14 +29,9 @@ void main(List<String> args) {
     final v = values[key];
     if (v != null && v.isNotEmpty) out[key] = v;
   }
-  out.putIfAbsent('CLERK_JWT_TEMPLATE', () => 'neon');
-
-  final pk = out['CLERK_PUBLISHABLE_KEY'];
-  if (pk != null && !pk.startsWith('pk_')) {
-    stderr.writeln(
-      'CLERK_PUBLISHABLE_KEY must start with pk_ '
-      '(never use the sk_ secret key). Aborting.',
-    );
+  final auth = out['AUTH_URL'];
+  if (auth != null && !auth.startsWith('https://')) {
+    stderr.writeln('AUTH_URL must be an https:// URL. Aborting.');
     exit(1);
   }
 

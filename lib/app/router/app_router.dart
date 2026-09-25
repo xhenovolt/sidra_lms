@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/domain/auth_session.dart';
 import '../../features/auth/presentation/auth_providers.dart';
+import '../../features/auth/presentation/change_password_screen.dart';
 import '../../features/auth/presentation/sign_in_screen.dart';
+import '../../features/auth/presentation/sign_up_screen.dart';
 import '../../features/admin/presentation/assessment_editor_screen.dart';
 import '../../features/admin/presentation/course_builder_screen.dart';
 import '../../features/admin/presentation/courses_tab.dart';
@@ -34,6 +36,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       auth.session.status,
       state.matchedLocation,
       onboarded: onboarding.completed,
+      mustChangePassword: auth.session.user?.mustChangePassword ?? false,
     ),
     routes: [
       GoRoute(
@@ -45,6 +48,13 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, _) => const OnboardingScreen(),
       ),
       GoRoute(path: Routes.signIn, builder: (_, _) => const SignInScreen()),
+      GoRoute(path: Routes.signUp, builder: (_, _) => const SignUpScreen()),
+      GoRoute(
+        path: Routes.changePassword,
+        builder: (_, _) => ChangePasswordScreen(
+          forced: auth.session.user?.mustChangePassword ?? false,
+        ),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (_, _, shell) => AppShell(shell: shell),
         branches: [
@@ -110,19 +120,29 @@ StatefulShellBranch _branch(String path, Widget screen) => StatefulShellBranch(
 
 /// Pure redirect rule, unit-tested in isolation.
 ///
-/// Order: restore session → first-launch onboarding → sign-in → app.
-/// Signed-in learners never see onboarding again.
+/// Order: restore session → first-launch onboarding → sign-in/up → app.
+/// Signed-in learners never see onboarding again; a learner whose password
+/// was reset by staff must choose a new one before anything else.
 String? authRedirect(
   AuthStatus status,
   String location, {
   required bool onboarded,
+  bool mustChangePassword = false,
 }) {
   String? to(String target) => location == target ? null : target;
   return switch (status) {
     AuthStatus.initializing => to(Routes.splash),
     AuthStatus.signedOut =>
-      onboarded ? to(Routes.signIn) : to(Routes.onboarding),
+      !onboarded
+          ? to(Routes.onboarding)
+          : (location == Routes.signIn || location == Routes.signUp)
+          ? null
+          : Routes.signIn,
     AuthStatus.signedIn =>
-      Routes.public.contains(location) ? Routes.home : null,
+      mustChangePassword
+          ? to(Routes.changePassword)
+          : Routes.public.contains(location)
+          ? Routes.home
+          : null,
   };
 }

@@ -287,7 +287,7 @@ abstract class AppLocalizations {
   /// No description provided for @signInSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Sign in or create an account to continue your studies.'**
+  /// **'Sign in with your phone number or email to continue your studies.'**
   String get signInSubtitle;
 
   /// No description provided for @retry.
@@ -383,7 +383,7 @@ abstract class AppLocalizations {
   /// No description provided for @signInUnavailableDevHint.
   ///
   /// In en, this message translates to:
-  /// **'Developer: add these to .env, then run  dart run tool/gen_config.dart'**
+  /// **'Developer: add AUTH_URL to .env, then run  dart run tool/gen_config.dart'**
   String get signInUnavailableDevHint;
 
   /// No description provided for @accessFree.
@@ -1753,6 +1753,258 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Change the role of {name}? Their permissions change immediately.'**
   String adminChangeRoleBody(String name);
+
+  /// No description provided for @authPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get authPhone;
+
+  /// No description provided for @authEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get authEmail;
+
+  /// No description provided for @authPhoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number'**
+  String get authPhoneLabel;
+
+  /// No description provided for @authPhoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Include your country code, e.g. +256 700 123 456'**
+  String get authPhoneHint;
+
+  /// No description provided for @authEmailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email address'**
+  String get authEmailLabel;
+
+  /// No description provided for @authPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get authPassword;
+
+  /// No description provided for @authConfirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get authConfirmPassword;
+
+  /// No description provided for @authFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full name'**
+  String get authFullName;
+
+  /// No description provided for @authShowPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Show password'**
+  String get authShowPassword;
+
+  /// No description provided for @authHidePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide password'**
+  String get authHidePassword;
+
+  /// No description provided for @authSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in'**
+  String get authSignIn;
+
+  /// No description provided for @authSignUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Create account'**
+  String get authSignUp;
+
+  /// No description provided for @authNoAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'New to Sidra? Create an account'**
+  String get authNoAccount;
+
+  /// No description provided for @authHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? Sign in'**
+  String get authHaveAccount;
+
+  /// No description provided for @authSignUpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your account'**
+  String get authSignUpTitle;
+
+  /// No description provided for @authSignUpSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Use your phone number or email. You will sign in with it and your password.'**
+  String get authSignUpSubtitle;
+
+  /// No description provided for @authForgot.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot your password?'**
+  String get authForgot;
+
+  /// No description provided for @authForgotBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask your teacher or Almuntahha to reset it. You will get a temporary password and choose a new one when you sign in.'**
+  String get authForgotBody;
+
+  /// No description provided for @authChangePasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a new password'**
+  String get authChangePasswordTitle;
+
+  /// No description provided for @authChangePasswordForced.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password was reset. Please choose a new one to continue.'**
+  String get authChangePasswordForced;
+
+  /// No description provided for @authCurrentPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Current (or temporary) password'**
+  String get authCurrentPassword;
+
+  /// No description provided for @authNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get authNewPassword;
+
+  /// No description provided for @authSavePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Save password'**
+  String get authSavePassword;
+
+  /// No description provided for @authPasswordChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Password changed'**
+  String get authPasswordChanged;
+
+  /// No description provided for @authChangePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Change password'**
+  String get authChangePassword;
+
+  /// No description provided for @authRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get authRequired;
+
+  /// No description provided for @authPasswordRule.
+  ///
+  /// In en, this message translates to:
+  /// **'At least 8 characters'**
+  String get authPasswordRule;
+
+  /// No description provided for @authPasswordsDiffer.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get authPasswordsDiffer;
+
+  /// No description provided for @authPhoneInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Start with + and your country code'**
+  String get authPhoneInvalid;
+
+  /// No description provided for @authEmailInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid email address'**
+  String get authEmailInvalid;
+
+  /// No description provided for @authErrorInvalidCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'That phone/email and password don\'t match.'**
+  String get authErrorInvalidCredentials;
+
+  /// No description provided for @authErrorTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'An account already exists with this phone/email. Try signing in.'**
+  String get authErrorTaken;
+
+  /// No description provided for @authErrorWeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters.'**
+  String get authErrorWeak;
+
+  /// No description provided for @authErrorIdentifier.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the phone number (with country code) or email.'**
+  String get authErrorIdentifier;
+
+  /// No description provided for @authErrorLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please wait 15 minutes and try again.'**
+  String get authErrorLocked;
+
+  /// No description provided for @authErrorDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'This account is disabled. Contact Almuntahha.'**
+  String get authErrorDisabled;
+
+  /// No description provided for @authErrorSamePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a password different from the current one.'**
+  String get authErrorSamePassword;
+
+  /// No description provided for @authErrorOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'No connection. Check your internet and try again.'**
+  String get authErrorOffline;
+
+  /// No description provided for @adminResetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset password'**
+  String get adminResetPassword;
+
+  /// No description provided for @adminResetPasswordBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Give this temporary password to the learner. They must choose a new one when they sign in.'**
+  String get adminResetPasswordBody;
+
+  /// No description provided for @adminTemporaryPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Temporary password'**
+  String get adminTemporaryPassword;
+
+  /// No description provided for @adminPasswordReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset. Share the temporary password with the learner.'**
+  String get adminPasswordReset;
 }
 
 class _AppLocalizationsDelegate

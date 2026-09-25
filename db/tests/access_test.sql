@@ -35,7 +35,7 @@ on conflict (key) do update set value = excluded.value;
 
 -- ------------------------------------------------------------ fixtures --
 -- (as owner; RLS does not apply to the table owner)
-insert into users (id, clerk_user_id, display_name, role) values
+insert into users (id, auth_subject, display_name, role) values
   ('00000000-0000-0000-0000-00000000000a', 'admin_1', 'Admin', 'admin'),
   ('00000000-0000-0000-0000-00000000000b', 'teacher_1', 'Ustadh Musa', 'teacher'),
   ('00000000-0000-0000-0000-00000000000c', 'teacher_2', 'Other Teacher', 'teacher'),
@@ -191,7 +191,7 @@ select pg_temp.expect_error($q$insert into lesson_unlocks (user_id, lesson_id, c
 select pg_temp.expect_error($q$select public.unlock_lesson('00000000-0000-0000-0000-0000000000a1',
   '00000000-0000-0000-0000-000000001002')$q$, 'only the course teacher');
 select pg_temp.expect_error($q$update users set role = 'admin'
-  where clerk_user_id = 'learner_a'$q$, 'permission denied');
+  where auth_subject = 'learner_a'$q$, 'permission denied');
 select pg_temp.expect_error($q$insert into course_enrolments (course_id, user_id, source)
   values ('00000000-0000-0000-0000-000000000c02', '00000000-0000-0000-0000-0000000000a1', 'payment')$q$,
   'permission denied');
@@ -200,7 +200,7 @@ select pg_temp.check((select title from courses where id = '00000000-0000-0000-0
   = 'Quran Intermediate', 'learners cannot edit curriculum (RLS matches no rows)');
 select pg_temp.expect_error($q$select public.set_user_role('00000000-0000-0000-0000-0000000000a1', 'admin')$q$,
   'administrators only');
-select pg_temp.check((select array_agg(clerk_user_id order by clerk_user_id) from users)
+select pg_temp.check((select array_agg(auth_subject order by auth_subject) from users)
   = array['learner_a', 'teacher_1'],
   'learner sees self and course teachers only, not other learners or admins');
 

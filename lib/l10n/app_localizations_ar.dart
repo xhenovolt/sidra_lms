@@ -111,7 +111,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get signInTitle => 'مرحبًا بك في سدرة';
 
   @override
-  String get signInSubtitle => 'سجّل الدخول أو أنشئ حسابًا لمتابعة دراستك.';
+  String get signInSubtitle =>
+      'سجّل الدخول برقم هاتفك أو بريدك الإلكتروني لمتابعة دراستك.';
 
   @override
   String get retry => 'حاول مجددًا';
@@ -164,7 +165,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get signInUnavailableDevHint =>
-      'للمطوّر: أضف هذه القيم إلى ‎.env ثم شغّل  dart run tool/gen_config.dart';
+      'للمطوّر: أضف AUTH_URL إلى ‎.env ثم شغّل  dart run tool/gen_config.dart';
 
   @override
   String get accessFree => 'مجاني';
@@ -902,4 +903,139 @@ class AppLocalizationsAr extends AppLocalizations {
   String adminChangeRoleBody(String name) {
     return 'تغيير دور $name؟ تتغيّر صلاحياته فورًا.';
   }
+
+  @override
+  String get authPhone => 'الهاتف';
+
+  @override
+  String get authEmail => 'البريد الإلكتروني';
+
+  @override
+  String get authPhoneLabel => 'رقم الهاتف';
+
+  @override
+  String get authPhoneHint => 'أدخل رمز الدولة، مثل +256 700 123 456';
+
+  @override
+  String get authEmailLabel => 'البريد الإلكتروني';
+
+  @override
+  String get authPassword => 'كلمة المرور';
+
+  @override
+  String get authConfirmPassword => 'تأكيد كلمة المرور';
+
+  @override
+  String get authFullName => 'الاسم الكامل';
+
+  @override
+  String get authShowPassword => 'إظهار كلمة المرور';
+
+  @override
+  String get authHidePassword => 'إخفاء كلمة المرور';
+
+  @override
+  String get authSignIn => 'تسجيل الدخول';
+
+  @override
+  String get authSignUp => 'إنشاء حساب';
+
+  @override
+  String get authNoAccount => 'جديد في سدرة؟ أنشئ حسابًا';
+
+  @override
+  String get authHaveAccount => 'لديك حساب؟ سجّل الدخول';
+
+  @override
+  String get authSignUpTitle => 'أنشئ حسابك';
+
+  @override
+  String get authSignUpSubtitle =>
+      'استخدم رقم هاتفك أو بريدك الإلكتروني، وستسجّل الدخول به وبكلمة المرور.';
+
+  @override
+  String get authForgot => 'نسيت كلمة المرور؟';
+
+  @override
+  String get authForgotBody =>
+      'اطلب من معلّمك أو من المنتهى إعادة تعيينها. ستحصل على كلمة مرور مؤقتة وتختار كلمة جديدة عند الدخول.';
+
+  @override
+  String get authChangePasswordTitle => 'اختر كلمة مرور جديدة';
+
+  @override
+  String get authChangePasswordForced =>
+      'أُعيد تعيين كلمة مرورك. اختر كلمة جديدة للمتابعة.';
+
+  @override
+  String get authCurrentPassword => 'كلمة المرور الحالية (أو المؤقتة)';
+
+  @override
+  String get authNewPassword => 'كلمة المرور الجديدة';
+
+  @override
+  String get authSavePassword => 'حفظ كلمة المرور';
+
+  @override
+  String get authPasswordChanged => 'تم تغيير كلمة المرور';
+
+  @override
+  String get authChangePassword => 'تغيير كلمة المرور';
+
+  @override
+  String get authRequired => 'مطلوب';
+
+  @override
+  String get authPasswordRule => '٨ أحرف على الأقل';
+
+  @override
+  String get authPasswordsDiffer => 'كلمتا المرور غير متطابقتين';
+
+  @override
+  String get authPhoneInvalid => 'ابدأ بـ + ورمز الدولة';
+
+  @override
+  String get authEmailInvalid => 'أدخل بريدًا إلكترونيًا صحيحًا';
+
+  @override
+  String get authErrorInvalidCredentials =>
+      'رقم الهاتف أو البريد وكلمة المرور غير متطابقة.';
+
+  @override
+  String get authErrorTaken =>
+      'يوجد حساب بهذا الرقم أو البريد. جرّب تسجيل الدخول.';
+
+  @override
+  String get authErrorWeak => 'يجب أن تكون كلمة المرور ٨ أحرف على الأقل.';
+
+  @override
+  String get authErrorIdentifier =>
+      'تحقّق من رقم الهاتف (مع رمز الدولة) أو البريد.';
+
+  @override
+  String get authErrorLocked => 'محاولات كثيرة. انتظر ١٥ دقيقة ثم حاول مجددًا.';
+
+  @override
+  String get authErrorDisabled => 'هذا الحساب معطّل. تواصل مع المنتهى.';
+
+  @override
+  String get authErrorSamePassword => 'اختر كلمة مرور مختلفة عن الحالية.';
+
+  @override
+  String get authErrorOffline =>
+      'لا يوجد اتصال. تحقّق من الإنترنت وحاول مجددًا.';
+
+  @override
+  String get adminResetPassword => 'إعادة تعيين كلمة المرور';
+
+  @override
+  String get adminResetPasswordBody =>
+      'أعطِ هذه الكلمة المؤقتة للطالب، وعليه اختيار كلمة جديدة عند الدخول.';
+
+  @override
+  String get adminTemporaryPassword => 'كلمة المرور المؤقتة';
+
+  @override
+  String get adminPasswordReset =>
+      'أُعيد التعيين. شارك الكلمة المؤقتة مع الطالب.';
 }

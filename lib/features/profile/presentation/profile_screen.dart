@@ -20,7 +20,9 @@ class ProfileScreen extends ConsumerWidget {
     final user = ref.watch(authSessionProvider).user;
     final profile = ref.watch(profileProvider).value;
     final sync = ref.watch(syncStatusProvider).value;
-    final initial = (user?.displayName ?? user?.email ?? '?').characters.first
+    final initial = (user?.displayName ?? user?.identifier ?? '?')
+        .characters
+        .first
         .toUpperCase();
 
     return Scaffold(
@@ -48,9 +50,10 @@ class ProfileScreen extends ConsumerWidget {
                         user!.displayName!,
                         style: theme.textTheme.titleLarge,
                       ),
-                    if (user?.email != null)
+                    if (user?.identifier != null)
                       Text(
-                        user!.email!,
+                        user!.identifier!,
+                        textDirection: TextDirection.ltr,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,
                         ),
@@ -100,6 +103,12 @@ class ProfileScreen extends ConsumerWidget {
               ),
             ),
           const Divider(),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.key_outlined),
+            title: Text(l10n.authChangePassword),
+            onTap: () => context.push(Routes.changePassword),
+          ),
           ListTile(
             contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.logout),

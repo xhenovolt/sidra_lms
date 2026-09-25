@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:sidra_lms/core/errors/app_failure.dart';
 import 'package:sidra_lms/features/auth/domain/auth_service.dart';
 import 'package:sidra_lms/features/auth/domain/auth_session.dart';
 
@@ -10,6 +11,13 @@ class FakeAuthService extends ChangeNotifier implements AuthService {
   String? token = 'test.jwt.token';
   int signOutCalls = 0;
 
+  /// Accounts that exist: identifier → password.
+  final accounts = <String, String>{'+256700000001': 'correct-password'};
+  final calls = <String>[];
+
+  /// When set, the next auth call fails with this.
+  Object? failWith;
+
   @override
   AuthSession get session => _session;
 
@@ -20,6 +28,62 @@ class FakeAuthService extends ChangeNotifier implements AuthService {
 
   @override
   Future<String?> dataApiToken() async => _session.isSignedIn ? token : null;
+
+  void _maybeFail() {
+    final f = failWith;
+    if (f != null) {
+      failWith = null;
+      throw f;
+    }
+  }
+
+  @override
+  Future<void> signIn({
+    required String identifier,
+    required String password,
+  }) async {
+    calls.add('signIn:$identifier');
+    _maybeFail();
+    final key = identifier.replaceAll(RegExp(r'[\s-]'), '');
+    if (accounts[key] != password) {
+      throw const AuthFailure('invalid_credentials');
+    }
+    session = AuthSession.signedIn(AppUser(id: 'u-$key', phone: key));
+  }
+
+  @override
+  Future<void> signUp({
+    required String displayName,
+    required String identifier,
+    required String password,
+  }) async {
+    calls.add('signUp:$identifier');
+    _maybeFail();
+    final key = identifier.replaceAll(RegExp(r'[\s-]'), '');
+    if (accounts.containsKey(key)) throw const AuthFailure('identifier_taken');
+    accounts[key] = password;
+    session = AuthSession.signedIn(
+      AppUser(id: 'u-$key', displayName: displayName, phone: key),
+    );
+  }
+
+  @override
+  Future<void> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    calls.add('changePassword');
+    _maybeFail();
+    final u = _session.user!;
+    session = AuthSession.signedIn(
+      AppUser(
+        id: u.id,
+        displayName: u.displayName,
+        phone: u.phone,
+        email: u.email,
+      ),
+    );
+  }
 
   @override
   Future<void> signOut() async {

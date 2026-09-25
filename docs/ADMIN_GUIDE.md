@@ -83,3 +83,17 @@ top of the course. While a course is live, new sections and lessons start
   and edit its lessons.
 
 A person appears here after they have signed in to Sidra once.
+
+## Forgotten passwords
+
+Learners sign in with their **phone number** (with country code, e.g.
++256…) or **email**, plus a password. If a learner forgets their password:
+
+- **Teacher:** Learners tab → tap the learner → **Reset password**.
+- **Administrator:** People tab → ⋮ → **Reset password**.
+
+Sidra shows a temporary password such as `sidra-48213`. Give it to the
+learner. When they sign in with it, they must choose a new password before
+they can continue. All their other signed-in devices are signed out.
+
+After 5 wrong attempts an account is locked for 15 minutes.

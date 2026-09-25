@@ -433,6 +433,10 @@ class PeopleTab extends ConsumerWidget {
   ) async {
     final l10n = AppLocalizations.of(context);
     final repo = ref.read(adminRepositoryProvider);
+    if (action == 'reset') {
+      await resetPasswordFlow(context, repo, userId: user.id, name: user.name);
+      return;
+    }
     if (action.startsWith('role:')) {
       final role = UserRole.values.byName(action.substring(5));
       if (await confirm(

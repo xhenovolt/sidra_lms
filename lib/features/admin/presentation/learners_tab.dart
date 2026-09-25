@@ -248,6 +248,17 @@ class _ReviewSheetState extends ConsumerState<ReviewSheet> {
               onPressed: _saving ? null : _save,
               child: Text(l10n.adminSaveReview),
             ),
+            const SizedBox(height: Space.xs),
+            TextButton.icon(
+              onPressed: () => resetPasswordFlow(
+                context,
+                ref.read(adminRepositoryProvider),
+                userId: l.userId,
+                name: l.name,
+              ),
+              icon: const Icon(Icons.key_outlined),
+              label: Text(l10n.adminResetPassword),
+            ),
           ],
         ),
       ),

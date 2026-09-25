@@ -6,11 +6,11 @@
 
 | Kind | Keys | Goes into the app? |
 |---|---|---|
-| Public | `CLERK_PUBLISHABLE_KEY`, `CLERK_JWT_TEMPLATE`, `NEON_DATA_API_URL`, `CLOUDINARY_CLOUD_NAME` | yes, via `config/<channel>.json` |
+| Public | `AUTH_URL`, `NEON_DATA_API_URL`, `CLOUDINARY_CLOUD_NAME` | yes, via `config/<channel>.json` |
 | Secret | `DATABASE_URL`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET` | **never** (used by `tool/db.dart`, or stored inside Postgres) |
 
 `dart run tool/gen_config.dart <channel>` copies only the allow-listed
-public keys into `config/<channel>.json` and refuses a Clerk `sk_` key.
+public keys into `config/<channel>.json` (and requires https URLs).
 
 ## 2. Database
 
@@ -71,6 +71,7 @@ signed with a different key won't install over it.
 
 - [ ] `flutter analyze` clean, `flutter test` green
 - [ ] `dart run tool/db.dart test` green; `migrate` applied to production
-- [ ] Clerk production instance (`pk_live_…`) and a `neon` JWT template
-- [ ] Neon Data API: Clerk JWKS configured for the production instance
+- [ ] Auth service deployed; its JWKS URL registered with the Neon Data API
+- [ ] After `migrate`, run `dart run tool/db.dart test` twice (the first run right
+      after DDL can hit stale pooled connections)
 - [ ] Version bumped; APK/AAB named correctly

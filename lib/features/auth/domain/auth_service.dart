@@ -2,16 +2,30 @@ import 'package:flutter/foundation.dart';
 
 import 'auth_session.dart';
 
-/// Provider-agnostic authentication contract.
+/// Authentication contract used by the rest of the app.
 ///
-/// The Clerk SDK is beta, so it is isolated behind this interface; nothing
-/// outside `features/auth/data` imports Clerk directly.
+/// Implemented by `SidraAuthService` (Sidra's own phone/email + password
+/// service). Screens and repositories depend only on this interface.
 abstract interface class AuthService implements Listenable {
   AuthSession get session;
 
-  /// JWT for the Neon Data API (Clerk JWT template), refreshed as needed.
+  /// Access token (JWT) for the Neon Data API, refreshed as needed.
   /// Returns null when signed out.
   Future<String?> dataApiToken();
+
+  /// [identifier] is a phone number (international format) or an email.
+  Future<void> signIn({required String identifier, required String password});
+
+  Future<void> signUp({
+    required String displayName,
+    required String identifier,
+    required String password,
+  });
+
+  Future<void> changePassword({
+    required String oldPassword,
+    required String newPassword,
+  });
 
   Future<void> signOut();
 

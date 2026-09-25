@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -157,4 +159,59 @@ Future<({String path, String name})?> pickLocalFile(FileType type) async {
   final path = file?.path;
   if (file == null || path == null) return null;
   return (path: path, name: file.name);
+}
+
+/// Easy-to-read temporary password (e.g. "sidra-48213"). The learner must
+/// replace it at next sign-in.
+String temporaryPassword() {
+  final r = Random.secure();
+  return 'sidra-${List.generate(5, (_) => r.nextInt(10)).join()}';
+}
+
+/// Asks for confirmation, resets the password and shows the temporary one.
+Future<void> resetPasswordFlow(
+  BuildContext context,
+  AdminRepository repo, {
+  required String userId,
+  required String name,
+}) async {
+  final l10n = AppLocalizations.of(context);
+  final temp = temporaryPassword();
+  final ok = await confirm(
+    context,
+    title: '${l10n.adminResetPassword}: $name',
+    message: l10n.adminResetPasswordBody,
+    confirmLabel: l10n.adminResetPassword,
+  );
+  if (!ok || !context.mounted) return;
+  final done = await runAdminAction(
+    context,
+    () => repo.resetPassword(userId, temp),
+  );
+  if (!done || !context.mounted) return;
+  await showDialog<void>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(l10n.adminTemporaryPassword),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SelectableText(
+            temp,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          const SizedBox(height: Space.md),
+          Text(l10n.adminPasswordReset),
+        ],
+      ),
+      actions: [
+        FilledButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(l10n.done),
+        ),
+      ],
+    ),
+  );
 }

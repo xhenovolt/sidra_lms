@@ -4,9 +4,11 @@
 //   dart run tool/db.dart status
 //   dart run tool/db.dart test               # pending migrations + db/tests/*.sql, rolled back
 //   dart run tool/db.dart migrate            # apply pending migrations + sync settings
-//   dart run tool/db.dart promote <clerk_user_id> <admin|teacher|learner>
+//   dart run tool/db.dart promote <phone|email> <admin|teacher|learner>
+//   dart run tool/db.dart auth-role          # (re)set the auth service DB password
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 import 'package:postgres/postgres.dart';
@@ -43,6 +45,8 @@ Future<void> main(List<String> args) async {
           exit(64);
         }
         await _promote(conn, args[1], args[2]);
+      case 'auth-role':
+        await _authRole(conn, url);
       default:
         _usage();
         exit(64);
@@ -61,7 +65,7 @@ Future<void> main(List<String> args) async {
 
 void _usage() => stderr.writeln(
   'Usage: dart run tool/db.dart status | test | migrate | '
-  'promote <clerk_user_id> <admin|teacher|learner>',
+  'promote <phone|email> <admin|teacher|learner> | auth-role',
 );
 
 class _Abort implements Exception {
@@ -221,8 +225,17 @@ Future<void> _test(Connection conn) async {
     for (final t in tests) {
       stdout.write('(tx) running ${t.uri.pathSegments.last} … ');
       final statements = splitSql(t.readAsStringSync());
-      for (final stmt in statements) {
-        await conn.execute(stmt, queryMode: QueryMode.simple);
+      for (final (i, stmt) in statements.indexed) {
+        try {
+          await conn.execute(stmt, queryMode: QueryMode.simple);
+        } catch (_) {
+          final preview = stmt.replaceAll(RegExp(r'\s+'), ' ');
+          final shown = preview.length > 300
+              ? '${preview.substring(0, 300)}…'
+              : preview;
+          stderr.writeln('\n  statement #${i + 1}: $shown');
+          rethrow;
+        }
       }
       stdout.writeln('passed (${statements.length} statements)');
     }
@@ -241,7 +254,8 @@ Future<void> _test(Connection conn) async {
   }
 }
 
-Future<void> _promote(Connection conn, String clerkId, String role) async {
+/// Changes a user's role, found by phone (E.164) or email.
+Future<void> _promote(Connection conn, String identifier, String role) async {
   if (!{'admin', 'teacher', 'learner'}.contains(role)) {
     throw _Abort('role must be admin, teacher or learner');
   }
@@ -249,19 +263,45 @@ Future<void> _promote(Connection conn, String clerkId, String role) async {
     await tx.execute("select set_config('sidra.role_change', 'allowed', true)");
     final r = await tx.execute(
       Sql.named(
-        'update users set role = @r::app_role where clerk_user_id = @c '
-        'returning display_name, email',
+        'update users set role = @r::app_role '
+        'where lower(email) = lower(@i) or phone = @i '
+        '   or phone = (select value from auth_api.normalize_identifier(@i)) '
+        'returning display_name, coalesce(email, phone)',
       ),
-      parameters: {'r': role, 'c': clerkId},
+      parameters: {'r': role, 'i': identifier.trim()},
     );
     if (r.isEmpty) {
       throw _Abort(
-        'No user with clerk_user_id "$clerkId". '
-        'Sign in to the app once first so your profile is created.',
+        'No account with phone/email "$identifier". '
+        'Create it in the app (Create account) first.',
       );
     }
-    stdout.writeln('${r.first[0] ?? r.first[1] ?? clerkId} is now $role.');
+    stdout.writeln('${r.first[0] ?? r.first[1]} is now $role.');
   });
+}
+
+/// Gives the auth service its own login with a fresh random password and
+/// prints the connection string to store as a Worker secret. The role can
+/// only EXECUTE auth_api functions (see migration 0009).
+Future<void> _authRole(Connection conn, String ownerUrl) async {
+  final rnd = Random.secure();
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
+  final password = List.generate(
+    40,
+    (_) => chars[rnd.nextInt(chars.length)],
+  ).join();
+  await conn.execute(
+    "alter role sidra_auth_service with login password '$password'",
+  );
+  final owner = Uri.parse(ownerUrl);
+  final url = owner.replace(
+    userInfo: 'sidra_auth_service:${Uri.encodeComponent(password)}',
+  );
+  stdout.writeln(
+    'sidra_auth_service can log in. Store this as the Worker '
+    'secret AUTH_DATABASE_URL (it is not saved anywhere):\n',
+  );
+  stdout.writeln(url.toString());
 }
 
 /// Splits a SQL script into statements on top-level `;`, respecting

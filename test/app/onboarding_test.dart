@@ -51,14 +51,14 @@ void main() {
     expect(find.text('Welcome to Sidra'), findsOneWidget);
   });
 
-  testWidgets('build without Clerk key explains instead of dead-ending', (
+  testWidgets('build without auth service explains instead of dead-ending', (
     tester,
   ) async {
     // Tests run without --dart-define, so the Clerk key is absent.
     await tester.pumpWidget(await buildTestApp(FakeAuthService()));
     await tester.pumpAndSettle();
     expect(find.text('Sign-in is not available yet'), findsOneWidget);
-    expect(find.textContaining('CLERK_PUBLISHABLE_KEY'), findsOneWidget);
+    expect(find.text('• AUTH_URL'), findsOneWidget);
   });
 
   testWidgets('onboarding renders right-to-left in Arabic', (tester) async {

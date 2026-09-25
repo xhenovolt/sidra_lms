@@ -60,3 +60,9 @@ config/*.json
 /dist/
 /android/build/
 /android/.kotlin/
+
+# Auth service (Cloudflare Worker)
+/auth-service/node_modules/
+/auth-service/.wrangler/
+/auth-service/private-jwk.json
+*.jwk.json

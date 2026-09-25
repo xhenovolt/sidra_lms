@@ -67,7 +67,7 @@ class AppUserRow {
     id: j.str('id'),
     role: enumByName(UserRole.values, j.strOrNull('role'), UserRole.learner),
     displayName: j.strOrNull('display_name'),
-    email: j.strOrNull('email'),
+    email: j.strOrNull('email') ?? j.strOrNull('phone'),
     isActive: j.boolean('is_active', fallback: true),
   );
 
@@ -290,6 +290,13 @@ class AdminRepository {
   Future<void> setRole(String userId, UserRole role) => api.rpc(
     'set_user_role',
     params: {'p_user_id': userId, 'p_role': role.name},
+  );
+
+  /// Sets a temporary password; the learner must change it at sign-in.
+  /// Teachers may reset learners in their courses, admins anyone.
+  Future<void> resetPassword(String userId, String temporary) => api.rpc(
+    'reset_password',
+    params: {'p_user_id': userId, 'p_temporary': temporary},
   );
 
   Future<void> grantEnrolment(String userId, String courseId) => api.rpc(
