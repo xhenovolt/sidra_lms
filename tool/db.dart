@@ -52,6 +52,18 @@ Future<void> main(List<String> args) async {
         await _appRole(conn, url);
       case 'payments-role':
         await _paymentsRole(conn, url);
+      case 'query':
+        // Read-only inspection: dart run tool/db.dart query "select …"
+        await conn.execute('begin read only');
+        try {
+          final r = await conn.execute(args.skip(1).join(' '));
+          stdout.writeln(r.schema.columns.map((c) => c.columnName).join(' | '));
+          for (final row in r) {
+            stdout.writeln(row.map((v) => '$v').join(' | '));
+          }
+        } finally {
+          await conn.execute('rollback');
+        }
       default:
         _usage();
         exit(64);

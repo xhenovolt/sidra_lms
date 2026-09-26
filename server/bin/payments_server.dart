@@ -23,6 +23,7 @@ import 'dart:io';
 
 import 'package:postgres/postgres.dart';
 
+import 'package:sidra_payments_server/diagnostics.dart';
 import 'package:sidra_payments_server/marzpay.dart';
 
 Future<void> main() async {
@@ -55,8 +56,12 @@ class PaymentsServer {
     await _listen();
     Timer.periodic(const Duration(seconds: 5), (_) => runQueue());
     Timer.periodic(const Duration(seconds: 20), (_) => reconcile());
+    Timer.periodic(const Duration(seconds: 30), (_) => heartbeat());
+    Timer.periodic(const Duration(seconds: 10), (_) => runDiagnosticsQueue());
     unawaited(runQueue());
     unawaited(reconcile());
+    unawaited(heartbeat());
+    unawaited(runDiagnosticsQueue());
 
     final http = await HttpServer.bind(InternetAddress.anyIPv4, port);
     _log(
@@ -71,9 +76,88 @@ class PaymentsServer {
   Future<void> _listen() async {
     try {
       await db.execute('listen sidra_payments');
-      db.channels['sidra_payments'].listen((_) => runQueue());
+      db.channels['sidra_payments'].listen((payload) {
+        if (payload == 'diagnostics') {
+          runDiagnosticsQueue();
+        } else {
+          runQueue();
+        }
+      });
     } catch (e) {
       _log('LISTEN unavailable ($e); relying on polling');
+    }
+  }
+
+  // ------------------------------------------------ heartbeat, tests --
+
+  static const version = '1.1.0';
+  bool _diagBusy = false;
+
+  Future<void> heartbeat() async {
+    try {
+      await _db(
+        (c) => c.execute(
+          Sql.named('select payments_api.heartbeat(@v, @url)'),
+          parameters: {'v': version, 'url': publicUrl},
+        ),
+      );
+    } catch (e) {
+      _log('heartbeat: $e');
+    }
+  }
+
+  /// Runs integration tests an admin requested, writing PASS / WARNING /
+  /// FAIL results back to payment_diagnostics.
+  Future<void> runDiagnosticsQueue() async {
+    if (_diagBusy) return;
+    _diagBusy = true;
+    try {
+      while (true) {
+        final r = await _db(
+          (c) => c.execute('select payments_api.claim_diagnostic()'),
+        );
+        final id = r.first.first;
+        if (id == null) break;
+        _log('running MarzPay diagnostics $id');
+        final checks = await runDiagnostics(
+          env: _environment(),
+          marz: marz,
+          db: _PgDiagnosticsDb(this),
+          publicUrl: publicUrl,
+          fetchPublic: _getUrl,
+        );
+        await _db(
+          (c) => c.execute(
+            Sql.named(
+              'select payments_api.finish_diagnostic(@id::uuid, @r::jsonb)',
+            ),
+            parameters: {
+              'id': '$id',
+              'r': jsonEncode([for (final k in checks) k.toJson()]),
+            },
+          ),
+        );
+      }
+    } catch (e) {
+      _log('diagnostics: $e');
+    } finally {
+      _diagBusy = false;
+    }
+  }
+
+  static Future<MarzProbe> _getUrl(String url) async {
+    final watch = Stopwatch()..start();
+    final client = HttpClient()
+      ..connectionTimeout = const Duration(seconds: 10);
+    try {
+      final req = await client.getUrl(Uri.parse(url));
+      final res = await req.close().timeout(const Duration(seconds: 10));
+      await res.drain<void>();
+      return MarzProbe(res.statusCode, null, null, watch.elapsed);
+    } catch (e) {
+      return MarzProbe(null, null, '$e', watch.elapsed);
+    } finally {
+      client.close(force: true);
     }
   }
 
@@ -335,3 +419,24 @@ Map<String, String> _environment() {
 }
 
 void _log(String m) => stdout.writeln('${DateTime.now().toIso8601String()} $m');
+
+class _PgDiagnosticsDb implements DiagnosticsDb {
+  _PgDiagnosticsDb(this.server);
+  final PaymentsServer server;
+
+  Future<Map<String, dynamic>> _json(String sql) async {
+    final r = await server._db((c) => c.execute(sql));
+    final v = r.first.first;
+    return v is Map
+        ? v.cast<String, dynamic>()
+        : (jsonDecode('$v') as Map).cast<String, dynamic>();
+  }
+
+  @override
+  Future<Map<String, dynamic>> selftestIdempotency() =>
+      _json('select payments_api.selftest_idempotency()');
+
+  @override
+  Future<Map<String, dynamic>> reconciliationReport() =>
+      _json('select payments_api.reconciliation_report()');
+}

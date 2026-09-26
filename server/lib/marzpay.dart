@@ -6,6 +6,7 @@
 //   GET  /collect-money/{uuid}     its authoritative status
 // Auth: Basic base64("API_KEY:API_SECRET"). The secret lives only on the
 // server (env vars), never in the app.
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -233,5 +234,63 @@ class MarzPayClient {
     return body;
   }
 
+  /// For diagnostics: one raw request, never throws. [basicAuth] overrides
+  /// the configured credentials (to prove bad ones are refused).
+  Future<MarzProbe> probe(
+    String method,
+    String path, {
+    Map<String, Object?>? json,
+    String? basicAuth,
+    Duration timeout = const Duration(seconds: 20),
+  }) async {
+    final watch = Stopwatch()..start();
+    try {
+      final req = await _http
+          .openUrl(method, Uri.parse('$baseUrl$path'))
+          .timeout(timeout);
+      req.headers
+        ..set(HttpHeaders.authorizationHeader, 'Basic ${basicAuth ?? _auth}')
+        ..set(HttpHeaders.acceptHeader, 'application/json');
+      if (json != null) {
+        req.headers.contentType = ContentType.json;
+        req.write(jsonEncode(json));
+      }
+      final res = await req.close().timeout(timeout);
+      final text = await res.transform(utf8.decoder).join().timeout(timeout);
+      Map<String, dynamic>? body;
+      try {
+        body = (jsonDecode(text) as Map).cast<String, dynamic>();
+      } catch (_) {}
+      return MarzProbe(res.statusCode, body, null, watch.elapsed);
+    } on TimeoutException {
+      return MarzProbe(null, null, 'timed out', watch.elapsed);
+    } catch (e) {
+      return MarzProbe(null, null, '$e', watch.elapsed);
+    }
+  }
+
+  /// A short, safe form of the API key for display ("marz_t8…RL").
+  String get maskedKey {
+    try {
+      final key = utf8.decode(base64Decode(_auth)).split(':').first;
+      return key.length <= 8
+          ? '••••'
+          : '${key.substring(0, 7)}…${key.substring(key.length - 2)}';
+    } catch (_) {
+      return '••••';
+    }
+  }
+
   void close() => _http.close(force: true);
+}
+
+class MarzProbe {
+  MarzProbe(this.status, this.body, this.error, this.elapsed);
+  final int? status;
+  final Map<String, dynamic>? body;
+  final String? error;
+  final Duration elapsed;
+
+  String? get errorCode => body?['error_code']?.toString();
+  String? get message => body?['message']?.toString();
 }
