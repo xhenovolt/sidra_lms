@@ -2869,6 +2869,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'They review and unlock learners only in the ticked units. Tick none for the whole course.'**
   String get staffLimitUnitsHint;
+
+  /// No description provided for @navReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get navReview;
 }
 
 class _AppLocalizationsDelegate

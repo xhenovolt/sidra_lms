@@ -461,5 +461,6 @@
   "staffTeachesUnits": "يدرّس {units}",
   "staffLimitUnits": "تحديد الوحدات…",
   "staffLimitUnitsTitle": "ما الوحدات التي يدرّسها {name}؟",
-  "staffLimitUnitsHint": "يقيّم المتعلمين ويفتح لهم الدروس في الوحدات المحددة فقط. لا تحدد شيئًا للدورة كاملة."
+  "staffLimitUnitsHint": "يقيّم المتعلمين ويفتح لهم الدروس في الوحدات المحددة فقط. لا تحدد شيئًا للدورة كاملة.",
+  "navReview": "المراجعة"
 }

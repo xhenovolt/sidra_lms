@@ -1529,4 +1529,7 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get staffLimitUnitsHint =>
       'يقيّم المتعلمين ويفتح لهم الدروس في الوحدات المحددة فقط. لا تحدد شيئًا للدورة كاملة.';
+
+  @override
+  String get navReview => 'المراجعة';
 }

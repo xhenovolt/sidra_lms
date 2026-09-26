@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart' show ScrollDirection;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -123,20 +124,95 @@ final adminSections = <AdminSection>[
 bool allowed(AdminDestination d, Set<String> perms) =>
     d.anyOf.isEmpty || d.anyOf.any(perms.contains);
 
-/// Admin console frame: title bar + drawer (modal on phones, permanent on
-/// wide screens). Pages are the router's child.
-class AdminShell extends ConsumerWidget {
+/// Bottom-bar tabs for the console on phones, in priority order; the first
+/// four the user may open are shown, then **More** (which opens the drawer).
+final adminTabs = <AdminDestination>[
+  AdminDestination(
+    Routes.adminDashboard,
+    Icons.dashboard_outlined,
+    (l) => l.navDashboard,
+    {'dashboard.view'},
+  ),
+  AdminDestination(
+    Routes.adminCourses,
+    Icons.library_books_outlined,
+    (l) => l.adminTabCourses,
+    {'courses.view', 'curriculum.edit'},
+  ),
+  AdminDestination(
+    Routes.adminPeopleLearners,
+    Icons.school_outlined,
+    (l) => l.adminStatLearners,
+    {'learners.view'},
+  ),
+  AdminDestination(
+    Routes.adminLearners,
+    Icons.rate_review_outlined,
+    (l) => l.navReview,
+    {'teaching.review', 'courses.view'},
+  ),
+  AdminDestination(
+    Routes.adminPeopleTeachers,
+    Icons.co_present_outlined,
+    (l) => l.adminStatTeachers,
+    {'teachers.view'},
+  ),
+  AdminDestination(Routes.adminAudit, Icons.history, (l) => l.drawerActivity, {
+    'audit.view',
+  }),
+];
+
+/// Admin console frame.
+///
+/// Phones: the Sidra name on top, tabs at the bottom (the last one, More,
+/// opens the drawer with every page). Both bars slide away while scrolling
+/// down and come back on scrolling up, like Facebook.
+/// Wide screens: a permanent drawer beside the page.
+class AdminShell extends ConsumerStatefulWidget {
   const AdminShell({super.key, required this.location, required this.child});
 
   final String location;
   final Widget child;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AdminShell> createState() => _AdminShellState();
+}
+
+class _AdminShellState extends ConsumerState<AdminShell> {
+  final _scaffold = GlobalKey<ScaffoldState>();
+  bool _barsVisible = true;
+
+  @override
+  void didUpdateWidget(AdminShell old) {
+    super.didUpdateWidget(old);
+    // A new page starts with the bars showing.
+    if (old.location != widget.location) _barsVisible = true;
+  }
+
+  bool _onScroll(ScrollNotification n) {
+    if (n.metrics.axis != Axis.vertical) return false;
+    if (n is UserScrollNotification) {
+      final show = switch (n.direction) {
+        ScrollDirection.reverse => false,
+        ScrollDirection.forward => true,
+        ScrollDirection.idle => _barsVisible,
+      };
+      if (show != _barsVisible) setState(() => _barsVisible = show);
+    } else if (n is ScrollUpdateNotification &&
+        n.metrics.pixels <= n.metrics.minScrollExtent &&
+        !_barsVisible) {
+      setState(() => _barsVisible = true); // back at the top
+    }
+    return false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     ref.watch(syncSchedulerProvider);
     final l10n = AppLocalizations.of(context);
     final perms = ref.watch(myPermissionsProvider);
     final wide = MediaQuery.sizeOf(context).width >= 1000;
+    final location = widget.location;
 
     final current = adminSections
         .expand((s) => s.items)
@@ -161,10 +237,9 @@ class AdminShell extends ConsumerWidget {
         error: error,
         onRetry: () => ref.invalidate(myPermissionsProvider),
       ),
-      _ => child,
+      _ => widget.child,
     };
 
-    final title = Text(current?.label(l10n) ?? l10n.appName);
     if (wide) {
       return Scaffold(
         body: Row(
@@ -173,7 +248,10 @@ class AdminShell extends ConsumerWidget {
             const VerticalDivider(width: 1),
             Expanded(
               child: Scaffold(
-                appBar: AppBar(title: title, automaticallyImplyLeading: false),
+                appBar: AppBar(
+                  title: Text(current?.label(l10n) ?? l10n.appName),
+                  automaticallyImplyLeading: false,
+                ),
                 body: page,
               ),
             ),
@@ -181,12 +259,167 @@ class AdminShell extends ConsumerWidget {
         ),
       );
     }
+
+    final tabs = [
+      for (final t in adminTabs)
+        if (allowed(t, perms.value ?? const {})) t,
+    ].take(4).toList();
+    final tabIndex = tabs.indexWhere((t) => location.startsWith(t.path));
+    // Pages reached from the drawer highlight More.
+    final selected = tabIndex >= 0 ? tabIndex : tabs.length;
+    // The page's own name, for pages that are not a tab.
+    final subtitle = tabIndex < 0 ? current?.label(l10n) : null;
+
     return Scaffold(
-      appBar: AppBar(title: title),
+      key: _scaffold,
       drawer: drawer,
-      body: page,
+      appBar: _HidingTopBar(
+        visible: _barsVisible,
+        title: _BrandTitle(subtitle: subtitle),
+        leading: tabs.isEmpty
+            ? IconButton(
+                tooltip: l10n.navMore,
+                icon: const Icon(Icons.menu),
+                onPressed: () => _scaffold.currentState?.openDrawer(),
+              )
+            : null,
+      ),
+      body: NotificationListener<ScrollNotification>(
+        onNotification: _onScroll,
+        child: page,
+      ),
+      // NavigationBar needs two items; with no tabs (permissions still
+      // loading, or a role with none) the drawer opens from the top bar.
+      bottomNavigationBar: tabs.isEmpty
+          ? null
+          : _Collapse(
+              visible: _barsVisible,
+              alignment: Alignment.topCenter,
+              child: NavigationBar(
+                selectedIndex: selected,
+                onDestinationSelected: (i) {
+                  if (i == tabs.length) {
+                    _scaffold.currentState?.openDrawer();
+                  } else {
+                    context.go(tabs[i].path);
+                  }
+                },
+                destinations: [
+                  for (final t in tabs)
+                    NavigationDestination(
+                      icon: Icon(t.icon),
+                      label: t.label(l10n),
+                    ),
+                  NavigationDestination(
+                    icon: const Icon(Icons.menu),
+                    label: l10n.navMore,
+                  ),
+                ],
+              ),
+            ),
     );
   }
+}
+
+/// Sidra's name and mark, as the console's title (like Facebook's wordmark).
+class _BrandTitle extends StatelessWidget {
+  const _BrandTitle({this.subtitle});
+  final String? subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    return Row(
+      children: [
+        const SidraMark(size: 30),
+        const SizedBox(width: Space.sm),
+        Text(
+          l10n.appName,
+          style: theme.textTheme.titleLarge?.copyWith(
+            color: theme.colorScheme.primary,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        if (subtitle != null) ...[
+          const SizedBox(width: Space.sm),
+          Flexible(
+            child: Text(
+              '· $subtitle',
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+/// The top bar, which slides up out of view when [visible] is false. The
+/// status-bar area stays covered so page content never runs under it.
+class _HidingTopBar extends StatelessWidget implements PreferredSizeWidget {
+  const _HidingTopBar({
+    required this.visible,
+    required this.title,
+    this.leading,
+  });
+  final bool visible;
+  final Widget title;
+  final Widget? leading;
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Material(
+      color: theme.colorScheme.surface,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: MediaQuery.paddingOf(context).top),
+          _Collapse(
+            visible: visible,
+            alignment: Alignment.bottomCenter,
+            child: AppBar(
+              primary: false,
+              automaticallyImplyLeading: false,
+              titleSpacing: Space.md,
+              title: title,
+              leading: leading,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Shows [child] fully, or shrinks it to nothing, with a short slide.
+class _Collapse extends StatelessWidget {
+  const _Collapse({
+    required this.visible,
+    required this.alignment,
+    required this.child,
+  });
+  final bool visible;
+  final Alignment alignment;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => TweenAnimationBuilder<double>(
+    tween: Tween(end: visible ? 1 : 0),
+    duration: const Duration(milliseconds: 220),
+    curve: Curves.easeOut,
+    child: child,
+    builder: (context, factor, child) => ClipRect(
+      child: Align(alignment: alignment, heightFactor: factor, child: child),
+    ),
+  );
 }
 
 class _AdminDrawer extends ConsumerWidget {

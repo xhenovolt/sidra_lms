@@ -1550,4 +1550,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get staffLimitUnitsHint =>
       'They review and unlock learners only in the ticked units. Tick none for the whole course.';
+
+  @override
+  String get navReview => 'Review';
 }

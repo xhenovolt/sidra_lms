@@ -103,8 +103,10 @@ and payments are never lost.
 
 The dashboard shows live numbers (learners, teachers, courses published,
 in draft and in review, enrolments, activity this week) and quick buttons to
-**Add person** and **New course**. Open the menu (☰) for everything else;
-it only lists the pages your role allows.
+**Add person** and **New course**. The bottom bar holds the main pages
+(Dashboard, Courses, Learners, Review); **More** opens the menu with everything else;
+it only lists the pages your role allows. The top and bottom bars slide
+away while you scroll down a list and come back when you scroll up.
 
 The **Courses** page can be searched by title, subject, category or tag,
 and filtered by status. Archived courses are under **Archived**. Each course

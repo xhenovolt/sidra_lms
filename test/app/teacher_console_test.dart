@@ -177,7 +177,13 @@ List<String> navLabels(WidgetTester tester) => [
 ];
 
 Future<void> openDrawer(WidgetTester tester) async {
-  await tester.tap(find.byTooltip('Open navigation menu'));
+  // The last bottom tab, More, opens the drawer.
+  await tester.tap(
+    find.descendant(
+      of: find.byType(NavigationBar),
+      matching: find.text('More'),
+    ),
+  );
   await tester.pumpAndSettle();
 }
 
@@ -205,7 +211,15 @@ void main() {
     'admin lands on the dashboard with a permission-filtered drawer',
     (tester) async {
       await signInAs(tester, 'admin');
-      expect(find.byType(NavigationBar), findsNothing);
+      // Facebook-style: tabs at the bottom, the last one opens the drawer.
+      expect(navLabels(tester), [
+        'Dashboard',
+        'Courses',
+        'Learners',
+        'Review',
+        'More',
+      ]);
+      expect(find.text('Sidra'), findsOneWidget); // app name on top
       expect(find.text('12'), findsOneWidget); // learners stat
 
       await openDrawer(tester);
@@ -238,6 +252,7 @@ void main() {
     tester,
   ) async {
     await signInAs(tester, 'finance_officer');
+    expect(navLabels(tester), ['Dashboard', 'Learners', 'More']);
     await openDrawer(tester);
     expect(inDrawer('Dashboard'), findsOneWidget);
     expect(inDrawer('Learners'), findsOneWidget);
@@ -346,4 +361,42 @@ void main() {
       findsOneWidget,
     );
   });
+
+  testWidgets(
+    'the bars slide away while scrolling down and return on the way up',
+    (tester) async {
+      final api = staffServer('admin');
+      api.rpcHandlers['admin_list_users'] = (_) => [
+        for (var i = 0; i < 40; i++)
+          {'id': 'p$i', 'display_name': 'Person $i', 'role': 'learner'},
+      ];
+      await signInAs(tester, 'admin', api: api);
+      GoRouter.of(tester.element(find.byType(NavigationBar)))
+          .go('/admin/people/learners');
+      await tester.pumpAndSettle();
+      double barHeight() => tester.getSize(find.byType(NavigationBar)).height;
+      Finder list() => find
+          .descendant(
+            of: find.byType(RefreshIndicator),
+            matching: find.byType(Scrollable),
+          )
+          .first;
+
+      final shown = tester.getTopLeft(find.byType(NavigationBar)).dy;
+      await tester.drag(list(), const Offset(0, -300));
+      await tester.pumpAndSettle();
+      expect(
+        tester.getTopLeft(find.byType(NavigationBar)).dy,
+        greaterThan(shown),
+        reason: 'bottom bar moved off screen',
+      );
+      expect(find.text('Sidra').hitTestable(), findsNothing);
+
+      await tester.drag(list(), const Offset(0, 100));
+      await tester.pumpAndSettle();
+      expect(tester.getTopLeft(find.byType(NavigationBar)).dy, shown);
+      expect(barHeight(), greaterThan(0));
+      expect(find.text('Sidra').hitTestable(), findsOneWidget);
+    },
+  );
 }
