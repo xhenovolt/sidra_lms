@@ -11,6 +11,7 @@ import '../../../shared/widgets/state_views.dart';
 import '../../curriculum/domain/curriculum_models.dart';
 import '../../curriculum/domain/curriculum_tree.dart';
 import '../../downloads/presentation/download_button.dart';
+import '../../payments/presentation/course_payment_card.dart';
 import '../../progress/domain/progress_models.dart';
 import '../data/course_repository.dart';
 import 'course_widgets.dart';
@@ -159,7 +160,15 @@ class _CourseBodyState extends ConsumerState<_CourseBody> {
                   ),
                   const SizedBox(height: Space.sm),
                   DownloadCourseButton(courseId: course.id),
-                ] else if (course.isFree)
+                ] else if (course.access == CourseAccess.paid)
+                  CoursePaymentCard(
+                    course: course,
+                    onPaid: () {
+                      ref.invalidate(myCoursesProvider);
+                      ref.invalidate(courseOutlineProvider(course.id));
+                    },
+                  )
+                else if (course.isFree && course.selfEnrol)
                   FilledButton.icon(
                     onPressed: _enrolling ? null : _enrol,
                     icon: _enrolling

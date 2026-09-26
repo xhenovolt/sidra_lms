@@ -2881,6 +2881,671 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not load your menu. Check your connection and try again.'**
   String get drawerLoadFailed;
+
+  /// No description provided for @payCourseFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Course fee'**
+  String get payCourseFee;
+
+  /// No description provided for @payAlreadyCovered.
+  ///
+  /// In en, this message translates to:
+  /// **'{covered} of {fee} already covered'**
+  String payAlreadyCovered(String covered, String fee);
+
+  /// No description provided for @payWithMobileMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay with mobile money'**
+  String get payWithMobileMoney;
+
+  /// No description provided for @payOtherWay.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid another way? Tell us'**
+  String get payOtherWay;
+
+  /// No description provided for @payPhoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'We will send a payment request to this MTN or Airtel number. Keep the phone with you.'**
+  String get payPhoneHint;
+
+  /// No description provided for @payPhoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile money number'**
+  String get payPhoneLabel;
+
+  /// No description provided for @payPhoneInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an MTN or Airtel Uganda number, e.g. 0772 123456'**
+  String get payPhoneInvalid;
+
+  /// No description provided for @payNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay'**
+  String get payNow;
+
+  /// No description provided for @payCheckPhoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your phone'**
+  String get payCheckPhoneTitle;
+
+  /// No description provided for @payCheckPhoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your mobile money PIN to pay {amount} from {phone}. This page updates by itself.'**
+  String payCheckPhoneBody(String amount, String phone);
+
+  /// No description provided for @payReceivedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment received'**
+  String get payReceivedTitle;
+
+  /// No description provided for @payReceivedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you. The course is now open.'**
+  String get payReceivedBody;
+
+  /// No description provided for @payPendingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for confirmation'**
+  String get payPendingTitle;
+
+  /// No description provided for @payPendingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Our finance team will confirm your payment and open the course.'**
+  String get payPendingBody;
+
+  /// No description provided for @payNoAnswerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No answer yet'**
+  String get payNoAnswerTitle;
+
+  /// No description provided for @payNoAnswerBody.
+  ///
+  /// In en, this message translates to:
+  /// **'If you entered your PIN, the course opens as soon as the payment is confirmed. Otherwise, try again.'**
+  String get payNoAnswerBody;
+
+  /// No description provided for @payFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment not completed'**
+  String get payFailedTitle;
+
+  /// No description provided for @payFailedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The request was declined, cancelled or timed out. Nothing was taken. You can try again.'**
+  String get payFailedBody;
+
+  /// No description provided for @payMethodBank.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank'**
+  String get payMethodBank;
+
+  /// No description provided for @payMethodMobileMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile money'**
+  String get payMethodMobileMoney;
+
+  /// No description provided for @payAmountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount paid ({currency})'**
+  String payAmountLabel(String currency);
+
+  /// No description provided for @payAmountInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the amount you paid'**
+  String get payAmountInvalid;
+
+  /// No description provided for @payReferenceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction ID or deposit slip number'**
+  String get payReferenceLabel;
+
+  /// No description provided for @payReferenceRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the transaction ID or slip number'**
+  String get payReferenceRequired;
+
+  /// No description provided for @payNoteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get payNoteLabel;
+
+  /// No description provided for @paySubmitReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Send for confirmation'**
+  String get paySubmitReport;
+
+  /// No description provided for @paySubmitReportHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The course opens once our finance team has checked the payment.'**
+  String get paySubmitReportHint;
+
+  /// No description provided for @drawerFinance.
+  ///
+  /// In en, this message translates to:
+  /// **'Finance'**
+  String get drawerFinance;
+
+  /// No description provided for @drawerFinancePage.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments & finance'**
+  String get drawerFinancePage;
+
+  /// No description provided for @drawerSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get drawerSettings;
+
+  /// No description provided for @financeOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get financeOverview;
+
+  /// No description provided for @financePayments.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments'**
+  String get financePayments;
+
+  /// No description provided for @financeOwing.
+  ///
+  /// In en, this message translates to:
+  /// **'Owing'**
+  String get financeOwing;
+
+  /// No description provided for @financeWaivers.
+  ///
+  /// In en, this message translates to:
+  /// **'Waivers'**
+  String get financeWaivers;
+
+  /// No description provided for @financeExpenses.
+  ///
+  /// In en, this message translates to:
+  /// **'Expenses'**
+  String get financeExpenses;
+
+  /// No description provided for @periodThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This month'**
+  String get periodThisMonth;
+
+  /// No description provided for @periodLastMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Last month'**
+  String get periodLastMonth;
+
+  /// No description provided for @periodThisYear.
+  ///
+  /// In en, this message translates to:
+  /// **'This year'**
+  String get periodThisYear;
+
+  /// No description provided for @periodAllTime.
+  ///
+  /// In en, this message translates to:
+  /// **'All time'**
+  String get periodAllTime;
+
+  /// No description provided for @financePendingBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 payment waiting for verification} other{{count} payments waiting for verification}}'**
+  String financePendingBanner(int count);
+
+  /// No description provided for @financeCollected.
+  ///
+  /// In en, this message translates to:
+  /// **'Collected'**
+  String get financeCollected;
+
+  /// No description provided for @financeOutstanding.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding'**
+  String get financeOutstanding;
+
+  /// No description provided for @financeExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected'**
+  String get financeExpected;
+
+  /// No description provided for @financeWaived.
+  ///
+  /// In en, this message translates to:
+  /// **'Waived'**
+  String get financeWaived;
+
+  /// No description provided for @financeRefunded.
+  ///
+  /// In en, this message translates to:
+  /// **'Refunded'**
+  String get financeRefunded;
+
+  /// No description provided for @financeProviderFees.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay fees'**
+  String get financeProviderFees;
+
+  /// No description provided for @financeRetained.
+  ///
+  /// In en, this message translates to:
+  /// **'Retained'**
+  String get financeRetained;
+
+  /// No description provided for @financeHowRetained.
+  ///
+  /// In en, this message translates to:
+  /// **'How “Retained” is worked out'**
+  String get financeHowRetained;
+
+  /// No description provided for @financeFormula.
+  ///
+  /// In en, this message translates to:
+  /// **'Retained = Collected − Refunds − MarzPay fees − Expenses'**
+  String get financeFormula;
+
+  /// No description provided for @financeWaiverNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Waivers reduce what learners owe; they are never counted as money collected.'**
+  String get financeWaiverNote;
+
+  /// No description provided for @financeByMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Collected by method'**
+  String get financeByMethod;
+
+  /// No description provided for @financeByCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'By course'**
+  String get financeByCourse;
+
+  /// No description provided for @financeCourseLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{learners, plural, =1{1 learner} other{{learners} learners}} · collected {collected} · owing {outstanding}'**
+  String financeCourseLine(int learners, String collected, String outstanding);
+
+  /// No description provided for @methodMarzPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile money (MarzPay)'**
+  String get methodMarzPay;
+
+  /// No description provided for @methodCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash'**
+  String get methodCash;
+
+  /// No description provided for @methodOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get methodOther;
+
+  /// No description provided for @paymentInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'In progress'**
+  String get paymentInProgress;
+
+  /// No description provided for @paymentPending.
+  ///
+  /// In en, this message translates to:
+  /// **'To verify'**
+  String get paymentPending;
+
+  /// No description provided for @paymentVerified.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get paymentVerified;
+
+  /// No description provided for @paymentFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get paymentFailed;
+
+  /// No description provided for @paymentRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'Rejected'**
+  String get paymentRejected;
+
+  /// No description provided for @paymentReversed.
+  ///
+  /// In en, this message translates to:
+  /// **'Reversed'**
+  String get paymentReversed;
+
+  /// No description provided for @financeRecordPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Record payment'**
+  String get financeRecordPayment;
+
+  /// No description provided for @financeSearchPayments.
+  ///
+  /// In en, this message translates to:
+  /// **'Search name, phone or transaction ID'**
+  String get financeSearchPayments;
+
+  /// No description provided for @financeNoPayments.
+  ///
+  /// In en, this message translates to:
+  /// **'No payments here'**
+  String get financeNoPayments;
+
+  /// No description provided for @financeLearner.
+  ///
+  /// In en, this message translates to:
+  /// **'Learner'**
+  String get financeLearner;
+
+  /// No description provided for @financeCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Course'**
+  String get financeCourse;
+
+  /// No description provided for @financeMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Method'**
+  String get financeMethod;
+
+  /// No description provided for @financeRecordedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded by'**
+  String get financeRecordedBy;
+
+  /// No description provided for @financeVerifiedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Checked by'**
+  String get financeVerifiedBy;
+
+  /// No description provided for @financeCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Created'**
+  String get financeCreated;
+
+  /// No description provided for @financeOpenLearner.
+  ///
+  /// In en, this message translates to:
+  /// **'Open learner record'**
+  String get financeOpenLearner;
+
+  /// No description provided for @financeVerify.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify: money received'**
+  String get financeVerify;
+
+  /// No description provided for @financeReject.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject'**
+  String get financeReject;
+
+  /// No description provided for @financeRefund.
+  ///
+  /// In en, this message translates to:
+  /// **'Record a refund'**
+  String get financeRefund;
+
+  /// No description provided for @financeReverse.
+  ///
+  /// In en, this message translates to:
+  /// **'Reverse (money not received)'**
+  String get financeReverse;
+
+  /// No description provided for @reason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get reason;
+
+  /// No description provided for @financeNobodyOwes.
+  ///
+  /// In en, this message translates to:
+  /// **'Nobody owes anything'**
+  String get financeNobodyOwes;
+
+  /// No description provided for @financeOwingLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{course} · fee {fee} · paid {paid} · waived {waived}'**
+  String financeOwingLine(
+    String course,
+    String fee,
+    String paid,
+    String waived,
+  );
+
+  /// No description provided for @financeGrantWaiver.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant waiver'**
+  String get financeGrantWaiver;
+
+  /// No description provided for @financeNoWaivers.
+  ///
+  /// In en, this message translates to:
+  /// **'No waivers'**
+  String get financeNoWaivers;
+
+  /// No description provided for @financeFullFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Whole fee'**
+  String get financeFullFee;
+
+  /// No description provided for @financeRevoke.
+  ///
+  /// In en, this message translates to:
+  /// **'Revoke waiver'**
+  String get financeRevoke;
+
+  /// No description provided for @financeRecordExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Record expense'**
+  String get financeRecordExpense;
+
+  /// No description provided for @financeNoExpenses.
+  ///
+  /// In en, this message translates to:
+  /// **'No expenses in this period'**
+  String get financeNoExpenses;
+
+  /// No description provided for @financeVoid.
+  ///
+  /// In en, this message translates to:
+  /// **'Void expense'**
+  String get financeVoid;
+
+  /// No description provided for @financeChooseLearner.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose learner'**
+  String get financeChooseLearner;
+
+  /// No description provided for @financeChooseCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose course'**
+  String get financeChooseCourse;
+
+  /// No description provided for @financeCourseChosen.
+  ///
+  /// In en, this message translates to:
+  /// **'Course chosen'**
+  String get financeCourseChosen;
+
+  /// No description provided for @financeNoPaidCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'No paid courses yet'**
+  String get financeNoPaidCourses;
+
+  /// No description provided for @financeChooseBoth.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the learner and the course'**
+  String get financeChooseBoth;
+
+  /// No description provided for @financeCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get financeCategory;
+
+  /// No description provided for @financeCategoryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Rent, Salaries, Transport'**
+  String get financeCategoryHint;
+
+  /// No description provided for @financePayee.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid to (optional)'**
+  String get financePayee;
+
+  /// No description provided for @financeRecordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded payments wait for a finance officer to verify them before they count.'**
+  String get financeRecordHint;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Organisation settings'**
+  String get settingsTitle;
+
+  /// No description provided for @settingsOrgName.
+  ///
+  /// In en, this message translates to:
+  /// **'Organisation name'**
+  String get settingsOrgName;
+
+  /// No description provided for @settingsCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get settingsCurrency;
+
+  /// No description provided for @settingsSupportPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Support phone'**
+  String get settingsSupportPhone;
+
+  /// No description provided for @settingsSupportEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Support email'**
+  String get settingsSupportEmail;
+
+  /// No description provided for @settingsBank.
+  ///
+  /// In en, this message translates to:
+  /// **'How to pay by bank'**
+  String get settingsBank;
+
+  /// No description provided for @settingsBankHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank, account name and number. Learners see this.'**
+  String get settingsBankHint;
+
+  /// No description provided for @settingsMobileMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'How to pay by mobile money (outside the app)'**
+  String get settingsMobileMoney;
+
+  /// No description provided for @settingsMarzPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile-money payments in the app (MarzPay)'**
+  String get settingsMarzPay;
+
+  /// No description provided for @settingsMarzPayHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners pay with a PIN prompt on their phone.'**
+  String get settingsMarzPayHint;
+
+  /// No description provided for @enrolMany.
+  ///
+  /// In en, this message translates to:
+  /// **'Enrol several learners'**
+  String get enrolMany;
+
+  /// No description provided for @enrolUntil.
+  ///
+  /// In en, this message translates to:
+  /// **'Access until (optional)'**
+  String get enrolUntil;
+
+  /// No description provided for @enrolNoEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'No end date'**
+  String get enrolNoEnd;
+
+  /// No description provided for @enrolSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Enrol 1 learner} other{Enrol {count} learners}}'**
+  String enrolSelected(int count);
+
+  /// No description provided for @fieldRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get fieldRequired;
 }
 
 class _AppLocalizationsDelegate

@@ -254,7 +254,7 @@ void main() {
     tester,
   ) async {
     await signInAs(tester, 'finance_officer');
-    expect(navLabels(tester), ['Dashboard', 'Learners', 'More']);
+    expect(navLabels(tester), ['Dashboard', 'Learners', 'Finance', 'More']);
     await openDrawer(tester);
     expect(inDrawer('Dashboard'), findsOneWidget);
     expect(inDrawer('Learners'), findsOneWidget);

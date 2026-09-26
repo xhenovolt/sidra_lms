@@ -306,10 +306,7 @@ class PgWireApi implements PostgresApi {
       // shape a one-column table function has.
       return [
         for (final row in r)
-          if (row.first is Map)
-            _row(row.first)
-          else
-            {function: row.first},
+          if (row.first is Map) _row(row.first) else {function: row.first},
       ];
     });
   }

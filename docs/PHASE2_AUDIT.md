@@ -106,9 +106,9 @@ trusted server component (see 2F).
 | **Audit** | `audit_log` + triggers on courses, enrolments, roles, payments, waivers, expenses; activity screen |
 | **2C** Courses ✅ (v2.3.0) | richer course model, course editor with sections (not a locked wizard), publish validation, archive instead of delete, external resource blocks with YouTube/link preview, preview as learner |
 | **2D-2** People ✅ (v2.4.0) | server-paged learner/teacher lists, learner profile (enrolments, progress, results, payments, waivers, activity), unit/node-scoped teacher assignments |
-| **2E** Enrolment | enrolment dates, access state, fee snapshot, bulk enrol, self-enrol only when the course allows |
-| **2F** Payments | fee/charges ledger, bank and mobile-money submissions (pending → verified/rejected), waivers, refunds/voids; MarzPay boundary (awaiting API docs) |
-| **2G** Finance | expected / collected / outstanding / waived / expenses / retained with the formula shown, filters, transactions, reports |
+| **2E** Enrolment ✅ (v2.5.0) | enrolment dates, access state, fee snapshot, bulk enrol, self-enrol only when the course allows |
+| **2F** Payments ✅ (v2.5.0) | fee/charges ledger, bank and mobile-money submissions (pending → verified/rejected), waivers, refunds/voids; MarzPay boundary (awaiting API docs) |
+| **2G** Finance ✅ (v2.5.0) | expected / collected / outstanding / waived / expenses / retained with the formula shown, filters, transactions, reports |
 | **2H** Teaching | teacher dashboard scoped to assignments |
 | **2I** Hardening | RLS/permission/payment integrity review, indexes, tests |
 

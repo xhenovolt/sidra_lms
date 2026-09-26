@@ -1557,4 +1557,383 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get drawerLoadFailed =>
       'Could not load your menu. Check your connection and try again.';
+
+  @override
+  String get payCourseFee => 'Course fee';
+
+  @override
+  String payAlreadyCovered(String covered, String fee) {
+    return '$covered of $fee already covered';
+  }
+
+  @override
+  String get payWithMobileMoney => 'Pay with mobile money';
+
+  @override
+  String get payOtherWay => 'Paid another way? Tell us';
+
+  @override
+  String get payPhoneHint =>
+      'We will send a payment request to this MTN or Airtel number. Keep the phone with you.';
+
+  @override
+  String get payPhoneLabel => 'Mobile money number';
+
+  @override
+  String get payPhoneInvalid =>
+      'Enter an MTN or Airtel Uganda number, e.g. 0772 123456';
+
+  @override
+  String get payNow => 'Pay';
+
+  @override
+  String get payCheckPhoneTitle => 'Check your phone';
+
+  @override
+  String payCheckPhoneBody(String amount, String phone) {
+    return 'Enter your mobile money PIN to pay $amount from $phone. This page updates by itself.';
+  }
+
+  @override
+  String get payReceivedTitle => 'Payment received';
+
+  @override
+  String get payReceivedBody => 'Thank you. The course is now open.';
+
+  @override
+  String get payPendingTitle => 'Waiting for confirmation';
+
+  @override
+  String get payPendingBody =>
+      'Our finance team will confirm your payment and open the course.';
+
+  @override
+  String get payNoAnswerTitle => 'No answer yet';
+
+  @override
+  String get payNoAnswerBody =>
+      'If you entered your PIN, the course opens as soon as the payment is confirmed. Otherwise, try again.';
+
+  @override
+  String get payFailedTitle => 'Payment not completed';
+
+  @override
+  String get payFailedBody =>
+      'The request was declined, cancelled or timed out. Nothing was taken. You can try again.';
+
+  @override
+  String get payMethodBank => 'Bank';
+
+  @override
+  String get payMethodMobileMoney => 'Mobile money';
+
+  @override
+  String payAmountLabel(String currency) {
+    return 'Amount paid ($currency)';
+  }
+
+  @override
+  String get payAmountInvalid => 'Enter the amount you paid';
+
+  @override
+  String get payReferenceLabel => 'Transaction ID or deposit slip number';
+
+  @override
+  String get payReferenceRequired => 'Enter the transaction ID or slip number';
+
+  @override
+  String get payNoteLabel => 'Note (optional)';
+
+  @override
+  String get paySubmitReport => 'Send for confirmation';
+
+  @override
+  String get paySubmitReportHint =>
+      'The course opens once our finance team has checked the payment.';
+
+  @override
+  String get drawerFinance => 'Finance';
+
+  @override
+  String get drawerFinancePage => 'Payments & finance';
+
+  @override
+  String get drawerSettings => 'Settings';
+
+  @override
+  String get financeOverview => 'Overview';
+
+  @override
+  String get financePayments => 'Payments';
+
+  @override
+  String get financeOwing => 'Owing';
+
+  @override
+  String get financeWaivers => 'Waivers';
+
+  @override
+  String get financeExpenses => 'Expenses';
+
+  @override
+  String get periodThisMonth => 'This month';
+
+  @override
+  String get periodLastMonth => 'Last month';
+
+  @override
+  String get periodThisYear => 'This year';
+
+  @override
+  String get periodAllTime => 'All time';
+
+  @override
+  String financePendingBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count payments waiting for verification',
+      one: '1 payment waiting for verification',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get financeCollected => 'Collected';
+
+  @override
+  String get financeOutstanding => 'Outstanding';
+
+  @override
+  String get financeExpected => 'Expected';
+
+  @override
+  String get financeWaived => 'Waived';
+
+  @override
+  String get financeRefunded => 'Refunded';
+
+  @override
+  String get financeProviderFees => 'MarzPay fees';
+
+  @override
+  String get financeRetained => 'Retained';
+
+  @override
+  String get financeHowRetained => 'How “Retained” is worked out';
+
+  @override
+  String get financeFormula =>
+      'Retained = Collected − Refunds − MarzPay fees − Expenses';
+
+  @override
+  String get financeWaiverNote =>
+      'Waivers reduce what learners owe; they are never counted as money collected.';
+
+  @override
+  String get financeByMethod => 'Collected by method';
+
+  @override
+  String get financeByCourse => 'By course';
+
+  @override
+  String financeCourseLine(int learners, String collected, String outstanding) {
+    String _temp0 = intl.Intl.pluralLogic(
+      learners,
+      locale: localeName,
+      other: '$learners learners',
+      one: '1 learner',
+    );
+    return '$_temp0 · collected $collected · owing $outstanding';
+  }
+
+  @override
+  String get methodMarzPay => 'Mobile money (MarzPay)';
+
+  @override
+  String get methodCash => 'Cash';
+
+  @override
+  String get methodOther => 'Other';
+
+  @override
+  String get paymentInProgress => 'In progress';
+
+  @override
+  String get paymentPending => 'To verify';
+
+  @override
+  String get paymentVerified => 'Verified';
+
+  @override
+  String get paymentFailed => 'Failed';
+
+  @override
+  String get paymentRejected => 'Rejected';
+
+  @override
+  String get paymentReversed => 'Reversed';
+
+  @override
+  String get financeRecordPayment => 'Record payment';
+
+  @override
+  String get financeSearchPayments => 'Search name, phone or transaction ID';
+
+  @override
+  String get financeNoPayments => 'No payments here';
+
+  @override
+  String get financeLearner => 'Learner';
+
+  @override
+  String get financeCourse => 'Course';
+
+  @override
+  String get financeMethod => 'Method';
+
+  @override
+  String get financeRecordedBy => 'Recorded by';
+
+  @override
+  String get financeVerifiedBy => 'Checked by';
+
+  @override
+  String get financeCreated => 'Created';
+
+  @override
+  String get financeOpenLearner => 'Open learner record';
+
+  @override
+  String get financeVerify => 'Verify: money received';
+
+  @override
+  String get financeReject => 'Reject';
+
+  @override
+  String get financeRefund => 'Record a refund';
+
+  @override
+  String get financeReverse => 'Reverse (money not received)';
+
+  @override
+  String get reason => 'Reason';
+
+  @override
+  String get financeNobodyOwes => 'Nobody owes anything';
+
+  @override
+  String financeOwingLine(
+    String course,
+    String fee,
+    String paid,
+    String waived,
+  ) {
+    return '$course · fee $fee · paid $paid · waived $waived';
+  }
+
+  @override
+  String get financeGrantWaiver => 'Grant waiver';
+
+  @override
+  String get financeNoWaivers => 'No waivers';
+
+  @override
+  String get financeFullFee => 'Whole fee';
+
+  @override
+  String get financeRevoke => 'Revoke waiver';
+
+  @override
+  String get financeRecordExpense => 'Record expense';
+
+  @override
+  String get financeNoExpenses => 'No expenses in this period';
+
+  @override
+  String get financeVoid => 'Void expense';
+
+  @override
+  String get financeChooseLearner => 'Choose learner';
+
+  @override
+  String get financeChooseCourse => 'Choose course';
+
+  @override
+  String get financeCourseChosen => 'Course chosen';
+
+  @override
+  String get financeNoPaidCourses => 'No paid courses yet';
+
+  @override
+  String get financeChooseBoth => 'Choose the learner and the course';
+
+  @override
+  String get financeCategory => 'Category';
+
+  @override
+  String get financeCategoryHint => 'e.g. Rent, Salaries, Transport';
+
+  @override
+  String get financePayee => 'Paid to (optional)';
+
+  @override
+  String get financeRecordHint =>
+      'Recorded payments wait for a finance officer to verify them before they count.';
+
+  @override
+  String get settingsTitle => 'Organisation settings';
+
+  @override
+  String get settingsOrgName => 'Organisation name';
+
+  @override
+  String get settingsCurrency => 'Currency';
+
+  @override
+  String get settingsSupportPhone => 'Support phone';
+
+  @override
+  String get settingsSupportEmail => 'Support email';
+
+  @override
+  String get settingsBank => 'How to pay by bank';
+
+  @override
+  String get settingsBankHint =>
+      'Bank, account name and number. Learners see this.';
+
+  @override
+  String get settingsMobileMoney =>
+      'How to pay by mobile money (outside the app)';
+
+  @override
+  String get settingsMarzPay => 'Mobile-money payments in the app (MarzPay)';
+
+  @override
+  String get settingsMarzPayHint =>
+      'Learners pay with a PIN prompt on their phone.';
+
+  @override
+  String get enrolMany => 'Enrol several learners';
+
+  @override
+  String get enrolUntil => 'Access until (optional)';
+
+  @override
+  String get enrolNoEnd => 'No end date';
+
+  @override
+  String enrolSelected(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Enrol $count learners',
+      one: 'Enrol 1 learner',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get fieldRequired => 'Required';
 }

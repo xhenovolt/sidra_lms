@@ -657,5 +657,185 @@
   },
   "staffLimitUnitsHint": "They review and unlock learners only in the ticked units. Tick none for the whole course.",
   "navReview": "Review",
-  "drawerLoadFailed": "Could not load your menu. Check your connection and try again."
+  "drawerLoadFailed": "Could not load your menu. Check your connection and try again.",
+  "payCourseFee": "Course fee",
+  "payAlreadyCovered": "{covered} of {fee} already covered",
+  "@payAlreadyCovered": {
+    "placeholders": {
+      "covered": {
+        "type": "String"
+      },
+      "fee": {
+        "type": "String"
+      }
+    }
+  },
+  "payWithMobileMoney": "Pay with mobile money",
+  "payOtherWay": "Paid another way? Tell us",
+  "payPhoneHint": "We will send a payment request to this MTN or Airtel number. Keep the phone with you.",
+  "payPhoneLabel": "Mobile money number",
+  "payPhoneInvalid": "Enter an MTN or Airtel Uganda number, e.g. 0772 123456",
+  "payNow": "Pay",
+  "payCheckPhoneTitle": "Check your phone",
+  "payCheckPhoneBody": "Enter your mobile money PIN to pay {amount} from {phone}. This page updates by itself.",
+  "@payCheckPhoneBody": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "payReceivedTitle": "Payment received",
+  "payReceivedBody": "Thank you. The course is now open.",
+  "payPendingTitle": "Waiting for confirmation",
+  "payPendingBody": "Our finance team will confirm your payment and open the course.",
+  "payNoAnswerTitle": "No answer yet",
+  "payNoAnswerBody": "If you entered your PIN, the course opens as soon as the payment is confirmed. Otherwise, try again.",
+  "payFailedTitle": "Payment not completed",
+  "payFailedBody": "The request was declined, cancelled or timed out. Nothing was taken. You can try again.",
+  "payMethodBank": "Bank",
+  "payMethodMobileMoney": "Mobile money",
+  "payAmountLabel": "Amount paid ({currency})",
+  "@payAmountLabel": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "payAmountInvalid": "Enter the amount you paid",
+  "payReferenceLabel": "Transaction ID or deposit slip number",
+  "payReferenceRequired": "Enter the transaction ID or slip number",
+  "payNoteLabel": "Note (optional)",
+  "paySubmitReport": "Send for confirmation",
+  "paySubmitReportHint": "The course opens once our finance team has checked the payment.",
+  "drawerFinance": "Finance",
+  "drawerFinancePage": "Payments & finance",
+  "drawerSettings": "Settings",
+  "financeOverview": "Overview",
+  "financePayments": "Payments",
+  "financeOwing": "Owing",
+  "financeWaivers": "Waivers",
+  "financeExpenses": "Expenses",
+  "periodThisMonth": "This month",
+  "periodLastMonth": "Last month",
+  "periodThisYear": "This year",
+  "periodAllTime": "All time",
+  "financePendingBanner": "{count, plural, =1{1 payment waiting for verification} other{{count} payments waiting for verification}}",
+  "@financePendingBanner": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "financeCollected": "Collected",
+  "financeOutstanding": "Outstanding",
+  "financeExpected": "Expected",
+  "financeWaived": "Waived",
+  "financeRefunded": "Refunded",
+  "financeProviderFees": "MarzPay fees",
+  "financeRetained": "Retained",
+  "financeHowRetained": "How “Retained” is worked out",
+  "financeFormula": "Retained = Collected − Refunds − MarzPay fees − Expenses",
+  "financeWaiverNote": "Waivers reduce what learners owe; they are never counted as money collected.",
+  "financeByMethod": "Collected by method",
+  "financeByCourse": "By course",
+  "financeCourseLine": "{learners, plural, =1{1 learner} other{{learners} learners}} · collected {collected} · owing {outstanding}",
+  "@financeCourseLine": {
+    "placeholders": {
+      "learners": {
+        "type": "int"
+      },
+      "collected": {
+        "type": "String"
+      },
+      "outstanding": {
+        "type": "String"
+      }
+    }
+  },
+  "methodMarzPay": "Mobile money (MarzPay)",
+  "methodCash": "Cash",
+  "methodOther": "Other",
+  "paymentInProgress": "In progress",
+  "paymentPending": "To verify",
+  "paymentVerified": "Verified",
+  "paymentFailed": "Failed",
+  "paymentRejected": "Rejected",
+  "paymentReversed": "Reversed",
+  "financeRecordPayment": "Record payment",
+  "financeSearchPayments": "Search name, phone or transaction ID",
+  "financeNoPayments": "No payments here",
+  "financeLearner": "Learner",
+  "financeCourse": "Course",
+  "financeMethod": "Method",
+  "financeRecordedBy": "Recorded by",
+  "financeVerifiedBy": "Checked by",
+  "financeCreated": "Created",
+  "financeOpenLearner": "Open learner record",
+  "financeVerify": "Verify: money received",
+  "financeReject": "Reject",
+  "financeRefund": "Record a refund",
+  "financeReverse": "Reverse (money not received)",
+  "reason": "Reason",
+  "financeNobodyOwes": "Nobody owes anything",
+  "financeOwingLine": "{course} · fee {fee} · paid {paid} · waived {waived}",
+  "@financeOwingLine": {
+    "placeholders": {
+      "course": {
+        "type": "String"
+      },
+      "fee": {
+        "type": "String"
+      },
+      "paid": {
+        "type": "String"
+      },
+      "waived": {
+        "type": "String"
+      }
+    }
+  },
+  "financeGrantWaiver": "Grant waiver",
+  "financeNoWaivers": "No waivers",
+  "financeFullFee": "Whole fee",
+  "financeRevoke": "Revoke waiver",
+  "financeRecordExpense": "Record expense",
+  "financeNoExpenses": "No expenses in this period",
+  "financeVoid": "Void expense",
+  "financeChooseLearner": "Choose learner",
+  "financeChooseCourse": "Choose course",
+  "financeCourseChosen": "Course chosen",
+  "financeNoPaidCourses": "No paid courses yet",
+  "financeChooseBoth": "Choose the learner and the course",
+  "financeCategory": "Category",
+  "financeCategoryHint": "e.g. Rent, Salaries, Transport",
+  "financePayee": "Paid to (optional)",
+  "financeRecordHint": "Recorded payments wait for a finance officer to verify them before they count.",
+  "settingsTitle": "Organisation settings",
+  "settingsOrgName": "Organisation name",
+  "settingsCurrency": "Currency",
+  "settingsSupportPhone": "Support phone",
+  "settingsSupportEmail": "Support email",
+  "settingsBank": "How to pay by bank",
+  "settingsBankHint": "Bank, account name and number. Learners see this.",
+  "settingsMobileMoney": "How to pay by mobile money (outside the app)",
+  "settingsMarzPay": "Mobile-money payments in the app (MarzPay)",
+  "settingsMarzPayHint": "Learners pay with a PIN prompt on their phone.",
+  "enrolMany": "Enrol several learners",
+  "enrolUntil": "Access until (optional)",
+  "enrolNoEnd": "No end date",
+  "enrolSelected": "{count, plural, =1{Enrol 1 learner} other{Enrol {count} learners}}",
+  "@enrolSelected": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "fieldRequired": "Required"
 }

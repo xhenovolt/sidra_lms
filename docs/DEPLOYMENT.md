@@ -24,6 +24,22 @@ dart run tool/db.dart migrate   # apply + sync Cloudinary settings
 Never edit an applied migration; add `NNNN_description.sql`. The tool
 refuses to run if an applied file's checksum changed.
 
+## 2b. Payments server (MarzPay)
+
+In-app mobile-money payments need the small server in `server/`. It holds
+the MarzPay secret; the app never does. See `server/README.md`.
+
+1. `dart run tool/db.dart payments-role` creates its database login and
+   writes `PAYMENTS_DATABASE_URL` to `.env`.
+2. Deploy `server/` (Dockerfile included) anywhere that keeps one process
+   running. Set `PAYMENTS_DATABASE_URL`, `MARZPAY_API_KEY`,
+   `MARZPAY_API_SECRET`, and optionally `PUBLIC_URL` for webhooks.
+3. Check `GET /health`. Until it runs, learners' payments wait in "In
+   progress" and are sent as soon as it starts.
+
+`dart run tool/marzpay.dart services | collect <phone> <amount> --wait |
+status <uuid>` tests MarzPay directly from a developer machine.
+
 ## 3. Building an APK
 
 ```sh

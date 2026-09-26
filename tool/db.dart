@@ -50,6 +50,8 @@ Future<void> main(List<String> args) async {
         await _createUser(conn, _flags(args.skip(1).toList()));
       case 'app-role':
         await _appRole(conn, url);
+      case 'payments-role':
+        await _paymentsRole(conn, url);
       default:
         _usage();
         exit(64);
@@ -68,7 +70,7 @@ Future<void> main(List<String> args) async {
 
 void _usage() => stderr.writeln(
   'Usage: dart run tool/db.dart status | test | migrate | '
-  'promote <phone|email> <admin|teacher|learner> | app-role | create-user',
+  'promote <phone|email> <admin|teacher|learner> | app-role | payments-role | create-user',
 );
 
 class _Abort implements Exception {
@@ -367,6 +369,42 @@ Future<void> _appRole(Connection conn, String ownerUrl) async {
   }
   envFile.writeAsStringSync('${lines.join('\n')}\n');
   stdout.writeln('sidra_app can log in; APP_DATABASE_URL written to .env.');
+}
+
+/// Gives the payments server (sidra_payments) a login and writes
+/// PAYMENTS_DATABASE_URL to .env. It uses the DIRECT host (not the pooler)
+/// so LISTEN/NOTIFY works. The role can only call payments_api functions.
+Future<void> _paymentsRole(Connection conn, String ownerUrl) async {
+  final rnd = Random.secure();
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
+  final password = List.generate(
+    40,
+    (_) => chars[rnd.nextInt(chars.length)],
+  ).join();
+  await conn.execute(
+    "alter role sidra_payments with login password '$password'",
+  );
+  final owner = Uri.parse(ownerUrl);
+  final url = owner.replace(
+    host: owner.host.replaceFirst('-pooler.', '.'),
+    userInfo: 'sidra_payments:${Uri.encodeComponent(password)}',
+    queryParameters: {'sslmode': 'require'},
+  );
+  final envFile = File('.env');
+  final lines = envFile.readAsLinesSync()
+    ..removeWhere(
+      (l) =>
+          l.startsWith('PAYMENTS_DATABASE_URL=') ||
+          l.startsWith('# Payments server login'),
+    )
+    ..addAll([
+      '# Payments server login (sidra_payments): server-side only, never in the app',
+      'PAYMENTS_DATABASE_URL=$url',
+    ]);
+  envFile.writeAsStringSync('${lines.join('\n')}\n');
+  stdout.writeln(
+    'sidra_payments can log in; PAYMENTS_DATABASE_URL written to .env.',
+  );
 }
 
 /// Splits a SQL script into statements on top-level `;`, respecting

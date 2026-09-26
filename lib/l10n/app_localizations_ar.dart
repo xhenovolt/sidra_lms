@@ -1536,4 +1536,381 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get drawerLoadFailed =>
       'تعذّر تحميل القائمة. تحقق من الاتصال وحاول مرة أخرى.';
+
+  @override
+  String get payCourseFee => 'رسوم الدورة';
+
+  @override
+  String payAlreadyCovered(String covered, String fee) {
+    return 'تمت تغطية $covered من $fee';
+  }
+
+  @override
+  String get payWithMobileMoney => 'الدفع عبر الهاتف المحمول';
+
+  @override
+  String get payOtherWay => 'دفعت بطريقة أخرى؟ أخبرنا';
+
+  @override
+  String get payPhoneHint =>
+      'سنرسل طلب دفع إلى رقم MTN أو Airtel هذا. أبقِ الهاتف معك.';
+
+  @override
+  String get payPhoneLabel => 'رقم محفظة الهاتف';
+
+  @override
+  String get payPhoneInvalid =>
+      'أدخل رقم MTN أو Airtel أوغندي، مثل 0772 123456';
+
+  @override
+  String get payNow => 'ادفع';
+
+  @override
+  String get payCheckPhoneTitle => 'تحقق من هاتفك';
+
+  @override
+  String payCheckPhoneBody(String amount, String phone) {
+    return 'أدخل الرقم السري لدفع $amount من $phone. تتحدث هذه الصفحة تلقائيًا.';
+  }
+
+  @override
+  String get payReceivedTitle => 'تم استلام الدفع';
+
+  @override
+  String get payReceivedBody => 'شكرًا لك. الدورة مفتوحة الآن.';
+
+  @override
+  String get payPendingTitle => 'بانتظار التأكيد';
+
+  @override
+  String get payPendingBody => 'سيؤكد فريق المالية دفعتك ويفتح الدورة.';
+
+  @override
+  String get payNoAnswerTitle => 'لا رد بعد';
+
+  @override
+  String get payNoAnswerBody =>
+      'إن أدخلت الرقم السري فستُفتح الدورة فور تأكيد الدفع. وإلا فحاول مرة أخرى.';
+
+  @override
+  String get payFailedTitle => 'لم يكتمل الدفع';
+
+  @override
+  String get payFailedBody =>
+      'رُفض الطلب أو أُلغي أو انتهت مهلته. لم يُخصم شيء. يمكنك المحاولة مجددًا.';
+
+  @override
+  String get payMethodBank => 'بنك';
+
+  @override
+  String get payMethodMobileMoney => 'محفظة الهاتف';
+
+  @override
+  String payAmountLabel(String currency) {
+    return 'المبلغ المدفوع ($currency)';
+  }
+
+  @override
+  String get payAmountInvalid => 'أدخل المبلغ الذي دفعته';
+
+  @override
+  String get payReferenceLabel => 'رقم العملية أو رقم قسيمة الإيداع';
+
+  @override
+  String get payReferenceRequired => 'أدخل رقم العملية أو القسيمة';
+
+  @override
+  String get payNoteLabel => 'ملاحظة (اختياري)';
+
+  @override
+  String get paySubmitReport => 'إرسال للتأكيد';
+
+  @override
+  String get paySubmitReportHint =>
+      'تُفتح الدورة بعد أن يتحقق فريق المالية من الدفع.';
+
+  @override
+  String get drawerFinance => 'المالية';
+
+  @override
+  String get drawerFinancePage => 'المدفوعات والمالية';
+
+  @override
+  String get drawerSettings => 'الإعدادات';
+
+  @override
+  String get financeOverview => 'نظرة عامة';
+
+  @override
+  String get financePayments => 'المدفوعات';
+
+  @override
+  String get financeOwing => 'المستحقات';
+
+  @override
+  String get financeWaivers => 'الإعفاءات';
+
+  @override
+  String get financeExpenses => 'المصروفات';
+
+  @override
+  String get periodThisMonth => 'هذا الشهر';
+
+  @override
+  String get periodLastMonth => 'الشهر الماضي';
+
+  @override
+  String get periodThisYear => 'هذا العام';
+
+  @override
+  String get periodAllTime => 'كل الأوقات';
+
+  @override
+  String financePendingBanner(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count دفعات بانتظار التحقق',
+      one: 'دفعة واحدة بانتظار التحقق',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get financeCollected => 'المُحصّل';
+
+  @override
+  String get financeOutstanding => 'المتبقي';
+
+  @override
+  String get financeExpected => 'المتوقع';
+
+  @override
+  String get financeWaived => 'المُعفى';
+
+  @override
+  String get financeRefunded => 'المُسترد';
+
+  @override
+  String get financeProviderFees => 'رسوم MarzPay';
+
+  @override
+  String get financeRetained => 'الصافي';
+
+  @override
+  String get financeHowRetained => 'كيف يُحسب «الصافي»';
+
+  @override
+  String get financeFormula =>
+      'الصافي = المُحصّل − المستردات − رسوم MarzPay − المصروفات';
+
+  @override
+  String get financeWaiverNote =>
+      'الإعفاءات تقلل ما على المتعلمين ولا تُحسب أبدًا كمال مُحصّل.';
+
+  @override
+  String get financeByMethod => 'المُحصّل حسب الطريقة';
+
+  @override
+  String get financeByCourse => 'حسب الدورة';
+
+  @override
+  String financeCourseLine(int learners, String collected, String outstanding) {
+    String _temp0 = intl.Intl.pluralLogic(
+      learners,
+      locale: localeName,
+      other: '$learners متعلمين',
+      one: 'متعلم واحد',
+    );
+    return '$_temp0 · المُحصّل $collected · المتبقي $outstanding';
+  }
+
+  @override
+  String get methodMarzPay => 'محفظة الهاتف (MarzPay)';
+
+  @override
+  String get methodCash => 'نقدًا';
+
+  @override
+  String get methodOther => 'أخرى';
+
+  @override
+  String get paymentInProgress => 'قيد التنفيذ';
+
+  @override
+  String get paymentPending => 'للتحقق';
+
+  @override
+  String get paymentVerified => 'مؤكد';
+
+  @override
+  String get paymentFailed => 'فشل';
+
+  @override
+  String get paymentRejected => 'مرفوض';
+
+  @override
+  String get paymentReversed => 'مُلغى';
+
+  @override
+  String get financeRecordPayment => 'تسجيل دفعة';
+
+  @override
+  String get financeSearchPayments => 'ابحث بالاسم أو الهاتف أو رقم العملية';
+
+  @override
+  String get financeNoPayments => 'لا توجد مدفوعات هنا';
+
+  @override
+  String get financeLearner => 'المتعلم';
+
+  @override
+  String get financeCourse => 'الدورة';
+
+  @override
+  String get financeMethod => 'الطريقة';
+
+  @override
+  String get financeRecordedBy => 'سجّلها';
+
+  @override
+  String get financeVerifiedBy => 'تحقق منها';
+
+  @override
+  String get financeCreated => 'التاريخ';
+
+  @override
+  String get financeOpenLearner => 'فتح سجل المتعلم';
+
+  @override
+  String get financeVerify => 'تأكيد: تم استلام المال';
+
+  @override
+  String get financeReject => 'رفض';
+
+  @override
+  String get financeRefund => 'تسجيل استرداد';
+
+  @override
+  String get financeReverse => 'إلغاء (لم يُستلم المال)';
+
+  @override
+  String get reason => 'السبب';
+
+  @override
+  String get financeNobodyOwes => 'لا أحد عليه مستحقات';
+
+  @override
+  String financeOwingLine(
+    String course,
+    String fee,
+    String paid,
+    String waived,
+  ) {
+    return '$course · الرسوم $fee · المدفوع $paid · المُعفى $waived';
+  }
+
+  @override
+  String get financeGrantWaiver => 'منح إعفاء';
+
+  @override
+  String get financeNoWaivers => 'لا توجد إعفاءات';
+
+  @override
+  String get financeFullFee => 'كامل الرسوم';
+
+  @override
+  String get financeRevoke => 'سحب الإعفاء';
+
+  @override
+  String get financeRecordExpense => 'تسجيل مصروف';
+
+  @override
+  String get financeNoExpenses => 'لا توجد مصروفات في هذه الفترة';
+
+  @override
+  String get financeVoid => 'إلغاء المصروف';
+
+  @override
+  String get financeChooseLearner => 'اختر المتعلم';
+
+  @override
+  String get financeChooseCourse => 'اختر الدورة';
+
+  @override
+  String get financeCourseChosen => 'تم اختيار الدورة';
+
+  @override
+  String get financeNoPaidCourses => 'لا توجد دورات مدفوعة بعد';
+
+  @override
+  String get financeChooseBoth => 'اختر المتعلم والدورة';
+
+  @override
+  String get financeCategory => 'الفئة';
+
+  @override
+  String get financeCategoryHint => 'مثل: إيجار، رواتب، مواصلات';
+
+  @override
+  String get financePayee => 'المستفيد (اختياري)';
+
+  @override
+  String get financeRecordHint =>
+      'تنتظر المدفوعات المسجلة تحقق موظف المالية قبل احتسابها.';
+
+  @override
+  String get settingsTitle => 'إعدادات المؤسسة';
+
+  @override
+  String get settingsOrgName => 'اسم المؤسسة';
+
+  @override
+  String get settingsCurrency => 'العملة';
+
+  @override
+  String get settingsSupportPhone => 'هاتف الدعم';
+
+  @override
+  String get settingsSupportEmail => 'بريد الدعم';
+
+  @override
+  String get settingsBank => 'طريقة الدفع عبر البنك';
+
+  @override
+  String get settingsBankHint => 'البنك واسم الحساب ورقمه. يراها المتعلمون.';
+
+  @override
+  String get settingsMobileMoney =>
+      'طريقة الدفع عبر محفظة الهاتف (خارج التطبيق)';
+
+  @override
+  String get settingsMarzPay => 'الدفع عبر محفظة الهاتف داخل التطبيق (MarzPay)';
+
+  @override
+  String get settingsMarzPayHint =>
+      'يدفع المتعلمون بإدخال الرقم السري على هواتفهم.';
+
+  @override
+  String get enrolMany => 'تسجيل عدة متعلمين';
+
+  @override
+  String get enrolUntil => 'الوصول حتى (اختياري)';
+
+  @override
+  String get enrolNoEnd => 'بلا تاريخ انتهاء';
+
+  @override
+  String enrolSelected(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'تسجيل $count متعلمين',
+      one: 'تسجيل متعلم واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get fieldRequired => 'مطلوب';
 }

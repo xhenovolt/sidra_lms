@@ -7,6 +7,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../curriculum/domain/curriculum_models.dart';
 import '../../profile/data/profile_repository.dart';
 import '../data/admin_repository.dart';
+import '../data/finance_repository.dart';
 import 'admin_common.dart';
 import 'courses_tab.dart';
 import 'people_tab.dart';
@@ -169,10 +170,28 @@ class CoursePeopleSection extends ConsumerWidget {
                 ),
               ),
               if (isAdmin)
-                TextButton.icon(
-                  onPressed: () => addPerson(asTeacher: false),
-                  icon: const Icon(Icons.add),
-                  label: Text(l10n.adminAddLearner),
+                PopupMenuButton<String>(
+                  tooltip: l10n.adminAddLearner,
+                  icon: const Icon(Icons.person_add_alt),
+                  onSelected: (v) async {
+                    if (v == 'one') {
+                      await addPerson(asTeacher: false);
+                    } else if (await showBulkEnrolDialog(
+                      context,
+                      ref,
+                      courseId,
+                      already: {for (final l in learners) l.userId},
+                    )) {
+                      ref.invalidate(coursePeopleProvider(courseId));
+                    }
+                  },
+                  itemBuilder: (_) => [
+                    PopupMenuItem(
+                      value: 'one',
+                      child: Text(l10n.adminAddLearner),
+                    ),
+                    PopupMenuItem(value: 'many', child: Text(l10n.enrolMany)),
+                  ],
                 ),
             ],
           ),
@@ -288,5 +307,162 @@ Future<void> deleteCourseFlow(
   if (ok && context.mounted) {
     ref.invalidate(adminCoursesProvider);
     context.pop();
+  }
+}
+
+/// Enrol several learners at once, optionally until a date.
+Future<bool> showBulkEnrolDialog(
+  BuildContext context,
+  WidgetRef ref,
+  String courseId, {
+  Set<String> already = const {},
+}) async {
+  final ok = await showDialog<bool>(
+    context: context,
+    builder: (_) => _BulkEnrolDialog(courseId: courseId, already: already),
+  );
+  return ok ?? false;
+}
+
+class _BulkEnrolDialog extends ConsumerStatefulWidget {
+  const _BulkEnrolDialog({required this.courseId, required this.already});
+  final String courseId;
+  final Set<String> already;
+
+  @override
+  ConsumerState<_BulkEnrolDialog> createState() => _BulkEnrolDialogState();
+}
+
+class _BulkEnrolDialogState extends ConsumerState<_BulkEnrolDialog> {
+  List<AppUserRow> _rows = const [];
+  final _chosen = <String>{};
+  DateTime? _until;
+  bool _loading = false;
+  bool _saving = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _search('');
+  }
+
+  Future<void> _search(String q) async {
+    setState(() => _loading = true);
+    try {
+      final page = await ref
+          .read(adminRepositoryProvider)
+          .people(
+            persona: UserRole.learner,
+            search: q,
+            active: true,
+            limit: 50,
+          );
+      if (mounted) setState(() => _rows = page.rows);
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  Future<void> _save() async {
+    final l10n = AppLocalizations.of(context);
+    setState(() => _saving = true);
+    final ok = await runAdminAction(
+      context,
+      () => ref
+          .read(financeRepositoryProvider)
+          .bulkEnrol(
+            widget.courseId,
+            _chosen.toList(),
+            startsAt: _until == null ? null : DateTime.now(),
+            endsAt: _until == null
+                ? null
+                : DateTime(_until!.year, _until!.month, _until!.day, 23, 59),
+          ),
+      success: l10n.adminSaved,
+    );
+    if (!mounted) return;
+    setState(() => _saving = false);
+    if (ok) Navigator.pop(context, true);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.enrolMany),
+      content: SizedBox(
+        width: 440,
+        height: 460,
+        child: Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search),
+                hintText: l10n.adminSearchPeople,
+              ),
+              onSubmitted: _search,
+            ),
+            if (_loading) const LinearProgressIndicator(),
+            Expanded(
+              child: ListView(
+                children: [
+                  for (final p in _rows)
+                    CheckboxListTile(
+                      value:
+                          widget.already.contains(p.id) ||
+                          _chosen.contains(p.id),
+                      onChanged: widget.already.contains(p.id)
+                          ? null
+                          : (v) => setState(
+                              () =>
+                                  v! ? _chosen.add(p.id) : _chosen.remove(p.id),
+                            ),
+                      title: Text(p.name),
+                      subtitle: Text(p.contact),
+                    ),
+                ],
+              ),
+            ),
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.event_outlined),
+              title: Text(
+                _until == null
+                    ? l10n.enrolNoEnd
+                    : MaterialLocalizations.of(context)
+                          .formatMediumDate(_until!),
+              ),
+              subtitle: Text(l10n.enrolUntil),
+              trailing: _until == null
+                  ? null
+                  : IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () => setState(() => _until = null),
+                    ),
+              onTap: () async {
+                final now = DateTime.now();
+                final d = await showDatePicker(
+                  context: context,
+                  initialDate: now.add(const Duration(days: 90)),
+                  firstDate: now,
+                  lastDate: DateTime(now.year + 5),
+                );
+                if (d != null) setState(() => _until = d);
+              },
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, false),
+          child: Text(l10n.adminCancel),
+        ),
+        FilledButton(
+          onPressed: _chosen.isEmpty || _saving ? null : _save,
+          child: Text(l10n.enrolSelected(_chosen.length)),
+        ),
+      ],
+    );
   }
 }

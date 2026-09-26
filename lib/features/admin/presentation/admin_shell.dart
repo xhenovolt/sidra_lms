@@ -103,12 +103,26 @@ final adminSections = <AdminSection>[
       {'roles.manage'},
     ),
   ]),
+  AdminSection((l) => l.drawerFinance, [
+    AdminDestination(
+      Routes.adminFinance,
+      Icons.account_balance_wallet_outlined,
+      (l) => l.drawerFinancePage,
+      {'finance.view'},
+    ),
+  ]),
   AdminSection((l) => l.drawerOversight, [
     AdminDestination(
       Routes.adminAudit,
       Icons.history,
       (l) => l.drawerActivity,
       {'audit.view'},
+    ),
+    AdminDestination(
+      Routes.adminSettings,
+      Icons.settings_outlined,
+      (l) => l.drawerSettings,
+      {'settings.manage'},
     ),
   ]),
   AdminSection(null, [
@@ -144,6 +158,12 @@ final adminTabs = <AdminDestination>[
     Icons.school_outlined,
     (l) => l.adminStatLearners,
     {'learners.view'},
+  ),
+  AdminDestination(
+    Routes.adminFinance,
+    Icons.account_balance_wallet_outlined,
+    (l) => l.drawerFinance,
+    {'finance.view'},
   ),
   AdminDestination(
     Routes.adminLearners,

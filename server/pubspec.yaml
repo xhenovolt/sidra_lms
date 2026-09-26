@@ -1,0 +1,16 @@
+name: sidra_payments_server
+description: >-
+  Sidra's payments server: sends learners' MarzPay collections, receives
+  MarzPay webhooks and reconciles payments. Holds the MarzPay secret; the
+  Flutter app never does.
+publish_to: none
+version: 1.0.0
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  postgres: ^3.5.17
+
+dev_dependencies:
+  test: ^1.25.0

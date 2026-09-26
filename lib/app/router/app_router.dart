@@ -7,11 +7,13 @@ import '../../features/admin/presentation/assessment_editor_screen.dart';
 import '../../features/admin/presentation/books_people_tabs.dart';
 import '../../features/admin/presentation/course_builder_screen.dart';
 import '../../features/admin/presentation/courses_tab.dart';
+import '../../features/admin/presentation/finance_screen.dart';
 import '../../features/admin/presentation/learners_tab.dart';
 import '../../features/admin/presentation/lesson_editor_screen.dart';
 import '../../features/admin/presentation/people_tab.dart';
 import '../../features/admin/presentation/person_profile_screen.dart';
 import '../../features/admin/presentation/roles_audit_screens.dart';
+import '../../features/admin/presentation/settings_screen.dart';
 import '../../features/admin/presentation/staff_pages.dart';
 import '../../features/assessments/presentation/quiz_screen.dart';
 import '../../features/auth/domain/auth_session.dart';
@@ -149,6 +151,14 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: Routes.adminAudit,
             builder: (_, _) => const AuditScreen(),
+          ),
+          GoRoute(
+            path: Routes.adminFinance,
+            builder: (_, _) => const FinanceScreen(),
+          ),
+          GoRoute(
+            path: Routes.adminSettings,
+            builder: (_, _) => const SettingsScreen(),
           ),
           GoRoute(
             path: Routes.adminMore,

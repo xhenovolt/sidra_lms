@@ -157,6 +157,58 @@ lessons or grade quizzes. Content Managers edit content but cannot mark
 learners. **Delete course**
 only appears for courses that were never published; archive the others.
 
+## Fees and payments
+
+**Setting a fee.** Make the course **Paid** and set its price (for example
+50,000 UGX). The fee is fixed for each learner when they enrol, so a later
+price change doesn't alter what existing learners owe.
+
+**How learners pay.**
+- **Mobile money in the app (MarzPay):** the learner opens the course and taps
+  **Pay with mobile money**. They get a prompt on their MTN or Airtel phone
+  and enter their PIN. The course opens by itself once MarzPay confirms.
+  Nobody has to approve it.
+- **Bank or mobile money outside the app:** the learner taps *Paid another
+  way?* and enters the transaction ID or slip number. It waits in
+  **Finance → Payments → To verify**.
+- **Cash or anything else:** a finance officer records it with **Record
+  payment**. It also waits to be verified.
+
+**Verifying.** Open the payment and check the money really arrived (bank
+statement or mobile-money SMS). Then tap **Verify: money received**, or
+**Reject** with a reason. The course opens once the fee is fully covered.
+
+**Waivers** (bursaries, scholarships): **Finance → Waivers → Grant waiver**,
+for the whole fee or part of it, always with a reason. A waiver reduces what
+the learner owes but is never counted as money collected.
+
+**Mistakes are never deleted.** A verified payment that turns out wrong is
+**reversed** (the learner's paid access is suspended if they then owe
+money). Money given back is a **refund**. A wrong expense is **voided**.
+Each action needs a reason and appears in the Activity log.
+
+**The Overview tab** shows, for the chosen period: money collected, what
+is still owed, what was expected, waivers, refunds, MarzPay's fees,
+expenses and what was retained:
+
+> **Retained = Collected − Refunds − MarzPay fees − Expenses**
+
+**Owing** lists every learner who still owes money, with shortcuts to record
+a payment or grant a waiver.
+
+## Enrolling many learners
+
+In a course's people list, tap the add-learner button, then **Enrol several
+learners**. Tick the learners, optionally choose **Access until** a date,
+and confirm. Access ends automatically on that date.
+
+## Organisation settings
+
+**Menu → Settings** (Super Admin, or any role with *settings*):
+organisation name, currency, support phone and email, and the bank and
+mobile-money instructions learners see when paying outside the app. You can
+also switch in-app mobile-money payments off.
+
 ## Forgotten passwords
 
 Everyone signs in with their **phone number** (with country code, e.g.
