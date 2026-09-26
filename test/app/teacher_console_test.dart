@@ -114,6 +114,28 @@ FakePostgresApi staffServer(String role) {
       'is_active': true,
     },
   ];
+  // Server-side filtering and paging, like admin_people() in Postgres.
+  api.rpcHandlers['admin_people'] = (p) {
+    final all = [
+      for (final r in api.rpcHandlers['admin_list_users']!(const {}) as List)
+        Map<String, dynamic>.from(r as Map),
+    ];
+    final search = (p['p_search'] as String?)?.toLowerCase();
+    final matches = [
+      for (final r in all)
+        if ((p['p_persona'] == null || r['role'] == p['p_persona']) &&
+            (p['p_active'] == null || r['is_active'] == p['p_active']) &&
+            (search == null ||
+                (r['display_name'] as String).toLowerCase().contains(search)))
+          r,
+    ];
+    final offset = p['p_offset'] as int? ?? 0;
+    final limit = p['p_limit'] as int? ?? 50;
+    return [
+      for (final r in matches.skip(offset).take(limit))
+        {...r, 'total': matches.length},
+    ];
+  };
   api.rpcHandlers['admin_create_user_with_role'] = (_) => {'id': 'new'};
   api.rpcHandlers['review_lesson'] = (p) => {
     'review': {'id': 'r1'},

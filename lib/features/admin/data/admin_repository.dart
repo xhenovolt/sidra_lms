@@ -64,6 +64,9 @@ class AppUserRow {
     this.username,
     this.isSuperadmin = false,
     this.isActive = true,
+    this.roleKey,
+    this.roleName,
+    this.createdAt,
   });
 
   factory AppUserRow.fromJson(Json j) => AppUserRow(
@@ -75,10 +78,18 @@ class AppUserRow {
     username: j.strOrNull('username'),
     isSuperadmin: j.boolean('is_superadmin'),
     isActive: j.boolean('is_active', fallback: true),
+    roleKey: j.strOrNull('role_key'),
+    roleName: j.strOrNull('role_name'),
+    createdAt: j.dateOrNull('created_at'),
   );
 
   final String id;
   final UserRole role;
+
+  /// The role (job) behind the persona, e.g. finance_officer / Finance Officer.
+  final String? roleKey;
+  final String? roleName;
+  final DateTime? createdAt;
   final String? displayName;
   final String? phone;
   final String? email;
@@ -175,6 +186,7 @@ class CoursePerson {
     this.displayName,
     this.contact,
     this.enrolmentId,
+    this.units = const [],
   });
 
   factory CoursePerson.fromJson(Json j) => CoursePerson(
@@ -184,9 +196,16 @@ class CoursePerson {
     isStaff: j.strOrNull('kind') == 'staff',
     status: j.strOrNull('status') ?? '',
     enrolmentId: j.strOrNull('enrolment_id'),
+    units: [
+      for (final u in (j['units'] as List? ?? const []))
+        (id: (u as Map)['id'] as String, title: u['title'] as String),
+    ],
   );
 
   final String userId;
+
+  /// Units a teacher is limited to; empty = the whole course.
+  final List<({String id, String title})> units;
   final String? displayName;
   final String? contact;
   final bool isStaff;
@@ -510,6 +529,54 @@ class AdminRepository {
     params: {'p_user_id': userId, 'p_course_id': courseId},
   );
 
+  /// One page of people, filtered on the server; [PeoplePage.total] counts
+  /// every match.
+  Future<PeoplePage> people({
+    UserRole? persona,
+    String? search,
+    bool? active,
+    int limit = 30,
+    int offset = 0,
+  }) async {
+    final rows = await api.rpcRows(
+      'admin_people',
+      params: {
+        'p_persona': ?persona?.name,
+        if (search != null && search.trim().isNotEmpty)
+          'p_search': search.trim(),
+        'p_active': ?active,
+        'p_limit': limit,
+        'p_offset': offset,
+      },
+    );
+    return PeoplePage(
+      rows: rows.map(AppUserRow.fromJson).toList(),
+      total: rows.isEmpty ? 0 : (rows.first['total'] as num).toInt(),
+    );
+  }
+
+  Future<PersonProfile> personProfile(String userId) async {
+    final res = await api.rpc(
+      'admin_person_profile',
+      params: {'p_user_id': userId},
+    );
+    return PersonProfile.fromJson(Map<String, dynamic>.from(res as Map));
+  }
+
+  /// Limits a teacher to some units of a course; empty = the whole course.
+  Future<void> setStaffUnits(
+    String courseId,
+    String userId,
+    List<String> unitIds,
+  ) => api.rpc(
+    'set_staff_units',
+    params: {
+      'p_course_id': courseId,
+      'p_user_id': userId,
+      'p_unit_ids': unitIds,
+    },
+  );
+
   Future<void> assignStaff(String courseId, String userId, String role) =>
       api.insert(
         'course_staff',
@@ -690,3 +757,115 @@ const bookStructureTemplates = <String, List<BookLevelDraft>>{
     BookLevelDraft('topic', 'Topic', 'Topics', usesPage: true),
   ],
 };
+
+class PeoplePage {
+  const PeoplePage({required this.rows, required this.total});
+  final List<AppUserRow> rows;
+  final int total;
+}
+
+/// Everything an admin sees about one person (`admin_person_profile`).
+class PersonProfile {
+  const PersonProfile({
+    required this.user,
+    required this.roles,
+    required this.enrolments,
+    required this.teaching,
+    required this.reviews,
+    required this.quizAttempts,
+    this.lastSignIn,
+    this.activity,
+  });
+
+  factory PersonProfile.fromJson(Json j) {
+    List<Json> list(Object? v) => [
+      for (final e in (v as List? ?? const []))
+        Map<String, dynamic>.from(e as Map),
+    ];
+    final user = Map<String, dynamic>.from(j['user'] as Map);
+    return PersonProfile(
+      user: AppUserRow.fromJson(user),
+      roles: [for (final r in list(user['roles'])) r.str('name')],
+      lastSignIn: user.dateOrNull('last_sign_in'),
+      enrolments: list(j['enrolments']).map(PersonEnrolment.fromJson).toList(),
+      teaching: list(j['teaching']).map(PersonTeaching.fromJson).toList(),
+      reviews: list(j['reviews']),
+      quizAttempts: list(j['quiz_attempts']),
+      activity: j['activity'] == null ? null : list(j['activity']),
+    );
+  }
+
+  final AppUserRow user;
+  final List<String> roles;
+  final DateTime? lastSignIn;
+  final List<PersonEnrolment> enrolments;
+  final List<PersonTeaching> teaching;
+  final List<Json> reviews;
+  final List<Json> quizAttempts;
+
+  /// Null when the viewer may not see the activity log.
+  final List<Json>? activity;
+}
+
+class PersonEnrolment {
+  const PersonEnrolment({
+    required this.id,
+    required this.courseId,
+    required this.courseTitle,
+    required this.status,
+    required this.source,
+    required this.completedLessons,
+    required this.totalLessons,
+    this.enrolledAt,
+    this.lastActivity,
+  });
+
+  factory PersonEnrolment.fromJson(Json j) => PersonEnrolment(
+    id: j.str('id'),
+    courseId: j.str('course_id'),
+    courseTitle: j.str('course_title'),
+    status: j.str('status'),
+    source: j.str('source'),
+    completedLessons: j.integer('completed_lessons', fallback: 0),
+    totalLessons: j.integer('total_lessons', fallback: 0),
+    enrolledAt: j.dateOrNull('enrolled_at'),
+    lastActivity: j.dateOrNull('last_activity'),
+  );
+
+  final String id;
+  final String courseId;
+  final String courseTitle;
+  final String status;
+  final String source;
+  final int completedLessons;
+  final int totalLessons;
+  final DateTime? enrolledAt;
+  final DateTime? lastActivity;
+
+  double get progress =>
+      totalLessons == 0 ? 0 : (completedLessons / totalLessons).clamp(0, 1);
+}
+
+class PersonTeaching {
+  const PersonTeaching({
+    required this.courseId,
+    required this.courseTitle,
+    required this.role,
+    required this.units,
+    required this.learners,
+  });
+
+  factory PersonTeaching.fromJson(Json j) => PersonTeaching(
+    courseId: j.str('course_id'),
+    courseTitle: j.str('course_title'),
+    role: j.str('role'),
+    units: j.strList('units'),
+    learners: j.integer('learners', fallback: 0),
+  );
+
+  final String courseId;
+  final String courseTitle;
+  final String role;
+  final List<String> units;
+  final int learners;
+}

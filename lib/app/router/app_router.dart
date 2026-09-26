@@ -10,6 +10,7 @@ import '../../features/admin/presentation/courses_tab.dart';
 import '../../features/admin/presentation/learners_tab.dart';
 import '../../features/admin/presentation/lesson_editor_screen.dart';
 import '../../features/admin/presentation/people_tab.dart';
+import '../../features/admin/presentation/person_profile_screen.dart';
 import '../../features/admin/presentation/roles_audit_screens.dart';
 import '../../features/admin/presentation/staff_pages.dart';
 import '../../features/assessments/presentation/quiz_screen.dart';
@@ -29,7 +30,7 @@ import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/profile/data/profile_repository.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../l10n/app_localizations.dart';
-import '../../shared/widgets/state_views.dart';
+import '../../shared/widgets/sidra_mark.dart';
 import 'app_shell.dart';
 import 'routes.dart';
 
@@ -56,7 +57,16 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: Routes.splash,
-        builder: (_, _) => const Scaffold(body: LoadingView()),
+        builder: (_, _) => const Scaffold(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SidraMark(size: 96),
+              SizedBox(height: 32),
+              SizedBox(width: 120, child: LinearProgressIndicator()),
+            ],
+          ),
+        ),
       ),
       GoRoute(
         path: Routes.onboarding,
@@ -185,6 +195,11 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/teach/lessons/:lessonId',
         builder: (_, state) =>
             LessonEditorScreen(lessonId: state.pathParameters['lessonId']!),
+      ),
+      GoRoute(
+        path: '/teach/people/:userId',
+        builder: (_, state) =>
+            PersonProfileScreen(userId: state.pathParameters['userId']!),
       ),
       GoRoute(
         path: '/teach/assessments/:assessmentId',

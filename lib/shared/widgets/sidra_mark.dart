@@ -1,34 +1,37 @@
 import 'package:flutter/material.dart';
 
-import '../../core/theme/app_tokens.dart';
-
-/// Placeholder brand mark (Arabic letter sīn in a soft tile) until the
-/// Almuntahha logo asset is supplied.
+/// Sidra's logo: the green mark on its light tile, as on the app icon.
+/// The tile keeps the mark legible in dark mode too.
 class SidraMark extends StatelessWidget {
   const SidraMark({super.key, this.size = 40});
 
   final double size;
 
+  /// Background of the logo artwork (and of the launcher icon).
+  static const tile = Color(0xFFF6F8F8);
+
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
     return Center(
-      child: Container(
-        width: size,
-        height: size,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: scheme.primary,
-          borderRadius: BorderRadius.circular(size * 0.28),
-        ),
-        child: Text(
-          'س',
-          textDirection: TextDirection.rtl,
-          style: TextStyle(
-            fontFamily: SidraFonts.arabic,
-            fontSize: size * 0.55,
-            height: 1.1,
-            color: scheme.onPrimary,
+      child: Semantics(
+        label: 'Sidra',
+        image: true,
+        child: Container(
+          width: size,
+          height: size,
+          padding: EdgeInsets.all(size * 0.16),
+          decoration: BoxDecoration(
+            color: tile,
+            borderRadius: BorderRadius.circular(size * 0.28),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.outlineVariant,
+              width: 0.5,
+            ),
+          ),
+          child: Image.asset(
+            'assets/branding/mark.png',
+            fit: BoxFit.contain,
+            filterQuality: FilterQuality.medium,
           ),
         ),
       ),

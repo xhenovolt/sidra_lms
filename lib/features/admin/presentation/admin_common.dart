@@ -241,3 +241,14 @@ Future<void> resetPasswordFlow(
     ),
   );
 }
+
+/// Enrolment status (learners) or staff role (teachers), for display.
+String enrolmentStatusLabel(AppLocalizations l10n, String s) => switch (s) {
+  'active' => l10n.adminEnrolActive,
+  'suspended' => l10n.adminEnrolSuspended,
+  'withdrawn' => l10n.adminEnrolWithdrawn,
+  'completed' => l10n.completedLabel,
+  'pending' => l10n.adminEnrolPending,
+  'editor' || 'teacher' => l10n.roleTeacher,
+  _ => s,
+};

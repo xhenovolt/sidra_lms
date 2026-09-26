@@ -1416,4 +1416,117 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get adminStatInReview => 'دورات قيد المراجعة';
+
+  @override
+  String get personTitle => 'شخص';
+
+  @override
+  String get personActions => 'إجراءات';
+
+  @override
+  String personJoined(String date) {
+    return 'انضم في $date';
+  }
+
+  @override
+  String personLastSignIn(String date) {
+    return 'آخر دخول $date';
+  }
+
+  @override
+  String get personNeverSignedIn => 'لم يسجّل الدخول بعد';
+
+  @override
+  String get personTeaching => 'التدريس';
+
+  @override
+  String get personNoTeaching => 'لم يُعيَّن لأي دورة بعد';
+
+  @override
+  String personLearnerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count متعلمين',
+      one: 'متعلم واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get personCourses => 'الدورات';
+
+  @override
+  String get personNoCourses => 'غير مسجّل في أي دورة';
+
+  @override
+  String personLessonsDone(int done, int total) {
+    return 'أنجز $done من $total دروس';
+  }
+
+  @override
+  String personLastActive(String date) {
+    return 'آخر نشاط $date';
+  }
+
+  @override
+  String get personReviews => 'تقييمات المعلم';
+
+  @override
+  String get personNoReviews => 'لا توجد تقييمات بعد';
+
+  @override
+  String get personQuizzes => 'نتائج الاختبارات';
+
+  @override
+  String get personQuizPending => 'بانتظار التصحيح';
+
+  @override
+  String get personActivity => 'النشاط الأخير';
+
+  @override
+  String get reviewPassed => 'نجح';
+
+  @override
+  String get reviewNeedsRevision => 'يحتاج إلى مزيد من التدريب';
+
+  @override
+  String get sourceSelf => 'سجّل بنفسه';
+
+  @override
+  String get sourceStaff => 'أضافه الطاقم';
+
+  @override
+  String get sourcePayment => 'مدفوع';
+
+  @override
+  String get peopleActive => 'نشط';
+
+  @override
+  String peopleShowing(int shown, int total) {
+    return 'عرض $shown من $total';
+  }
+
+  @override
+  String get peopleLoadMore => 'تحميل المزيد';
+
+  @override
+  String get staffWholeCourse => 'الدورة كاملة';
+
+  @override
+  String staffTeachesUnits(String units) {
+    return 'يدرّس $units';
+  }
+
+  @override
+  String get staffLimitUnits => 'تحديد الوحدات…';
+
+  @override
+  String staffLimitUnitsTitle(String name) {
+    return 'ما الوحدات التي يدرّسها $name؟';
+  }
+
+  @override
+  String get staffLimitUnitsHint =>
+      'يقيّم المتعلمين ويفتح لهم الدروس في الوحدات المحددة فقط. لا تحدد شيئًا للدورة كاملة.';
 }

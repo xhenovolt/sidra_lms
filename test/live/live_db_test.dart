@@ -85,6 +85,19 @@ void main() {
       params: {'p_search': 'hamibra'},
     );
     expect(people.single['phone'], '+256741341483');
+
+    final page = await api.rpcRows(
+      'admin_people',
+      params: {'p_persona': 'admin', 'p_search': 'hamibra', 'p_limit': 5},
+    );
+    expect(page.single['role_key'], 'super_admin');
+    expect(page.single['total'], 1);
+    final profile = await api.rpc(
+      'admin_person_profile',
+      params: {'p_user_id': page.single['id']},
+    );
+    expect((profile as Map)['user']['username'], 'hamibra');
+    expect(profile['enrolments'], isA<List>());
   });
 
   test('anonymous: catalogue readable, private things refused', () async {

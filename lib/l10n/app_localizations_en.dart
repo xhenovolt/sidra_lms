@@ -1437,4 +1437,117 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get adminStatInReview => 'Courses in review';
+
+  @override
+  String get personTitle => 'Person';
+
+  @override
+  String get personActions => 'Actions';
+
+  @override
+  String personJoined(String date) {
+    return 'Joined $date';
+  }
+
+  @override
+  String personLastSignIn(String date) {
+    return 'Last signed in $date';
+  }
+
+  @override
+  String get personNeverSignedIn => 'Has not signed in yet';
+
+  @override
+  String get personTeaching => 'Teaching';
+
+  @override
+  String get personNoTeaching => 'Not assigned to any course yet';
+
+  @override
+  String personLearnerCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count learners',
+      one: '1 learner',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get personCourses => 'Courses';
+
+  @override
+  String get personNoCourses => 'Not enrolled in any course';
+
+  @override
+  String personLessonsDone(int done, int total) {
+    return '$done of $total lessons done';
+  }
+
+  @override
+  String personLastActive(String date) {
+    return 'last active $date';
+  }
+
+  @override
+  String get personReviews => 'Teacher reviews';
+
+  @override
+  String get personNoReviews => 'No reviews yet';
+
+  @override
+  String get personQuizzes => 'Quiz results';
+
+  @override
+  String get personQuizPending => 'Waiting for grading';
+
+  @override
+  String get personActivity => 'Recent activity';
+
+  @override
+  String get reviewPassed => 'Passed';
+
+  @override
+  String get reviewNeedsRevision => 'Needs more practice';
+
+  @override
+  String get sourceSelf => 'enrolled themselves';
+
+  @override
+  String get sourceStaff => 'added by staff';
+
+  @override
+  String get sourcePayment => 'paid';
+
+  @override
+  String get peopleActive => 'Active';
+
+  @override
+  String peopleShowing(int shown, int total) {
+    return 'Showing $shown of $total';
+  }
+
+  @override
+  String get peopleLoadMore => 'Load more';
+
+  @override
+  String get staffWholeCourse => 'Whole course';
+
+  @override
+  String staffTeachesUnits(String units) {
+    return 'Teaches $units';
+  }
+
+  @override
+  String get staffLimitUnits => 'Limit to units…';
+
+  @override
+  String staffLimitUnitsTitle(String name) {
+    return 'Which units does $name teach?';
+  }
+
+  @override
+  String get staffLimitUnitsHint =>
+      'They review and unlock learners only in the ticked units. Tick none for the whole course.';
 }

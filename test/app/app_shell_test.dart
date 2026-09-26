@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sidra_lms/shared/widgets/sidra_mark.dart';
 import 'package:sidra_lms/features/auth/domain/auth_session.dart';
 
 import '../helpers/fake_auth_service.dart';
@@ -38,7 +39,8 @@ void main() {
     final auth = FakeAuthService(const AuthSession.initializing());
     await tester.pumpWidget(await buildTestApp(auth));
     await tester.pump();
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    expect(find.byType(SidraMark), findsOneWidget);
+    expect(find.byType(LinearProgressIndicator), findsOneWidget);
 
     auth.session = const AuthSession.signedIn(testUser);
     await tester.pumpAndSettle();

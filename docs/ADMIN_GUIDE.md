@@ -111,9 +111,19 @@ and filtered by status. Archived courses are under **Archived**. Each course
 can have a **category**, **tags**, and, for free courses, a switch for
 whether learners may **enrol themselves**.
 
-## People tab (administrators)
+## People (administrators)
 
-Search by name, phone, email or username, or filter by role. Tap a person to:
+The menu has separate lists for **Learners**, **Teachers** and (superadmins)
+**Administrators**. Type to search by name, phone, email or username; tap
+**Active** or **Disabled** to narrow the list. Lists load 30 people at a
+time; **Load more** fetches the next ones.
+
+Tap a person to open their **record**: contact details, when they joined
+and last signed in, the courses they are enrolled in with progress, what
+they teach (and which units), their teacher reviews and quiz results, and
+recent activity (if your role can see the activity log).
+
+**Actions** (top right of the record):
 
 - **Edit details:** name, phone, email, username.
 - **Change role:** learner, teacher, or (superadmins only) administrator.
@@ -132,7 +142,17 @@ keeps at least one superadmin.
 ## Course people
 
 At the bottom of each course: its **teachers** (add or remove) and its
-**learners** (add; set active, suspended or withdrawn). **Delete course**
+**learners** (add; set active, suspended or withdrawn). Tap anyone to open
+their record.
+
+A teacher can cover the **whole course** or only some **units**: open the
+teacher's menu → **Limit to units…** and tick the units. They then see,
+review and unlock only learners working in those units. Tick none to give
+them the whole course again.
+
+Only people whose role includes *reviewing learners* can review, unlock
+lessons or grade quizzes. Content Managers edit content but cannot mark
+learners. **Delete course**
 only appears for courses that were never published; archive the others.
 
 ## Forgotten passwords

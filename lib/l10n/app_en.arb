@@ -563,5 +563,97 @@
   "linkOpen": "Opens outside Sidra",
   "linkProviderYoutube": "YouTube",
   "linkProviderTelegram": "Telegram",
-  "adminStatInReview": "Courses in review"
+  "adminStatInReview": "Courses in review",
+  "personTitle": "Person",
+  "personActions": "Actions",
+  "personJoined": "Joined {date}",
+  "@personJoined": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "personLastSignIn": "Last signed in {date}",
+  "@personLastSignIn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "personNeverSignedIn": "Has not signed in yet",
+  "personTeaching": "Teaching",
+  "personNoTeaching": "Not assigned to any course yet",
+  "personLearnerCount": "{count, plural, =1{1 learner} other{{count} learners}}",
+  "@personLearnerCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "personCourses": "Courses",
+  "personNoCourses": "Not enrolled in any course",
+  "personLessonsDone": "{done} of {total} lessons done",
+  "@personLessonsDone": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "personLastActive": "last active {date}",
+  "@personLastActive": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "personReviews": "Teacher reviews",
+  "personNoReviews": "No reviews yet",
+  "personQuizzes": "Quiz results",
+  "personQuizPending": "Waiting for grading",
+  "personActivity": "Recent activity",
+  "reviewPassed": "Passed",
+  "reviewNeedsRevision": "Needs more practice",
+  "sourceSelf": "enrolled themselves",
+  "sourceStaff": "added by staff",
+  "sourcePayment": "paid",
+  "peopleActive": "Active",
+  "peopleShowing": "Showing {shown} of {total}",
+  "@peopleShowing": {
+    "placeholders": {
+      "shown": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "peopleLoadMore": "Load more",
+  "staffWholeCourse": "Whole course",
+  "staffTeachesUnits": "Teaches {units}",
+  "@staffTeachesUnits": {
+    "placeholders": {
+      "units": {
+        "type": "String"
+      }
+    }
+  },
+  "staffLimitUnits": "Limit to units…",
+  "staffLimitUnitsTitle": "Which units does {name} teach?",
+  "@staffLimitUnitsTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "staffLimitUnitsHint": "They review and unlock learners only in the ticked units. Tick none for the whole course."
 }

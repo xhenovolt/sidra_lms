@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../curriculum/domain/curriculum_models.dart';
 import '../../profile/data/profile_repository.dart';
 import '../data/admin_repository.dart';
 import 'admin_common.dart';
@@ -23,10 +24,14 @@ class CoursePeopleSection extends ConsumerWidget {
     super.key,
     required this.courseId,
     required this.isAdmin,
+    this.units = const [],
   });
 
   final String courseId;
   final bool isAdmin;
+
+  /// The course's units, for limiting a teacher to some of them.
+  final List<CourseUnit> units;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -84,16 +89,6 @@ class CoursePeopleSection extends ConsumerWidget {
       );
     }
 
-    String statusLabel(String s) => switch (s) {
-      'active' => l10n.adminEnrolActive,
-      'suspended' => l10n.adminEnrolSuspended,
-      'withdrawn' => l10n.adminEnrolWithdrawn,
-      'completed' => l10n.completedLabel,
-      'pending' => l10n.adminEnrolPending,
-      'editor' || 'teacher' => l10n.roleTeacher,
-      _ => s,
-    };
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -122,13 +117,44 @@ class CoursePeopleSection extends ConsumerWidget {
           ListTile(
             leading: const Icon(Icons.co_present_outlined),
             title: Text(p.name),
-            subtitle: p.contact == null ? null : Text(p.contact!),
+            subtitle: Text(
+              [
+                if (p.units.isEmpty)
+                  l10n.staffWholeCourse
+                else
+                  l10n.staffTeachesUnits(
+                    p.units.map((u) => u.title).join(', '),
+                  ),
+                ?p.contact,
+              ].join(' · '),
+            ),
+            onTap: () => context.push('/teach/people/${p.userId}'),
             trailing: isAdmin
-                ? IconButton(
-                    tooltip: l10n.adminRemove,
-                    icon: const Icon(Icons.person_remove_outlined),
-                    onPressed: () =>
-                        act(() => repo.removeStaff(courseId, p.userId)),
+                ? PopupMenuButton<String>(
+                    onSelected: (v) async {
+                      if (v == 'remove') {
+                        await act(() => repo.removeStaff(courseId, p.userId));
+                      } else if (v == 'units') {
+                        final chosen = await _pickUnits(context, units, p);
+                        if (chosen != null) {
+                          await act(
+                            () =>
+                                repo.setStaffUnits(courseId, p.userId, chosen),
+                          );
+                        }
+                      }
+                    },
+                    itemBuilder: (_) => [
+                      if (units.isNotEmpty)
+                        PopupMenuItem(
+                          value: 'units',
+                          child: Text(l10n.staffLimitUnits),
+                        ),
+                      PopupMenuItem(
+                        value: 'remove',
+                        child: Text(l10n.adminRemove),
+                      ),
+                    ],
                   )
                 : null,
           ),
@@ -157,7 +183,10 @@ class CoursePeopleSection extends ConsumerWidget {
           ListTile(
             leading: const Icon(Icons.school_outlined),
             title: Text(p.name),
-            subtitle: Text([statusLabel(p.status), ?p.contact].join(' · ')),
+            subtitle: Text(
+              [enrolmentStatusLabel(l10n, p.status), ?p.contact].join(' · '),
+            ),
+            onTap: () => context.push('/teach/people/${p.userId}'),
             trailing: p.enrolmentId == null
                 ? null
                 : PopupMenuButton<String>(
@@ -170,13 +199,67 @@ class CoursePeopleSection extends ConsumerWidget {
                         'withdrawn',
                       ])
                         if (s != p.status)
-                          PopupMenuItem(value: s, child: Text(statusLabel(s))),
+                          PopupMenuItem(
+                            value: s,
+                            child: Text(enrolmentStatusLabel(l10n, s)),
+                          ),
                     ],
                   ),
           ),
       ],
     );
   }
+}
+
+/// Which units a teacher covers; none ticked = the whole course.
+Future<List<String>?> _pickUnits(
+  BuildContext context,
+  List<CourseUnit> units,
+  CoursePerson teacher,
+) {
+  final l10n = AppLocalizations.of(context);
+  final chosen = {for (final u in teacher.units) u.id};
+  final sorted = List.of(units)
+    ..sort((a, b) => a.position.compareTo(b.position));
+  return showDialog<List<String>>(
+    context: context,
+    builder: (dialogContext) => StatefulBuilder(
+      builder: (context, setState) => AlertDialog(
+        title: Text(l10n.staffLimitUnitsTitle(teacher.name)),
+        content: SizedBox(
+          width: 420,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              Text(
+                l10n.staffLimitUnitsHint,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              for (final u in sorted)
+                CheckboxListTile(
+                  contentPadding: EdgeInsets.zero,
+                  value: chosen.contains(u.id),
+                  title: Text(u.title),
+                  onChanged: (v) => setState(
+                    () => v! ? chosen.add(u.id) : chosen.remove(u.id),
+                  ),
+                ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(l10n.adminCancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, chosen.toList()),
+            child: Text(l10n.adminSave),
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 /// Permanently deletes a course (admins), after typing confirmation.

@@ -244,6 +244,7 @@ class _Builder extends ConsumerWidget {
           CoursePeopleSection(
             courseId: course.id,
             isAdmin: ref.watch(profileProvider).value?.isAdmin ?? false,
+            units: data.units,
           ),
           // Only never-published drafts can be deleted; others are archived.
           if (course.publishedAt == null &&

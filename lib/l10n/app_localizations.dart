@@ -2689,6 +2689,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Courses in review'**
   String get adminStatInReview;
+
+  /// No description provided for @personTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Person'**
+  String get personTitle;
+
+  /// No description provided for @personActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get personActions;
+
+  /// No description provided for @personJoined.
+  ///
+  /// In en, this message translates to:
+  /// **'Joined {date}'**
+  String personJoined(String date);
+
+  /// No description provided for @personLastSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Last signed in {date}'**
+  String personLastSignIn(String date);
+
+  /// No description provided for @personNeverSignedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Has not signed in yet'**
+  String get personNeverSignedIn;
+
+  /// No description provided for @personTeaching.
+  ///
+  /// In en, this message translates to:
+  /// **'Teaching'**
+  String get personTeaching;
+
+  /// No description provided for @personNoTeaching.
+  ///
+  /// In en, this message translates to:
+  /// **'Not assigned to any course yet'**
+  String get personNoTeaching;
+
+  /// No description provided for @personLearnerCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 learner} other{{count} learners}}'**
+  String personLearnerCount(int count);
+
+  /// No description provided for @personCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses'**
+  String get personCourses;
+
+  /// No description provided for @personNoCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enrolled in any course'**
+  String get personNoCourses;
+
+  /// No description provided for @personLessonsDone.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} lessons done'**
+  String personLessonsDone(int done, int total);
+
+  /// No description provided for @personLastActive.
+  ///
+  /// In en, this message translates to:
+  /// **'last active {date}'**
+  String personLastActive(String date);
+
+  /// No description provided for @personReviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher reviews'**
+  String get personReviews;
+
+  /// No description provided for @personNoReviews.
+  ///
+  /// In en, this message translates to:
+  /// **'No reviews yet'**
+  String get personNoReviews;
+
+  /// No description provided for @personQuizzes.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz results'**
+  String get personQuizzes;
+
+  /// No description provided for @personQuizPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for grading'**
+  String get personQuizPending;
+
+  /// No description provided for @personActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent activity'**
+  String get personActivity;
+
+  /// No description provided for @reviewPassed.
+  ///
+  /// In en, this message translates to:
+  /// **'Passed'**
+  String get reviewPassed;
+
+  /// No description provided for @reviewNeedsRevision.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs more practice'**
+  String get reviewNeedsRevision;
+
+  /// No description provided for @sourceSelf.
+  ///
+  /// In en, this message translates to:
+  /// **'enrolled themselves'**
+  String get sourceSelf;
+
+  /// No description provided for @sourceStaff.
+  ///
+  /// In en, this message translates to:
+  /// **'added by staff'**
+  String get sourceStaff;
+
+  /// No description provided for @sourcePayment.
+  ///
+  /// In en, this message translates to:
+  /// **'paid'**
+  String get sourcePayment;
+
+  /// No description provided for @peopleActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get peopleActive;
+
+  /// No description provided for @peopleShowing.
+  ///
+  /// In en, this message translates to:
+  /// **'Showing {shown} of {total}'**
+  String peopleShowing(int shown, int total);
+
+  /// No description provided for @peopleLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get peopleLoadMore;
+
+  /// No description provided for @staffWholeCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Whole course'**
+  String get staffWholeCourse;
+
+  /// No description provided for @staffTeachesUnits.
+  ///
+  /// In en, this message translates to:
+  /// **'Teaches {units}'**
+  String staffTeachesUnits(String units);
+
+  /// No description provided for @staffLimitUnits.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit to units…'**
+  String get staffLimitUnits;
+
+  /// No description provided for @staffLimitUnitsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Which units does {name} teach?'**
+  String staffLimitUnitsTitle(String name);
+
+  /// No description provided for @staffLimitUnitsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'They review and unlock learners only in the ticked units. Tick none for the whole course.'**
+  String get staffLimitUnitsHint;
 }
 
 class _AppLocalizationsDelegate

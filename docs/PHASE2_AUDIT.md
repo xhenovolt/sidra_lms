@@ -105,7 +105,7 @@ trusted server component (see 2F).
 | **2D-1** Permissions ✅ (v2.2.0) | roles + permissions tables, `has_permission()`, system roles (Super Admin, Admin, Academic Manager, Finance Officer, Content Manager, Teacher, Learner), roles & permissions screens; SQL checks migrated |
 | **Audit** | `audit_log` + triggers on courses, enrolments, roles, payments, waivers, expenses; activity screen |
 | **2C** Courses ✅ (v2.3.0) | richer course model, course editor with sections (not a locked wizard), publish validation, archive instead of delete, external resource blocks with YouTube/link preview, preview as learner |
-| **2D-2** People | server-paged learner/teacher lists, learner profile (enrolments, progress, results, payments, waivers, activity), unit/node-scoped teacher assignments |
+| **2D-2** People ✅ (v2.4.0) | server-paged learner/teacher lists, learner profile (enrolments, progress, results, payments, waivers, activity), unit/node-scoped teacher assignments |
 | **2E** Enrolment | enrolment dates, access state, fee snapshot, bulk enrol, self-enrol only when the course allows |
 | **2F** Payments | fee/charges ledger, bank and mobile-money submissions (pending → verified/rejected), waivers, refunds/voids; MarzPay boundary (awaiting API docs) |
 | **2G** Finance | expected / collected / outstanding / waived / expenses / retained with the formula shown, filters, transactions, reports |

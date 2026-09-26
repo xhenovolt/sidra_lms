@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -193,15 +195,101 @@ class PeopleTab extends ConsumerStatefulWidget {
 }
 
 class _PeopleTabState extends ConsumerState<PeopleTab> {
+  static const _pageSize = 30;
+
   late UserRole? _filter = widget.persona;
+  bool? _active; // null = everyone
+  String _search = '';
+  Timer? _debounce;
+
+  final _rows = <AppUserRow>[];
+  int _total = 0;
+  bool _loading = false;
+  Object? _error;
+  int _generation = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _load(reset: true);
+  }
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  /// Loads the first page ([reset]) or the next one. Answers to superseded
+  /// requests (the filter changed meanwhile) are dropped.
+  Future<void> _load({bool reset = false}) async {
+    if (_loading && !reset) return;
+    final generation = ++_generation;
+    setState(() {
+      _loading = true;
+      _error = null;
+      if (reset) {
+        _rows.clear();
+        _total = 0;
+      }
+    });
+    try {
+      final page = await ref
+          .read(adminRepositoryProvider)
+          .people(
+            persona: _filter,
+            search: _search,
+            active: _active,
+            limit: _pageSize,
+            offset: _rows.length,
+          );
+      if (!mounted || generation != _generation) return;
+      setState(() {
+        _rows.addAll(page.rows);
+        _total = page.total;
+      });
+    } catch (e) {
+      if (mounted && generation == _generation) setState(() => _error = e);
+    } finally {
+      if (mounted && generation == _generation) {
+        setState(() => _loading = false);
+      }
+    }
+  }
+
+  void _searchChanged(String v) {
+    _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 350), () {
+      if (v.trim() == _search) return;
+      _search = v.trim();
+      _load(reset: true);
+    });
+  }
+
+  Future<void> _open(AppUserRow person) async {
+    await context.push('/teach/people/${person.id}');
+    if (mounted) _load(reset: true);
+  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final people = ref.watch(peopleProvider);
+    final theme = Theme.of(context);
+    Widget chip(String label, bool selected, VoidCallback onTap) => Padding(
+      padding: const EdgeInsetsDirectional.only(end: Space.xs),
+      child: FilterChip(
+        label: Text(label),
+        selected: selected,
+        onSelected: (_) => onTap(),
+      ),
+    );
+
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showPersonForm(context, ref, persona: widget.persona),
+        onPressed: () async {
+          await showPersonForm(context, ref, persona: widget.persona);
+          if (mounted) _load(reset: true);
+        },
         icon: const Icon(Icons.person_add_alt),
         label: Text(l10n.adminAddPerson),
       ),
@@ -214,69 +302,110 @@ class _PeopleTabState extends ConsumerState<PeopleTab> {
                 prefixIcon: const Icon(Icons.search),
                 hintText: l10n.adminSearchPeople,
               ),
-              onSubmitted: (v) =>
-                  ref.read(peopleSearchProvider.notifier).state = v.trim(),
+              onChanged: _searchChanged,
+              onSubmitted: (v) {
+                _debounce?.cancel();
+                _search = v.trim();
+                _load(reset: true);
+              },
             ),
           ),
-          if (widget.persona == null)
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(
-                horizontal: Space.md,
-                vertical: Space.xs,
-              ),
-              child: Row(
-                children: [
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(
+              horizontal: Space.md,
+              vertical: Space.xs,
+            ),
+            child: Row(
+              children: [
+                if (widget.persona == null)
                   for (final r in [null, ...UserRole.values])
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(end: Space.xs),
-                      child: FilterChip(
-                        label: Text(
-                          r == null ? l10n.adminEveryone : roleLabel(l10n, r),
-                        ),
-                        selected: _filter == r,
-                        onSelected: (_) => setState(() => _filter = r),
-                      ),
+                    chip(
+                      r == null ? l10n.adminEveryone : roleLabel(l10n, r),
+                      _filter == r,
+                      () {
+                        setState(() => _filter = r);
+                        _load(reset: true);
+                      },
                     ),
-                ],
+                for (final (value, label) in [
+                  (true, l10n.peopleActive),
+                  (false, l10n.adminDisabled),
+                ])
+                  chip(label, _active == value, () {
+                    setState(() => _active = _active == value ? null : value);
+                    _load(reset: true);
+                  }),
+              ],
+            ),
+          ),
+          if (_rows.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Space.md),
+              child: Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  l10n.peopleShowing(_rows.length, _total),
+                  style: theme.textTheme.bodySmall,
+                ),
               ),
             ),
-          const SizedBox(height: Space.xs),
           Expanded(
             child: RefreshIndicator(
-              onRefresh: () => ref.refresh(peopleProvider.future),
-              child: switch (people) {
-                AsyncData(:final value) => () {
-                  final shown = value
-                      .where((p) => _filter == null || p.role == _filter)
-                      .toList();
-                  if (shown.isEmpty) {
-                    return ListView(
+              onRefresh: () => _load(reset: true),
+              child: _rows.isEmpty
+                  ? ListView(
                       children: [
-                        EmptyView(
-                          icon: Icons.person_search,
-                          title: l10n.adminNoPeople,
-                        ),
+                        if (_error != null)
+                          ErrorView(
+                            error: _error!,
+                            onRetry: () => _load(reset: true),
+                          )
+                        else if (_loading)
+                          const Padding(
+                            padding: EdgeInsets.all(Space.xl),
+                            child: LoadingView(),
+                          )
+                        else
+                          EmptyView(
+                            icon: Icons.person_search,
+                            title: l10n.adminNoPeople,
+                          ),
                       ],
-                    );
-                  }
-                  return ListView.separated(
-                    padding: const EdgeInsets.only(bottom: 96),
-                    itemCount: shown.length,
-                    separatorBuilder: (_, _) => const Divider(height: 1),
-                    itemBuilder: (context, i) => _PersonTile(person: shown[i]),
-                  );
-                }(),
-                AsyncError(:final error) => ListView(
-                  children: [
-                    ErrorView(
-                      error: error,
-                      onRetry: () => ref.invalidate(peopleProvider),
+                    )
+                  : ListView.separated(
+                      padding: const EdgeInsets.only(bottom: 96),
+                      itemCount: _rows.length + 1,
+                      separatorBuilder: (_, _) => const Divider(height: 1),
+                      itemBuilder: (context, i) {
+                        if (i < _rows.length) {
+                          return _PersonTile(
+                            person: _rows[i],
+                            onTap: () => _open(_rows[i]),
+                          );
+                        }
+                        if (_error != null) {
+                          return ErrorView(
+                            error: _error!,
+                            onRetry: () => _load(),
+                          );
+                        }
+                        if (_rows.length >= _total) {
+                          return const SizedBox(height: Space.md);
+                        }
+                        return Padding(
+                          padding: const EdgeInsets.all(Space.md),
+                          child: Center(
+                            child: _loading
+                                ? const CircularProgressIndicator()
+                                : OutlinedButton(
+                                    onPressed: () => _load(),
+                                    child: Text(l10n.peopleLoadMore),
+                                  ),
+                          ),
+                        );
+                      },
                     ),
-                  ],
-                ),
-                _ => const LoadingView(),
-              },
             ),
           ),
         ],
@@ -286,8 +415,9 @@ class _PeopleTabState extends ConsumerState<PeopleTab> {
 }
 
 class _PersonTile extends ConsumerWidget {
-  const _PersonTile({required this.person});
+  const _PersonTile({required this.person, required this.onTap});
   final AppUserRow person;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -308,7 +438,8 @@ class _PersonTile extends ConsumerWidget {
       ),
       subtitle: Text(
         [
-          roleLabel(l10n, person.role, superadmin: person.isSuperadmin),
+          person.roleName ??
+              roleLabel(l10n, person.role, superadmin: person.isSuperadmin),
           if (!person.isActive) l10n.adminDisabled,
           if (person.contact.isNotEmpty) person.contact,
         ].join(' · '),
@@ -316,12 +447,7 @@ class _PersonTile extends ConsumerWidget {
         overflow: TextOverflow.ellipsis,
       ),
       trailing: const Icon(Icons.chevron_right),
-      onTap: () => showModalBottomSheet<void>(
-        context: context,
-        isScrollControlled: true,
-        showDragHandle: true,
-        builder: (_) => PersonSheet(person: person),
-      ),
+      onTap: onTap,
     );
   }
 }
