@@ -209,6 +209,79 @@ organisation name, currency, support phone and email, and the bank and
 mobile-money instructions learners see when paying outside the app. You can
 also switch in-app mobile-money payments off.
 
+## The seeded Qur'an catalogue (review before publishing)
+
+Sidra comes with five proposed courses:
+- **Yassarna: Beginners**
+- **Yassarna: Intermediate**
+- **Yassarna: Advanced** (tajwīd)
+- **Introduction to Arabic Language**
+- **Introduction to Qur'an Recitation**
+
+They are **In review** and **By invitation**, so learners see nothing until you publish them.
+
+Every course and lesson is marked **Needs review** with a note saying what to check. The most important checks:
+- **Qur'anic text:** check every Qur'an block against a printed muṣḥaf. Only al-Fātiḥah, al-Ikhlāṣ, al-Falaq, an-Nās, the istiʿādhah and the basmalah were entered.
+- **Yassarna order:** compare the order of stages and lessons with the edition of the book your teachers use. No page numbers were entered.
+- **Readings and schools:** the tajwīd rules follow Ḥafṣ ʿan ʿĀṣim. Where schools of fiqh differ (for example, the etiquette of touching the muṣḥaf), teach your school's position.
+
+Edit anything freely. The seed never overwrites your changes.
+
+## Languages
+
+Each course has a **main language of teaching**, and can list others it is also taught in. A lesson can override it. Language means the language the **explanations** are given in: a lesson taught in English that contains Arabic Qur'an text is still an English lesson.
+
+Each content block can carry its own language. Qur'an blocks are Arabic. Learners see "Taught in English" on the course and on each lesson.
+
+## Lessons: outcomes, place, move and copy
+
+Open a lesson. Its **Overview** tab shows:
+- where it sits (Course › Unit › Section);
+- its learning outcomes: what the learner will be able to *do*, one per line;
+- its language and, optionally, its Qur'an reference (sūrah and āyāt).
+
+Two more actions, also in each lesson's menu in the course outline:
+- **Move…** puts the lesson in another unit or section of the same course.
+- **Copy to another course…** makes a draft copy with its content and resources.
+
+A content block can be made **Teachers only** (a note for teachers that learners never see) from the block's menu.
+
+## Resources: files and links
+
+Courses, lessons and assignments have **Resources**.
+- **Upload file:** PDF, Word, PowerPoint, Excel, text, pictures (JPG, PNG, WEBP), audio (MP3, WAV, M4A, AAC) or video (MP4, MOV).
+- **Add link:** YouTube, Vimeo, Telegram, Google Drive or any website. Sidra fetches the link's title, picture and site so you can check it points where you meant. If no preview can be found, it says so honestly; save the link only if you trust it.
+
+Tap a resource to **preview** it (pictures show in place; other files open), hide it from learners, reorder it or remove it.
+
+Files are private. Only learners with access to that lesson or course can open them.
+
+## Assignments and submitted work
+
+This replaces photos of work sent on WhatsApp.
+
+1. In a lesson, open **Assignments** and tap **Add assignment**. Say what to do and what learners may hand in: photos, documents, recordings, videos or a written answer.
+2. The learner opens the lesson, taps **Submit work**, and takes a photo, picks one from the gallery, or attaches a file. If they are offline, the work waits on the phone and is sent automatically when they are back online; it is never shown as handed in before that.
+3. Teachers open **Submitted work** (menu → Teaching, or More for teachers), or a lesson's **Work** tab. Open a submission, look at the photos or files, write feedback, optionally give a score, then choose **Mark reviewed** or **Ask for a new try**. The learner sees the feedback in the lesson.
+
+Only the learner and the teachers of that lesson can see what was handed in.
+
+## Testing MarzPay
+
+**Menu → Settings → Payments → MarzPay** shows whether the payments server is running.
+
+Tap **Test integration**. The server checks:
+- the configuration and the connection;
+- that your credentials are accepted and made-up ones refused;
+- that collection requests are validated;
+- that payment status can be looked up;
+- that timeouts are handled;
+- that a payment confirmed twice is credited once;
+- whether the webhook is reachable;
+- that payments and learners match up.
+
+Each check shows **PASS**, **WARNING** or **FAIL** with an explanation. No money moves and no secret is shown. MarzPay has no test mode for this account, so a real collection is proved only by paying for a course and entering a PIN.
+
 ## Forgotten passwords
 
 Everyone signs in with their **phone number** (with country code, e.g.

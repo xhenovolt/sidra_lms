@@ -134,6 +134,7 @@ class _Builder extends ConsumerWidget {
         padding: const EdgeInsets.all(Space.md),
         children: [
           CourseLifecycleCard(course: course, onChanged: () => _reload(ref)),
+          _CourseFacts(course: course),
           Card(
             child: Column(
               children: [
@@ -703,3 +704,88 @@ Json unitValues(String courseId, String title, String? description) => {
   'title': title,
   'description': description,
 };
+
+/// Track, languages, audience and review state at a glance.
+class _CourseFacts extends ConsumerWidget {
+  const _CourseFacts({required this.course});
+  final Course course;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final langs = ref.watch(languagesProvider).value;
+    final tracks = ref.watch(tracksProvider).value ?? const <LearningTrack>[];
+    final track = tracks.where((t) => t.key == course.trackKey).firstOrNull;
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(Space.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (course.needsReview)
+              Padding(
+                padding: const EdgeInsets.only(bottom: Space.sm),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.fact_check_outlined,
+                      color: theme.colorScheme.tertiary,
+                    ),
+                    const SizedBox(width: Space.sm),
+                    Expanded(
+                      child: Text(
+                        (course.metadata['review_note'] as String?) ??
+                            l10n.provisionalBody,
+                        style: theme.textTheme.bodySmall,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            Wrap(
+              spacing: Space.xs,
+              runSpacing: Space.xs,
+              children: [
+                if (course.needsReview)
+                  Chip(
+                    label: Text(l10n.provisionalTitle),
+                    visualDensity: VisualDensity.compact,
+                  ),
+                if (track != null)
+                  Chip(
+                    label: Text(track.name),
+                    visualDensity: VisualDensity.compact,
+                  ),
+                Chip(
+                  avatar: const Icon(Icons.translate, size: 16),
+                  label: Text(
+                    l10n.taughtIn(
+                      course.languages
+                          .map((c) => languageName(langs, c))
+                          .join(', '),
+                    ),
+                  ),
+                  visualDensity: VisualDensity.compact,
+                ),
+                if (course.hidden)
+                  Chip(
+                    label: Text(l10n.courseHidden),
+                    visualDensity: VisualDensity.compact,
+                  ),
+              ],
+            ),
+            if (course.targetLearner != null) ...[
+              const SizedBox(height: Space.xs),
+              Text(
+                l10n.courseForWhom(course.targetLearner!),
+                style: theme.textTheme.bodySmall,
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}

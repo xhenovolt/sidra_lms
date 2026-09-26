@@ -1,4 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
@@ -196,3 +199,21 @@ final submissionQueueProvider =
     AsyncNotifierProvider<SubmissionQueue, List<QueuedSubmission>>(
       SubmissionQueue.new,
     );
+
+/// Sends queued submissions when the app starts and whenever the phone
+/// comes back online. Watched by the learner shell.
+final submissionFlushProvider = Provider<void>((ref) {
+  Future<void> flush() async {
+    try {
+      await ref.read(submissionQueueProvider.notifier).flush();
+    } catch (_) {
+      // stays queued; the learner sees "Waiting to upload"
+    }
+  }
+
+  unawaited(flush());
+  final sub = Connectivity().onConnectivityChanged.listen((results) {
+    if (results.any((r) => r != ConnectivityResult.none)) unawaited(flush());
+  });
+  ref.onDispose(sub.cancel);
+});

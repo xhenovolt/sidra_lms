@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/data/data_providers.dart';
+import '../../features/content/data/submission_queue.dart';
 import '../../l10n/app_localizations.dart';
 
 /// One bottom-navigation destination.
@@ -23,6 +24,8 @@ class AppShell extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Keeps background sync running while signed in.
     ref.watch(syncSchedulerProvider);
+    // Hands in work saved while offline.
+    ref.watch(submissionFlushProvider);
     final nav = items(AppLocalizations.of(context));
 
     final wide = MediaQuery.sizeOf(context).width >= 840;
