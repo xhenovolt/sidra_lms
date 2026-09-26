@@ -444,7 +444,7 @@
   "adminEnrolWithdrawn": "Withdrawn",
   "adminEnrolPending": "Pending",
   "adminDeleteCourse": "Delete course",
-  "adminDeleteCourseBody": "Delete “{title}” permanently, with all its lessons, enrolments and learner progress? This cannot be undone. To only hide it, switch Published off instead.",
+  "adminDeleteCourseBody": "Delete “{title}” permanently? It has never been published and has no learners. This cannot be undone.",
   "@adminDeleteCourseBody": {
     "placeholders": {
       "title": {
@@ -493,5 +493,75 @@
         "type": "int"
       }
     }
-  }
+  },
+  "statusInReview": "In review",
+  "statusArchived": "Archived",
+  "lifecycleTitle": "Status",
+  "lifecycleMoved": "Course is now: {status}",
+  "@lifecycleMoved": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "lifecycleSubmit": "Submit for review",
+  "lifecycleSubmitNote": "Note for the reviewer",
+  "lifecycleReturn": "Return to draft",
+  "lifecycleReturnNote": "What needs fixing",
+  "lifecycleArchive": "Archive",
+  "lifecycleRestore": "Restore to draft",
+  "lifecycleArchiveTitle": "Archive this course?",
+  "lifecycleArchiveBody": "It leaves the catalogue and learners can no longer open it. Nothing is deleted: enrolments, progress and payments are kept, and you can restore it later.",
+  "lifecyclePublishedOn": "Visible to learners · published {date}",
+  "@lifecyclePublishedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "lifecycleArchivedHint": "Archived. Learners cannot see it; its records are kept.",
+  "lifecycleInReviewHint": "Waiting for a reviewer to publish it or send it back.",
+  "lifecycleReady": "Ready to publish",
+  "lifecycleNotReady": "Before publishing:",
+  "issueNoPublishedLessons": "Publish at least one lesson",
+  "issueNoDescription": "Add a course description",
+  "issueNoThumbnail": "Add a cover image",
+  "issueEmptyLessons": "{count, plural, =1{1 published lesson has no content} other{{count} published lessons have no content}}",
+  "@issueEmptyLessons": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "issueDraftLessons": "{count, plural, =1{1 lesson is still a draft} other{{count} lessons are still drafts}}",
+  "@issueDraftLessons": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "issueNoTeacher": "Assign a teacher: learners wait for a teacher to open each next lesson",
+  "coursesSearchHint": "Search by title, subject, category or tag",
+  "coursesFilterCurrent": "Current",
+  "coursesNoMatch": "No courses match",
+  "courseCategory": "Category",
+  "courseCategoryHint": "e.g. Quran, Arabic, Fiqh",
+  "courseTags": "Tags",
+  "courseTagsHint": "Separate with commas, e.g. tajweed, beginners",
+  "courseSelfEnrol": "Learners can enrol themselves",
+  "courseSelfEnrolHint": "Turn off to enrol learners yourself, even though the course is free.",
+  "adminBlockLink": "Link (YouTube, Telegram, website)",
+  "linkUrlLabel": "Link address",
+  "linkUrlInvalid": "Enter a full web link, e.g. https://youtu.be/…",
+  "linkTitleLabel": "Title (optional)",
+  "linkDescriptionLabel": "Short description (optional)",
+  "linkPreview": "What learners will see",
+  "linkOpen": "Opens outside Sidra",
+  "linkProviderYoutube": "YouTube",
+  "linkProviderTelegram": "Telegram",
+  "adminStatInReview": "Courses in review"
 }

@@ -1163,7 +1163,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String adminDeleteCourseBody(String title) {
-    return 'حذف «$title» نهائيًا مع كل دروسه وتسجيلاته وتقدّم طلابه؟ لا يمكن التراجع. لإخفائها فقط، أوقف النشر بدلًا من ذلك.';
+    return 'حذف «$title» نهائيًا؟ لم تُنشر قط وليس فيها متعلمون. لا يمكن التراجع.';
   }
 
   @override
@@ -1266,4 +1266,154 @@ class AppLocalizationsAr extends AppLocalizations {
   String rolesSummary(int permissions, int members) {
     return '$permissions صلاحية · $members أشخاص';
   }
+
+  @override
+  String get statusInReview => 'قيد المراجعة';
+
+  @override
+  String get statusArchived => 'مؤرشف';
+
+  @override
+  String get lifecycleTitle => 'الحالة';
+
+  @override
+  String lifecycleMoved(String status) {
+    return 'حالة الدورة الآن: $status';
+  }
+
+  @override
+  String get lifecycleSubmit => 'إرسال للمراجعة';
+
+  @override
+  String get lifecycleSubmitNote => 'ملاحظة للمراجع';
+
+  @override
+  String get lifecycleReturn => 'إعادة إلى المسودة';
+
+  @override
+  String get lifecycleReturnNote => 'ما يحتاج إلى إصلاح';
+
+  @override
+  String get lifecycleArchive => 'أرشفة';
+
+  @override
+  String get lifecycleRestore => 'استعادة كمسودة';
+
+  @override
+  String get lifecycleArchiveTitle => 'أرشفة هذه الدورة؟';
+
+  @override
+  String get lifecycleArchiveBody =>
+      'ستُزال من الفهرس ولن يتمكن المتعلمون من فتحها. لا يُحذف شيء: تبقى التسجيلات والتقدم والمدفوعات، ويمكنك استعادتها لاحقًا.';
+
+  @override
+  String lifecyclePublishedOn(String date) {
+    return 'ظاهرة للمتعلمين · نُشرت $date';
+  }
+
+  @override
+  String get lifecycleArchivedHint =>
+      'مؤرشفة. لا يراها المتعلمون، وسجلاتها محفوظة.';
+
+  @override
+  String get lifecycleInReviewHint => 'بانتظار مراجع لينشرها أو يعيدها.';
+
+  @override
+  String get lifecycleReady => 'جاهزة للنشر';
+
+  @override
+  String get lifecycleNotReady => 'قبل النشر:';
+
+  @override
+  String get issueNoPublishedLessons => 'انشر درسًا واحدًا على الأقل';
+
+  @override
+  String get issueNoDescription => 'أضف وصفًا للدورة';
+
+  @override
+  String get issueNoThumbnail => 'أضف صورة غلاف';
+
+  @override
+  String issueEmptyLessons(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count دروس منشورة بلا محتوى',
+      one: 'درس منشور واحد بلا محتوى',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String issueDraftLessons(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count دروس ما زالت مسودات',
+      one: 'درس واحد ما زال مسودة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get issueNoTeacher =>
+      'عيّن معلمًا: ينتظر المتعلمون أن يفتح المعلم كل درس تالٍ';
+
+  @override
+  String get coursesSearchHint => 'ابحث بالعنوان أو المادة أو التصنيف أو الوسم';
+
+  @override
+  String get coursesFilterCurrent => 'الحالية';
+
+  @override
+  String get coursesNoMatch => 'لا توجد دورات مطابقة';
+
+  @override
+  String get courseCategory => 'التصنيف';
+
+  @override
+  String get courseCategoryHint => 'مثل: القرآن، العربية، الفقه';
+
+  @override
+  String get courseTags => 'الوسوم';
+
+  @override
+  String get courseTagsHint => 'افصل بينها بفواصل، مثل: تجويد، مبتدئون';
+
+  @override
+  String get courseSelfEnrol => 'يمكن للمتعلمين التسجيل بأنفسهم';
+
+  @override
+  String get courseSelfEnrolHint =>
+      'أوقفه لتسجّل المتعلمين بنفسك رغم أن الدورة مجانية.';
+
+  @override
+  String get adminBlockLink => 'رابط (يوتيوب، تيليجرام، موقع)';
+
+  @override
+  String get linkUrlLabel => 'عنوان الرابط';
+
+  @override
+  String get linkUrlInvalid => 'أدخل رابطًا كاملًا، مثل https://youtu.be/…';
+
+  @override
+  String get linkTitleLabel => 'العنوان (اختياري)';
+
+  @override
+  String get linkDescriptionLabel => 'وصف قصير (اختياري)';
+
+  @override
+  String get linkPreview => 'ما سيراه المتعلمون';
+
+  @override
+  String get linkOpen => 'يُفتح خارج سدرة';
+
+  @override
+  String get linkProviderYoutube => 'يوتيوب';
+
+  @override
+  String get linkProviderTelegram => 'تيليجرام';
+
+  @override
+  String get adminStatInReview => 'دورات قيد المراجعة';
 }

@@ -1,4 +1,5 @@
 import '../../../shared/models/json.dart';
+import 'external_link.dart';
 
 /// A typed piece of lesson content. Lessons are an ordered list of these,
 /// so a lesson can mix text, Quranic Arabic, audio, video, images and quizzes
@@ -102,6 +103,16 @@ sealed class ContentBlock {
         assessmentId: j.str('assessment_id'),
       ),
       'divider' => DividerBlock(id: id, position: position),
+      'external_link' => switch (parseExternalLink(text('url'))) {
+        final uri? => ExternalLinkBlock(
+          id: id,
+          position: position,
+          uri: uri,
+          title: body['title'] as String?,
+          description: body['description'] as String?,
+        ),
+        null => UnknownBlock(id: id, position: position, type: 'external_link'),
+      },
       _ => UnknownBlock(id: id, position: position, type: type ?? 'null'),
     };
   }
@@ -278,4 +289,20 @@ class UnknownBlock extends ContentBlock {
     required this.type,
   });
   final String type;
+}
+
+/// A link to material hosted elsewhere (YouTube, Telegram, a website).
+class ExternalLinkBlock extends ContentBlock {
+  const ExternalLinkBlock({
+    required super.id,
+    required super.position,
+    required this.uri,
+    this.title,
+    this.description,
+  });
+  final Uri uri;
+  final String? title;
+  final String? description;
+
+  LinkProvider get provider => linkProviderOf(uri);
 }

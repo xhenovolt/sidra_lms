@@ -17,14 +17,81 @@ final adminCoursesProvider = FutureProvider.autoDispose<List<Course>>(
   (ref) => ref.watch(adminRepositoryProvider).allCourses(),
 );
 
-class CoursesTab extends ConsumerWidget {
+class CoursesTab extends ConsumerStatefulWidget {
   const CoursesTab({super.key, required this.canCreate});
   final bool canCreate;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<CoursesTab> createState() => _CoursesTabState();
+}
+
+class _CoursesTabState extends ConsumerState<CoursesTab> {
+  /// null = all but archived.
+  PublishStatus? _status;
+  String _query = '';
+
+  bool _matches(Course c) {
+    if (_status == null
+        ? c.status == PublishStatus.archived
+        : c.status != _status) {
+      return false;
+    }
+    final q = _query.trim().toLowerCase();
+    if (q.isEmpty) return true;
+    return [
+      c.title,
+      c.subject,
+      ?c.category,
+      ...c.tags,
+    ].any((s) => s.toLowerCase().contains(q));
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final courses = ref.watch(adminCoursesProvider);
+    final canCreate = widget.canCreate;
+    final all = ref.watch(adminCoursesProvider);
+    final courses = all.whenData((list) => list.where(_matches).toList());
+    final counts = <PublishStatus, int>{
+      for (final s in PublishStatus.values)
+        s: all.value?.where((c) => c.status == s).length ?? 0,
+    };
+    final filters = Padding(
+      padding: const EdgeInsets.fromLTRB(Space.md, Space.sm, Space.md, 0),
+      child: Column(
+        children: [
+          TextField(
+            decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.search),
+              hintText: l10n.coursesSearchHint,
+              isDense: true,
+            ),
+            onChanged: (v) => setState(() => _query = v),
+          ),
+          const SizedBox(height: Space.xs),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                for (final s in <PublishStatus?>[null, ...PublishStatus.values])
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(end: Space.xs),
+                    child: ChoiceChip(
+                      label: Text(
+                        s == null
+                            ? l10n.coursesFilterCurrent
+                            : '${statusLabel(l10n, s)} (${counts[s]})',
+                      ),
+                      selected: _status == s,
+                      onSelected: (_) => setState(() => _status = s),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
     return Scaffold(
       floatingActionButton: canCreate
           ? FloatingActionButton.extended(
@@ -33,47 +100,62 @@ class CoursesTab extends ConsumerWidget {
               label: Text(l10n.adminNewCourse),
             )
           : null,
-      body: RefreshIndicator(
-        onRefresh: () => ref.refresh(adminCoursesProvider.future),
-        child: switch (courses) {
-          AsyncData(:final value) when value.isEmpty => ListView(
-            children: [
-              EmptyView(
-                icon: Icons.library_books_outlined,
-                title: l10n.adminNoCoursesTitle,
-                message: l10n.adminNoCoursesBody,
-              ),
-            ],
-          ),
-          AsyncData(:final value) => ListView.separated(
-            padding: const EdgeInsets.only(bottom: 96),
-            itemCount: value.length,
-            separatorBuilder: (_, _) => const Divider(height: 1),
-            itemBuilder: (context, i) {
-              final c = value[i];
-              return ListTile(
-                title: Text(c.title),
-                subtitle: Text(
-                  '${c.subject} · ${c.accessLabel(l10n)} · '
-                  '${c.difficultyLabel(l10n)}',
+      body: Column(
+        children: [
+          filters,
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () => ref.refresh(adminCoursesProvider.future),
+              child: switch (courses) {
+                AsyncData(:final value) when value.isEmpty => ListView(
+                  children: [
+                    if (all.value?.isEmpty ?? true)
+                      EmptyView(
+                        icon: Icons.library_books_outlined,
+                        title: l10n.adminNoCoursesTitle,
+                        message: l10n.adminNoCoursesBody,
+                      )
+                    else
+                      EmptyView(
+                        icon: Icons.filter_alt_off_outlined,
+                        title: l10n.coursesNoMatch,
+                      ),
+                  ],
                 ),
-                trailing: StatusChip(
-                  published: c.status == PublishStatus.published,
+                AsyncData(:final value) => ListView.separated(
+                  padding: const EdgeInsets.only(bottom: 96),
+                  itemCount: value.length,
+                  separatorBuilder: (_, _) => const Divider(height: 1),
+                  itemBuilder: (context, i) {
+                    final c = value[i];
+                    return ListTile(
+                      title: Text(c.title),
+                      subtitle: Text(
+                        [
+                          c.subject,
+                          ?c.category,
+                          c.accessLabel(l10n),
+                          c.difficultyLabel(l10n),
+                        ].join(' · '),
+                      ),
+                      trailing: StatusChip.of(c.status),
+                      onTap: () => context.push('/teach/courses/${c.id}'),
+                    );
+                  },
                 ),
-                onTap: () => context.push('/teach/courses/${c.id}'),
-              );
-            },
+                AsyncError(:final error) => ListView(
+                  children: [
+                    ErrorView(
+                      error: error,
+                      onRetry: () => ref.invalidate(adminCoursesProvider),
+                    ),
+                  ],
+                ),
+                _ => const LoadingView(),
+              },
+            ),
           ),
-          AsyncError(:final error) => ListView(
-            children: [
-              ErrorView(
-                error: error,
-                onRetry: () => ref.invalidate(adminCoursesProvider),
-              ),
-            ],
-          ),
-          _ => const LoadingView(),
-        },
+        ],
       ),
     );
   }
@@ -96,6 +178,11 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
     text: widget.course?.description,
   );
   late final _subject = TextEditingController(text: widget.course?.subject);
+  late final _category = TextEditingController(text: widget.course?.category);
+  late final _tags = TextEditingController(
+    text: widget.course?.tags.join(', '),
+  );
+  late bool _selfEnrol = widget.course?.selfEnrol ?? true;
   late final _hours = TextEditingController(
     text: widget.course?.estimatedHours?.toString(),
   );
@@ -109,7 +196,7 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
     text: widget.course?.priceAmount?.toString(),
   );
   late final _currency = TextEditingController(
-    text: widget.course?.priceCurrency ?? 'USD',
+    text: widget.course?.priceCurrency ?? 'UGX',
   );
   late Difficulty _difficulty =
       widget.course?.difficulty ?? Difficulty.beginner;
@@ -127,6 +214,8 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
       _subtitle,
       _description,
       _subject,
+      _category,
+      _tags,
       _hours,
       _objectives,
       _prereq,
@@ -167,6 +256,12 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
       'subtitle': nullIfBlank(_subtitle.text),
       'description': nullIfBlank(_description.text),
       'subject': _subject.text.trim(),
+      'category': nullIfBlank(_category.text),
+      'tags': [
+        for (final t in _tags.text.split(','))
+          if (t.trim().isNotEmpty) t.trim(),
+      ],
+      'self_enrol': _access == CourseAccess.free && _selfEnrol,
       'difficulty': enumToDb(_difficulty),
       'access': enumToDb(_access),
       'progression': enumToDb(_progression),
@@ -233,6 +328,16 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
               label: l10n.adminSubject,
               hint: l10n.adminSubjectHint,
               required: true,
+            ),
+            AdminField(
+              controller: _category,
+              label: l10n.courseCategory,
+              hint: l10n.courseCategoryHint,
+            ),
+            AdminField(
+              controller: _tags,
+              label: l10n.courseTags,
+              hint: l10n.courseTagsHint,
             ),
             AdminField(
               controller: _description,
@@ -306,6 +411,14 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
               ],
               onChanged: (v) => setState(() => _access = v!),
             ),
+            if (_access == CourseAccess.free)
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                value: _selfEnrol,
+                onChanged: (v) => setState(() => _selfEnrol = v),
+                title: Text(l10n.courseSelfEnrol),
+                subtitle: Text(l10n.courseSelfEnrolHint),
+              ),
             if (_access == CourseAccess.paid) ...[
               const SizedBox(height: Space.md),
               Row(

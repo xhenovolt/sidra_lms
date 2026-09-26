@@ -92,6 +92,11 @@ class OverviewTab extends ConsumerWidget {
                   Icons.edit_note,
                 ),
                 _Stat(
+                  l10n.adminStatInReview,
+                  value['courses_in_review'],
+                  Icons.rate_review_outlined,
+                ),
+                _Stat(
                   l10n.adminStatEnrolments,
                   value['active_enrolments'],
                   Icons.how_to_reg_outlined,

@@ -1,6 +1,6 @@
 import '../../../shared/models/json.dart';
 
-enum PublishStatus { draft, published, archived }
+enum PublishStatus { draft, inReview, published, archived }
 
 enum Difficulty { beginner, intermediate, advanced }
 
@@ -29,6 +29,12 @@ class Course {
     this.prerequisites,
     this.contentVersion = 1,
     this.updatedAt,
+    this.category,
+    this.tags = const [],
+    this.selfEnrol = true,
+    this.reviewNote,
+    this.publishedAt,
+    this.archivedAt,
   });
 
   factory Course.fromJson(Json j) => Course(
@@ -67,6 +73,12 @@ class Course {
     prerequisites: j.strOrNull('prerequisites'),
     contentVersion: j.integer('content_version', fallback: 1),
     updatedAt: j.dateOrNull('updated_at'),
+    category: j.strOrNull('category'),
+    tags: j.strList('tags'),
+    selfEnrol: j.boolean('self_enrol', fallback: true),
+    reviewNote: j.strOrNull('review_note'),
+    publishedAt: j.dateOrNull('published_at'),
+    archivedAt: j.dateOrNull('archived_at'),
   );
 
   final String id;
@@ -88,6 +100,16 @@ class Course {
   final String? prerequisites;
   final int contentVersion;
   final DateTime? updatedAt;
+  final String? category;
+  final List<String> tags;
+
+  /// Free courses: whether learners may enrol themselves.
+  final bool selfEnrol;
+
+  /// Note sent with a review submission, or feedback when returned to draft.
+  final String? reviewNote;
+  final DateTime? publishedAt;
+  final DateTime? archivedAt;
 
   bool get isFree => access == CourseAccess.free;
 
@@ -111,6 +133,12 @@ class Course {
     'prerequisites': prerequisites,
     'content_version': contentVersion,
     'updated_at': updatedAt?.toIso8601String(),
+    'category': category,
+    'tags': tags,
+    'self_enrol': selfEnrol,
+    'review_note': reviewNote,
+    'published_at': publishedAt?.toIso8601String(),
+    'archived_at': archivedAt?.toIso8601String(),
   };
 }
 
@@ -469,4 +497,32 @@ class LessonOrderEntry {
     'seq': seq,
     'is_unlocked': isUnlocked,
   };
+}
+
+/// One finding from `course_publish_check`.
+class PublishIssue {
+  const PublishIssue(this.code, [this.count]);
+  factory PublishIssue.fromJson(Json j) =>
+      PublishIssue(j.str('code'), j.intOrNull('count'));
+  final String code;
+  final int? count;
+}
+
+/// What stands between a course and publishing. [errors] block it;
+/// [warnings] are worth fixing but do not.
+class PublishCheck {
+  const PublishCheck({required this.errors, required this.warnings});
+  factory PublishCheck.fromJson(Json j) => PublishCheck(
+    errors: [
+      for (final e in (j['errors'] as List? ?? const []))
+        PublishIssue.fromJson(Map<String, dynamic>.from(e as Map)),
+    ],
+    warnings: [
+      for (final e in (j['warnings'] as List? ?? const []))
+        PublishIssue.fromJson(Map<String, dynamic>.from(e as Map)),
+    ],
+  );
+  final List<PublishIssue> errors;
+  final List<PublishIssue> warnings;
+  bool get ready => errors.isEmpty;
 }

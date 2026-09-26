@@ -2243,7 +2243,7 @@ abstract class AppLocalizations {
   /// No description provided for @adminDeleteCourseBody.
   ///
   /// In en, this message translates to:
-  /// **'Delete “{title}” permanently, with all its lessons, enrolments and learner progress? This cannot be undone. To only hide it, switch Published off instead.'**
+  /// **'Delete “{title}” permanently? It has never been published and has no learners. This cannot be undone.'**
   String adminDeleteCourseBody(String title);
 
   /// No description provided for @navMore.
@@ -2437,6 +2437,258 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{permissions} permissions · {members} people'**
   String rolesSummary(int permissions, int members);
+
+  /// No description provided for @statusInReview.
+  ///
+  /// In en, this message translates to:
+  /// **'In review'**
+  String get statusInReview;
+
+  /// No description provided for @statusArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived'**
+  String get statusArchived;
+
+  /// No description provided for @lifecycleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get lifecycleTitle;
+
+  /// No description provided for @lifecycleMoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Course is now: {status}'**
+  String lifecycleMoved(String status);
+
+  /// No description provided for @lifecycleSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit for review'**
+  String get lifecycleSubmit;
+
+  /// No description provided for @lifecycleSubmitNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note for the reviewer'**
+  String get lifecycleSubmitNote;
+
+  /// No description provided for @lifecycleReturn.
+  ///
+  /// In en, this message translates to:
+  /// **'Return to draft'**
+  String get lifecycleReturn;
+
+  /// No description provided for @lifecycleReturnNote.
+  ///
+  /// In en, this message translates to:
+  /// **'What needs fixing'**
+  String get lifecycleReturnNote;
+
+  /// No description provided for @lifecycleArchive.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get lifecycleArchive;
+
+  /// No description provided for @lifecycleRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore to draft'**
+  String get lifecycleRestore;
+
+  /// No description provided for @lifecycleArchiveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive this course?'**
+  String get lifecycleArchiveTitle;
+
+  /// No description provided for @lifecycleArchiveBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It leaves the catalogue and learners can no longer open it. Nothing is deleted: enrolments, progress and payments are kept, and you can restore it later.'**
+  String get lifecycleArchiveBody;
+
+  /// No description provided for @lifecyclePublishedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Visible to learners · published {date}'**
+  String lifecyclePublishedOn(String date);
+
+  /// No description provided for @lifecycleArchivedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived. Learners cannot see it; its records are kept.'**
+  String get lifecycleArchivedHint;
+
+  /// No description provided for @lifecycleInReviewHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for a reviewer to publish it or send it back.'**
+  String get lifecycleInReviewHint;
+
+  /// No description provided for @lifecycleReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to publish'**
+  String get lifecycleReady;
+
+  /// No description provided for @lifecycleNotReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Before publishing:'**
+  String get lifecycleNotReady;
+
+  /// No description provided for @issueNoPublishedLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish at least one lesson'**
+  String get issueNoPublishedLessons;
+
+  /// No description provided for @issueNoDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a course description'**
+  String get issueNoDescription;
+
+  /// No description provided for @issueNoThumbnail.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a cover image'**
+  String get issueNoThumbnail;
+
+  /// No description provided for @issueEmptyLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 published lesson has no content} other{{count} published lessons have no content}}'**
+  String issueEmptyLessons(int count);
+
+  /// No description provided for @issueDraftLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 lesson is still a draft} other{{count} lessons are still drafts}}'**
+  String issueDraftLessons(int count);
+
+  /// No description provided for @issueNoTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign a teacher: learners wait for a teacher to open each next lesson'**
+  String get issueNoTeacher;
+
+  /// No description provided for @coursesSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by title, subject, category or tag'**
+  String get coursesSearchHint;
+
+  /// No description provided for @coursesFilterCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current'**
+  String get coursesFilterCurrent;
+
+  /// No description provided for @coursesNoMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No courses match'**
+  String get coursesNoMatch;
+
+  /// No description provided for @courseCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get courseCategory;
+
+  /// No description provided for @courseCategoryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Quran, Arabic, Fiqh'**
+  String get courseCategoryHint;
+
+  /// No description provided for @courseTags.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get courseTags;
+
+  /// No description provided for @courseTagsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Separate with commas, e.g. tajweed, beginners'**
+  String get courseTagsHint;
+
+  /// No description provided for @courseSelfEnrol.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners can enrol themselves'**
+  String get courseSelfEnrol;
+
+  /// No description provided for @courseSelfEnrolHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn off to enrol learners yourself, even though the course is free.'**
+  String get courseSelfEnrolHint;
+
+  /// No description provided for @adminBlockLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Link (YouTube, Telegram, website)'**
+  String get adminBlockLink;
+
+  /// No description provided for @linkUrlLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Link address'**
+  String get linkUrlLabel;
+
+  /// No description provided for @linkUrlInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a full web link, e.g. https://youtu.be/…'**
+  String get linkUrlInvalid;
+
+  /// No description provided for @linkTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Title (optional)'**
+  String get linkTitleLabel;
+
+  /// No description provided for @linkDescriptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Short description (optional)'**
+  String get linkDescriptionLabel;
+
+  /// No description provided for @linkPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'What learners will see'**
+  String get linkPreview;
+
+  /// No description provided for @linkOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens outside Sidra'**
+  String get linkOpen;
+
+  /// No description provided for @linkProviderYoutube.
+  ///
+  /// In en, this message translates to:
+  /// **'YouTube'**
+  String get linkProviderYoutube;
+
+  /// No description provided for @linkProviderTelegram.
+  ///
+  /// In en, this message translates to:
+  /// **'Telegram'**
+  String get linkProviderTelegram;
+
+  /// No description provided for @adminStatInReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses in review'**
+  String get adminStatInReview;
 }
 
 class _AppLocalizationsDelegate

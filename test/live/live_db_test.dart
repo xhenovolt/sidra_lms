@@ -135,23 +135,52 @@ void main() {
       );
       expect((blocks.single['body'] as Map)['arabic'], 'بِسْمِ ٱللَّهِ');
 
+      await api.insert('lesson_content_blocks', {
+        'lesson_id': lesson['id'],
+        'position': 1,
+        'block_type': 'external_link',
+        'body': {'url': 'https://youtu.be/dQw4w9WgXcQ', 'provider': 'youtube'},
+      });
+
+      // Lifecycle over the wire: ready → in review with a note → back to
+      // draft (never published, so the cleanup below may delete it).
+      final check = await api.rpc(
+        'course_publish_check',
+        params: {'p_course_id': id},
+      );
+      expect((check as Map)['errors'], isEmpty);
+      final reviewed = await api.rpc(
+        'set_course_status',
+        params: {
+          'p_course_id': id,
+          'p_status': 'in_review',
+          'p_note': 'Live check',
+        },
+      );
+      expect((reviewed as Map)['review_note'], 'Live check');
       await api.rpc(
         'set_course_status',
-        params: {'p_course_id': id, 'p_status': 'published'},
+        params: {'p_course_id': id, 'p_status': 'draft'},
       );
       final updated = await api.update(
         'courses',
-        {'subtitle': 'Updated'},
+        {
+          'subtitle': 'Updated',
+          'tags': ['tajweed', 'live'],
+          'self_enrol': false,
+        },
         filters: {'id': Pg.eq(id)},
       );
-      expect(updated.single['status'], 'published');
+      expect(updated.single['status'], 'draft');
       expect(updated.single['subtitle'], 'Updated');
+      expect(updated.single['tags'], ['tajweed', 'live']);
+      expect(updated.single['self_enrol'], isFalse);
 
       final order = await api.rpcRows(
         'course_lesson_order',
         params: {'p_course_id': id},
       );
-      expect(order.single['lesson_id'], lesson['id']);
+      expect(order, isEmpty, reason: 'drafts have no learner sequence');
 
       final inList = await api.select(
         'lessons',

@@ -25,6 +25,10 @@ select pg_temp.check('courses.create' = any (public.my_permissions()), 'academic
 select pg_temp.check(not ('finance.view' = any (public.my_permissions())), 'no finance for academics');
 insert into courses (id, slug, title, subject)
 values ('00000000-0000-0000-0000-00000000c0a1', 'academic-course', 'Academic course', 'Quran');
+select pg_temp.expect_error($q$select public.set_course_status('00000000-0000-0000-0000-00000000c0a1', 'published')$q$,
+  'not ready');
+insert into lessons (course_id, title, position, status)
+values ('00000000-0000-0000-0000-00000000c0a1', 'First lesson', 0, 'published');
 select public.set_course_status('00000000-0000-0000-0000-00000000c0a1', 'published');
 select public.grant_enrolment('00000000-0000-0000-0000-0000000000b1', '00000000-0000-0000-0000-00000000c0a1');
 insert into course_staff (course_id, user_id, role)

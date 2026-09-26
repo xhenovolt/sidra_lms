@@ -1,12 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/app_tokens.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../media/data/media_repository.dart';
 import '../../media/presentation/media_widgets.dart';
 import '../domain/content_blocks.dart';
+import '../domain/external_link.dart';
 import 'simple_markdown.dart';
 
 /// Renders one content block. Adding a block type = one case here plus
@@ -125,6 +128,7 @@ class BlockView extends StatelessWidget {
         ),
       ),
       DividerBlock() => const Divider(height: Space.xl),
+      final ExternalLinkBlock b => ExternalLinkCard(block: b),
       UnknownBlock() => const SizedBox.shrink(),
     };
   }
@@ -241,6 +245,87 @@ class _AttachmentTile extends ConsumerWidget {
           };
           await launchUrl(uri, mode: LaunchMode.externalApplication);
         },
+      ),
+    );
+  }
+}
+
+/// Preview card for a YouTube, Telegram or web link. Opens outside the app.
+class ExternalLinkCard extends StatelessWidget {
+  const ExternalLinkCard({super.key, required this.block});
+  final ExternalLinkBlock block;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    final thumb = youtubeThumbnail(block.uri);
+    final (icon, providerLabel, color) = switch (block.provider) {
+      LinkProvider.youtube => (
+        Icons.smart_display,
+        l10n.linkProviderYoutube,
+        const Color(0xFFD32F2F),
+      ),
+      LinkProvider.telegram => (
+        Icons.send,
+        l10n.linkProviderTelegram,
+        const Color(0xFF229ED9),
+      ),
+      LinkProvider.web => (Icons.language, block.uri.host, scheme.primary),
+    };
+    final title = (block.title?.trim().isNotEmpty ?? false)
+        ? block.title!.trim()
+        : block.uri.host + block.uri.path;
+
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => launchUrl(block.uri, mode: LaunchMode.externalApplication),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (thumb != null)
+              AspectRatio(
+                aspectRatio: 16 / 9,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: thumb,
+                      fit: BoxFit.cover,
+                      errorWidget: (_, _, _) =>
+                          ColoredBox(color: scheme.surfaceContainerHighest),
+                    ),
+                    Center(
+                      child: Icon(
+                        Icons.play_circle_fill,
+                        size: 56,
+                        color: Colors.white.withValues(alpha: 0.9),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ListTile(
+              leading: Icon(icon, color: color),
+              title: Text(title, maxLines: 2, overflow: TextOverflow.ellipsis),
+              subtitle: Text(
+                [
+                  providerLabel,
+                  if (block.description?.trim().isNotEmpty ?? false)
+                    block.description!.trim(),
+                ].join(' · '),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+              trailing: Tooltip(
+                message: l10n.linkOpen,
+                child: const Icon(Icons.open_in_new, size: 18),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

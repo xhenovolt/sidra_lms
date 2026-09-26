@@ -282,11 +282,28 @@ class AdminRepository {
     return Course.fromJson(rows.first);
   }
 
-  Future<void> setCourseStatus(String courseId, PublishStatus status) =>
-      api.rpc(
-        'set_course_status',
-        params: {'p_course_id': courseId, 'p_status': enumToDb(status)},
-      );
+  /// Moves a course through draft → in review → published → archived.
+  /// The database checks permissions and readiness.
+  Future<void> setCourseStatus(
+    String courseId,
+    PublishStatus status, {
+    String? note,
+  }) => api.rpc(
+    'set_course_status',
+    params: {
+      'p_course_id': courseId,
+      'p_status': enumToDb(status),
+      if (note != null && note.trim().isNotEmpty) 'p_note': note.trim(),
+    },
+  );
+
+  Future<PublishCheck> publishCheck(String courseId) async {
+    final res = await api.rpc(
+      'course_publish_check',
+      params: {'p_course_id': courseId},
+    );
+    return PublishCheck.fromJson(Map<String, dynamic>.from(res as Map));
+  }
 
   Future<void> deleteRow(String table, String id) =>
       api.delete(table, filters: {'id': Pg.eq(id)});

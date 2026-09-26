@@ -11,6 +11,8 @@ import '../../curriculum/domain/curriculum_tree.dart';
 import '../../../core/network/postgres_api.dart';
 import '../../../core/data/repository_providers.dart';
 import 'admin_common.dart';
+import 'admin_shell.dart';
+import 'course_lifecycle_card.dart';
 import 'course_people_section.dart';
 import 'courses_tab.dart';
 import 'node_forms.dart';
@@ -112,9 +114,7 @@ class _Builder extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final repo = ref.read(adminRepositoryProvider);
     final course = data.course;
-    final published = course.status == PublishStatus.published;
     final tree = CurriculumTree.build(
       units: data.units,
       nodes: data.nodes,
@@ -130,27 +130,10 @@ class _Builder extends ConsumerWidget {
       child: ListView(
         padding: const EdgeInsets.all(Space.md),
         children: [
+          CourseLifecycleCard(course: course, onChanged: () => _reload(ref)),
           Card(
             child: Column(
               children: [
-                SwitchListTile(
-                  title: Text(l10n.adminPublishCourse),
-                  subtitle: Text(
-                    published ? l10n.adminVisibleToLearners : l10n.adminHidden,
-                  ),
-                  value: published,
-                  onChanged: (v) async {
-                    if (await runAdminAction(
-                      context,
-                      () => repo.setCourseStatus(
-                        course.id,
-                        v ? PublishStatus.published : PublishStatus.draft,
-                      ),
-                    )) {
-                      _reload(ref);
-                    }
-                  },
-                ),
                 ListTile(
                   leading: const Icon(Icons.edit_outlined),
                   title: Text(l10n.adminEditCourse),
@@ -262,7 +245,13 @@ class _Builder extends ConsumerWidget {
             courseId: course.id,
             isAdmin: ref.watch(profileProvider).value?.isAdmin ?? false,
           ),
-          if (ref.watch(profileProvider).value?.isAdmin ?? false) ...[
+          // Only never-published drafts can be deleted; others are archived.
+          if (course.publishedAt == null &&
+              (ref
+                      .watch(myPermissionsProvider)
+                      .value
+                      ?.contains('courses.archive') ??
+                  false)) ...[
             const SizedBox(height: Space.xl),
             OutlinedButton.icon(
               style: OutlinedButton.styleFrom(

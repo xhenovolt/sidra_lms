@@ -11,6 +11,7 @@ import '../../../shared/models/json.dart';
 import '../../../shared/widgets/state_views.dart';
 import '../../curriculum/domain/curriculum_models.dart';
 import '../../lessons/domain/content_blocks.dart';
+import '../../lessons/domain/external_link.dart';
 import '../../lessons/presentation/block_renderer.dart';
 import 'admin_common.dart';
 
@@ -49,6 +50,7 @@ enum _NewBlock {
   image('image', Icons.image_outlined),
   audio('audio', Icons.graphic_eq),
   video('video', Icons.movie_outlined),
+  link('external_link', Icons.link),
   attachment('attachment', Icons.attach_file),
   reference('reference', Icons.bookmark_border),
   callout('callout', Icons.lightbulb_outline),
@@ -180,6 +182,7 @@ String _typeLabel(AppLocalizations l10n, String t) => switch (t) {
   'callout' => l10n.adminBlockCallout,
   'assessment' => l10n.adminBlockQuiz,
   'divider' => l10n.adminBlockDivider,
+  'external_link' => l10n.adminBlockLink,
   _ => t,
 };
 
@@ -471,6 +474,11 @@ Future<bool> showBlockEditor(
         }..removeWhere((_, v) => v == null),
       });
 
+    case 'external_link':
+      final values = await _linkDialog(context, body);
+      if (values == null || !context.mounted) return false;
+      return save({'body': values});
+
     default:
       final values = await _textBlockDialog(context, dbType, body);
       if (values == null || !context.mounted) return false;
@@ -714,6 +722,102 @@ Future<Json?> _textBlockDialog(BuildContext context, String dbType, Json body) {
           ),
         ],
       ),
+    ),
+  );
+}
+
+/// Link to a YouTube video, Telegram post or web page, with a live preview.
+Future<Json?> _linkDialog(BuildContext context, Json body) {
+  final l10n = AppLocalizations.of(context);
+  final form = GlobalKey<FormState>();
+  final url = TextEditingController(text: body['url'] as String?);
+  final title = TextEditingController(text: body['title'] as String?);
+  final description = TextEditingController(
+    text: body['description'] as String?,
+  );
+
+  return showDialog<Json>(
+    context: context,
+    builder: (dialogContext) => StatefulBuilder(
+      builder: (context, setState) {
+        final uri = parseExternalLink(url.text);
+        return AlertDialog(
+          title: Text(l10n.adminBlockLink),
+          content: SizedBox(
+            width: 480,
+            child: Form(
+              key: form,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    TextFormField(
+                      controller: url,
+                      autofocus: body['url'] == null,
+                      keyboardType: TextInputType.url,
+                      textDirection: TextDirection.ltr,
+                      decoration: InputDecoration(
+                        labelText: l10n.linkUrlLabel,
+                        hintText: 'https://youtu.be/…',
+                      ),
+                      onChanged: (_) => setState(() {}),
+                      validator: (v) => parseExternalLink(v ?? '') == null
+                          ? l10n.linkUrlInvalid
+                          : null,
+                    ),
+                    const SizedBox(height: Space.sm),
+                    AdminField(controller: title, label: l10n.linkTitleLabel),
+                    AdminField(
+                      controller: description,
+                      label: l10n.linkDescriptionLabel,
+                      maxLines: 2,
+                    ),
+                    if (uri != null) ...[
+                      const SizedBox(height: Space.sm),
+                      Text(
+                        l10n.linkPreview,
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
+                      const SizedBox(height: Space.xs),
+                      IgnorePointer(
+                        child: ExternalLinkCard(
+                          block: ExternalLinkBlock(
+                            id: 'preview',
+                            position: 0,
+                            uri: uri,
+                            title: nullIfBlank(title.text),
+                            description: nullIfBlank(description.text),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: Text(l10n.adminCancel),
+            ),
+            FilledButton(
+              onPressed: () {
+                if (!form.currentState!.validate()) return;
+                final link = parseExternalLink(url.text)!;
+                Navigator.pop(dialogContext, <String, dynamic>{
+                  'url': link.toString(),
+                  'provider': linkProviderOf(link).name,
+                  'title': ?nullIfBlank(title.text),
+                  'description': ?nullIfBlank(description.text),
+                });
+              },
+              child: Text(l10n.adminSave),
+            ),
+          ],
+        );
+      },
     ),
   );
 }

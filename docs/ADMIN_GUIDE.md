@@ -63,22 +63,53 @@ Open the course.
 
 Tap a lesson, then **Add content**. You can mix, in any order:
 text, headings, Quran text (Arabic), translation, transliteration,
-pictures, audio, video, files, references, highlight boxes and a quiz.
+pictures, audio, video, files, references, highlight boxes, a quiz, and
+**links** to a YouTube video, a Telegram post or any website. Paste the link:
+Sidra recognises YouTube and Telegram, shows a preview (with the video's
+picture for YouTube), and opens it outside the app for learners. Only
+ordinary web links (https://…) are accepted.
 Use the **Preview** tab to see exactly what learners will see.
 
 For a **quiz**, choose *practice* (works offline, answers shown after) or
 *graded* (needs internet, answers stay hidden, scored by the server).
 
-### 5. Publish
+### 5. Review and publish
 
-Nothing is visible to learners until you switch on **Published** at the
-top of the course. While a course is live, new sections and lessons start
-**hidden**. Publish each one from its menu when it's ready.
+The **Status** card at the top of each course shows where it is:
+
+| Status | Learners see it? | What happens next |
+|---|---|---|
+| **Draft** | No | Build it. **Submit for review** (with a note), or **Publish**. |
+| **In review** | No | A reviewer **publishes** it, or **returns it to draft** saying what to fix. |
+| **Published** | Yes | **Unpublish** hides it again; **Archive** retires it. |
+| **Archived** | No | Records are kept. **Restore to draft** to bring it back. |
+
+The card also lists what stands in the way. Red items block publishing
+(for example, *publish at least one lesson*). Grey items are worth fixing
+but don't block (no description, no cover image, lessons without content,
+lessons still in draft, or no teacher on a teacher-gated course).
+
+Who can do what comes from their role: **Academic Managers** and
+**Admins** publish and archive; **Content Managers** submit for review.
+
+While a course is live, new sections and lessons start **hidden**. Publish
+each one from its menu when it's ready.
+
+**Deleting:** only a course that was never published and has no learners
+can be deleted. Every other course is **archived**, so enrolments, progress
+and payments are never lost.
 
 ## Overview (administrators)
 
-The first tab shows live numbers (learners, teachers, courses, enrolments,
-activity this week) and quick buttons to **Add person** and **New course**.
+The dashboard shows live numbers (learners, teachers, courses published,
+in draft and in review, enrolments, activity this week) and quick buttons to
+**Add person** and **New course**. Open the menu (☰) for everything else;
+it only lists the pages your role allows.
+
+The **Courses** page can be searched by title, subject, category or tag,
+and filtered by status. Archived courses are under **Archived**. Each course
+can have a **category**, **tags**, and, for free courses, a switch for
+whether learners may **enrol themselves**.
 
 ## People tab (administrators)
 
@@ -101,8 +132,8 @@ keeps at least one superadmin.
 ## Course people
 
 At the bottom of each course: its **teachers** (add or remove) and its
-**learners** (add; set active, suspended or withdrawn). **Delete course** is
-there too. To hide a course instead, switch **Published** off.
+**learners** (add; set active, suspended or withdrawn). **Delete course**
+only appears for courses that were never published; archive the others.
 
 ## Forgotten passwords
 

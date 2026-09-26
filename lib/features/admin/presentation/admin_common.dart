@@ -8,6 +8,7 @@ import '../../../core/data/data_providers.dart';
 import '../../../core/errors/app_failure.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../curriculum/domain/curriculum_models.dart';
 import '../data/admin_repository.dart';
 
 final adminRepositoryProvider = Provider<AdminRepository>(
@@ -123,26 +124,51 @@ class AdminField extends StatelessWidget {
 }
 
 class StatusChip extends StatelessWidget {
-  const StatusChip({super.key, required this.published});
-  final bool published;
+  const StatusChip({super.key, required bool published})
+    : status = published ? PublishStatus.published : PublishStatus.draft;
+  const StatusChip.of(this.status, {super.key});
+  final PublishStatus status;
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final scheme = Theme.of(context).colorScheme;
+    final (background, foreground) = switch (status) {
+      PublishStatus.published => (
+        scheme.primaryContainer,
+        scheme.onPrimaryContainer,
+      ),
+      PublishStatus.inReview => (
+        scheme.tertiaryContainer,
+        scheme.onTertiaryContainer,
+      ),
+      PublishStatus.archived => (
+        scheme.surfaceContainerHighest,
+        scheme.onSurfaceVariant,
+      ),
+      PublishStatus.draft => (scheme.surfaceContainer, scheme.onSurface),
+    };
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: Space.xs, vertical: 2),
       decoration: BoxDecoration(
-        color: published ? scheme.primaryContainer : scheme.surfaceContainer,
+        color: background,
         borderRadius: BorderRadius.circular(Radii.pill),
       ),
       child: Text(
-        published ? l10n.adminPublished : l10n.adminDraft,
-        style: Theme.of(context).textTheme.labelSmall,
+        statusLabel(l10n, status),
+        style: Theme.of(context).textTheme.labelSmall
+            ?.copyWith(color: foreground),
       ),
     );
   }
 }
+
+String statusLabel(AppLocalizations l10n, PublishStatus s) => switch (s) {
+  PublishStatus.draft => l10n.adminDraft,
+  PublishStatus.inReview => l10n.statusInReview,
+  PublishStatus.published => l10n.adminPublished,
+  PublishStatus.archived => l10n.statusArchived,
+};
 
 String? nullIfBlank(String s) => s.trim().isEmpty ? null : s.trim();
 

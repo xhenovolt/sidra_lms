@@ -11,6 +11,8 @@ const _adminPerms = [
   'dashboard.view',
   'courses.view',
   'courses.create',
+  'courses.publish',
+  'courses.archive',
   'curriculum.edit',
   'books.manage',
   'learners.view',

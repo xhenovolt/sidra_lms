@@ -1182,7 +1182,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String adminDeleteCourseBody(String title) {
-    return 'Delete “$title” permanently, with all its lessons, enrolments and learner progress? This cannot be undone. To only hide it, switch Published off instead.';
+    return 'Delete “$title” permanently? It has never been published and has no learners. This cannot be undone.';
   }
 
   @override
@@ -1286,4 +1286,155 @@ class AppLocalizationsEn extends AppLocalizations {
   String rolesSummary(int permissions, int members) {
     return '$permissions permissions · $members people';
   }
+
+  @override
+  String get statusInReview => 'In review';
+
+  @override
+  String get statusArchived => 'Archived';
+
+  @override
+  String get lifecycleTitle => 'Status';
+
+  @override
+  String lifecycleMoved(String status) {
+    return 'Course is now: $status';
+  }
+
+  @override
+  String get lifecycleSubmit => 'Submit for review';
+
+  @override
+  String get lifecycleSubmitNote => 'Note for the reviewer';
+
+  @override
+  String get lifecycleReturn => 'Return to draft';
+
+  @override
+  String get lifecycleReturnNote => 'What needs fixing';
+
+  @override
+  String get lifecycleArchive => 'Archive';
+
+  @override
+  String get lifecycleRestore => 'Restore to draft';
+
+  @override
+  String get lifecycleArchiveTitle => 'Archive this course?';
+
+  @override
+  String get lifecycleArchiveBody =>
+      'It leaves the catalogue and learners can no longer open it. Nothing is deleted: enrolments, progress and payments are kept, and you can restore it later.';
+
+  @override
+  String lifecyclePublishedOn(String date) {
+    return 'Visible to learners · published $date';
+  }
+
+  @override
+  String get lifecycleArchivedHint =>
+      'Archived. Learners cannot see it; its records are kept.';
+
+  @override
+  String get lifecycleInReviewHint =>
+      'Waiting for a reviewer to publish it or send it back.';
+
+  @override
+  String get lifecycleReady => 'Ready to publish';
+
+  @override
+  String get lifecycleNotReady => 'Before publishing:';
+
+  @override
+  String get issueNoPublishedLessons => 'Publish at least one lesson';
+
+  @override
+  String get issueNoDescription => 'Add a course description';
+
+  @override
+  String get issueNoThumbnail => 'Add a cover image';
+
+  @override
+  String issueEmptyLessons(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count published lessons have no content',
+      one: '1 published lesson has no content',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String issueDraftLessons(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lessons are still drafts',
+      one: '1 lesson is still a draft',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get issueNoTeacher =>
+      'Assign a teacher: learners wait for a teacher to open each next lesson';
+
+  @override
+  String get coursesSearchHint => 'Search by title, subject, category or tag';
+
+  @override
+  String get coursesFilterCurrent => 'Current';
+
+  @override
+  String get coursesNoMatch => 'No courses match';
+
+  @override
+  String get courseCategory => 'Category';
+
+  @override
+  String get courseCategoryHint => 'e.g. Quran, Arabic, Fiqh';
+
+  @override
+  String get courseTags => 'Tags';
+
+  @override
+  String get courseTagsHint => 'Separate with commas, e.g. tajweed, beginners';
+
+  @override
+  String get courseSelfEnrol => 'Learners can enrol themselves';
+
+  @override
+  String get courseSelfEnrolHint =>
+      'Turn off to enrol learners yourself, even though the course is free.';
+
+  @override
+  String get adminBlockLink => 'Link (YouTube, Telegram, website)';
+
+  @override
+  String get linkUrlLabel => 'Link address';
+
+  @override
+  String get linkUrlInvalid => 'Enter a full web link, e.g. https://youtu.be/…';
+
+  @override
+  String get linkTitleLabel => 'Title (optional)';
+
+  @override
+  String get linkDescriptionLabel => 'Short description (optional)';
+
+  @override
+  String get linkPreview => 'What learners will see';
+
+  @override
+  String get linkOpen => 'Opens outside Sidra';
+
+  @override
+  String get linkProviderYoutube => 'YouTube';
+
+  @override
+  String get linkProviderTelegram => 'Telegram';
+
+  @override
+  String get adminStatInReview => 'Courses in review';
 }
