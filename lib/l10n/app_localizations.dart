@@ -2875,6 +2875,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Review'**
   String get navReview;
+
+  /// No description provided for @drawerLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load your menu. Check your connection and try again.'**
+  String get drawerLoadFailed;
 }
 
 class _AppLocalizationsDelegate

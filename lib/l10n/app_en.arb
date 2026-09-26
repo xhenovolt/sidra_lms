@@ -656,5 +656,6 @@
     }
   },
   "staffLimitUnitsHint": "They review and unlock learners only in the ticked units. Tick none for the whole course.",
-  "navReview": "Review"
+  "navReview": "Review",
+  "drawerLoadFailed": "Could not load your menu. Check your connection and try again."
 }

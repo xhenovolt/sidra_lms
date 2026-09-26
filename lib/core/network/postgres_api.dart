@@ -301,7 +301,16 @@ class PgWireApi implements PostgresApi {
         'select to_jsonb(r) from $call r',
         parameters: values,
       );
-      return [for (final row in r) _row(row.first)];
+      // A function returning a scalar or array (e.g. text[]) yields that
+      // value, not an object: expose it under the function name, the same
+      // shape a one-column table function has.
+      return [
+        for (final row in r)
+          if (row.first is Map)
+            _row(row.first)
+          else
+            {function: row.first},
+      ];
     });
   }
 

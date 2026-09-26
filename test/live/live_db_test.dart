@@ -11,6 +11,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sidra_lms/core/errors/app_failure.dart';
+import 'package:sidra_lms/features/admin/data/admin_repository.dart';
 import 'package:sidra_lms/core/network/pg_client.dart';
 import 'package:sidra_lms/core/network/postgres_api.dart';
 import 'package:sidra_lms/features/auth/data/auth_backend.dart';
@@ -98,6 +99,16 @@ void main() {
     );
     expect((profile as Map)['user']['username'], 'hamibra');
     expect(profile['enrolments'], isA<List>());
+  });
+
+  test('console permissions load as the drawer needs them', () async {
+    final rows = await api.rpcRows('my_permissions');
+    // ignore: avoid_print
+    print(
+      'my_permissions rows: $rows (${rows.firstOrNull?.values.first.runtimeType})',
+    );
+    final perms = await AdminRepository(api).myPermissions();
+    expect(perms, containsAll(['dashboard.view', 'courses.view']));
   });
 
   test('anonymous: catalogue readable, private things refused', () async {

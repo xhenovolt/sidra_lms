@@ -1532,4 +1532,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get navReview => 'المراجعة';
+
+  @override
+  String get drawerLoadFailed =>
+      'تعذّر تحميل القائمة. تحقق من الاتصال وحاول مرة أخرى.';
 }

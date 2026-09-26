@@ -22,10 +22,10 @@ final myPermissionsProvider = FutureProvider<Set<String>>((ref) async {
   final local = await ref.watch(localDatabaseProvider.future);
   try {
     final perms = await ref.watch(adminRepositoryProvider).myPermissions();
-    await local.setKv('permissions', jsonEncode(perms.toList()));
+    await local.setKv('permissions:$userId', jsonEncode(perms.toList()));
     return perms;
   } catch (_) {
-    final cached = await local.getKv('permissions');
+    final cached = await local.getKv('permissions:$userId');
     if (cached == null) rethrow;
     return {for (final p in jsonDecode(cached) as List) p as String};
   }
@@ -225,7 +225,35 @@ class _AdminShellState extends ConsumerState<AdminShell> {
         location: location,
         closeOnTap: !wide,
       ),
-      AsyncError() => const Drawer(child: SizedBox.shrink()),
+      // Never an empty drawer: say what went wrong, offer a retry, and keep
+      // the account page (sign out) reachable.
+      AsyncError() => Drawer(
+        child: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.all(Space.md),
+            children: [
+              const SidraMark(size: 36),
+              const SizedBox(height: Space.md),
+              Text(l10n.drawerLoadFailed),
+              const SizedBox(height: Space.sm),
+              FilledButton.tonalIcon(
+                onPressed: () => ref.invalidate(myPermissionsProvider),
+                icon: const Icon(Icons.refresh),
+                label: Text(l10n.retry),
+              ),
+              const Divider(height: Space.xl),
+              ListTile(
+                leading: const Icon(Icons.account_circle_outlined),
+                title: Text(l10n.drawerAccount),
+                onTap: () {
+                  if (!wide) Navigator.of(context).pop();
+                  context.go(Routes.adminMore);
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
       _ => const Drawer(child: LoadingView()),
     };
 

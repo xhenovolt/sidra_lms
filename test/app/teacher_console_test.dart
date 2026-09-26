@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sidra_lms/core/errors/app_failure.dart';
 import 'package:sidra_lms/features/auth/domain/auth_session.dart';
 
 import '../helpers/fake_auth_service.dart';
@@ -150,13 +151,14 @@ Future<void> signInAs(
   WidgetTester tester,
   String role, {
   FakePostgresApi? api,
+  String userId = 'u1',
 }) async {
   await tester.pumpWidget(
     await buildTestApp(
       FakeAuthService(
         AuthSession.signedIn(
           AppUser(
-            id: 'u1',
+            id: userId,
             displayName: 'Hamuza Ibrahim',
             role: personaOf(role),
             isSuperadmin: role == 'superadmin',
@@ -397,6 +399,30 @@ void main() {
       expect(tester.getTopLeft(find.byType(NavigationBar)).dy, shown);
       expect(barHeight(), greaterThan(0));
       expect(find.text('Sidra').hitTestable(), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'if the menu cannot load, the drawer says so and keeps My account',
+    (tester) async {
+      final api = staffServer('admin');
+      api.rpcHandlers['my_permissions'] = (_) =>
+          throw const UnexpectedFailure('Database error');
+      // A user never seen on this device: no cached menu to fall back on.
+      await signInAs(tester, 'admin', api: api, userId: 'fresh-admin');
+      // No tabs to show: the top bar offers the menu instead.
+      expect(find.byType(NavigationBar), findsNothing);
+      await tester.tap(find.byTooltip('More'));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('Could not load your menu'), findsOneWidget);
+      expect(inDrawer('My account'), findsOneWidget);
+
+      api.rpcHandlers['my_permissions'] = (_) => [
+        {'my_permissions': permsFor('admin')},
+      ];
+      await tester.tap(inDrawer('Try again'));
+      await tester.pumpAndSettle();
+      expect(navLabels(tester), contains('More'));
     },
   );
 }

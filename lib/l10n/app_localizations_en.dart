@@ -1553,4 +1553,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get navReview => 'Review';
+
+  @override
+  String get drawerLoadFailed =>
+      'Could not load your menu. Check your connection and try again.';
 }
