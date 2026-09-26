@@ -3546,6 +3546,738 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Required'**
   String get fieldRequired;
+
+  /// No description provided for @adminUnitLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit'**
+  String get adminUnitLabel;
+
+  /// No description provided for @assignmentAccepts.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners may hand in:'**
+  String get assignmentAccepts;
+
+  /// No description provided for @assignmentAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add assignment'**
+  String get assignmentAdd;
+
+  /// No description provided for @assignmentAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Recordings'**
+  String get assignmentAudio;
+
+  /// No description provided for @assignmentDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this assignment? It cannot be deleted once learners have handed in work.'**
+  String get assignmentDeleteBody;
+
+  /// No description provided for @assignmentDocuments.
+  ///
+  /// In en, this message translates to:
+  /// **'Documents'**
+  String get assignmentDocuments;
+
+  /// No description provided for @assignmentDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {date}'**
+  String assignmentDue(String date);
+
+  /// No description provided for @assignmentHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Work learners do and hand in here: photos of written work, documents, recordings. Their teacher reviews it and replies.'**
+  String get assignmentHint;
+
+  /// No description provided for @assignmentInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'What to do'**
+  String get assignmentInstructions;
+
+  /// No description provided for @assignmentMaxScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum score (optional)'**
+  String get assignmentMaxScore;
+
+  /// No description provided for @assignmentPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos'**
+  String get assignmentPhotos;
+
+  /// No description provided for @assignmentText.
+  ///
+  /// In en, this message translates to:
+  /// **'Written answer'**
+  String get assignmentText;
+
+  /// No description provided for @assignmentVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Videos'**
+  String get assignmentVideo;
+
+  /// No description provided for @assignmentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Assignments'**
+  String get assignmentsTitle;
+
+  /// No description provided for @blockLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language of this content'**
+  String get blockLanguage;
+
+  /// No description provided for @blockLanguageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'For example, Qur\'an text is Arabic even when the lesson is taught in English.'**
+  String get blockLanguageHint;
+
+  /// No description provided for @blockShowLearners.
+  ///
+  /// In en, this message translates to:
+  /// **'Show to learners'**
+  String get blockShowLearners;
+
+  /// No description provided for @blockTeachersOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Teachers only'**
+  String get blockTeachersOnly;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @courseAlsoTaughtIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Also taught in'**
+  String get courseAlsoTaughtIn;
+
+  /// No description provided for @courseForWhom.
+  ///
+  /// In en, this message translates to:
+  /// **'Who it is for: {who}'**
+  String courseForWhom(String who);
+
+  /// No description provided for @courseHidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide from the catalogue'**
+  String get courseHidden;
+
+  /// No description provided for @courseHiddenHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Only enrolled learners and staff see it.'**
+  String get courseHiddenHint;
+
+  /// No description provided for @courseLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Main language of teaching'**
+  String get courseLanguage;
+
+  /// No description provided for @courseLanguageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The language explanations are given in. Arabic or Qur\'anic text inside lessons does not make Arabic the teaching language.'**
+  String get courseLanguageHint;
+
+  /// No description provided for @coursePrerequisites.
+  ///
+  /// In en, this message translates to:
+  /// **'Must finish first'**
+  String get coursePrerequisites;
+
+  /// No description provided for @coursePrerequisitesNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No prerequisites'**
+  String get coursePrerequisitesNone;
+
+  /// No description provided for @courseTargetLearner.
+  ///
+  /// In en, this message translates to:
+  /// **'Who it is for'**
+  String get courseTargetLearner;
+
+  /// No description provided for @courseTargetLearnerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Complete beginners who cannot yet read Arabic'**
+  String get courseTargetLearnerHint;
+
+  /// No description provided for @courseTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning track'**
+  String get courseTrack;
+
+  /// No description provided for @courseTrackHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading, recitation, tajwīd, Qur\'anic Arabic… are different goals.'**
+  String get courseTrackHint;
+
+  /// No description provided for @languageNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get languageNotSet;
+
+  /// No description provided for @lessonCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to {course} as a draft'**
+  String lessonCopied(String course);
+
+  /// No description provided for @lessonCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy to another course…'**
+  String get lessonCopy;
+
+  /// No description provided for @lessonCopyTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy \"{lesson}\" to…'**
+  String lessonCopyTo(String lesson);
+
+  /// No description provided for @lessonEditDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit details'**
+  String get lessonEditDetails;
+
+  /// No description provided for @lessonLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Taught in'**
+  String get lessonLanguage;
+
+  /// No description provided for @lessonLanguageFromCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Same as the course: {languages}'**
+  String lessonLanguageFromCourse(String languages);
+
+  /// No description provided for @lessonLanguageSameAsCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Same as the course'**
+  String get lessonLanguageSameAsCourse;
+
+  /// No description provided for @lessonLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Where this lesson is'**
+  String get lessonLocation;
+
+  /// No description provided for @lessonMove.
+  ///
+  /// In en, this message translates to:
+  /// **'Move…'**
+  String get lessonMove;
+
+  /// No description provided for @lessonMoveTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Move \"{lesson}\" to…'**
+  String lessonMoveTo(String lesson);
+
+  /// No description provided for @lessonMoveTop.
+  ///
+  /// In en, this message translates to:
+  /// **'Top of the course (no unit)'**
+  String get lessonMoveTop;
+
+  /// No description provided for @lessonMoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Moved to {place}'**
+  String lessonMoved(String place);
+
+  /// No description provided for @lessonNoOutcomes.
+  ///
+  /// In en, this message translates to:
+  /// **'No learning outcomes yet. Add what the learner will be able to do.'**
+  String get lessonNoOutcomes;
+
+  /// No description provided for @lessonOutcomes.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning outcomes'**
+  String get lessonOutcomes;
+
+  /// No description provided for @lessonOutcomesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'One per line, e.g. \"Reads letters with fatḥah correctly\"'**
+  String get lessonOutcomesHint;
+
+  /// No description provided for @lessonOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get lessonOverview;
+
+  /// No description provided for @lessonQuranReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Qur\'an reference'**
+  String get lessonQuranReference;
+
+  /// No description provided for @lessonQuranReferenceOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Qur\'an reference (optional)'**
+  String get lessonQuranReferenceOptional;
+
+  /// No description provided for @lessonYouWill.
+  ///
+  /// In en, this message translates to:
+  /// **'In this lesson you will'**
+  String get lessonYouWill;
+
+  /// No description provided for @marzExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'These tests run on the payments server, the only place that holds the MarzPay secret. No money moves: collections are tested with a request MarzPay must refuse. A real payment can only be proved by paying for a course and entering the PIN.'**
+  String get marzExplain;
+
+  /// No description provided for @marzLastSeen.
+  ///
+  /// In en, this message translates to:
+  /// **'Last seen {time}'**
+  String marzLastSeen(String time);
+
+  /// No description provided for @marzNoAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'The payments server did not answer. Is it running?'**
+  String get marzNoAnswer;
+
+  /// No description provided for @marzResultsFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Results from {time}'**
+  String marzResultsFrom(String time);
+
+  /// No description provided for @marzRunTests.
+  ///
+  /// In en, this message translates to:
+  /// **'Test integration'**
+  String get marzRunTests;
+
+  /// No description provided for @marzRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'Testing…'**
+  String get marzRunning;
+
+  /// No description provided for @marzServerOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments server is not running: learners\' mobile-money payments wait until it is'**
+  String get marzServerOffline;
+
+  /// No description provided for @marzServerOnline.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments server is running'**
+  String get marzServerOnline;
+
+  /// No description provided for @marzTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay (mobile money)'**
+  String get marzTitle;
+
+  /// No description provided for @provisionalBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Seeded as a starting point. A teacher or scholar should check it before learners use it.'**
+  String get provisionalBody;
+
+  /// No description provided for @provisionalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs review'**
+  String get provisionalTitle;
+
+  /// No description provided for @quranAyahFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'From āyah'**
+  String get quranAyahFrom;
+
+  /// No description provided for @quranAyahTo.
+  ///
+  /// In en, this message translates to:
+  /// **'To āyah'**
+  String get quranAyahTo;
+
+  /// No description provided for @quranRef.
+  ///
+  /// In en, this message translates to:
+  /// **'Qur\'an {ref}'**
+  String quranRef(String ref);
+
+  /// No description provided for @quranSurah.
+  ///
+  /// In en, this message translates to:
+  /// **'Sūrah no.'**
+  String get quranSurah;
+
+  /// No description provided for @resourceAddLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Add link'**
+  String get resourceAddLink;
+
+  /// No description provided for @resourceCheckLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Check link'**
+  String get resourceCheckLink;
+
+  /// No description provided for @resourceFile.
+  ///
+  /// In en, this message translates to:
+  /// **'File'**
+  String get resourceFile;
+
+  /// No description provided for @resourceHide.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide from learners'**
+  String get resourceHide;
+
+  /// No description provided for @resourceLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get resourceLanguage;
+
+  /// No description provided for @resourceLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have access to this file.'**
+  String get resourceLocked;
+
+  /// No description provided for @resourceLooksRight.
+  ///
+  /// In en, this message translates to:
+  /// **'Looks right: save'**
+  String get resourceLooksRight;
+
+  /// No description provided for @resourceNotVerified.
+  ///
+  /// In en, this message translates to:
+  /// **'not checked'**
+  String get resourceNotVerified;
+
+  /// No description provided for @resourceOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get resourceOpen;
+
+  /// No description provided for @resourcePreviewUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No automatic preview ({reason}). Check the address yourself before saving.'**
+  String resourcePreviewUnavailable(String reason);
+
+  /// No description provided for @resourceRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get resourceRemove;
+
+  /// No description provided for @resourceRemoveBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove \"{title}\" from here? The file itself is kept.'**
+  String resourceRemoveBody(String title);
+
+  /// No description provided for @resourceSaveAnyway.
+  ///
+  /// In en, this message translates to:
+  /// **'I trust it: save'**
+  String get resourceSaveAnyway;
+
+  /// No description provided for @resourceShow.
+  ///
+  /// In en, this message translates to:
+  /// **'Show to learners'**
+  String get resourceShow;
+
+  /// No description provided for @resourceSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Size'**
+  String get resourceSize;
+
+  /// No description provided for @resourceType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get resourceType;
+
+  /// No description provided for @resourceUpload.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload file'**
+  String get resourceUpload;
+
+  /// No description provided for @resourceUploadNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload'**
+  String get resourceUploadNow;
+
+  /// No description provided for @resourceUploading.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading {name}'**
+  String resourceUploading(String name);
+
+  /// No description provided for @resourceVerified.
+  ///
+  /// In en, this message translates to:
+  /// **'checked'**
+  String get resourceVerified;
+
+  /// No description provided for @resourcesNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No files or links yet.'**
+  String get resourcesNone;
+
+  /// No description provided for @resourcesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Resources'**
+  String get resourcesTitle;
+
+  /// No description provided for @settingsPayments.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments'**
+  String get settingsPayments;
+
+  /// No description provided for @subAttachFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach file'**
+  String get subAttachFile;
+
+  /// No description provided for @subAttempt.
+  ///
+  /// In en, this message translates to:
+  /// **'attempt {n}'**
+  String subAttempt(int n);
+
+  /// No description provided for @subFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback for the learner'**
+  String get subFeedback;
+
+  /// No description provided for @subFilesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{no files} =1{1 file} other{{count} files}}'**
+  String subFilesCount(int count);
+
+  /// No description provided for @subFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'From gallery'**
+  String get subFromGallery;
+
+  /// No description provided for @subHandIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Hand in'**
+  String get subHandIn;
+
+  /// No description provided for @subHandedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Handed in. Your teacher has it.'**
+  String get subHandedIn;
+
+  /// No description provided for @subMarkReviewed.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark reviewed'**
+  String get subMarkReviewed;
+
+  /// No description provided for @subMarkUnderReview.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'m looking at it (under review)'**
+  String get subMarkUnderReview;
+
+  /// No description provided for @subNoneToReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here'**
+  String get subNoneToReview;
+
+  /// No description provided for @subPrivacyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Only you and your teachers can see what you hand in.'**
+  String get subPrivacyNote;
+
+  /// No description provided for @subReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Received'**
+  String get subReceived;
+
+  /// No description provided for @subRequestResubmission.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask for a new try'**
+  String get subRequestResubmission;
+
+  /// No description provided for @subResubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Please try again'**
+  String get subResubmit;
+
+  /// No description provided for @subReturned.
+  ///
+  /// In en, this message translates to:
+  /// **'Returned'**
+  String get subReturned;
+
+  /// No description provided for @subReviewed.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewed'**
+  String get subReviewed;
+
+  /// No description provided for @subSavedForLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved on this phone. It will upload when you are online; tap Try again.'**
+  String get subSavedForLater;
+
+  /// No description provided for @subScoreOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Score (optional)'**
+  String get subScoreOptional;
+
+  /// No description provided for @subSubmitAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Hand in again'**
+  String get subSubmitAgain;
+
+  /// No description provided for @subSubmitWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit work'**
+  String get subSubmitWork;
+
+  /// No description provided for @subSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Handed in'**
+  String get subSubmitted;
+
+  /// No description provided for @subTakePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take photo'**
+  String get subTakePhoto;
+
+  /// No description provided for @subTeacherHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Work learners handed in to your lessons'**
+  String get subTeacherHint;
+
+  /// No description provided for @subTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitted work'**
+  String get subTitle;
+
+  /// No description provided for @subUnderReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Under review'**
+  String get subUnderReview;
+
+  /// No description provided for @subUploadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload failed'**
+  String get subUploadFailed;
+
+  /// No description provided for @subWaitingToUpload.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting to upload (not handed in yet)'**
+  String get subWaitingToUpload;
+
+  /// No description provided for @subWorkTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Work'**
+  String get subWorkTab;
+
+  /// No description provided for @subYourAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answer'**
+  String get subYourAnswer;
+
+  /// No description provided for @subYourWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Your work: {status} (attempt {attempt})'**
+  String subYourWork(String status, int attempt);
+
+  /// No description provided for @taughtIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Taught in {languages}'**
+  String taughtIn(String languages);
+
+  /// No description provided for @uploadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload failed'**
+  String get uploadFailed;
+
+  /// No description provided for @uploadUploading.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading…'**
+  String get uploadUploading;
 }
 
 class _AppLocalizationsDelegate

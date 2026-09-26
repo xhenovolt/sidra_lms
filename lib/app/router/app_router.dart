@@ -16,6 +16,7 @@ import '../../features/admin/presentation/roles_audit_screens.dart';
 import '../../features/admin/presentation/settings_screen.dart';
 import '../../features/admin/presentation/staff_pages.dart';
 import '../../features/assessments/presentation/quiz_screen.dart';
+import '../../features/content/presentation/assignment_widgets.dart';
 import '../../features/auth/domain/auth_session.dart';
 import '../../features/auth/presentation/auth_providers.dart';
 import '../../features/auth/presentation/change_password_screen.dart';
@@ -153,6 +154,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             builder: (_, _) => const AuditScreen(),
           ),
           GoRoute(
+            path: Routes.adminSubmissions,
+            builder: (_, _) => const SubmissionsList(),
+          ),
+          GoRoute(
             path: Routes.adminFinance,
             builder: (_, _) => const FinanceScreen(),
           ),
@@ -205,6 +210,10 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/teach/lessons/:lessonId',
         builder: (_, state) =>
             LessonEditorScreen(lessonId: state.pathParameters['lessonId']!),
+      ),
+      GoRoute(
+        path: Routes.teachSubmissions,
+        builder: (_, _) => const SubmissionsScreen(),
       ),
       GoRoute(
         path: '/teach/people/:userId',

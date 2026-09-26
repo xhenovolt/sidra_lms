@@ -10,6 +10,8 @@ import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/state_views.dart';
 import '../../curriculum/domain/curriculum_models.dart';
 import '../../curriculum/domain/curriculum_tree.dart';
+import '../../content/data/content_repository.dart';
+import '../../content/presentation/resource_widgets.dart';
 import '../../downloads/presentation/download_button.dart';
 import '../../payments/presentation/course_payment_card.dart';
 import '../../progress/domain/progress_models.dart';
@@ -144,6 +146,19 @@ class _CourseBodyState extends ConsumerState<_CourseBody> {
                       emphasis: !course.isFree,
                     ),
                     InfoChip(l10n.lessonsCount(tree.orderedLessons.length)),
+                    InfoChip(
+                      l10n.taughtIn(
+                        course.languages
+                            .map(
+                              (c) => languageName(
+                                ref.watch(languagesProvider).value,
+                                c,
+                              ),
+                            )
+                            .join(', '),
+                      ),
+                      icon: Icons.translate,
+                    ),
                   ],
                 ),
                 const SizedBox(height: Space.lg),
@@ -185,6 +200,15 @@ class _CourseBodyState extends ConsumerState<_CourseBody> {
                     title: l10n.accessRequiredTitle,
                     body: l10n.accessRequiredBody,
                   ),
+                if (course.targetLearner != null) ...[
+                  const SizedBox(height: Space.md),
+                  Text(
+                    l10n.courseForWhom(course.targetLearner!),
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                ],
+                const SizedBox(height: Space.md),
+                ResourceListView(target: ResourceTarget.course, id: course.id),
                 if (course.description != null) ...[
                   const SizedBox(height: Space.lg),
                   Text(course.description!, style: theme.textTheme.bodyLarge),

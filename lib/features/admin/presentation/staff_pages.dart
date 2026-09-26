@@ -67,6 +67,14 @@ class StaffMoreScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: Space.md),
+          if (role == UserRole.teacher)
+            ListTile(
+              leading: const Icon(Icons.inbox_outlined),
+              title: Text(l10n.subTitle),
+              subtitle: Text(l10n.subTeacherHint),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => context.push(Routes.teachSubmissions),
+            ),
           ListTile(
             leading: const Icon(Icons.visibility_outlined),
             title: Text(l10n.moreBrowseCatalogue),

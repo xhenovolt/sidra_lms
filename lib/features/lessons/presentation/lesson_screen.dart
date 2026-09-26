@@ -10,6 +10,9 @@ import '../../../core/data/repository_providers.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/state_views.dart';
+import '../../content/data/content_repository.dart';
+import '../../content/presentation/assignment_widgets.dart';
+import '../../content/presentation/resource_widgets.dart';
 import '../../courses/data/course_repository.dart';
 import '../../curriculum/domain/curriculum_models.dart';
 import '../../curriculum/domain/curriculum_tree.dart';
@@ -264,14 +267,10 @@ class _LessonBodyState extends ConsumerState<_LessonBody> {
         separatorBuilder: (_, _) => const SizedBox(height: Space.md),
         itemBuilder: (context, i) {
           if (i == 0) {
-            return lesson.summary == null
-                ? const SizedBox.shrink()
-                : Text(
-                    lesson.summary!,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                  );
+            return _LessonHeader(
+              lesson: lesson,
+              courseLanguages: widget.outline.course.languages,
+            );
           }
           if (i == value.blocks.length + 1) {
             if (value.blocks.isEmpty) {
@@ -280,15 +279,22 @@ class _LessonBodyState extends ConsumerState<_LessonBody> {
                 title: l10n.lessonEmpty,
               );
             }
-            return waitingForTeacher
-                ? Card(
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ResourceListView(target: ResourceTarget.lesson, id: lesson.id),
+                const SizedBox(height: Space.md),
+                LessonAssignmentsView(lessonId: lesson.id),
+                if (waitingForTeacher)
+                  Card(
                     child: ListTile(
                       leading: const Icon(Icons.hourglass_top_rounded),
                       title: Text(l10n.awaitingTeacherTitle),
                       subtitle: Text(l10n.awaitingTeacherBody),
                     ),
-                  )
-                : const SizedBox.shrink();
+                  ),
+              ],
+            );
           }
           return BlockView(
             block: value.blocks[i - 1],
@@ -306,5 +312,67 @@ class _LessonBodyState extends ConsumerState<_LessonBody> {
       ),
       _ => const LoadingView(),
     };
+  }
+}
+
+/// Summary, what the learner will be able to do, and in which language.
+class _LessonHeader extends ConsumerWidget {
+  const _LessonHeader({required this.lesson, required this.courseLanguages});
+  final Lesson lesson;
+  final List<String> courseLanguages;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final langs = ref.watch(languagesProvider).value;
+    final taughtIn = lesson.deliveryLanguage == null
+        ? courseLanguages.map((c) => languageName(langs, c)).join(', ')
+        : languageName(langs, lesson.deliveryLanguage!);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (lesson.summary != null)
+          Text(
+            lesson.summary!,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+        const SizedBox(height: Space.xs),
+        Wrap(
+          spacing: Space.sm,
+          children: [
+            Chip(
+              avatar: const Icon(Icons.translate, size: 16),
+              label: Text(l10n.taughtIn(taughtIn)),
+              visualDensity: VisualDensity.compact,
+            ),
+            if (lesson.quranReference != null)
+              Chip(
+                avatar: const Icon(Icons.menu_book_outlined, size: 16),
+                label: Text(l10n.quranRef(lesson.quranReference!)),
+                visualDensity: VisualDensity.compact,
+              ),
+          ],
+        ),
+        if (lesson.objectives.isNotEmpty) ...[
+          const SizedBox(height: Space.xs),
+          Text(l10n.lessonYouWill, style: theme.textTheme.titleSmall),
+          for (final o in lesson.objectives)
+            Padding(
+              padding: const EdgeInsets.only(top: Space.xxs),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.check, size: 18, color: theme.colorScheme.primary),
+                  const SizedBox(width: Space.xs),
+                  Expanded(child: Text(o)),
+                ],
+              ),
+            ),
+        ],
+      ],
+    );
   }
 }

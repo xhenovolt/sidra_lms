@@ -13,7 +13,10 @@ import '../../../core/data/repository_providers.dart';
 import 'admin_common.dart';
 import 'admin_shell.dart';
 import 'course_lifecycle_card.dart';
+import '../../content/data/content_repository.dart';
+import '../../content/presentation/resource_widgets.dart';
 import 'course_people_section.dart';
+import 'lesson_overview_tab.dart';
 import 'courses_tab.dart';
 import 'node_forms.dart';
 
@@ -205,6 +208,8 @@ class _Builder extends ConsumerWidget {
                 ].join(' → '),
               ),
             ),
+          const SizedBox(height: Space.md),
+          ResourceManager(target: ResourceTarget.course, id: course.id),
           _SectionTitle(
             l10n.courseOutline,
             action: PopupMenuButton<String>(
@@ -648,9 +653,29 @@ class _AdminOutlineItem extends ConsumerWidget {
                       lesson.id,
                       l10n.adminDeleteLessonBody,
                     );
+                  case 'move':
+                    if (await showMoveLessonDialog(
+                      context,
+                      ref,
+                      LessonPlace(
+                        lesson: lesson,
+                        course: data.course,
+                        units: data.units,
+                        nodes: data.nodes,
+                      ),
+                    )) {
+                      onChanged();
+                    }
+                  case 'copy':
+                    await showCopyLessonDialog(context, ref, lesson);
                 }
               },
-              itemBuilder: (_) => commonItems(published),
+              itemBuilder: (_) => [
+                ...commonItems(published),
+                const PopupMenuDivider(),
+                PopupMenuItem(value: 'move', child: Text(l10n.lessonMove)),
+                PopupMenuItem(value: 'copy', child: Text(l10n.lessonCopy)),
+              ],
             ),
           ),
         );

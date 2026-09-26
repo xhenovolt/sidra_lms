@@ -837,5 +837,249 @@
       }
     }
   },
-  "fieldRequired": "Required"
+  "fieldRequired": "Required",
+  "adminUnitLabel": "Unit",
+  "assignmentAccepts": "Learners may hand in:",
+  "assignmentAdd": "Add assignment",
+  "assignmentAudio": "Recordings",
+  "assignmentDeleteBody": "Delete this assignment? It cannot be deleted once learners have handed in work.",
+  "assignmentDocuments": "Documents",
+  "assignmentDue": "Due {date}",
+  "@assignmentDue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "assignmentHint": "Work learners do and hand in here: photos of written work, documents, recordings. Their teacher reviews it and replies.",
+  "assignmentInstructions": "What to do",
+  "assignmentMaxScore": "Maximum score (optional)",
+  "assignmentPhotos": "Photos",
+  "assignmentText": "Written answer",
+  "assignmentVideo": "Videos",
+  "assignmentsTitle": "Assignments",
+  "blockLanguage": "Language of this content",
+  "blockLanguageHint": "For example, Qur'an text is Arabic even when the lesson is taught in English.",
+  "blockShowLearners": "Show to learners",
+  "blockTeachersOnly": "Teachers only",
+  "close": "Close",
+  "courseAlsoTaughtIn": "Also taught in",
+  "courseForWhom": "Who it is for: {who}",
+  "@courseForWhom": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      }
+    }
+  },
+  "courseHidden": "Hide from the catalogue",
+  "courseHiddenHint": "Only enrolled learners and staff see it.",
+  "courseLanguage": "Main language of teaching",
+  "courseLanguageHint": "The language explanations are given in. Arabic or Qur'anic text inside lessons does not make Arabic the teaching language.",
+  "coursePrerequisites": "Must finish first",
+  "coursePrerequisitesNone": "No prerequisites",
+  "courseTargetLearner": "Who it is for",
+  "courseTargetLearnerHint": "e.g. Complete beginners who cannot yet read Arabic",
+  "courseTrack": "Learning track",
+  "courseTrackHint": "Reading, recitation, tajwīd, Qur'anic Arabic… are different goals.",
+  "languageNotSet": "Not set",
+  "lessonCopied": "Copied to {course} as a draft",
+  "@lessonCopied": {
+    "placeholders": {
+      "course": {
+        "type": "String"
+      }
+    }
+  },
+  "lessonCopy": "Copy to another course…",
+  "lessonCopyTo": "Copy \"{lesson}\" to…",
+  "@lessonCopyTo": {
+    "placeholders": {
+      "lesson": {
+        "type": "String"
+      }
+    }
+  },
+  "lessonEditDetails": "Edit details",
+  "lessonLanguage": "Taught in",
+  "lessonLanguageFromCourse": "Same as the course: {languages}",
+  "@lessonLanguageFromCourse": {
+    "placeholders": {
+      "languages": {
+        "type": "String"
+      }
+    }
+  },
+  "lessonLanguageSameAsCourse": "Same as the course",
+  "lessonLocation": "Where this lesson is",
+  "lessonMove": "Move…",
+  "lessonMoveTo": "Move \"{lesson}\" to…",
+  "@lessonMoveTo": {
+    "placeholders": {
+      "lesson": {
+        "type": "String"
+      }
+    }
+  },
+  "lessonMoveTop": "Top of the course (no unit)",
+  "lessonMoved": "Moved to {place}",
+  "@lessonMoved": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "lessonNoOutcomes": "No learning outcomes yet. Add what the learner will be able to do.",
+  "lessonOutcomes": "Learning outcomes",
+  "lessonOutcomesHint": "One per line, e.g. \"Reads letters with fatḥah correctly\"",
+  "lessonOverview": "Overview",
+  "lessonQuranReference": "Qur'an reference",
+  "lessonQuranReferenceOptional": "Qur'an reference (optional)",
+  "lessonYouWill": "In this lesson you will",
+  "marzExplain": "These tests run on the payments server, the only place that holds the MarzPay secret. No money moves: collections are tested with a request MarzPay must refuse. A real payment can only be proved by paying for a course and entering the PIN.",
+  "marzLastSeen": "Last seen {time}",
+  "@marzLastSeen": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "marzNoAnswer": "The payments server did not answer. Is it running?",
+  "marzResultsFrom": "Results from {time}",
+  "@marzResultsFrom": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "marzRunTests": "Test integration",
+  "marzRunning": "Testing…",
+  "marzServerOffline": "Payments server is not running: learners' mobile-money payments wait until it is",
+  "marzServerOnline": "Payments server is running",
+  "marzTitle": "MarzPay (mobile money)",
+  "provisionalBody": "Seeded as a starting point. A teacher or scholar should check it before learners use it.",
+  "provisionalTitle": "Needs review",
+  "quranAyahFrom": "From āyah",
+  "quranAyahTo": "To āyah",
+  "quranRef": "Qur'an {ref}",
+  "@quranRef": {
+    "placeholders": {
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "quranSurah": "Sūrah no.",
+  "resourceAddLink": "Add link",
+  "resourceCheckLink": "Check link",
+  "resourceFile": "File",
+  "resourceHide": "Hide from learners",
+  "resourceLanguage": "Language",
+  "resourceLocked": "You do not have access to this file.",
+  "resourceLooksRight": "Looks right: save",
+  "resourceNotVerified": "not checked",
+  "resourceOpen": "Open",
+  "resourcePreviewUnavailable": "No automatic preview ({reason}). Check the address yourself before saving.",
+  "@resourcePreviewUnavailable": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "resourceRemove": "Remove",
+  "resourceRemoveBody": "Remove \"{title}\" from here? The file itself is kept.",
+  "@resourceRemoveBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "resourceSaveAnyway": "I trust it: save",
+  "resourceShow": "Show to learners",
+  "resourceSize": "Size",
+  "resourceType": "Type",
+  "resourceUpload": "Upload file",
+  "resourceUploadNow": "Upload",
+  "resourceUploading": "Uploading {name}",
+  "@resourceUploading": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "resourceVerified": "checked",
+  "resourcesNone": "No files or links yet.",
+  "resourcesTitle": "Resources",
+  "settingsPayments": "Payments",
+  "subAttachFile": "Attach file",
+  "subAttempt": "attempt {n}",
+  "@subAttempt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "subFeedback": "Feedback for the learner",
+  "subFilesCount": "{count, plural, =0{no files} =1{1 file} other{{count} files}}",
+  "@subFilesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "subFromGallery": "From gallery",
+  "subHandIn": "Hand in",
+  "subHandedIn": "Handed in. Your teacher has it.",
+  "subMarkReviewed": "Mark reviewed",
+  "subMarkUnderReview": "I'm looking at it (under review)",
+  "subNoneToReview": "Nothing here",
+  "subPrivacyNote": "Only you and your teachers can see what you hand in.",
+  "subReceived": "Received",
+  "subRequestResubmission": "Ask for a new try",
+  "subResubmit": "Please try again",
+  "subReturned": "Returned",
+  "subReviewed": "Reviewed",
+  "subSavedForLater": "Saved on this phone. It will upload when you are online; tap Try again.",
+  "subScoreOptional": "Score (optional)",
+  "subSubmitAgain": "Hand in again",
+  "subSubmitWork": "Submit work",
+  "subSubmitted": "Handed in",
+  "subTakePhoto": "Take photo",
+  "subTeacherHint": "Work learners handed in to your lessons",
+  "subTitle": "Submitted work",
+  "subUnderReview": "Under review",
+  "subUploadFailed": "Upload failed",
+  "subWaitingToUpload": "Waiting to upload (not handed in yet)",
+  "subWorkTab": "Work",
+  "subYourAnswer": "Your answer",
+  "subYourWork": "Your work: {status} (attempt {attempt})",
+  "@subYourWork": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      },
+      "attempt": {
+        "type": "int"
+      }
+    }
+  },
+  "taughtIn": "Taught in {languages}",
+  "@taughtIn": {
+    "placeholders": {
+      "languages": {
+        "type": "String"
+      }
+    }
+  },
+  "uploadFailed": "Upload failed",
+  "uploadUploading": "Uploading…"
 }

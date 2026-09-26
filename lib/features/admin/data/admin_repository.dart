@@ -709,6 +709,8 @@ class AdminRepository {
       'height': c['height'],
       'title': title ?? fileName,
       'uploaded_by': uploaderId,
+      'file_name': fileName,
+      'mime_type': mimeTypeFor(fileName),
     })).first;
     return row['id'] as String;
   }
@@ -868,4 +870,40 @@ class PersonTeaching {
   final String role;
   final List<String> units;
   final int learners;
+}
+
+/// MIME type from a file name (the common educational formats).
+String? mimeTypeFor(String fileName) {
+  final ext = fileName.contains('.')
+      ? fileName.split('.').last.toLowerCase()
+      : '';
+  return const {
+    'pdf': 'application/pdf',
+    'doc': 'application/msword',
+    'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'ppt': 'application/vnd.ms-powerpoint',
+    'pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    'xls': 'application/vnd.ms-excel',
+    'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'txt': 'text/plain',
+    'jpg': 'image/jpeg',
+    'jpeg': 'image/jpeg',
+    'png': 'image/png',
+    'webp': 'image/webp',
+    'mp3': 'audio/mpeg',
+    'wav': 'audio/wav',
+    'm4a': 'audio/mp4',
+    'aac': 'audio/aac',
+    'mp4': 'video/mp4',
+    'mov': 'video/quicktime',
+  }[ext];
+}
+
+/// What kind of file this is, from its name.
+String fileKindFor(String fileName) {
+  final mime = mimeTypeFor(fileName) ?? '';
+  if (mime.startsWith('image/')) return 'image';
+  if (mime.startsWith('audio/')) return 'audio';
+  if (mime.startsWith('video/')) return 'video';
+  return 'document';
 }

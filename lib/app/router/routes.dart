@@ -31,6 +31,8 @@ abstract final class Routes {
   static const adminAudit = '/admin/activity';
   static const adminFinance = '/admin/finance';
   static const adminSettings = '/admin/settings';
+  static const adminSubmissions = '/admin/submissions';
+  static const teachSubmissions = '/teach/submissions';
   static const adminMore = '/admin/account';
 
   /// The published catalogue as learners see it (for staff previews).

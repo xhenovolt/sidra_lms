@@ -6,6 +6,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/state_views.dart';
 import '../data/finance_repository.dart';
 import 'admin_common.dart';
+import 'marzpay_test_screen.dart';
 
 final orgSettingsAdminProvider =
     FutureProvider.autoDispose<Map<String, String?>>(
@@ -126,6 +127,9 @@ class _SettingsFormState extends ConsumerState<_SettingsForm> {
           onPressed: _saving ? null : _save,
           child: Text(l10n.adminSave),
         ),
+        const SizedBox(height: Space.lg),
+        Text(l10n.settingsPayments, style: theme.textTheme.titleMedium),
+        const PaymentIntegrationCard(),
       ],
     );
   }

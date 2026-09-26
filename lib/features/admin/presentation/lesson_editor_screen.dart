@@ -13,7 +13,11 @@ import '../../curriculum/domain/curriculum_models.dart';
 import '../../lessons/domain/content_blocks.dart';
 import '../../lessons/domain/external_link.dart';
 import '../../lessons/presentation/block_renderer.dart';
+import '../../content/data/content_repository.dart';
+import '../../content/presentation/assignment_widgets.dart';
+import '../../content/presentation/resource_widgets.dart';
 import 'admin_common.dart';
+import 'lesson_overview_tab.dart';
 
 class _EditorData {
   const _EditorData(this.lesson, this.rows);
@@ -65,52 +69,96 @@ enum _NewBlock {
       this == image || this == audio || this == video || this == attachment;
 }
 
-class LessonEditorScreen extends ConsumerWidget {
+class LessonEditorScreen extends ConsumerStatefulWidget {
   const LessonEditorScreen({super.key, required this.lessonId});
   final String lessonId;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<LessonEditorScreen> createState() => _LessonEditorScreenState();
+}
+
+class _LessonEditorScreenState extends ConsumerState<LessonEditorScreen>
+    with SingleTickerProviderStateMixin {
+  // Overview · Content · Resources · Assignments · Work · Preview
+  late final _tabs = TabController(length: 6, vsync: this, initialIndex: 1)
+    ..addListener(() => setState(() {}));
+
+  String get lessonId => widget.lessonId;
+
+  @override
+  void dispose() {
+    _tabs.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final data = ref.watch(_editorProvider(lessonId));
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(data.value?.lesson.title ?? l10n.lessonTitle),
-          bottom: TabBar(
-            tabs: [
-              Tab(text: l10n.adminContent),
-              Tab(text: l10n.adminPreview),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(data.value?.lesson.title ?? l10n.lessonTitle),
+        bottom: TabBar(
+          controller: _tabs,
+          isScrollable: true,
+          tabAlignment: TabAlignment.start,
+          tabs: [
+            Tab(text: l10n.lessonOverview),
+            Tab(text: l10n.adminContent),
+            Tab(text: l10n.resourcesTitle),
+            Tab(text: l10n.assignmentsTitle),
+            Tab(text: l10n.subWorkTab),
+            Tab(text: l10n.adminPreview),
+          ],
         ),
-        floatingActionButton: data.hasValue
-            ? FloatingActionButton.extended(
-                onPressed: () => _addBlock(context, ref, data.value!),
-                icon: const Icon(Icons.add),
-                label: Text(l10n.adminAddContent),
-              )
-            : null,
-        body: switch (data) {
-          AsyncData(:final value) => TabBarView(
-            children: [
-              _BlockList(data: value),
-              ListView.separated(
-                padding: const EdgeInsets.all(Space.lg),
-                itemCount: value.blocks.length,
-                separatorBuilder: (_, _) => const SizedBox(height: Space.md),
-                itemBuilder: (_, i) => BlockView(block: value.blocks[i]),
-              ),
-            ],
-          ),
-          AsyncError(:final error) => ErrorView(
-            error: error,
-            onRetry: () => ref.invalidate(_editorProvider(lessonId)),
-          ),
-          _ => const LoadingView(),
-        },
       ),
+      floatingActionButton: data.hasValue && _tabs.index == 1
+          ? FloatingActionButton.extended(
+              onPressed: () => _addBlock(context, ref, data.value!),
+              icon: const Icon(Icons.add),
+              label: Text(l10n.adminAddContent),
+            )
+          : null,
+      body: switch (data) {
+        AsyncData(:final value) => TabBarView(
+          controller: _tabs,
+          children: [
+            LessonOverviewTab(
+              lessonId: lessonId,
+              onChanged: () => ref.invalidate(_editorProvider(lessonId)),
+            ),
+            _BlockList(data: value),
+            ListView(
+              padding: const EdgeInsets.all(Space.md),
+              children: [
+                ResourceManager(target: ResourceTarget.lesson, id: lessonId),
+              ],
+            ),
+            AssignmentManager(
+              courseId: value.lesson.courseId,
+              lessonId: lessonId,
+            ),
+            SubmissionsList(lessonId: lessonId),
+            ListView(
+              padding: const EdgeInsets.all(Space.lg),
+              children: [
+                for (final b in value.blocks) ...[
+                  BlockView(block: b),
+                  const SizedBox(height: Space.md),
+                ],
+                ResourceListView(target: ResourceTarget.lesson, id: lessonId),
+                const SizedBox(height: Space.md),
+                LessonAssignmentsView(lessonId: lessonId),
+              ],
+            ),
+          ],
+        ),
+        AsyncError(:final error) => ErrorView(
+          error: error,
+          onRetry: () => ref.invalidate(_editorProvider(lessonId)),
+        ),
+        _ => const LoadingView(),
+      },
     );
   }
 
@@ -232,7 +280,13 @@ class _BlockList extends ConsumerWidget {
             children: [
               ListTile(
                 dense: true,
-                title: Text(_typeLabel(l10n, type)),
+                title: Text(
+                  [
+                    _typeLabel(l10n, type),
+                    if (row['audience'] == 'staff') l10n.blockTeachersOnly,
+                    if (row['language'] != null) row['language'] as String,
+                  ].join(' · '),
+                ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -268,6 +322,31 @@ class _BlockList extends ConsumerWidget {
                               '/teach/assessments/${row['assessment_id']}',
                             );
                           }
+                        } else if (v == 'audience') {
+                          if (await runAdminAction(
+                            context,
+                            () => repo.save('lesson_content_blocks', {
+                              'audience': row['audience'] == 'staff'
+                                  ? 'all'
+                                  : 'staff',
+                            }, id: row['id'] as String),
+                          )) {
+                            reload();
+                          }
+                        } else if (v == 'language') {
+                          final lang = await _pickLanguage(
+                            context,
+                            row['language'] as String?,
+                          );
+                          if (lang == null || !context.mounted) return;
+                          if (await runAdminAction(
+                            context,
+                            () => repo.save('lesson_content_blocks', {
+                              'language': lang.isEmpty ? null : lang,
+                            }, id: row['id'] as String),
+                          )) {
+                            reload();
+                          }
                         } else if (v == 'delete') {
                           if (await confirm(
                                 context,
@@ -298,6 +377,18 @@ class _BlockList extends ConsumerWidget {
                             value: 'quiz',
                             child: Text(l10n.adminEditQuestions),
                           ),
+                        PopupMenuItem(
+                          value: 'audience',
+                          child: Text(
+                            row['audience'] == 'staff'
+                                ? l10n.blockShowLearners
+                                : l10n.blockTeachersOnly,
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 'language',
+                          child: Text(l10n.blockLanguage),
+                        ),
                         PopupMenuItem(
                           value: 'delete',
                           child: Text(l10n.adminDelete),
@@ -818,6 +909,44 @@ Future<Json?> _linkDialog(BuildContext context, Json body) {
           ],
         );
       },
+    ),
+  );
+}
+
+/// Language of one block ('' = not set). Null when cancelled.
+Future<String?> _pickLanguage(BuildContext context, String? current) {
+  final l10n = AppLocalizations.of(context);
+  String? value = current;
+  return showDialog<String>(
+    context: context,
+    builder: (dialogContext) => StatefulBuilder(
+      builder: (context, setState) => AlertDialog(
+        title: Text(l10n.blockLanguage),
+        content: SizedBox(
+          width: 360,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(l10n.blockLanguageHint),
+              LanguageDropdown(
+                value: value,
+                label: l10n.blockLanguage,
+                onChanged: (v) => setState(() => value = v),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(l10n.adminCancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, value ?? ''),
+            child: Text(l10n.adminSave),
+          ),
+        ],
+      ),
     ),
   );
 }

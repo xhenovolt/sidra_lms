@@ -35,6 +35,11 @@ class Course {
     this.reviewNote,
     this.publishedAt,
     this.archivedAt,
+    this.trackKey,
+    this.deliveryLanguages = const [],
+    this.hidden = false,
+    this.targetLearner,
+    this.metadata = const {},
   });
 
   factory Course.fromJson(Json j) => Course(
@@ -79,6 +84,11 @@ class Course {
     reviewNote: j.strOrNull('review_note'),
     publishedAt: j.dateOrNull('published_at'),
     archivedAt: j.dateOrNull('archived_at'),
+    trackKey: j.strOrNull('track_key'),
+    deliveryLanguages: j.strList('delivery_languages'),
+    hidden: j.strOrNull('visibility') == 'hidden',
+    targetLearner: j.strOrNull('target_learner'),
+    metadata: Map<String, dynamic>.from((j['metadata'] as Map?) ?? const {}),
   );
 
   final String id;
@@ -111,6 +121,25 @@ class Course {
   final DateTime? publishedAt;
   final DateTime? archivedAt;
 
+  /// Learning track (quran_reading, tajwid, quranic_arabic…).
+  final String? trackKey;
+
+  /// Languages taught in besides [language] (the primary one).
+  final List<String> deliveryLanguages;
+
+  /// Not listed in the catalogue; only its learners and staff see it.
+  final bool hidden;
+  final String? targetLearner;
+  final Map<String, dynamic> metadata;
+
+  bool get needsReview => metadata['provisional'] == true;
+
+  /// Primary language first, then the others.
+  List<String> get languages => [
+    language,
+    ...deliveryLanguages.where((l) => l != language),
+  ];
+
   bool get isFree => access == CourseAccess.free;
 
   Json toJson() => {
@@ -139,6 +168,11 @@ class Course {
     'review_note': reviewNote,
     'published_at': publishedAt?.toIso8601String(),
     'archived_at': archivedAt?.toIso8601String(),
+    'track_key': trackKey,
+    'delivery_languages': deliveryLanguages,
+    'visibility': hidden ? 'hidden' : 'catalogue',
+    'target_learner': targetLearner,
+    'metadata': metadata,
   };
 }
 
@@ -427,6 +461,12 @@ class Lesson {
     this.isPreview = false,
     this.status = PublishStatus.published,
     this.contentVersion = 1,
+    this.objectives = const [],
+    this.deliveryLanguage,
+    this.quranSurah,
+    this.quranAyahStart,
+    this.quranAyahEnd,
+    this.metadata = const {},
   });
 
   factory Lesson.fromJson(Json j) => Lesson(
@@ -445,6 +485,12 @@ class Lesson {
       PublishStatus.draft,
     ),
     contentVersion: j.integer('content_version', fallback: 1),
+    objectives: j.strList('objectives'),
+    deliveryLanguage: j.strOrNull('delivery_language'),
+    quranSurah: j.intOrNull('quran_surah'),
+    quranAyahStart: j.intOrNull('quran_ayah_start'),
+    quranAyahEnd: j.intOrNull('quran_ayah_end'),
+    metadata: Map<String, dynamic>.from((j['metadata'] as Map?) ?? const {}),
   );
 
   final String id;
@@ -459,9 +505,36 @@ class Lesson {
   final PublishStatus status;
   final int contentVersion;
 
+  /// Measurable learning outcomes.
+  final List<String> objectives;
+
+  /// Overrides the course language when set (a language code).
+  final String? deliveryLanguage;
+  final int? quranSurah;
+  final int? quranAyahStart;
+  final int? quranAyahEnd;
+  final Map<String, dynamic> metadata;
+
+  /// Seeded content waiting for a teacher / scholar to confirm it.
+  bool get needsReview => metadata['provisional'] == true;
+
+  String? get quranReference => quranSurah == null
+      ? null
+      : quranAyahStart == null
+      ? '$quranSurah'
+      : quranAyahEnd == null || quranAyahEnd == quranAyahStart
+      ? '$quranSurah:$quranAyahStart'
+      : '$quranSurah:$quranAyahStart–$quranAyahEnd';
+
   Json toJson() => {
     'id': id,
     'course_id': courseId,
+    'objectives': objectives,
+    'delivery_language': deliveryLanguage,
+    'quran_surah': quranSurah,
+    'quran_ayah_start': quranAyahStart,
+    'quran_ayah_end': quranAyahEnd,
+    'metadata': metadata,
     'unit_id': unitId,
     'node_id': nodeId,
     'title': title,

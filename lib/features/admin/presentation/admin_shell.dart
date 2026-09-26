@@ -76,6 +76,12 @@ final adminSections = <AdminSection>[
       (l) => l.drawerReview,
       {'teaching.review', 'courses.view'},
     ),
+    AdminDestination(
+      Routes.adminSubmissions,
+      Icons.inbox_outlined,
+      (l) => l.subTitle,
+      {'teaching.review'},
+    ),
   ]),
   AdminSection((l) => l.drawerPeople, [
     AdminDestination(

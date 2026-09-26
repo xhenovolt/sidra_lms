@@ -10,6 +10,8 @@ import '../../../shared/models/json.dart';
 import '../../../shared/widgets/state_views.dart';
 import '../../courses/presentation/course_widgets.dart';
 import '../../curriculum/domain/curriculum_models.dart';
+import '../../content/data/content_repository.dart';
+import '../../content/presentation/resource_widgets.dart';
 import 'admin_common.dart';
 import 'learners_tab.dart';
 
@@ -183,6 +185,30 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
     text: widget.course?.tags.join(', '),
   );
   late bool _selfEnrol = widget.course?.selfEnrol ?? true;
+  late String? _track = widget.course?.trackKey;
+  late String _language = widget.course?.language ?? 'en';
+  late final Set<String> _extraLanguages = {
+    ...?widget.course?.deliveryLanguages,
+  };
+  late bool _hidden = widget.course?.hidden ?? false;
+  late final _targetLearner = TextEditingController(
+    text: widget.course?.targetLearner,
+  );
+  Set<String>? _prerequisites;
+
+  @override
+  void initState() {
+    super.initState();
+    final id = widget.course?.id;
+    if (id == null) {
+      _prerequisites = {};
+    } else {
+      ref.read(contentRepositoryProvider).prerequisites(id).then((v) {
+        if (mounted) setState(() => _prerequisites = v.toSet());
+      });
+    }
+  }
+
   late final _hours = TextEditingController(
     text: widget.course?.estimatedHours?.toString(),
   );
@@ -262,6 +288,13 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
           if (t.trim().isNotEmpty) t.trim(),
       ],
       'self_enrol': _access == CourseAccess.free && _selfEnrol,
+      'track_key': _track,
+      'language': _language,
+      'delivery_languages': _extraLanguages
+          .where((l) => l != _language)
+          .toList(),
+      'visibility': _hidden ? 'hidden' : 'catalogue',
+      'target_learner': nullIfBlank(_targetLearner.text),
       'difficulty': enumToDb(_difficulty),
       'access': enumToDb(_access),
       'progression': enumToDb(_progression),
@@ -281,13 +314,16 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
       if (widget.course == null) 'slug': slugify(_title.text),
     };
     setState(() => _saving = true);
-    final ok = await runAdminAction(
-      context,
-      () => ref
+    final ok = await runAdminAction(context, () async {
+      final saved = await ref
           .read(adminRepositoryProvider)
-          .saveCourse(values, id: widget.course?.id),
-      success: l10n.adminSaved,
-    );
+          .saveCourse(values, id: widget.course?.id);
+      if (_prerequisites != null) {
+        await ref
+            .read(contentRepositoryProvider)
+            .setPrerequisites(saved.id, _prerequisites!.toList());
+      }
+    }, success: l10n.adminSaved);
     if (!mounted) return;
     setState(() => _saving = false);
     if (ok) {
@@ -338,6 +374,24 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
               controller: _tags,
               label: l10n.courseTags,
               hint: l10n.courseTagsHint,
+            ),
+            _CourseLanguageFields(
+              track: _track,
+              language: _language,
+              extra: _extraLanguages,
+              onTrack: (v) => setState(() => _track = v),
+              onLanguage: (v) => setState(() => _language = v),
+              onToggleExtra: (code, on) => setState(
+                () => on
+                    ? _extraLanguages.add(code)
+                    : _extraLanguages.remove(code),
+              ),
+            ),
+            AdminField(
+              controller: _targetLearner,
+              label: l10n.courseTargetLearner,
+              hint: l10n.courseTargetLearnerHint,
+              maxLines: 2,
             ),
             AdminField(
               controller: _description,
@@ -411,6 +465,19 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
               ],
               onChanged: (v) => setState(() => _access = v!),
             ),
+            SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              value: _hidden,
+              onChanged: (v) => setState(() => _hidden = v),
+              title: Text(l10n.courseHidden),
+              subtitle: Text(l10n.courseHiddenHint),
+            ),
+            if (_prerequisites != null)
+              _PrerequisitePicker(
+                courseId: widget.course?.id,
+                selected: _prerequisites!,
+                onChanged: (v) => setState(() => _prerequisites = v),
+              ),
             if (_access == CourseAccess.free)
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
@@ -485,6 +552,123 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Learning track, primary language and other languages of delivery.
+class _CourseLanguageFields extends ConsumerWidget {
+  const _CourseLanguageFields({
+    required this.track,
+    required this.language,
+    required this.extra,
+    required this.onTrack,
+    required this.onLanguage,
+    required this.onToggleExtra,
+  });
+
+  final String? track;
+  final String language;
+  final Set<String> extra;
+  final ValueChanged<String?> onTrack;
+  final ValueChanged<String> onLanguage;
+  final void Function(String code, bool on) onToggleExtra;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final tracks = ref.watch(tracksProvider).value ?? const <LearningTrack>[];
+    final langs = ref.watch(languagesProvider).value ?? const <Language>[];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        DropdownButtonFormField<String?>(
+          initialValue: tracks.any((t) => t.key == track) ? track : null,
+          decoration: InputDecoration(
+            labelText: l10n.courseTrack,
+            helperText: l10n.courseTrackHint,
+          ),
+          items: [
+            DropdownMenuItem(value: null, child: Text(l10n.languageNotSet)),
+            for (final t in tracks)
+              DropdownMenuItem(value: t.key, child: Text(t.name)),
+          ],
+          onChanged: onTrack,
+        ),
+        const SizedBox(height: Space.sm),
+        LanguageDropdown(
+          value: language,
+          allowNone: false,
+          label: l10n.courseLanguage,
+          onChanged: (v) => onLanguage(v ?? 'en'),
+        ),
+        const SizedBox(height: Space.xs),
+        Text(
+          l10n.courseAlsoTaughtIn,
+          style: Theme.of(context).textTheme.labelLarge,
+        ),
+        Wrap(
+          spacing: Space.xs,
+          children: [
+            for (final l in langs)
+              if (l.code != language)
+                FilterChip(
+                  label: Text(l.name),
+                  selected: extra.contains(l.code),
+                  onSelected: (v) => onToggleExtra(l.code, v),
+                ),
+          ],
+        ),
+        Text(
+          l10n.courseLanguageHint,
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+        const SizedBox(height: Space.sm),
+      ],
+    );
+  }
+}
+
+/// Courses a learner must finish before enrolling themselves in this one.
+class _PrerequisitePicker extends ConsumerWidget {
+  const _PrerequisitePicker({
+    required this.courseId,
+    required this.selected,
+    required this.onChanged,
+  });
+  final String? courseId;
+  final Set<String> selected;
+  final ValueChanged<Set<String>> onChanged;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final courses = (ref.watch(adminCoursesProvider).value ?? const <Course>[])
+        .where((c) => c.id != courseId && c.status != PublishStatus.archived)
+        .toList();
+    if (courses.isEmpty) return const SizedBox.shrink();
+    return ExpansionTile(
+      tilePadding: EdgeInsets.zero,
+      title: Text(l10n.coursePrerequisites),
+      subtitle: Text(
+        selected.isEmpty
+            ? l10n.coursePrerequisitesNone
+            : courses
+                  .where((c) => selected.contains(c.id))
+                  .map((c) => c.title)
+                  .join(', '),
+      ),
+      children: [
+        for (final c in courses)
+          CheckboxListTile(
+            contentPadding: EdgeInsets.zero,
+            value: selected.contains(c.id),
+            title: Text(c.title),
+            onChanged: (v) => onChanged(
+              v! ? {...selected, c.id} : ({...selected}..remove(c.id)),
+            ),
+          ),
+      ],
     );
   }
 }

@@ -49,12 +49,17 @@ void main() {
         expect(run, isNotNull, reason: 'payments server did not answer');
         for (final r in run!['results'] as List) {
           // ignore: avoid_print
-          print('${(r['result'] as String).toUpperCase().padRight(8)} '
-              '${r['label']}: ${r['message']}');
+          print(
+            '${(r['result'] as String).toUpperCase().padRight(8)} '
+            '${r['label']}: ${r['message']}',
+          );
         }
         final text = run.toString();
-        expect(text.contains(env['MARZPAY_API_SECRET']!), isFalse,
-            reason: 'secrets must never appear in results');
+        expect(
+          text.contains(env['MARZPAY_API_SECRET']!),
+          isFalse,
+          reason: 'secrets must never appear in results',
+        );
       } finally {
         await auth.logout(
           session['refresh_token'] as String,

@@ -286,8 +286,7 @@ Future<List<Check>> runDiagnostics({
       balance.status == 200 ? Outcome.pass : Outcome.warning,
       balance.status == 200
           ? 'This server can read the MarzPay balance.'
-          : 'MarzPay requires this server'
-                's IP address to be whitelisted to read the '
+          : "MarzPay requires this server's IP address to be whitelisted to read the "
                 'balance (${balance.errorCode ?? 'HTTP ${balance.status ?? balance.error}'}). '
                 'Collections do not need it.',
     ),

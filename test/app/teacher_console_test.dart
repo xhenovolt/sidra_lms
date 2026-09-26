@@ -189,6 +189,19 @@ Future<void> openDrawer(WidgetTester tester) async {
   await tester.pumpAndSettle();
 }
 
+/// Scrolls the drawer until [text] is built and visible.
+Future<void> scrollDrawerTo(WidgetTester tester, String text) =>
+    tester.scrollUntilVisible(
+      inDrawer(text),
+      120,
+      scrollable: find
+          .descendant(
+            of: find.byType(Drawer),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
+
 Finder inDrawer(String text) =>
     find.descendant(of: find.byType(Drawer), matching: find.text(text));
 
@@ -232,9 +245,11 @@ void main() {
         'Review learners',
         'Learners',
         'Teachers',
+        'Submitted work',
         'Activity log',
         'My account',
       ]) {
+        await scrollDrawerTo(tester, item);
         expect(inDrawer(item), findsOneWidget, reason: item);
       }
       // Only superadmins manage administrators and roles.
@@ -284,7 +299,7 @@ void main() {
   ) async {
     await signInAs(tester, 'admin');
     await openDrawer(tester);
-    await tester.ensureVisible(inDrawer('My account'));
+    await scrollDrawerTo(tester, 'My account');
     await tester.pumpAndSettle();
     await tester.tap(inDrawer('My account'));
     await tester.pumpAndSettle();

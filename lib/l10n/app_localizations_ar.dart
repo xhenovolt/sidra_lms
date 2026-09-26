@@ -1913,4 +1913,422 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get fieldRequired => 'مطلوب';
+
+  @override
+  String get adminUnitLabel => 'الوحدة';
+
+  @override
+  String get assignmentAccepts => 'يمكن للمتعلمين تسليم:';
+
+  @override
+  String get assignmentAdd => 'إضافة واجب';
+
+  @override
+  String get assignmentAudio => 'تسجيلات صوتية';
+
+  @override
+  String get assignmentDeleteBody =>
+      'حذف هذا الواجب؟ لا يمكن حذفه بعد أن يسلّم المتعلمون أعمالهم.';
+
+  @override
+  String get assignmentDocuments => 'مستندات';
+
+  @override
+  String assignmentDue(String date) {
+    return 'موعد التسليم $date';
+  }
+
+  @override
+  String get assignmentHint =>
+      'أعمال يؤديها المتعلمون ويسلّمونها هنا: صور الكتابة أو مستندات أو تسجيلات. يراجعها المعلم ويرد عليها.';
+
+  @override
+  String get assignmentInstructions => 'المطلوب';
+
+  @override
+  String get assignmentMaxScore => 'الدرجة القصوى (اختياري)';
+
+  @override
+  String get assignmentPhotos => 'صور';
+
+  @override
+  String get assignmentText => 'إجابة مكتوبة';
+
+  @override
+  String get assignmentVideo => 'فيديو';
+
+  @override
+  String get assignmentsTitle => 'الواجبات';
+
+  @override
+  String get blockLanguage => 'لغة هذا المحتوى';
+
+  @override
+  String get blockLanguageHint =>
+      'مثلًا: نص القرآن عربي حتى لو كان الدرس يُشرح بالإنجليزية.';
+
+  @override
+  String get blockShowLearners => 'إظهار للمتعلمين';
+
+  @override
+  String get blockTeachersOnly => 'للمعلمين فقط';
+
+  @override
+  String get close => 'إغلاق';
+
+  @override
+  String get courseAlsoTaughtIn => 'تُدرَّس أيضًا بـ';
+
+  @override
+  String courseForWhom(String who) {
+    return 'لمن هذه الدورة: $who';
+  }
+
+  @override
+  String get courseHidden => 'إخفاء من الفهرس';
+
+  @override
+  String get courseHiddenHint => 'لا يراها إلا المتعلمون المسجلون والطاقم.';
+
+  @override
+  String get courseLanguage => 'لغة التدريس الأساسية';
+
+  @override
+  String get courseLanguageHint =>
+      'اللغة التي يُشرح بها. وجود نص عربي أو قرآني في الدروس لا يجعل العربية لغة التدريس.';
+
+  @override
+  String get coursePrerequisites => 'يجب إنهاؤها أولًا';
+
+  @override
+  String get coursePrerequisitesNone => 'لا متطلبات سابقة';
+
+  @override
+  String get courseTargetLearner => 'لمن هذه الدورة';
+
+  @override
+  String get courseTargetLearnerHint => 'مثل: مبتدئون لا يقرؤون العربية بعد';
+
+  @override
+  String get courseTrack => 'المسار التعليمي';
+
+  @override
+  String get courseTrackHint =>
+      'القراءة والتلاوة والتجويد والعربية القرآنية أهداف مختلفة.';
+
+  @override
+  String get languageNotSet => 'غير محدد';
+
+  @override
+  String lessonCopied(String course) {
+    return 'نُسخ إلى $course كمسودة';
+  }
+
+  @override
+  String get lessonCopy => 'نسخ إلى دورة أخرى…';
+
+  @override
+  String lessonCopyTo(String lesson) {
+    return 'نسخ «$lesson» إلى…';
+  }
+
+  @override
+  String get lessonEditDetails => 'تعديل التفاصيل';
+
+  @override
+  String get lessonLanguage => 'لغة التدريس';
+
+  @override
+  String lessonLanguageFromCourse(String languages) {
+    return 'مثل الدورة: $languages';
+  }
+
+  @override
+  String get lessonLanguageSameAsCourse => 'مثل الدورة';
+
+  @override
+  String get lessonLocation => 'موضع هذا الدرس';
+
+  @override
+  String get lessonMove => 'نقل…';
+
+  @override
+  String lessonMoveTo(String lesson) {
+    return 'نقل «$lesson» إلى…';
+  }
+
+  @override
+  String get lessonMoveTop => 'أعلى الدورة (بلا وحدة)';
+
+  @override
+  String lessonMoved(String place) {
+    return 'نُقل إلى $place';
+  }
+
+  @override
+  String get lessonNoOutcomes =>
+      'لا نتائج تعلم بعد. أضف ما سيستطيع المتعلم فعله.';
+
+  @override
+  String get lessonOutcomes => 'نتائج التعلم';
+
+  @override
+  String get lessonOutcomesHint =>
+      'واحدة في كل سطر، مثل: «يقرأ الحروف المفتوحة بشكل صحيح»';
+
+  @override
+  String get lessonOverview => 'نظرة عامة';
+
+  @override
+  String get lessonQuranReference => 'المرجع القرآني';
+
+  @override
+  String get lessonQuranReferenceOptional => 'المرجع القرآني (اختياري)';
+
+  @override
+  String get lessonYouWill => 'في هذا الدرس ستتعلم أن';
+
+  @override
+  String get marzExplain =>
+      'تعمل هذه الاختبارات على خادم المدفوعات، المكان الوحيد الذي يحفظ مفتاح MarzPay السري. لا يتحرك أي مال: يُختبر التحصيل بطلب يجب أن يرفضه MarzPay. لا يُثبت الدفع الحقيقي إلا بدفع رسوم دورة وإدخال الرقم السري.';
+
+  @override
+  String marzLastSeen(String time) {
+    return 'آخر ظهور $time';
+  }
+
+  @override
+  String get marzNoAnswer => 'لم يرد خادم المدفوعات. هل هو يعمل؟';
+
+  @override
+  String marzResultsFrom(String time) {
+    return 'نتائج $time';
+  }
+
+  @override
+  String get marzRunTests => 'اختبار الربط';
+
+  @override
+  String get marzRunning => 'جارٍ الاختبار…';
+
+  @override
+  String get marzServerOffline =>
+      'خادم المدفوعات لا يعمل: تنتظر مدفوعات المتعلمين حتى يعمل';
+
+  @override
+  String get marzServerOnline => 'خادم المدفوعات يعمل';
+
+  @override
+  String get marzTitle => 'MarzPay (الدفع عبر الهاتف)';
+
+  @override
+  String get provisionalBody =>
+      'أُضيف كنقطة بداية. ينبغي أن يراجعه معلم أو عالم قبل أن يستخدمه المتعلمون.';
+
+  @override
+  String get provisionalTitle => 'يحتاج إلى مراجعة';
+
+  @override
+  String get quranAyahFrom => 'من الآية';
+
+  @override
+  String get quranAyahTo => 'إلى الآية';
+
+  @override
+  String quranRef(String ref) {
+    return 'القرآن $ref';
+  }
+
+  @override
+  String get quranSurah => 'رقم السورة';
+
+  @override
+  String get resourceAddLink => 'إضافة رابط';
+
+  @override
+  String get resourceCheckLink => 'فحص الرابط';
+
+  @override
+  String get resourceFile => 'الملف';
+
+  @override
+  String get resourceHide => 'إخفاء عن المتعلمين';
+
+  @override
+  String get resourceLanguage => 'اللغة';
+
+  @override
+  String get resourceLocked => 'ليس لديك صلاحية لفتح هذا الملف.';
+
+  @override
+  String get resourceLooksRight => 'صحيح: حفظ';
+
+  @override
+  String get resourceNotVerified => 'غير مفحوص';
+
+  @override
+  String get resourceOpen => 'فتح';
+
+  @override
+  String resourcePreviewUnavailable(String reason) {
+    return 'لا توجد معاينة تلقائية ($reason). تحقق من العنوان بنفسك قبل الحفظ.';
+  }
+
+  @override
+  String get resourceRemove => 'إزالة';
+
+  @override
+  String resourceRemoveBody(String title) {
+    return 'إزالة «$title» من هنا؟ يبقى الملف نفسه محفوظًا.';
+  }
+
+  @override
+  String get resourceSaveAnyway => 'أثق به: حفظ';
+
+  @override
+  String get resourceShow => 'إظهار للمتعلمين';
+
+  @override
+  String get resourceSize => 'الحجم';
+
+  @override
+  String get resourceType => 'النوع';
+
+  @override
+  String get resourceUpload => 'رفع ملف';
+
+  @override
+  String get resourceUploadNow => 'رفع';
+
+  @override
+  String resourceUploading(String name) {
+    return 'جارٍ رفع $name';
+  }
+
+  @override
+  String get resourceVerified => 'مفحوص';
+
+  @override
+  String get resourcesNone => 'لا ملفات أو روابط بعد.';
+
+  @override
+  String get resourcesTitle => 'المصادر';
+
+  @override
+  String get settingsPayments => 'المدفوعات';
+
+  @override
+  String get subAttachFile => 'إرفاق ملف';
+
+  @override
+  String subAttempt(int n) {
+    return 'المحاولة $n';
+  }
+
+  @override
+  String get subFeedback => 'ملاحظات للمتعلم';
+
+  @override
+  String subFilesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ملفات',
+      one: 'ملف واحد',
+      zero: 'بلا ملفات',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get subFromGallery => 'من المعرض';
+
+  @override
+  String get subHandIn => 'تسليم';
+
+  @override
+  String get subHandedIn => 'تم التسليم. وصل إلى معلمك.';
+
+  @override
+  String get subMarkReviewed => 'تمت المراجعة';
+
+  @override
+  String get subMarkUnderReview => 'قيد المراجعة';
+
+  @override
+  String get subNoneToReview => 'لا شيء هنا';
+
+  @override
+  String get subPrivacyNote => 'لا يرى ما تسلّمه إلا أنت ومعلموك.';
+
+  @override
+  String get subReceived => 'تم الاستلام';
+
+  @override
+  String get subRequestResubmission => 'طلب إعادة التسليم';
+
+  @override
+  String get subResubmit => 'يرجى إعادة المحاولة';
+
+  @override
+  String get subReturned => 'أُعيد';
+
+  @override
+  String get subReviewed => 'تمت المراجعة';
+
+  @override
+  String get subSavedForLater =>
+      'حُفظ على هذا الهاتف. سيُرفع عند الاتصال؛ اضغط «حاول مرة أخرى».';
+
+  @override
+  String get subScoreOptional => 'الدرجة (اختياري)';
+
+  @override
+  String get subSubmitAgain => 'تسليم مرة أخرى';
+
+  @override
+  String get subSubmitWork => 'تسليم العمل';
+
+  @override
+  String get subSubmitted => 'تم التسليم';
+
+  @override
+  String get subTakePhoto => 'التقاط صورة';
+
+  @override
+  String get subTeacherHint => 'أعمال سلّمها المتعلمون في دروسك';
+
+  @override
+  String get subTitle => 'الأعمال المسلّمة';
+
+  @override
+  String get subUnderReview => 'قيد المراجعة';
+
+  @override
+  String get subUploadFailed => 'فشل الرفع';
+
+  @override
+  String get subWaitingToUpload => 'بانتظار الرفع (لم يُسلَّم بعد)';
+
+  @override
+  String get subWorkTab => 'الأعمال';
+
+  @override
+  String get subYourAnswer => 'إجابتك';
+
+  @override
+  String subYourWork(String status, int attempt) {
+    return 'عملك: $status (المحاولة $attempt)';
+  }
+
+  @override
+  String taughtIn(String languages) {
+    return 'يُدرَّس بـ $languages';
+  }
+
+  @override
+  String get uploadFailed => 'فشل الرفع';
+
+  @override
+  String get uploadUploading => 'جارٍ الرفع…';
 }

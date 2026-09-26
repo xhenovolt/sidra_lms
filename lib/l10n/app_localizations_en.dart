@@ -1936,4 +1936,425 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fieldRequired => 'Required';
+
+  @override
+  String get adminUnitLabel => 'Unit';
+
+  @override
+  String get assignmentAccepts => 'Learners may hand in:';
+
+  @override
+  String get assignmentAdd => 'Add assignment';
+
+  @override
+  String get assignmentAudio => 'Recordings';
+
+  @override
+  String get assignmentDeleteBody =>
+      'Delete this assignment? It cannot be deleted once learners have handed in work.';
+
+  @override
+  String get assignmentDocuments => 'Documents';
+
+  @override
+  String assignmentDue(String date) {
+    return 'Due $date';
+  }
+
+  @override
+  String get assignmentHint =>
+      'Work learners do and hand in here: photos of written work, documents, recordings. Their teacher reviews it and replies.';
+
+  @override
+  String get assignmentInstructions => 'What to do';
+
+  @override
+  String get assignmentMaxScore => 'Maximum score (optional)';
+
+  @override
+  String get assignmentPhotos => 'Photos';
+
+  @override
+  String get assignmentText => 'Written answer';
+
+  @override
+  String get assignmentVideo => 'Videos';
+
+  @override
+  String get assignmentsTitle => 'Assignments';
+
+  @override
+  String get blockLanguage => 'Language of this content';
+
+  @override
+  String get blockLanguageHint =>
+      'For example, Qur\'an text is Arabic even when the lesson is taught in English.';
+
+  @override
+  String get blockShowLearners => 'Show to learners';
+
+  @override
+  String get blockTeachersOnly => 'Teachers only';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get courseAlsoTaughtIn => 'Also taught in';
+
+  @override
+  String courseForWhom(String who) {
+    return 'Who it is for: $who';
+  }
+
+  @override
+  String get courseHidden => 'Hide from the catalogue';
+
+  @override
+  String get courseHiddenHint => 'Only enrolled learners and staff see it.';
+
+  @override
+  String get courseLanguage => 'Main language of teaching';
+
+  @override
+  String get courseLanguageHint =>
+      'The language explanations are given in. Arabic or Qur\'anic text inside lessons does not make Arabic the teaching language.';
+
+  @override
+  String get coursePrerequisites => 'Must finish first';
+
+  @override
+  String get coursePrerequisitesNone => 'No prerequisites';
+
+  @override
+  String get courseTargetLearner => 'Who it is for';
+
+  @override
+  String get courseTargetLearnerHint =>
+      'e.g. Complete beginners who cannot yet read Arabic';
+
+  @override
+  String get courseTrack => 'Learning track';
+
+  @override
+  String get courseTrackHint =>
+      'Reading, recitation, tajwīd, Qur\'anic Arabic… are different goals.';
+
+  @override
+  String get languageNotSet => 'Not set';
+
+  @override
+  String lessonCopied(String course) {
+    return 'Copied to $course as a draft';
+  }
+
+  @override
+  String get lessonCopy => 'Copy to another course…';
+
+  @override
+  String lessonCopyTo(String lesson) {
+    return 'Copy \"$lesson\" to…';
+  }
+
+  @override
+  String get lessonEditDetails => 'Edit details';
+
+  @override
+  String get lessonLanguage => 'Taught in';
+
+  @override
+  String lessonLanguageFromCourse(String languages) {
+    return 'Same as the course: $languages';
+  }
+
+  @override
+  String get lessonLanguageSameAsCourse => 'Same as the course';
+
+  @override
+  String get lessonLocation => 'Where this lesson is';
+
+  @override
+  String get lessonMove => 'Move…';
+
+  @override
+  String lessonMoveTo(String lesson) {
+    return 'Move \"$lesson\" to…';
+  }
+
+  @override
+  String get lessonMoveTop => 'Top of the course (no unit)';
+
+  @override
+  String lessonMoved(String place) {
+    return 'Moved to $place';
+  }
+
+  @override
+  String get lessonNoOutcomes =>
+      'No learning outcomes yet. Add what the learner will be able to do.';
+
+  @override
+  String get lessonOutcomes => 'Learning outcomes';
+
+  @override
+  String get lessonOutcomesHint =>
+      'One per line, e.g. \"Reads letters with fatḥah correctly\"';
+
+  @override
+  String get lessonOverview => 'Overview';
+
+  @override
+  String get lessonQuranReference => 'Qur\'an reference';
+
+  @override
+  String get lessonQuranReferenceOptional => 'Qur\'an reference (optional)';
+
+  @override
+  String get lessonYouWill => 'In this lesson you will';
+
+  @override
+  String get marzExplain =>
+      'These tests run on the payments server, the only place that holds the MarzPay secret. No money moves: collections are tested with a request MarzPay must refuse. A real payment can only be proved by paying for a course and entering the PIN.';
+
+  @override
+  String marzLastSeen(String time) {
+    return 'Last seen $time';
+  }
+
+  @override
+  String get marzNoAnswer =>
+      'The payments server did not answer. Is it running?';
+
+  @override
+  String marzResultsFrom(String time) {
+    return 'Results from $time';
+  }
+
+  @override
+  String get marzRunTests => 'Test integration';
+
+  @override
+  String get marzRunning => 'Testing…';
+
+  @override
+  String get marzServerOffline =>
+      'Payments server is not running: learners\' mobile-money payments wait until it is';
+
+  @override
+  String get marzServerOnline => 'Payments server is running';
+
+  @override
+  String get marzTitle => 'MarzPay (mobile money)';
+
+  @override
+  String get provisionalBody =>
+      'Seeded as a starting point. A teacher or scholar should check it before learners use it.';
+
+  @override
+  String get provisionalTitle => 'Needs review';
+
+  @override
+  String get quranAyahFrom => 'From āyah';
+
+  @override
+  String get quranAyahTo => 'To āyah';
+
+  @override
+  String quranRef(String ref) {
+    return 'Qur\'an $ref';
+  }
+
+  @override
+  String get quranSurah => 'Sūrah no.';
+
+  @override
+  String get resourceAddLink => 'Add link';
+
+  @override
+  String get resourceCheckLink => 'Check link';
+
+  @override
+  String get resourceFile => 'File';
+
+  @override
+  String get resourceHide => 'Hide from learners';
+
+  @override
+  String get resourceLanguage => 'Language';
+
+  @override
+  String get resourceLocked => 'You do not have access to this file.';
+
+  @override
+  String get resourceLooksRight => 'Looks right: save';
+
+  @override
+  String get resourceNotVerified => 'not checked';
+
+  @override
+  String get resourceOpen => 'Open';
+
+  @override
+  String resourcePreviewUnavailable(String reason) {
+    return 'No automatic preview ($reason). Check the address yourself before saving.';
+  }
+
+  @override
+  String get resourceRemove => 'Remove';
+
+  @override
+  String resourceRemoveBody(String title) {
+    return 'Remove \"$title\" from here? The file itself is kept.';
+  }
+
+  @override
+  String get resourceSaveAnyway => 'I trust it: save';
+
+  @override
+  String get resourceShow => 'Show to learners';
+
+  @override
+  String get resourceSize => 'Size';
+
+  @override
+  String get resourceType => 'Type';
+
+  @override
+  String get resourceUpload => 'Upload file';
+
+  @override
+  String get resourceUploadNow => 'Upload';
+
+  @override
+  String resourceUploading(String name) {
+    return 'Uploading $name';
+  }
+
+  @override
+  String get resourceVerified => 'checked';
+
+  @override
+  String get resourcesNone => 'No files or links yet.';
+
+  @override
+  String get resourcesTitle => 'Resources';
+
+  @override
+  String get settingsPayments => 'Payments';
+
+  @override
+  String get subAttachFile => 'Attach file';
+
+  @override
+  String subAttempt(int n) {
+    return 'attempt $n';
+  }
+
+  @override
+  String get subFeedback => 'Feedback for the learner';
+
+  @override
+  String subFilesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count files',
+      one: '1 file',
+      zero: 'no files',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get subFromGallery => 'From gallery';
+
+  @override
+  String get subHandIn => 'Hand in';
+
+  @override
+  String get subHandedIn => 'Handed in. Your teacher has it.';
+
+  @override
+  String get subMarkReviewed => 'Mark reviewed';
+
+  @override
+  String get subMarkUnderReview => 'I\'m looking at it (under review)';
+
+  @override
+  String get subNoneToReview => 'Nothing here';
+
+  @override
+  String get subPrivacyNote =>
+      'Only you and your teachers can see what you hand in.';
+
+  @override
+  String get subReceived => 'Received';
+
+  @override
+  String get subRequestResubmission => 'Ask for a new try';
+
+  @override
+  String get subResubmit => 'Please try again';
+
+  @override
+  String get subReturned => 'Returned';
+
+  @override
+  String get subReviewed => 'Reviewed';
+
+  @override
+  String get subSavedForLater =>
+      'Saved on this phone. It will upload when you are online; tap Try again.';
+
+  @override
+  String get subScoreOptional => 'Score (optional)';
+
+  @override
+  String get subSubmitAgain => 'Hand in again';
+
+  @override
+  String get subSubmitWork => 'Submit work';
+
+  @override
+  String get subSubmitted => 'Handed in';
+
+  @override
+  String get subTakePhoto => 'Take photo';
+
+  @override
+  String get subTeacherHint => 'Work learners handed in to your lessons';
+
+  @override
+  String get subTitle => 'Submitted work';
+
+  @override
+  String get subUnderReview => 'Under review';
+
+  @override
+  String get subUploadFailed => 'Upload failed';
+
+  @override
+  String get subWaitingToUpload => 'Waiting to upload (not handed in yet)';
+
+  @override
+  String get subWorkTab => 'Work';
+
+  @override
+  String get subYourAnswer => 'Your answer';
+
+  @override
+  String subYourWork(String status, int attempt) {
+    return 'Your work: $status (attempt $attempt)';
+  }
+
+  @override
+  String taughtIn(String languages) {
+    return 'Taught in $languages';
+  }
+
+  @override
+  String get uploadFailed => 'Upload failed';
+
+  @override
+  String get uploadUploading => 'Uploading…';
 }
