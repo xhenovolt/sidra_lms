@@ -13,6 +13,7 @@ import '../../auth/presentation/auth_providers.dart';
 import '../../profile/data/profile_repository.dart';
 import 'people_tab.dart';
 import '../../profile/presentation/avatar_editor.dart';
+import '../../../app/router/learner_preview.dart';
 
 /// A staff tab page with its own title bar.
 class StaffPage extends StatelessWidget {
@@ -78,6 +79,14 @@ class StaffMoreScreen extends ConsumerWidget {
               subtitle: Text(l10n.subTeacherHint),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => context.push(Routes.teachSubmissions),
+            ),
+          if (role == UserRole.admin)
+            ListTile(
+              leading: const Icon(Icons.phone_android_outlined),
+              title: Text(l10n.previewAsLearner),
+              subtitle: Text(l10n.previewAsLearnerHint),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => ref.read(learnerPreviewProvider).on = true,
             ),
           ListTile(
             leading: const Icon(Icons.visibility_outlined),

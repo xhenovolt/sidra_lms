@@ -3140,4 +3140,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get capPasted => 'Text added. Tap it to edit.';
+
+  @override
+  String get layoutGrid => 'Show as grid';
+
+  @override
+  String get layoutList => 'Show as list';
+
+  @override
+  String get topCourses => 'Top courses';
+
+  @override
+  String topCoursesLearners(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count learners',
+      one: '1 learner',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get allCourses => 'All courses';
+
+  @override
+  String get previewAsLearner => 'Preview as learner';
+
+  @override
+  String get previewAsLearnerHint => 'See the app exactly as learners see it';
+
+  @override
+  String get previewBanner => 'You are previewing as a learner';
+
+  @override
+  String get previewExit => 'Exit';
 }

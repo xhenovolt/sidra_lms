@@ -16,6 +16,7 @@ import '../config/app_config.dart';
 import '../data/data_providers.dart';
 import '../network/pg_client.dart';
 import '../network/postgres_api.dart';
+import '../../app/router/learner_preview.dart';
 
 /// Notifications on the phone's notification bar, without Firebase.
 ///
@@ -206,5 +207,6 @@ Future<void> signOutEverywhere(WidgetRef ref) async {
   try {
     await PhoneNotifications.unregister(ref.read(postgresApiProvider));
   } catch (_) {}
+  ref.read(learnerPreviewProvider).on = false;
   await ref.read(authServiceProvider).signOut();
 }

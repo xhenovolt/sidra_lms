@@ -12,10 +12,14 @@ select pg_temp.check((select count(*) from courses where slug like 'quran-yassar
 select pg_temp.check(not exists (select 1 from lessons where metadata->>'seed' = 'quran-catalogue-v1'
                                  and (cardinality(objectives) = 0 or objectives[1] ilike 'understand lesson%')),
   'every seeded lesson has a meaningful outcome');
+-- (Rows an admin has since edited are skipped: reviewing and publishing
+-- seeded courses is the point.)
 select pg_temp.check(not exists (select 1 from lessons where metadata->>'seed' = 'quran-catalogue-v1'
+                                 and updated_at = created_at
                                  and coalesce((metadata->>'provisional')::boolean, false) = false),
   'every seeded lesson is marked provisional');
 select pg_temp.check(not exists (select 1 from courses where metadata->>'seed' = 'quran-catalogue-v1'
+                                 and updated_at = created_at
                                  and (status <> 'in_review' or access <> 'restricted' or self_enrol)),
   'seeded courses wait for review and are by invitation');
 select pg_temp.check(not exists (select 1 from courses where metadata->>'seed' = 'quran-catalogue-v1'
@@ -47,14 +51,16 @@ select set_config('t.beg', (select id::text from courses where slug = 'quran-yas
 
 select pg_temp.login_as_id(current_setting('t.clb')::uuid);
 set local role authenticated;
-select pg_temp.check(not exists (select 1 from courses where metadata->>'seed' = 'quran-catalogue-v1'),
+select pg_temp.check(not exists (select 1 from courses where metadata->>'seed' = 'quran-catalogue-v1'
+                                 and status = 'in_review'),
   'unreviewed courses are invisible to learners');
 reset role;
 
 -- The admin reviews, publishes, and enrols learner A only.
 select pg_temp.login_as('admin_1');
 set local role authenticated;
-select public.set_course_status(current_setting('t.beg')::uuid, 'published');
+select public.set_course_status(id, 'published') from courses
+where id = current_setting('t.beg')::uuid and status <> 'published';
 select public.bulk_enrol(current_setting('t.beg')::uuid, array[current_setting('t.cla')::uuid]);
 
 -- TEST 2: add a lesson to Stage 3 and it lands in sequence there.

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/data/data_providers.dart';
 import '../../features/content/data/submission_queue.dart';
 import '../../l10n/app_localizations.dart';
+import 'learner_preview.dart';
 
 /// One bottom-navigation destination.
 typedef NavItem = ({IconData icon, IconData selectedIcon, String label});
@@ -27,6 +28,7 @@ class AppShell extends ConsumerWidget {
     // Hands in work saved while offline.
     ref.watch(submissionFlushProvider);
     final nav = items(AppLocalizations.of(context));
+    final previewing = ref.watch(learnerPreviewProvider).on;
 
     final wide = MediaQuery.sizeOf(context).width >= 840;
     if (wide) {
@@ -54,7 +56,7 @@ class AppShell extends ConsumerWidget {
     }
 
     return Scaffold(
-      body: shell,
+      body: previewing ? _PreviewFrame(child: shell) : shell,
       bottomNavigationBar: NavigationBar(
         selectedIndex: shell.currentIndex,
         onDestinationSelected: _select,
@@ -137,3 +139,41 @@ List<NavItem> adminNav(AppLocalizations l10n) => [
   ),
   (icon: Icons.more_horiz, selectedIcon: Icons.more_horiz, label: l10n.navMore),
 ];
+
+/// While an administrator previews the learner app: a banner with Exit.
+class _PreviewFrame extends ConsumerWidget {
+  const _PreviewFrame({required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    return Column(
+      children: [
+        Material(
+          color: theme.colorScheme.tertiaryContainer,
+          child: SafeArea(
+            bottom: false,
+            child: ListTile(
+              dense: true,
+              leading: const Icon(Icons.visibility_outlined),
+              title: Text(l10n.previewBanner),
+              trailing: FilledButton.tonal(
+                onPressed: () => ref.read(learnerPreviewProvider).on = false,
+                child: Text(l10n.previewExit),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: MediaQuery.removePadding(
+            context: context,
+            removeTop: true,
+            child: child,
+          ),
+        ),
+      ],
+    );
+  }
+}

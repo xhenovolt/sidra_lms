@@ -88,7 +88,10 @@ class CourseRepository {
     remote: () async {
       final rows = await _api.select(
         'courses',
-        filters: {'status': Pg.eq('published')},
+        filters: {
+          'status': Pg.eq('published'),
+          'visibility': Pg.eq('catalogue'),
+        },
         order: 'title.asc',
       );
       final courses = rows.map(Course.fromJson).toList();

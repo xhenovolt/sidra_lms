@@ -5628,6 +5628,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Text added. Tap it to edit.'**
   String get capPasted;
+
+  /// No description provided for @layoutGrid.
+  ///
+  /// In en, this message translates to:
+  /// **'Show as grid'**
+  String get layoutGrid;
+
+  /// No description provided for @layoutList.
+  ///
+  /// In en, this message translates to:
+  /// **'Show as list'**
+  String get layoutList;
+
+  /// No description provided for @topCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'Top courses'**
+  String get topCourses;
+
+  /// No description provided for @topCoursesLearners.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 learner} other{{count} learners}}'**
+  String topCoursesLearners(int count);
+
+  /// No description provided for @allCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'All courses'**
+  String get allCourses;
+
+  /// No description provided for @previewAsLearner.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview as learner'**
+  String get previewAsLearner;
+
+  /// No description provided for @previewAsLearnerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'See the app exactly as learners see it'**
+  String get previewAsLearnerHint;
+
+  /// No description provided for @previewBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'You are previewing as a learner'**
+  String get previewBanner;
+
+  /// No description provided for @previewExit.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit'**
+  String get previewExit;
 }
 
 class _AppLocalizationsDelegate

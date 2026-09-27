@@ -8,6 +8,7 @@ import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/state_views.dart';
 import '../../curriculum/domain/curriculum_models.dart';
+import 'course_browsing.dart';
 import 'course_widgets.dart';
 
 /// Responsive grid of course cards (1 column on phones, more on tablets).
@@ -36,7 +37,8 @@ class _CourseGrid extends StatelessWidget {
   }
 }
 
-/// Explore tab: the published catalogue.
+/// Explore tab: the published catalogue — top courses (most enrolled) in
+/// a carousel, then every course as a grid or a list.
 class ExploreScreen extends ConsumerWidget {
   const ExploreScreen({super.key});
 
@@ -44,10 +46,21 @@ class ExploreScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final catalogue = ref.watch(catalogueProvider);
+    final grid = ref.watch(courseLayoutProvider('catalogue'));
+    final top = ref.watch(topCoursesProvider).value ?? const [];
+    void open(Course c) => context.push(Routes.courseDetail(c.id));
+
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.exploreTitle)),
+      appBar: AppBar(
+        title: Text(l10n.exploreTitle),
+        actions: const [CourseLayoutToggle(screen: 'catalogue')],
+      ),
       body: RefreshIndicator(
-        onRefresh: () => ref.refresh(catalogueProvider.future),
+        onRefresh: () async {
+          ref.invalidate(topCoursesProvider);
+          ref.invalidate(catalogueProvider);
+          await ref.read(catalogueProvider.future);
+        },
         child: switch (catalogue) {
           AsyncData(value: final List<Course> courses) when courses.isEmpty =>
             ListView(
@@ -59,14 +72,73 @@ class ExploreScreen extends ConsumerWidget {
                 ),
               ],
             ),
-          AsyncData(value: final List<Course> courses) => _CourseGrid(
-            children: [
-              for (final c in courses)
-                CourseCard(
-                  course: c,
-                  onTap: () => context.push(Routes.courseDetail(c.id)),
-                ),
-            ],
+          AsyncData(value: final List<Course> courses) => LayoutBuilder(
+            builder: (context, box) {
+              final byId = {for (final c in courses) c.id: c};
+              final featured = [
+                for (final (id, n) in top)
+                  if (byId[id] case final c?) (c, n),
+              ];
+              return CustomScrollView(
+                slivers: [
+                  if (featured.isNotEmpty)
+                    SliverToBoxAdapter(
+                      child: TopCoursesCarousel(
+                        courses: featured,
+                        onOpen: open,
+                      ),
+                    ),
+                  SliverPadding(
+                    padding: const EdgeInsets.fromLTRB(
+                      Space.md,
+                      Space.md,
+                      Space.md,
+                      Space.xs,
+                    ),
+                    sliver: SliverToBoxAdapter(
+                      child: Text(
+                        l10n.allCourses,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: const EdgeInsets.fromLTRB(
+                      Space.md,
+                      0,
+                      Space.md,
+                      Space.xl,
+                    ),
+                    sliver: grid
+                        ? SliverGrid.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: courseGridColumns(
+                                    box.maxWidth,
+                                  ),
+                                  mainAxisSpacing: Space.sm,
+                                  crossAxisSpacing: Space.sm,
+                                  mainAxisExtent: 200,
+                                ),
+                            itemCount: courses.length,
+                            itemBuilder: (_, i) => CourseTile(
+                              course: courses[i],
+                              onTap: () => open(courses[i]),
+                            ),
+                          )
+                        : SliverList.separated(
+                            itemCount: courses.length,
+                            separatorBuilder: (_, _) =>
+                                const SizedBox(height: Space.sm),
+                            itemBuilder: (_, i) => CourseCard(
+                              course: courses[i],
+                              onTap: () => open(courses[i]),
+                            ),
+                          ),
+                  ),
+                ],
+              );
+            },
           ),
           AsyncError(:final error) => ListView(
             children: [

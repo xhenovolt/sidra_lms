@@ -919,5 +919,14 @@
   "capAddContent": "أضف: التقط أو سجّل أو امسح أو اختر",
   "capAddWork": "أضف صورة أو مسحًا أو ملفًا",
   "capClipboardEmpty": "لا يوجد نص للصق. انسخ نصًا أولًا.",
-  "capPasted": "أُضيف النص. اضغط عليه لتعديله."
+  "capPasted": "أُضيف النص. اضغط عليه لتعديله.",
+  "layoutGrid": "عرض كشبكة",
+  "layoutList": "عرض كقائمة",
+  "topCourses": "أشهر الدورات",
+  "topCoursesLearners": "{count, plural, =1{متعلم واحد} other{{count} متعلمين}}",
+  "allCourses": "كل الدورات",
+  "previewAsLearner": "معاينة كمتعلم",
+  "previewAsLearnerHint": "شاهد التطبيق كما يراه المتعلمون تمامًا",
+  "previewBanner": "أنت تعاين التطبيق كمتعلم",
+  "previewExit": "خروج"
 }

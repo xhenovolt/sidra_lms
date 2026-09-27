@@ -304,4 +304,21 @@ reset role;
 select pg_temp.check(not exists (select 1 from media_assets where id = '00000000-0000-0000-0000-0000000aaf41'),
   'an old photo is deleted when replaced');
 
+-- Top courses: ranked by enrolments; hidden and draft courses never appear.
+insert into courses (id, slug, title, subject, access, status, visibility)
+values ('00000000-0000-0000-0000-0000000ab001', 'tt-hidden', 'Hidden', 'Q', 'free', 'published', 'hidden');
+insert into course_enrolments (course_id, user_id, status, source)
+select '00000000-0000-0000-0000-0000000ab001', u, 'active', 'admin_grant'
+from unnest(array[current_setting('t.a')::uuid, current_setting('t.b')::uuid,
+                  current_setting('t.c')::uuid, current_setting('t.x')::uuid]) u;
+select pg_temp.login_as_id(current_setting('t.x')::uuid);
+set local role authenticated;
+select pg_temp.check(exists (select 1 from public.top_courses(20) t
+                             where t.course_id = '00000000-0000-0000-0000-0000000aa001' and t.enrolled = 3),
+  'top courses counts enrolments');
+select pg_temp.check(not exists (select 1 from public.top_courses(20) t
+                                 where t.course_id = '00000000-0000-0000-0000-0000000ab001'),
+  'hidden courses are never featured');
+reset role;
+
 select 'ALL TEACHING TESTS PASSED' as result;

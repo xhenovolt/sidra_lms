@@ -41,10 +41,12 @@ import '../../features/profile/presentation/profile_screen.dart';
 import '../../l10n/app_localizations.dart';
 import 'app_shell.dart';
 import 'routes.dart';
+import 'learner_preview.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final auth = ref.watch(authServiceProvider);
   final onboarding = ref.watch(onboardingControllerProvider);
+  final preview = ref.watch(learnerPreviewProvider);
 
   Widget titled(String Function(AppLocalizations) title, Widget child) =>
       Builder(
@@ -54,13 +56,16 @@ final routerProvider = Provider<GoRouter>((ref) {
 
   final router = GoRouter(
     initialLocation: Routes.home,
-    refreshListenable: Listenable.merge([auth, onboarding]),
+    refreshListenable: Listenable.merge([auth, onboarding, preview]),
     redirect: (context, state) => authRedirect(
       auth.session.status,
       state.matchedLocation,
       onboarded: onboarding.completed,
       mustChangePassword: auth.session.user?.mustChangePassword ?? false,
-      role: auth.session.user?.role,
+      // Previewing administrators get the learner's screens.
+      role: preview.on && auth.session.user?.role == 'admin'
+          ? 'learner'
+          : auth.session.user?.role,
     ),
     routes: [
       GoRoute(path: Routes.splash, builder: (_, _) => const SplashScreen()),

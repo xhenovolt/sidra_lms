@@ -3109,4 +3109,39 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get capPasted => 'أُضيف النص. اضغط عليه لتعديله.';
+
+  @override
+  String get layoutGrid => 'عرض كشبكة';
+
+  @override
+  String get layoutList => 'عرض كقائمة';
+
+  @override
+  String get topCourses => 'أشهر الدورات';
+
+  @override
+  String topCoursesLearners(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count متعلمين',
+      one: 'متعلم واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get allCourses => 'كل الدورات';
+
+  @override
+  String get previewAsLearner => 'معاينة كمتعلم';
+
+  @override
+  String get previewAsLearnerHint => 'شاهد التطبيق كما يراه المتعلمون تمامًا';
+
+  @override
+  String get previewBanner => 'أنت تعاين التطبيق كمتعلم';
+
+  @override
+  String get previewExit => 'خروج';
 }

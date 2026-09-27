@@ -1512,5 +1512,21 @@
   "capAddContent": "Add: take, record, scan or choose",
   "capAddWork": "Add photo, scan or file",
   "capClipboardEmpty": "There is no text to paste. Copy some text first.",
-  "capPasted": "Text added. Tap it to edit."
+  "capPasted": "Text added. Tap it to edit.",
+  "layoutGrid": "Show as grid",
+  "layoutList": "Show as list",
+  "topCourses": "Top courses",
+  "topCoursesLearners": "{count, plural, =1{1 learner} other{{count} learners}}",
+  "@topCoursesLearners": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "allCourses": "All courses",
+  "previewAsLearner": "Preview as learner",
+  "previewAsLearnerHint": "See the app exactly as learners see it",
+  "previewBanner": "You are previewing as a learner",
+  "previewExit": "Exit"
 }

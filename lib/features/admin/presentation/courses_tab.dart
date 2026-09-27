@@ -15,6 +15,7 @@ import '../../courses/presentation/course_widgets.dart';
 import '../../curriculum/domain/curriculum_models.dart';
 import '../../content/data/content_repository.dart';
 import '../../content/presentation/resource_widgets.dart';
+import '../../courses/presentation/course_browsing.dart';
 import 'admin_common.dart';
 import 'learners_tab.dart';
 
@@ -74,13 +75,20 @@ class _CoursesTabState extends ConsumerState<CoursesTab> {
       padding: const EdgeInsets.fromLTRB(Space.md, Space.sm, Space.md, 0),
       child: Column(
         children: [
-          TextField(
-            decoration: InputDecoration(
-              prefixIcon: const Icon(Icons.search),
-              hintText: l10n.coursesSearchHint,
-              isDense: true,
-            ),
-            onChanged: (v) => setState(() => _query = v),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search),
+                    hintText: l10n.coursesSearchHint,
+                    isDense: true,
+                  ),
+                  onChanged: (v) => setState(() => _query = v),
+                ),
+              ),
+              const CourseLayoutToggle(screen: 'admin_courses'),
+            ],
           ),
           const SizedBox(height: Space.xs),
           SingleChildScrollView(
@@ -136,6 +144,31 @@ class _CoursesTabState extends ConsumerState<CoursesTab> {
                       ),
                   ],
                 ),
+                AsyncData(:final value)
+                    when ref.watch(courseLayoutProvider('admin_courses')) =>
+                  LayoutBuilder(
+                    builder: (context, box) => GridView.builder(
+                      padding: const EdgeInsets.fromLTRB(
+                        Space.md,
+                        Space.sm,
+                        Space.md,
+                        96,
+                      ),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: courseGridColumns(box.maxWidth),
+                        mainAxisSpacing: Space.sm,
+                        crossAxisSpacing: Space.sm,
+                        mainAxisExtent: 200,
+                      ),
+                      itemCount: value.length,
+                      itemBuilder: (context, i) => CourseTile(
+                        course: value[i],
+                        badge: StatusChip.of(value[i].status),
+                        onTap: () =>
+                            context.push('/teach/courses/${value[i].id}'),
+                      ),
+                    ),
+                  ),
                 AsyncData(:final value) => ListView.separated(
                   padding: const EdgeInsets.only(bottom: 96),
                   itemCount: value.length,
