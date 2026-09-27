@@ -13,6 +13,21 @@ class Release {
 
 final changelog = <Release>[
   Release(
+    '2.20.0',
+    DateTime(2026, 9, 28),
+    'Complete admin, faster app, profile photos',
+    [
+      'Profile photos: take one in the app, upload one, or choose an avatar.',
+      'Splash screen with "from Almuntahha".',
+      'The bottom bar and first screens open instantly from the phone\x27s saved copy, even offline, then refresh.',
+      'Delete a learner permanently (payments are kept, anonymised, for the accounts).',
+      'Notifications on the phone\x27s notification bar.',
+      'Admin reports: course completion, learners who have gone quiet, teacher activity.',
+      'Content library: see where each file is used, move it, and choose who can see it.',
+      'Edit mistake categories; resources on units and sections; teachers\x27 teaching languages.',
+    ],
+  ),
+  Release(
     '2.10.0',
     DateTime(2026, 9, 27),
     'Teaching the WhatsApp way, without WhatsApp',

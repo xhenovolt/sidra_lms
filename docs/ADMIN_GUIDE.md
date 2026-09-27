@@ -282,6 +282,52 @@ Tap **Test integration**. The server checks:
 
 Each check shows **PASS**, **WARNING** or **FAIL** with an explanation. No money moves and no secret is shown. MarzPay has no test mode for this account, so a real collection is proved only by paying for a course and entering a PIN.
 
+## Deleting a learner
+
+Open the learner (**Learners → tap the name → Actions**) and choose **Delete permanently**. Type their name to confirm; you can add a reason for the activity log.
+
+This erases:
+- their sign-in and profile;
+- their enrolments, progress and quiz attempts;
+- their recordings and photos;
+- teacher notes about them, and their notifications.
+
+It can't be undone.
+
+If the learner ever paid or received a waiver, their payments stay in Finance under **"Removed learner"**, with no name or contact details, so the accounts still add up. Staff accounts can't be deleted; disable them instead.
+
+## Reports
+
+**Menu → Reports**, for the last 7, 30 or 90 days:
+- **Course completion:** enrolled, finished, average progress, and stalled learners per course.
+- **Gone quiet:** enrolled learners with no activity; tap one to open their profile and follow up.
+- **Teacher activity:** reviews, review time, and work waiting for each teacher.
+
+## Correction library and mistake categories
+
+**Menu → Correction library** lists every saved correction. **Categories** lets you add, rename, reorder or delete mistake categories and their sub-categories. Deleting a category keeps its corrections.
+
+## Content library
+
+**Menu → Content library** holds every uploaded file and link. On each item, **Where used & who can see** shows every lesson, unit, section, course page and daily portion using it. From there you can:
+- hide it in one place or remove it from one place;
+- **Add to…** another course or lesson (to move a file, add it to the new place, then remove it from the old);
+- choose who can see it: **Learners with access**, or **Anyone viewing the course page**.
+
+**Replace with a new version** keeps the old file for portions already assigned.
+
+## Teachers' languages
+
+On a teacher's profile, **Teaches in** records the languages they teach in.
+
+## Phone notifications
+
+Sidra shows new portions, feedback and learners' work on the phone's notification bar. While the app is open it checks every minute; when it's closed, Android lets it check about every 15 minutes. Signing out stops notifications on that phone.
+
+## Profile photos
+
+Everyone can tap their picture (Profile, or More for staff) to take a photo, upload one, or choose one of the built-in avatars.
+
 ## Forgotten passwords
 
 Everyone signs in with their **phone number** (with country code, e.g.
