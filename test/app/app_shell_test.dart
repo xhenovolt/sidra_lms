@@ -40,7 +40,7 @@ void main() {
     await tester.pumpWidget(await buildTestApp(auth));
     await tester.pump();
     expect(find.byType(SidraMark), findsOneWidget);
-    expect(find.byType(LinearProgressIndicator), findsOneWidget);
+    expect(find.bySemanticsLabel('from Almuntahha'), findsOneWidget);
 
     auth.session = const AuthSession.signedIn(testUser);
     await tester.pumpAndSettle();

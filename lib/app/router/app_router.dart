@@ -17,6 +17,7 @@ import '../../features/admin/presentation/settings_screen.dart';
 import '../../features/admin/presentation/staff_pages.dart';
 import '../../features/assessments/presentation/quiz_screen.dart';
 import '../../features/about/presentation/about_screen.dart';
+import '../splash_screen.dart';
 import '../../features/admin/presentation/reports_screen.dart';
 import '../../features/content/presentation/assignment_widgets.dart';
 import '../../features/teaching/presentation/learner_portion_screen.dart';
@@ -38,7 +39,6 @@ import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/profile/data/profile_repository.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../l10n/app_localizations.dart';
-import '../../shared/widgets/sidra_mark.dart';
 import 'app_shell.dart';
 import 'routes.dart';
 
@@ -63,19 +63,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       role: auth.session.user?.role,
     ),
     routes: [
-      GoRoute(
-        path: Routes.splash,
-        builder: (_, _) => const Scaffold(
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SidraMark(size: 96),
-              SizedBox(height: 32),
-              SizedBox(width: 120, child: LinearProgressIndicator()),
-            ],
-          ),
-        ),
-      ),
+      GoRoute(path: Routes.splash, builder: (_, _) => const SplashScreen()),
       GoRoute(
         path: Routes.onboarding,
         builder: (_, _) => const OnboardingScreen(),
