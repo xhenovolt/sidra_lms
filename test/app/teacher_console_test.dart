@@ -344,7 +344,10 @@ void main() {
     await signInAs(tester, 'superadmin', api: api);
     await openDrawer(tester);
     await scrollDrawerTo(tester, 'Administrators');
-    await tester.tap(inDrawer('Administrators'));
+    await tester.ensureVisible(inDrawer('Administrators'));
+    await tester.pumpAndSettle();
+    await tester.tap(inDrawer('Administrators'), warnIfMissed: true);
+
     await tester.pumpAndSettle();
     expect(find.text('Hamuza Ibrahim'), findsOneWidget);
 
