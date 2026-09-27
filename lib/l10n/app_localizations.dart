@@ -5232,6 +5232,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete \"{name}\" and its sub-categories? Corrections in it are kept, without a category.'**
   String categoryDeleteBody(String name);
+
+  /// No description provided for @resourcesForSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Resources for this section'**
+  String get resourcesForSection;
+
+  /// No description provided for @resourcesForUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Resources for this unit'**
+  String get resourcesForUnit;
 }
 
 class _AppLocalizationsDelegate

@@ -2877,4 +2877,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String categoryDeleteBody(String name) {
     return 'حذف «$name» وأنواعه الفرعية؟ تبقى تصحيحاته بلا نوع.';
   }
+
+  @override
+  String get resourcesForSection => 'مصادر هذا القسم';
+
+  @override
+  String get resourcesForUnit => 'مصادر هذه الوحدة';
 }

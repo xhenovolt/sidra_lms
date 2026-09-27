@@ -1365,5 +1365,7 @@
         "type": "String"
       }
     }
-  }
+  },
+  "resourcesForSection": "Resources for this section",
+  "resourcesForUnit": "Resources for this unit"
 }

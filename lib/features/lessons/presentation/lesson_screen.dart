@@ -283,6 +283,18 @@ class _LessonBodyState extends ConsumerState<_LessonBody> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ResourceListView(target: ResourceTarget.lesson, id: lesson.id),
+                if (lesson.nodeId != null)
+                  ResourceListView(
+                    target: ResourceTarget.node,
+                    id: lesson.nodeId!,
+                    title: l10n.resourcesForSection,
+                  ),
+                if (lesson.unitId != null)
+                  ResourceListView(
+                    target: ResourceTarget.unit,
+                    id: lesson.unitId!,
+                    title: l10n.resourcesForUnit,
+                  ),
                 const SizedBox(height: Space.md),
                 LessonAssignmentsView(lessonId: lesson.id),
                 if (waitingForTeacher)

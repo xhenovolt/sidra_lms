@@ -81,9 +81,17 @@ Future<void> openResource(
 
 /// Learners: the files and links attached to a lesson (or course, unit…).
 class ResourceListView extends ConsumerWidget {
-  const ResourceListView({super.key, required this.target, required this.id});
+  const ResourceListView({
+    super.key,
+    required this.target,
+    required this.id,
+    this.title,
+  });
   final ResourceTarget target;
   final String id;
+
+  /// Heading (defaults to "Resources").
+  final String? title;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -97,7 +105,7 @@ class ResourceListView extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(l10n.resourcesTitle, style: theme.textTheme.titleMedium),
+        Text(title ?? l10n.resourcesTitle, style: theme.textTheme.titleMedium),
         const SizedBox(height: Space.xs),
         for (final r in items)
           Card(
@@ -868,3 +876,26 @@ class LanguageDropdown extends ConsumerWidget {
     );
   }
 }
+
+/// Files and links of one unit or section, in a sheet.
+Future<void> showResourcesSheet(
+  BuildContext context, {
+  required ResourceTarget target,
+  required String id,
+  required String title,
+}) => showModalBottomSheet<void>(
+  context: context,
+  isScrollControlled: true,
+  showDragHandle: true,
+  builder: (context) => SizedBox(
+    height: MediaQuery.sizeOf(context).height * 0.7,
+    child: ListView(
+      padding: const EdgeInsets.fromLTRB(Space.md, 0, Space.md, Space.lg),
+      children: [
+        Text(title, style: Theme.of(context).textTheme.titleLarge),
+        const SizedBox(height: Space.sm),
+        ResourceManager(target: target, id: id),
+      ],
+    ),
+  ),
+);

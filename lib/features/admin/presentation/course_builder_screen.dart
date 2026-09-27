@@ -503,11 +503,27 @@ class _AdminOutlineItem extends ConsumerWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: Space.md, bottom: Space.xxs),
-              child: Text(
-                unit.title,
-                style: theme.textTheme.titleSmall?.copyWith(
-                  color: theme.colorScheme.primary,
-                ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      unit.title,
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                  TextButton.icon(
+                    onPressed: () => showResourcesSheet(
+                      context,
+                      target: ResourceTarget.unit,
+                      id: unit.id,
+                      title: unit.title,
+                    ),
+                    icon: const Icon(Icons.attach_file, size: 18),
+                    label: Text(l10n.resourcesTitle),
+                  ),
+                ],
               ),
             ),
             for (final c in children)
@@ -565,6 +581,13 @@ class _AdminOutlineItem extends ConsumerWidget {
                           )) {
                             onChanged();
                           }
+                        case 'resources':
+                          await showResourcesSheet(
+                            context,
+                            target: ResourceTarget.node,
+                            id: node.id,
+                            title: node.title,
+                          );
                         case 'up':
                           await _move(context, ref, -1);
                         case 'down':
@@ -600,6 +623,10 @@ class _AdminOutlineItem extends ConsumerWidget {
                       PopupMenuItem(
                         value: 'lesson',
                         child: Text(l10n.adminAddLesson),
+                      ),
+                      PopupMenuItem(
+                        value: 'resources',
+                        child: Text(l10n.resourcesTitle),
                       ),
                       const PopupMenuDivider(),
                       ...commonItems(published),

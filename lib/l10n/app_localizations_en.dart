@@ -2906,4 +2906,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String categoryDeleteBody(String name) {
     return 'Delete \"$name\" and its sub-categories? Corrections in it are kept, without a category.';
   }
+
+  @override
+  String get resourcesForSection => 'Resources for this section';
+
+  @override
+  String get resourcesForUnit => 'Resources for this unit';
 }

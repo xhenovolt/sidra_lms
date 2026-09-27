@@ -854,5 +854,7 @@
   "categoryRename": "إعادة تسمية",
   "categoryName": "الاسم",
   "categoryDelete": "حذف",
-  "categoryDeleteBody": "حذف «{name}» وأنواعه الفرعية؟ تبقى تصحيحاته بلا نوع."
+  "categoryDeleteBody": "حذف «{name}» وأنواعه الفرعية؟ تبقى تصحيحاته بلا نوع.",
+  "resourcesForSection": "مصادر هذا القسم",
+  "resourcesForUnit": "مصادر هذه الوحدة"
 }
