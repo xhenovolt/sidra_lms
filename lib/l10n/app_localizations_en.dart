@@ -2965,4 +2965,86 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get personTeachesInNone => 'Not set. Tap to choose languages.';
+
+  @override
+  String get reportsTitle => 'Reports';
+
+  @override
+  String get repLearners => 'Learners';
+
+  @override
+  String get repLearnersQ => 'Active accounts';
+
+  @override
+  String get repActive => 'Studying';
+
+  @override
+  String get repActiveQ => 'Learners who did something in this period';
+
+  @override
+  String get repNew => 'New';
+
+  @override
+  String get repNewQ => 'Learners who joined in this period';
+
+  @override
+  String get repCompletions => 'Finished';
+
+  @override
+  String get repCompletionsQ => 'Courses completed in this period';
+
+  @override
+  String get repCourses => 'Course completion';
+
+  @override
+  String get repCoursesQ => 'Are learners getting through each course?';
+
+  @override
+  String repCourseLine(
+    int enrolled,
+    int completed,
+    int progress,
+    int active,
+    int stalled,
+  ) {
+    return '$enrolled enrolled · $completed finished · $progress% average progress · $active active · $stalled stalled';
+  }
+
+  @override
+  String get repQuiet => 'Gone quiet';
+
+  @override
+  String repQuietQ(int days) {
+    return 'Enrolled learners with no activity in $days days: who should we follow up?';
+  }
+
+  @override
+  String get repNeverStarted => 'never started';
+
+  @override
+  String repLastSeen(String date) {
+    return 'last active $date';
+  }
+
+  @override
+  String get repTeachers => 'Teacher activity';
+
+  @override
+  String get repTeachersQ =>
+      'Who is reviewing, how fast, and what is waiting on them?';
+
+  @override
+  String repTeacherReviews(int count) {
+    return '$count reviews';
+  }
+
+  @override
+  String repTeacherTurnaround(String hours) {
+    return '$hours h to review';
+  }
+
+  @override
+  String repTeacherWaiting(int count) {
+    return '$count waiting';
+  }
 }

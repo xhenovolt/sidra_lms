@@ -19,6 +19,8 @@ const _adminPerms = [
   'learners.view',
   'learners.create',
   'learners.edit',
+  'learners.delete',
+  'reports.view',
   'teachers.view',
   'teachers.create',
   'teachers.assign',

@@ -37,6 +37,7 @@ abstract final class Routes {
   static const adminTeaching = '/admin/teaching';
   static const adminLibrary = '/admin/library';
   static const adminCorrections = '/admin/corrections';
+  static const adminReports = '/admin/reports';
   static const about = '/about';
   static const notifications = '/notifications';
   static const adminMore = '/admin/account';

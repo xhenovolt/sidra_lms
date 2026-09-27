@@ -1390,5 +1390,80 @@
   "libraryCoursePage": "Course page",
   "librarySection": "Section",
   "personTeachesIn": "Teaches in",
-  "personTeachesInNone": "Not set. Tap to choose languages."
+  "personTeachesInNone": "Not set. Tap to choose languages.",
+  "reportsTitle": "Reports",
+  "repLearners": "Learners",
+  "repLearnersQ": "Active accounts",
+  "repActive": "Studying",
+  "repActiveQ": "Learners who did something in this period",
+  "repNew": "New",
+  "repNewQ": "Learners who joined in this period",
+  "repCompletions": "Finished",
+  "repCompletionsQ": "Courses completed in this period",
+  "repCourses": "Course completion",
+  "repCoursesQ": "Are learners getting through each course?",
+  "repCourseLine": "{enrolled} enrolled · {completed} finished · {progress}% average progress · {active} active · {stalled} stalled",
+  "@repCourseLine": {
+    "placeholders": {
+      "enrolled": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      },
+      "progress": {
+        "type": "int"
+      },
+      "active": {
+        "type": "int"
+      },
+      "stalled": {
+        "type": "int"
+      }
+    }
+  },
+  "repQuiet": "Gone quiet",
+  "repQuietQ": "Enrolled learners with no activity in {days} days: who should we follow up?",
+  "@repQuietQ": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "repNeverStarted": "never started",
+  "repLastSeen": "last active {date}",
+  "@repLastSeen": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "repTeachers": "Teacher activity",
+  "repTeachersQ": "Who is reviewing, how fast, and what is waiting on them?",
+  "repTeacherReviews": "{count} reviews",
+  "@repTeacherReviews": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "repTeacherTurnaround": "{hours} h to review",
+  "@repTeacherTurnaround": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "repTeacherWaiting": "{count} waiting",
+  "@repTeacherWaiting": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

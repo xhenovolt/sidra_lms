@@ -266,4 +266,58 @@ void main() {
     expect(w.$2, 'resources');
     expect(w.$3['is_public'], isTrue);
   });
+
+  testWidgets('admin reports answer who needs following up', (tester) async {
+    final api = staffServer('admin');
+    api.rpcHandlers['admin_reports'] = (_) => {
+      'totals': {'learners': 42, 'active': 30, 'new': 5, 'completions': 3},
+      'courses': [
+        {
+          'id': 'c1',
+          'title': 'Yassarna: Beginners',
+          'enrolled': 25,
+          'completed': 3,
+          'avg_progress': 40,
+          'active': 20,
+          'stalled': 5,
+        },
+      ],
+      'inactive_learners': [
+        {
+          'user_id': 'u9',
+          'name': 'Yusuf',
+          'course': 'Yassarna: Beginners',
+          'progress': 10,
+        },
+      ],
+      'teachers': [
+        {
+          'user_id': 't1',
+          'name': 'Ustadh Musa',
+          'reviews': 18,
+          'avg_review_hours': 3.5,
+          'waiting': 2,
+        },
+      ],
+    };
+    await signInAs(tester, 'admin', api: api);
+    GoRouter.of(tester.element(find.byType(NavigationBar)))
+        .go('/admin/reports');
+    await tester.pumpAndSettle();
+    expect(find.text('42'), findsOneWidget);
+    expect(
+      find.textContaining('25 enrolled · 3 finished · 40% average progress'),
+      findsOneWidget,
+    );
+    await tester.scrollUntilVisible(
+      find.text('Ustadh Musa'),
+      300,
+      scrollable: find.byType(Scrollable).last,
+    );
+    expect(find.text('Yusuf'), findsOneWidget);
+    expect(
+      find.textContaining('18 reviews · 3.5 h to review · 2 waiting'),
+      findsOneWidget,
+    );
+  });
 }

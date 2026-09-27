@@ -2936,4 +2936,85 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get personTeachesInNone => 'غير محدد. اضغط لاختيار اللغات.';
+
+  @override
+  String get reportsTitle => 'التقارير';
+
+  @override
+  String get repLearners => 'المتعلمون';
+
+  @override
+  String get repLearnersQ => 'الحسابات الفعّالة';
+
+  @override
+  String get repActive => 'يدرسون';
+
+  @override
+  String get repActiveQ => 'متعلمون نشطوا في هذه المدة';
+
+  @override
+  String get repNew => 'جدد';
+
+  @override
+  String get repNewQ => 'انضموا في هذه المدة';
+
+  @override
+  String get repCompletions => 'أنهوا';
+
+  @override
+  String get repCompletionsQ => 'دورات اكتملت في هذه المدة';
+
+  @override
+  String get repCourses => 'إتمام الدورات';
+
+  @override
+  String get repCoursesQ => 'هل يتقدم المتعلمون في كل دورة؟';
+
+  @override
+  String repCourseLine(
+    int enrolled,
+    int completed,
+    int progress,
+    int active,
+    int stalled,
+  ) {
+    return '$enrolled مسجلون · $completed أنهوا · $progress% متوسط التقدم · $active نشطون · $stalled متوقفون';
+  }
+
+  @override
+  String get repQuiet => 'انقطعوا';
+
+  @override
+  String repQuietQ(int days) {
+    return 'متعلمون مسجلون بلا نشاط منذ $days يومًا: من نتابع؟';
+  }
+
+  @override
+  String get repNeverStarted => 'لم يبدأ';
+
+  @override
+  String repLastSeen(String date) {
+    return 'آخر نشاط $date';
+  }
+
+  @override
+  String get repTeachers => 'نشاط المعلمين';
+
+  @override
+  String get repTeachersQ => 'من يراجع، وبأي سرعة، وما الذي ينتظرهم؟';
+
+  @override
+  String repTeacherReviews(int count) {
+    return '$count مراجعة';
+  }
+
+  @override
+  String repTeacherTurnaround(String hours) {
+    return '$hours ساعة للمراجعة';
+  }
+
+  @override
+  String repTeacherWaiting(int count) {
+    return '$count بانتظاره';
+  }
 }

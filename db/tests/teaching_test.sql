@@ -247,4 +247,20 @@ select pg_temp.expect_error($q$select public.set_user_languages(current_setting(
   'unknown language');
 reset role;
 
+-- Admin reports.
+select pg_temp.login_as('admin_1');
+set local role authenticated;
+select set_config('t.rep', public.admin_reports(30)::text, true);
+select pg_temp.check(exists (select 1 from jsonb_array_elements(current_setting('t.rep')::jsonb->'teachers') t
+                             where t->>'name' = 'Ustadh Tt' and (t->>'reviews')::int >= 4),
+  'teacher activity counts reviews');
+select pg_temp.check(exists (select 1 from jsonb_array_elements(current_setting('t.rep')::jsonb->'courses') c
+                             where c->>'title' = 'TT Yassarna' and (c->>'enrolled')::int = 3),
+  'course report counts enrolments');
+reset role;
+select pg_temp.login_as_id(current_setting('t.a')::uuid);
+set local role authenticated;
+select pg_temp.check(public.admin_reports(30) is null, 'learners get no reports');
+reset role;
+
 select 'ALL TEACHING TESTS PASSED' as result;

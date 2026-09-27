@@ -17,6 +17,7 @@ import '../../features/admin/presentation/settings_screen.dart';
 import '../../features/admin/presentation/staff_pages.dart';
 import '../../features/assessments/presentation/quiz_screen.dart';
 import '../../features/about/presentation/about_screen.dart';
+import '../../features/admin/presentation/reports_screen.dart';
 import '../../features/content/presentation/assignment_widgets.dart';
 import '../../features/teaching/presentation/learner_portion_screen.dart';
 import '../../features/teaching/presentation/library_screens.dart';
@@ -170,6 +171,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: Routes.adminTeaching,
             builder: (_, _) => const TeachingHomeScreen(),
+          ),
+          GoRoute(
+            path: Routes.adminReports,
+            builder: (_, _) => const ReportsScreen(),
           ),
           GoRoute(
             path: Routes.adminCorrections,

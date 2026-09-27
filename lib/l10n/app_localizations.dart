@@ -5340,6 +5340,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not set. Tap to choose languages.'**
   String get personTeachesInNone;
+
+  /// No description provided for @reportsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get reportsTitle;
+
+  /// No description provided for @repLearners.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners'**
+  String get repLearners;
+
+  /// No description provided for @repLearnersQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Active accounts'**
+  String get repLearnersQ;
+
+  /// No description provided for @repActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Studying'**
+  String get repActive;
+
+  /// No description provided for @repActiveQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners who did something in this period'**
+  String get repActiveQ;
+
+  /// No description provided for @repNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get repNew;
+
+  /// No description provided for @repNewQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners who joined in this period'**
+  String get repNewQ;
+
+  /// No description provided for @repCompletions.
+  ///
+  /// In en, this message translates to:
+  /// **'Finished'**
+  String get repCompletions;
+
+  /// No description provided for @repCompletionsQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses completed in this period'**
+  String get repCompletionsQ;
+
+  /// No description provided for @repCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'Course completion'**
+  String get repCourses;
+
+  /// No description provided for @repCoursesQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Are learners getting through each course?'**
+  String get repCoursesQ;
+
+  /// No description provided for @repCourseLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{enrolled} enrolled · {completed} finished · {progress}% average progress · {active} active · {stalled} stalled'**
+  String repCourseLine(
+    int enrolled,
+    int completed,
+    int progress,
+    int active,
+    int stalled,
+  );
+
+  /// No description provided for @repQuiet.
+  ///
+  /// In en, this message translates to:
+  /// **'Gone quiet'**
+  String get repQuiet;
+
+  /// No description provided for @repQuietQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Enrolled learners with no activity in {days} days: who should we follow up?'**
+  String repQuietQ(int days);
+
+  /// No description provided for @repNeverStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'never started'**
+  String get repNeverStarted;
+
+  /// No description provided for @repLastSeen.
+  ///
+  /// In en, this message translates to:
+  /// **'last active {date}'**
+  String repLastSeen(String date);
+
+  /// No description provided for @repTeachers.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher activity'**
+  String get repTeachers;
+
+  /// No description provided for @repTeachersQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Who is reviewing, how fast, and what is waiting on them?'**
+  String get repTeachersQ;
+
+  /// No description provided for @repTeacherReviews.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} reviews'**
+  String repTeacherReviews(int count);
+
+  /// No description provided for @repTeacherTurnaround.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h to review'**
+  String repTeacherTurnaround(String hours);
+
+  /// No description provided for @repTeacherWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} waiting'**
+  String repTeacherWaiting(int count);
 }
 
 class _AppLocalizationsDelegate
