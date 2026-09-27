@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../core/notifications/phone_notifications.dart';
+
 import 'package:go_router/go_router.dart';
 
 import '../../../app/router/routes.dart';
@@ -116,7 +119,7 @@ class StaffMoreScreen extends ConsumerWidget {
           ListTile(
             leading: const Icon(Icons.logout),
             title: Text(l10n.signOut),
-            onTap: () => ref.read(authServiceProvider).signOut(),
+            onTap: () => signOutEverywhere(ref),
           ),
         ],
       ),

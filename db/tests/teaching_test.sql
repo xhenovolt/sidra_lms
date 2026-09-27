@@ -263,4 +263,19 @@ set local role authenticated;
 select pg_temp.check(public.admin_reports(30) is null, 'learners get no reports');
 reset role;
 
+-- Phone notifications: a notification-only token.
+select pg_temp.login_as_id(current_setting('t.b')::uuid);
+set local role authenticated;
+select set_config('t.ntok', public.issue_notification_token(), true);
+reset role;
+set local role sidra_app;
+select pg_temp.check((select count(*) from public.poll_notifications(current_setting('t.ntok'),
+                      now() - interval '1 hour')) >= 2, 'token reads the learner''s new notifications');
+select pg_temp.check(not exists (select 1 from public.poll_notifications('wrong-token')),
+  'a wrong token reads nothing');
+select public.revoke_notification_token(current_setting('t.ntok'));
+select pg_temp.check(not exists (select 1 from public.poll_notifications(current_setting('t.ntok'),
+                      now() - interval '1 hour')), 'revoked token reads nothing');
+reset role;
+
 select 'ALL TEACHING TESTS PASSED' as result;

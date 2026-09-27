@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../core/notifications/phone_notifications.dart';
 import '../core/config/app_config.dart';
 import '../core/logging/app_logger.dart';
 import '../core/network/pg_client.dart';
@@ -43,6 +46,18 @@ Future<void> bootstrap() async {
     auth = UnconfiguredAuthService();
   }
 
+  // Phone notifications (Android): plugin, background check.
+  try {
+    await PhoneNotifications.start();
+  } catch (e) {
+    debugPrint('notifications unavailable: $e');
+  }
+  unawaited(
+    Future<void>.delayed(
+      const Duration(seconds: 2),
+      PhoneNotifications.openLaunchNotification,
+    ),
+  );
   runApp(
     ProviderScope(
       overrides: [

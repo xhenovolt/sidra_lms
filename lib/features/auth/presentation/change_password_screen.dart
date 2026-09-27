@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../core/notifications/phone_notifications.dart';
+
 import 'package:go_router/go_router.dart';
 
 import '../../../app/router/routes.dart';
@@ -116,7 +119,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                   if (widget.forced) ...[
                     const SizedBox(height: Space.md),
                     TextButton(
-                      onPressed: () => ref.read(authServiceProvider).signOut(),
+                      onPressed: () => signOutEverywhere(ref),
                       child: Text(l10n.signOut),
                     ),
                   ],
