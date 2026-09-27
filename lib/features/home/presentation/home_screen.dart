@@ -6,6 +6,9 @@ import '../../../app/router/routes.dart';
 import '../../../core/data/repository_providers.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../teaching/data/teaching_repository.dart';
+import '../../teaching/presentation/learner_portion_screen.dart';
+import '../../teaching/presentation/library_screens.dart';
 import '../../../shared/widgets/state_views.dart';
 import '../../auth/presentation/auth_providers.dart';
 import '../../courses/presentation/course_widgets.dart';
@@ -37,7 +40,11 @@ class HomeScreen extends ConsumerWidget {
             const SyncBanner(),
             Expanded(
               child: RefreshIndicator(
-                onRefresh: () => ref.refresh(myCoursesProvider.future),
+                onRefresh: () async {
+                  ref.invalidate(learnerTodayProvider);
+                  ref.invalidate(myCoursesProvider);
+                  await ref.read(myCoursesProvider.future);
+                },
                 child: CustomScrollView(
                   slivers: [
                     SliverPadding(
@@ -48,16 +55,31 @@ class HomeScreen extends ConsumerWidget {
                         Space.md,
                       ),
                       sliver: SliverToBoxAdapter(
-                        child: Text(
-                          greeting,
-                          style: Theme.of(context).textTheme.headlineMedium,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                greeting,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium,
+                              ),
+                            ),
+                            const NotificationBell(),
+                          ],
                         ),
                       ),
                     ),
+                    // What to do now: today's portions and corrections.
+                    const SliverPadding(
+                      padding: EdgeInsets.symmetric(horizontal: Space.lg),
+                      sliver: SliverToBoxAdapter(child: TodayLearningSection()),
+                    ),
                     ...switch (mine) {
                       AsyncData(:final value) when value.isEmpty => [
-                        SliverFillRemaining(
-                          hasScrollBody: false,
+                        // A box, not "fill remaining": today's portions may
+                        // already take the space above.
+                        SliverToBoxAdapter(
                           child: EmptyView(
                             icon: Icons.auto_stories_outlined,
                             title: l10n.noEnrolmentsTitle,

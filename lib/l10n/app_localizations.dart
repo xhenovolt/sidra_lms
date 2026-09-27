@@ -4278,6 +4278,858 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Uploading…'**
   String get uploadUploading;
+
+  /// No description provided for @aboutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'About Sidra'**
+  String get aboutTitle;
+
+  /// No description provided for @aboutBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Sidra is Almuntahha\'s learning app for the Qur\'an and the Islamic sciences. Teachers give each day\'s portion once, learners read, listen and record, and every learner still gets their teacher\'s personal correction.'**
+  String get aboutBody;
+
+  /// No description provided for @aboutBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Made for Almuntahha by Xhenvolt.'**
+  String get aboutBy;
+
+  /// No description provided for @aboutLicences.
+  ///
+  /// In en, this message translates to:
+  /// **'Open-source licences'**
+  String get aboutLicences;
+
+  /// No description provided for @aboutVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version} (build {build})'**
+  String aboutVersion(String version, String build);
+
+  /// No description provided for @aboutWhatsNew.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s new'**
+  String get aboutWhatsNew;
+
+  /// No description provided for @analyticsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Teaching insights'**
+  String get analyticsTitle;
+
+  /// No description provided for @analyticsDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days'**
+  String analyticsDays(int days);
+
+  /// No description provided for @anWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting'**
+  String get anWaiting;
+
+  /// No description provided for @anWaitingQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Work not yet reviewed'**
+  String get anWaitingQ;
+
+  /// No description provided for @anTurnaround.
+  ///
+  /// In en, this message translates to:
+  /// **'Review time'**
+  String get anTurnaround;
+
+  /// No description provided for @anTurnaroundQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Average time until first review'**
+  String get anTurnaroundQ;
+
+  /// No description provided for @anFirstTry.
+  ///
+  /// In en, this message translates to:
+  /// **'Right first time'**
+  String get anFirstTry;
+
+  /// No description provided for @anFirstTryQ.
+  ///
+  /// In en, this message translates to:
+  /// **'First attempts marked correct'**
+  String get anFirstTryQ;
+
+  /// No description provided for @anSubmissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Submissions'**
+  String get anSubmissions;
+
+  /// No description provided for @anSubmissionsQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Recordings and work handed in'**
+  String get anSubmissionsQ;
+
+  /// No description provided for @anIncomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Not finished'**
+  String get anIncomplete;
+
+  /// No description provided for @anIncompleteQ.
+  ///
+  /// In en, this message translates to:
+  /// **'Portions still open after 3 days'**
+  String get anIncompleteQ;
+
+  /// No description provided for @anTopCorrections.
+  ///
+  /// In en, this message translates to:
+  /// **'Most used corrections'**
+  String get anTopCorrections;
+
+  /// No description provided for @anTopCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Most common mistakes'**
+  String get anTopCategories;
+
+  /// No description provided for @anRepeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners trying many times'**
+  String get anRepeat;
+
+  /// No description provided for @anByTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviews by teacher'**
+  String get anByTeacher;
+
+  /// No description provided for @anNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing yet'**
+  String get anNone;
+
+  /// No description provided for @attNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New work'**
+  String get attNew;
+
+  /// No description provided for @attResubmissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Tried again'**
+  String get attResubmissions;
+
+  /// No description provided for @attCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting to try again'**
+  String get attCorrection;
+
+  /// No description provided for @attNotSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Not sent yet'**
+  String get attNotSubmitted;
+
+  /// No description provided for @attBehind.
+  ///
+  /// In en, this message translates to:
+  /// **'Falling behind'**
+  String get attBehind;
+
+  /// No description provided for @attOpenPortions.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} portions open'**
+  String attOpenPortions(int count);
+
+  /// No description provided for @attAllClear.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing needs you right now.'**
+  String get attAllClear;
+
+  /// No description provided for @audioPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get audioPlay;
+
+  /// No description provided for @audioPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get audioPause;
+
+  /// No description provided for @audioRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Record'**
+  String get audioRecord;
+
+  /// No description provided for @audioRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording'**
+  String get audioRecording;
+
+  /// No description provided for @audioPaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get audioPaused;
+
+  /// No description provided for @audioPauseRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get audioPauseRecording;
+
+  /// No description provided for @audioResume.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get audioResume;
+
+  /// No description provided for @audioStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get audioStop;
+
+  /// No description provided for @audioDiscard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get audioDiscard;
+
+  /// No description provided for @audioRecordAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Record again'**
+  String get audioRecordAgain;
+
+  /// No description provided for @audioYourRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Your recording ({duration})'**
+  String audioYourRecording(String duration);
+
+  /// No description provided for @audioNeedsMicrophone.
+  ///
+  /// In en, this message translates to:
+  /// **'Sidra needs the microphone to record. Allow it in your phone\'s settings.'**
+  String get audioNeedsMicrophone;
+
+  /// No description provided for @audioRecordFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording did not work. Please try again.'**
+  String get audioRecordFailed;
+
+  /// No description provided for @audioCannotPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'This recording cannot be played.'**
+  String get audioCannotPlay;
+
+  /// No description provided for @audioLibraryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio library'**
+  String get audioLibraryTitle;
+
+  /// No description provided for @audioSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search recordings'**
+  String get audioSearch;
+
+  /// No description provided for @audioOnlyMine.
+  ///
+  /// In en, this message translates to:
+  /// **'Only mine'**
+  String get audioOnlyMine;
+
+  /// No description provided for @audioNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No recordings yet'**
+  String get audioNone;
+
+  /// No description provided for @correctionLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'Correction library'**
+  String get correctionLibrary;
+
+  /// No description provided for @correctionLibraryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Corrections saved while reviewing appear here, ready to reuse.'**
+  String get correctionLibraryHint;
+
+  /// No description provided for @correctionAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'New correction'**
+  String get correctionAdd;
+
+  /// No description provided for @correctionSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search: ص, shaddah, madd…'**
+  String get correctionSearch;
+
+  /// No description provided for @correctionNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No corrections found'**
+  String get correctionNone;
+
+  /// No description provided for @correctionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get correctionTitle;
+
+  /// No description provided for @correctionTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Difference between ص and س'**
+  String get correctionTitleHint;
+
+  /// No description provided for @correctionCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Mistake category'**
+  String get correctionCategory;
+
+  /// No description provided for @correctionExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Short explanation (optional)'**
+  String get correctionExplanation;
+
+  /// No description provided for @correctionUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{not used yet} =1{used once} other{used {count} times}}'**
+  String correctionUsed(int count);
+
+  /// No description provided for @correctionArchive.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get correctionArchive;
+
+  /// No description provided for @correctionForYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Correction for you'**
+  String get correctionForYou;
+
+  /// No description provided for @groupNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New group'**
+  String get groupNew;
+
+  /// No description provided for @groupName.
+  ///
+  /// In en, this message translates to:
+  /// **'Group name'**
+  String get groupName;
+
+  /// No description provided for @groupLearners.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No learners} =1{1 learner} other{{count} learners}}'**
+  String groupLearners(int count);
+
+  /// No description provided for @groupNoLearners.
+  ///
+  /// In en, this message translates to:
+  /// **'No learners are enrolled in this course yet.'**
+  String get groupNoLearners;
+
+  /// No description provided for @groupMembers.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners'**
+  String get groupMembers;
+
+  /// No description provided for @groupWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} waiting'**
+  String groupWaiting(int count);
+
+  /// No description provided for @groupsNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No groups yet. Create one for a class you teach.'**
+  String get groupsNone;
+
+  /// No description provided for @myGroups.
+  ///
+  /// In en, this message translates to:
+  /// **'My groups'**
+  String get myGroups;
+
+  /// No description provided for @needsAttention.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs my attention'**
+  String get needsAttention;
+
+  /// No description provided for @navTeaching.
+  ///
+  /// In en, this message translates to:
+  /// **'Teaching'**
+  String get navTeaching;
+
+  /// No description provided for @libraryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Content library'**
+  String get libraryTitle;
+
+  /// No description provided for @librarySearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search files and links'**
+  String get librarySearch;
+
+  /// No description provided for @libraryRenameTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename or tag'**
+  String get libraryRenameTag;
+
+  /// No description provided for @libraryReplace.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace with a new version'**
+  String get libraryReplace;
+
+  /// No description provided for @libraryReplaced.
+  ///
+  /// In en, this message translates to:
+  /// **'New version saved. Work already assigned keeps the old one.'**
+  String get libraryReplaced;
+
+  /// No description provided for @libraryUsedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'in {lessons} lessons, {portions} portions'**
+  String libraryUsedIn(int lessons, int portions);
+
+  /// No description provided for @listenTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen to your teacher'**
+  String get listenTeacher;
+
+  /// No description provided for @listenModel.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen to the model reading'**
+  String get listenModel;
+
+  /// No description provided for @notSentYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved on this phone. Your teacher has not received it yet.'**
+  String get notSentYet;
+
+  /// No description provided for @noteAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Private note'**
+  String get noteAdd;
+
+  /// No description provided for @notePrivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Note (only teachers see it)'**
+  String get notePrivate;
+
+  /// No description provided for @notePrivateHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Still confusing ض and ظ'**
+  String get notePrivateHint;
+
+  /// No description provided for @notesAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes about {name}'**
+  String notesAbout(String name);
+
+  /// No description provided for @notificationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationsTitle;
+
+  /// No description provided for @notificationsNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications'**
+  String get notificationsNone;
+
+  /// No description provided for @notificationsMarkRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark all read'**
+  String get notificationsMarkRead;
+
+  /// No description provided for @partNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get partNew;
+
+  /// No description provided for @partToDo.
+  ///
+  /// In en, this message translates to:
+  /// **'To do'**
+  String get partToDo;
+
+  /// No description provided for @partWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent · waiting'**
+  String get partWaiting;
+
+  /// No description provided for @partUnderReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher is listening'**
+  String get partUnderReview;
+
+  /// No description provided for @partTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get partTryAgain;
+
+  /// No description provided for @partDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get partDone;
+
+  /// No description provided for @portionDefaultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Page '**
+  String get portionDefaultTitle;
+
+  /// No description provided for @portionCreateToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Create today\'s portion'**
+  String get portionCreateToday;
+
+  /// No description provided for @portionCreateNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next after {title}'**
+  String portionCreateNext(String title);
+
+  /// No description provided for @portionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Portions'**
+  String get portionsTitle;
+
+  /// No description provided for @portionEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit portion'**
+  String get portionEdit;
+
+  /// No description provided for @portionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get portionTitle;
+
+  /// No description provided for @portionTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Page 12'**
+  String get portionTitleHint;
+
+  /// No description provided for @portionTask.
+  ///
+  /// In en, this message translates to:
+  /// **'What learners should do'**
+  String get portionTask;
+
+  /// No description provided for @portionTaskHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Read this page three times. Watch the shaddah.'**
+  String get portionTaskHint;
+
+  /// No description provided for @portionExplainedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructions given in'**
+  String get portionExplainedIn;
+
+  /// No description provided for @portionLearnersSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners send'**
+  String get portionLearnersSend;
+
+  /// No description provided for @portionPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Page'**
+  String get portionPage;
+
+  /// No description provided for @portionAddPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Add page (photo, image or PDF)'**
+  String get portionAddPage;
+
+  /// No description provided for @portionInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher instruction'**
+  String get portionInstruction;
+
+  /// No description provided for @portionRecordInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Record instruction'**
+  String get portionRecordInstruction;
+
+  /// No description provided for @portionModel.
+  ///
+  /// In en, this message translates to:
+  /// **'Model recitation'**
+  String get portionModel;
+
+  /// No description provided for @portionRecordModel.
+  ///
+  /// In en, this message translates to:
+  /// **'Record model'**
+  String get portionRecordModel;
+
+  /// No description provided for @portionFromLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'From my audio'**
+  String get portionFromLibrary;
+
+  /// No description provided for @portionUseRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this recording'**
+  String get portionUseRecording;
+
+  /// No description provided for @portionAssignGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign to the group'**
+  String get portionAssignGroup;
+
+  /// No description provided for @portionAssignChosen.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign to chosen learners'**
+  String get portionAssignChosen;
+
+  /// No description provided for @portionAssignCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign to {count}'**
+  String portionAssignCount(int count);
+
+  /// No description provided for @portionAssigned.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Everyone already had it} =1{1 learner received it} other{{count} learners received it}}'**
+  String portionAssigned(int count);
+
+  /// No description provided for @portionSaveDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Save as draft'**
+  String get portionSaveDraft;
+
+  /// No description provided for @portionNotAssigned.
+  ///
+  /// In en, this message translates to:
+  /// **'Not assigned to anyone yet'**
+  String get portionNotAssigned;
+
+  /// No description provided for @portionBoardHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a learner to listen and review.'**
+  String get portionBoardHint;
+
+  /// No description provided for @recordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Read the page aloud and record yourself.'**
+  String get recordHint;
+
+  /// No description provided for @recordAgainBelow.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen, then record again below.'**
+  String get recordAgainBelow;
+
+  /// No description provided for @resExcellent.
+  ///
+  /// In en, this message translates to:
+  /// **'Excellent'**
+  String get resExcellent;
+
+  /// No description provided for @resCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct'**
+  String get resCorrect;
+
+  /// No description provided for @resMinor.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct, small note'**
+  String get resMinor;
+
+  /// No description provided for @resCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Correction required'**
+  String get resCorrection;
+
+  /// No description provided for @resExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs explanation'**
+  String get resExplain;
+
+  /// No description provided for @reviewCorrectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Correction'**
+  String get reviewCorrectionTitle;
+
+  /// No description provided for @reviewUseExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'Existing correction'**
+  String get reviewUseExisting;
+
+  /// No description provided for @reviewRecordNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Record new'**
+  String get reviewRecordNew;
+
+  /// No description provided for @reviewSaveToLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'Save to correction library'**
+  String get reviewSaveToLibrary;
+
+  /// No description provided for @reviewSaveToLibraryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Reuse it for the next learner with this mistake.'**
+  String get reviewSaveToLibraryHint;
+
+  /// No description provided for @reviewFeedbackOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Written feedback (optional)'**
+  String get reviewFeedbackOptional;
+
+  /// No description provided for @reviewSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent to the learner'**
+  String get reviewSent;
+
+  /// No description provided for @sendToTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Send to teacher'**
+  String get sendToTeacher;
+
+  /// No description provided for @sentToTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent. Your teacher has it.'**
+  String get sentToTeacher;
+
+  /// No description provided for @sentWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent: waiting for your teacher'**
+  String get sentWaiting;
+
+  /// No description provided for @sentWaitingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You will be told when your teacher replies.'**
+  String get sentWaitingBody;
+
+  /// No description provided for @teacherSays.
+  ///
+  /// In en, this message translates to:
+  /// **'Your teacher: {text}'**
+  String teacherSays(String text);
+
+  /// No description provided for @theirRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Their recording'**
+  String get theirRecording;
+
+  /// No description provided for @todayLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s learning'**
+  String get todayLearning;
+
+  /// No description provided for @useThis.
+  ///
+  /// In en, this message translates to:
+  /// **'Use'**
+  String get useThis;
+
+  /// No description provided for @yourAttempts.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Your attempt} other{Your {count} attempts}}'**
+  String yourAttempts(int count);
+
+  /// No description provided for @yourTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Your task'**
+  String get yourTask;
 }
 
 class _AppLocalizationsDelegate

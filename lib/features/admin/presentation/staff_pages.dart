@@ -12,14 +12,20 @@ import 'people_tab.dart';
 
 /// A staff tab page with its own title bar.
 class StaffPage extends StatelessWidget {
-  const StaffPage({super.key, required this.title, required this.child});
+  const StaffPage({
+    super.key,
+    required this.title,
+    required this.child,
+    this.actions,
+  });
 
   final String title;
   final Widget child;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text(title)),
+    appBar: AppBar(title: Text(title), actions: actions),
     body: child,
   );
 }
@@ -96,6 +102,16 @@ class StaffMoreScreen extends ConsumerWidget {
             leading: const Icon(Icons.key_outlined),
             title: Text(l10n.authChangePassword),
             onTap: () => context.push(Routes.changePassword),
+          ),
+          ListTile(
+            leading: const Icon(Icons.notifications_outlined),
+            title: Text(l10n.notificationsTitle),
+            onTap: () => context.push(Routes.notifications),
+          ),
+          ListTile(
+            leading: const Icon(Icons.info_outline),
+            title: Text(l10n.aboutTitle),
+            onTap: () => context.push(Routes.about),
           ),
           ListTile(
             leading: const Icon(Icons.logout),

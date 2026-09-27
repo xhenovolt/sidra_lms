@@ -1081,5 +1081,251 @@
     }
   },
   "uploadFailed": "Upload failed",
-  "uploadUploading": "Uploading…"
+  "uploadUploading": "Uploading…",
+  "aboutTitle": "About Sidra",
+  "aboutBody": "Sidra is Almuntahha's learning app for the Qur'an and the Islamic sciences. Teachers give each day's portion once, learners read, listen and record, and every learner still gets their teacher's personal correction.",
+  "aboutBy": "Made for Almuntahha by Xhenvolt.",
+  "aboutLicences": "Open-source licences",
+  "aboutVersion": "Version {version} (build {build})",
+  "@aboutVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "build": {
+        "type": "String"
+      }
+    }
+  },
+  "aboutWhatsNew": "What's new",
+  "analyticsTitle": "Teaching insights",
+  "analyticsDays": "{days} days",
+  "@analyticsDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "anWaiting": "Waiting",
+  "anWaitingQ": "Work not yet reviewed",
+  "anTurnaround": "Review time",
+  "anTurnaroundQ": "Average time until first review",
+  "anFirstTry": "Right first time",
+  "anFirstTryQ": "First attempts marked correct",
+  "anSubmissions": "Submissions",
+  "anSubmissionsQ": "Recordings and work handed in",
+  "anIncomplete": "Not finished",
+  "anIncompleteQ": "Portions still open after 3 days",
+  "anTopCorrections": "Most used corrections",
+  "anTopCategories": "Most common mistakes",
+  "anRepeat": "Learners trying many times",
+  "anByTeacher": "Reviews by teacher",
+  "anNone": "Nothing yet",
+  "attNew": "New work",
+  "attResubmissions": "Tried again",
+  "attCorrection": "Waiting to try again",
+  "attNotSubmitted": "Not sent yet",
+  "attBehind": "Falling behind",
+  "attOpenPortions": "{count} portions open",
+  "@attOpenPortions": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "attAllClear": "Nothing needs you right now.",
+  "audioPlay": "Play",
+  "audioPause": "Pause",
+  "audioRecord": "Record",
+  "audioRecording": "Recording",
+  "audioPaused": "Paused",
+  "audioPauseRecording": "Pause",
+  "audioResume": "Continue",
+  "audioStop": "Stop",
+  "audioDiscard": "Discard",
+  "audioRecordAgain": "Record again",
+  "audioYourRecording": "Your recording ({duration})",
+  "@audioYourRecording": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "audioNeedsMicrophone": "Sidra needs the microphone to record. Allow it in your phone's settings.",
+  "audioRecordFailed": "Recording did not work. Please try again.",
+  "audioCannotPlay": "This recording cannot be played.",
+  "audioLibraryTitle": "Audio library",
+  "audioSearch": "Search recordings",
+  "audioOnlyMine": "Only mine",
+  "audioNone": "No recordings yet",
+  "correctionLibrary": "Correction library",
+  "correctionLibraryHint": "Corrections saved while reviewing appear here, ready to reuse.",
+  "correctionAdd": "New correction",
+  "correctionSearch": "Search: ص, shaddah, madd…",
+  "correctionNone": "No corrections found",
+  "correctionTitle": "Title",
+  "correctionTitleHint": "e.g. Difference between ص and س",
+  "correctionCategory": "Mistake category",
+  "correctionExplanation": "Short explanation (optional)",
+  "correctionUsed": "{count, plural, =0{not used yet} =1{used once} other{used {count} times}}",
+  "@correctionUsed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "correctionArchive": "Archive",
+  "correctionForYou": "Correction for you",
+  "groupNew": "New group",
+  "groupName": "Group name",
+  "groupLearners": "{count, plural, =0{No learners} =1{1 learner} other{{count} learners}}",
+  "@groupLearners": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "groupNoLearners": "No learners are enrolled in this course yet.",
+  "groupMembers": "Learners",
+  "groupWaiting": "{count} waiting",
+  "@groupWaiting": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "groupsNone": "No groups yet. Create one for a class you teach.",
+  "myGroups": "My groups",
+  "needsAttention": "Needs my attention",
+  "navTeaching": "Teaching",
+  "libraryTitle": "Content library",
+  "librarySearch": "Search files and links",
+  "libraryRenameTag": "Rename or tag",
+  "libraryReplace": "Replace with a new version",
+  "libraryReplaced": "New version saved. Work already assigned keeps the old one.",
+  "libraryUsedIn": "in {lessons} lessons, {portions} portions",
+  "@libraryUsedIn": {
+    "placeholders": {
+      "lessons": {
+        "type": "int"
+      },
+      "portions": {
+        "type": "int"
+      }
+    }
+  },
+  "listenTeacher": "Listen to your teacher",
+  "listenModel": "Listen to the model reading",
+  "notSentYet": "Saved on this phone. Your teacher has not received it yet.",
+  "noteAdd": "Private note",
+  "notePrivate": "Note (only teachers see it)",
+  "notePrivateHint": "e.g. Still confusing ض and ظ",
+  "notesAbout": "Notes about {name}",
+  "@notesAbout": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "notificationsTitle": "Notifications",
+  "notificationsNone": "No notifications",
+  "notificationsMarkRead": "Mark all read",
+  "partNew": "New",
+  "partToDo": "To do",
+  "partWaiting": "Sent · waiting",
+  "partUnderReview": "Teacher is listening",
+  "partTryAgain": "Try again",
+  "partDone": "Done",
+  "portionDefaultTitle": "Page ",
+  "portionCreateToday": "Create today's portion",
+  "portionCreateNext": "Next after {title}",
+  "@portionCreateNext": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "portionsTitle": "Portions",
+  "portionEdit": "Edit portion",
+  "portionTitle": "Title",
+  "portionTitleHint": "e.g. Page 12",
+  "portionTask": "What learners should do",
+  "portionTaskHint": "e.g. Read this page three times. Watch the shaddah.",
+  "portionExplainedIn": "Instructions given in",
+  "portionLearnersSend": "Learners send",
+  "portionPage": "Page",
+  "portionAddPage": "Add page (photo, image or PDF)",
+  "portionInstruction": "Teacher instruction",
+  "portionRecordInstruction": "Record instruction",
+  "portionModel": "Model recitation",
+  "portionRecordModel": "Record model",
+  "portionFromLibrary": "From my audio",
+  "portionUseRecording": "Use this recording",
+  "portionAssignGroup": "Assign to the group",
+  "portionAssignChosen": "Assign to chosen learners",
+  "portionAssignCount": "Assign to {count}",
+  "@portionAssignCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "portionAssigned": "{count, plural, =0{Everyone already had it} =1{1 learner received it} other{{count} learners received it}}",
+  "@portionAssigned": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "portionSaveDraft": "Save as draft",
+  "portionNotAssigned": "Not assigned to anyone yet",
+  "portionBoardHint": "Tap a learner to listen and review.",
+  "recordHint": "Read the page aloud and record yourself.",
+  "recordAgainBelow": "Listen, then record again below.",
+  "resExcellent": "Excellent",
+  "resCorrect": "Correct",
+  "resMinor": "Correct, small note",
+  "resCorrection": "Correction required",
+  "resExplain": "Needs explanation",
+  "reviewCorrectionTitle": "Correction",
+  "reviewUseExisting": "Existing correction",
+  "reviewRecordNew": "Record new",
+  "reviewSaveToLibrary": "Save to correction library",
+  "reviewSaveToLibraryHint": "Reuse it for the next learner with this mistake.",
+  "reviewFeedbackOptional": "Written feedback (optional)",
+  "reviewSent": "Sent to the learner",
+  "sendToTeacher": "Send to teacher",
+  "sentToTeacher": "Sent. Your teacher has it.",
+  "sentWaiting": "Sent: waiting for your teacher",
+  "sentWaitingBody": "You will be told when your teacher replies.",
+  "teacherSays": "Your teacher: {text}",
+  "@teacherSays": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "theirRecording": "Their recording",
+  "todayLearning": "Today's learning",
+  "useThis": "Use",
+  "yourAttempts": "{count, plural, =1{Your attempt} other{Your {count} attempts}}",
+  "@yourAttempts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "yourTask": "Your task"
 }

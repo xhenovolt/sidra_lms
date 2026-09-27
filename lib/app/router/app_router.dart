@@ -16,7 +16,11 @@ import '../../features/admin/presentation/roles_audit_screens.dart';
 import '../../features/admin/presentation/settings_screen.dart';
 import '../../features/admin/presentation/staff_pages.dart';
 import '../../features/assessments/presentation/quiz_screen.dart';
+import '../../features/about/presentation/about_screen.dart';
 import '../../features/content/presentation/assignment_widgets.dart';
+import '../../features/teaching/presentation/learner_portion_screen.dart';
+import '../../features/teaching/presentation/library_screens.dart';
+import '../../features/teaching/presentation/teacher_screens.dart';
 import '../../features/auth/domain/auth_session.dart';
 import '../../features/auth/presentation/auth_providers.dart';
 import '../../features/auth/presentation/change_password_screen.dart';
@@ -101,6 +105,16 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, _, shell) => AppShell(shell: shell, items: teacherNav),
         branches: [
           _branch(
+            Routes.teacherTeaching,
+            Builder(
+              builder: (context) => StaffPage(
+                title: AppLocalizations.of(context).navTeaching,
+                actions: const [NotificationBell()],
+                child: const TeachingHomeScreen(),
+              ),
+            ),
+          ),
+          _branch(
             Routes.teacherLearners,
             titled((l) => l.adminTabLearners, const LearnersTab()),
           ),
@@ -152,6 +166,14 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: Routes.adminAudit,
             builder: (_, _) => const AuditScreen(),
+          ),
+          GoRoute(
+            path: Routes.adminTeaching,
+            builder: (_, _) => const TeachingHomeScreen(),
+          ),
+          GoRoute(
+            path: Routes.adminLibrary,
+            builder: (_, _) => const ContentLibraryScreen(),
           ),
           GoRoute(
             path: Routes.adminSubmissions,
@@ -214,6 +236,50 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.teachSubmissions,
         builder: (_, _) => const SubmissionsScreen(),
+      ),
+      GoRoute(path: Routes.about, builder: (_, _) => const AboutScreen()),
+      GoRoute(
+        path: Routes.notifications,
+        builder: (_, _) => const NotificationsScreen(),
+      ),
+      GoRoute(
+        path: '/learn/portions/:portionId',
+        builder: (_, state) =>
+            LearnerPortionScreen(portionId: state.pathParameters['portionId']!),
+      ),
+      GoRoute(
+        path: '/teach/groups/:groupId',
+        builder: (_, state) =>
+            GroupScreen(groupId: state.pathParameters['groupId']!),
+      ),
+      GoRoute(
+        path: '/teach/portions/new',
+        builder: (_, state) => PortionEditorScreen(
+          groupId: state.uri.queryParameters['group'],
+          courseId: state.uri.queryParameters['course'],
+        ),
+      ),
+      GoRoute(
+        path: '/teach/portions/:portionId',
+        builder: (_, state) =>
+            PortionBoardScreen(portionId: state.pathParameters['portionId']!),
+      ),
+      GoRoute(
+        path: '/teach/portions/:portionId/edit',
+        builder: (_, state) =>
+            PortionEditorScreen(portionId: state.pathParameters['portionId']!),
+      ),
+      GoRoute(
+        path: '/teach/corrections',
+        builder: (_, _) => const CorrectionLibraryScreen(),
+      ),
+      GoRoute(
+        path: '/teach/audio',
+        builder: (_, _) => const AudioLibraryScreen(),
+      ),
+      GoRoute(
+        path: '/teach/analytics',
+        builder: (_, _) => const TeachingAnalyticsScreen(),
       ),
       GoRoute(
         path: '/teach/people/:userId',

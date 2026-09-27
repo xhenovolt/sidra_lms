@@ -14,6 +14,7 @@ abstract final class Routes {
   static const profile = '/profile';
 
   // Teacher navigation.
+  static const teacherTeaching = '/teacher/teaching';
   static const teacherLearners = '/teacher/learners';
   static const teacherCourses = '/teacher/courses';
   static const teacherMore = '/teacher/more';
@@ -33,6 +34,10 @@ abstract final class Routes {
   static const adminSettings = '/admin/settings';
   static const adminSubmissions = '/admin/submissions';
   static const teachSubmissions = '/teach/submissions';
+  static const adminTeaching = '/admin/teaching';
+  static const adminLibrary = '/admin/library';
+  static const about = '/about';
+  static const notifications = '/notifications';
   static const adminMore = '/admin/account';
 
   /// The published catalogue as learners see it (for staff previews).
@@ -57,7 +62,7 @@ abstract final class Routes {
   /// Where each role starts.
   static String homeFor(String? role) => switch (role) {
     'admin' => adminDashboard,
-    'teacher' => teacherLearners,
+    'teacher' => teacherTeaching,
     _ => home,
   };
 }

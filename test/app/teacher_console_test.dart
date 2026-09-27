@@ -219,7 +219,7 @@ void main() {
     ]);
 
     await signInAs(tester, 'teacher');
-    expect(navLabels(tester), ['Learners', 'Courses', 'More']);
+    expect(navLabels(tester), ['Teaching', 'Learners', 'Courses', 'More']);
   });
 
   testWidgets(
@@ -261,7 +261,9 @@ void main() {
   testWidgets('superadmin also sees administrators and roles', (tester) async {
     await signInAs(tester, 'superadmin');
     await openDrawer(tester);
+    await scrollDrawerTo(tester, 'Administrators');
     expect(inDrawer('Administrators'), findsOneWidget);
+    await scrollDrawerTo(tester, 'Roles & permissions');
     expect(inDrawer('Roles & permissions'), findsOneWidget);
   });
 
@@ -315,6 +317,8 @@ void main() {
     final api = staffServer('teacher');
     await signInAs(tester, 'teacher', api: api);
 
+    await tester.tap(find.text('Learners').last);
+    await tester.pumpAndSettle();
     expect(find.text('Waiting for your review'), findsOneWidget);
     expect(find.text('Bilal'), findsOneWidget);
 
@@ -339,6 +343,7 @@ void main() {
     final api = staffServer('superadmin');
     await signInAs(tester, 'superadmin', api: api);
     await openDrawer(tester);
+    await scrollDrawerTo(tester, 'Administrators');
     await tester.tap(inDrawer('Administrators'));
     await tester.pumpAndSettle();
     expect(find.text('Hamuza Ibrahim'), findsOneWidget);

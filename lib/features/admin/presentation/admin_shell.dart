@@ -77,6 +77,18 @@ final adminSections = <AdminSection>[
       {'teaching.review', 'courses.view'},
     ),
     AdminDestination(
+      Routes.adminTeaching,
+      Icons.co_present_outlined,
+      (l) => l.navTeaching,
+      {'teaching.review'},
+    ),
+    AdminDestination(
+      Routes.adminLibrary,
+      Icons.perm_media_outlined,
+      (l) => l.libraryTitle,
+      {'content.upload', 'courses.view'},
+    ),
+    AdminDestination(
       Routes.adminSubmissions,
       Icons.inbox_outlined,
       (l) => l.subTitle,

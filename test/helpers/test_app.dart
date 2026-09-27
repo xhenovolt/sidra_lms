@@ -49,4 +49,8 @@ Future<Widget> buildTestApp(
 /// A server with no courses and no enrolments.
 FakePostgresApi emptyServer() => FakePostgresApi()
   ..rpcHandlers['my_courses'] = ((_) => const [])
+  ..rpcHandlers['learner_today'] = ((_) => const [])
+  ..rpcHandlers['my_notifications'] = ((_) => const [])
+  ..rpcHandlers['my_teaching_groups'] = ((_) => const [])
+  ..rpcHandlers['teacher_attention'] = ((_) => const <String, Object>{})
   ..rpcHandlers['ensure_profile'] = ((_) => {'id': 'u1', 'role': 'learner'});

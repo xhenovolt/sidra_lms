@@ -68,10 +68,15 @@ void main() {
       }
     } finally {
       for (final rid in [?linkCourse, ?linkLesson]) {
-        await api.delete('resource_links', filters: {'resource_id': Pg.eq(rid)});
-        await api.update('resources', {
-          'archived_at': DateTime.now().toUtc().toIso8601String(),
-        }, filters: {'id': Pg.eq(rid)});
+        await api.delete(
+          'resource_links',
+          filters: {'resource_id': Pg.eq(rid)},
+        );
+        await api.update(
+          'resources',
+          {'archived_at': DateTime.now().toUtc().toIso8601String()},
+          filters: {'id': Pg.eq(rid)},
+        );
       }
       await auth.logout(
         session['refresh_token'] as String,

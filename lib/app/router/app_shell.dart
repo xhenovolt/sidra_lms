@@ -97,6 +97,11 @@ List<NavItem> learnerNav(AppLocalizations l10n) => [
 
 List<NavItem> teacherNav(AppLocalizations l10n) => [
   (
+    icon: Icons.co_present_outlined,
+    selectedIcon: Icons.co_present,
+    label: l10n.navTeaching,
+  ),
+  (
     icon: Icons.rate_review_outlined,
     selectedIcon: Icons.rate_review,
     label: l10n.adminTabLearners,

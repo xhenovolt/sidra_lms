@@ -228,10 +228,7 @@ void main() {
     api.rpcHandlers['org_settings'] = (_) => {'org_name': 'Almuntahha'};
     api.rpcHandlers['my_permissions'] = (_) => [
       {
-        'my_permissions': [
-          ...permsFor('superadmin'),
-          'settings.manage',
-        ],
+        'my_permissions': [...permsFor('superadmin'), 'settings.manage'],
       },
     ];
     api.rpcHandlers['payment_integration_status'] = (_) => {

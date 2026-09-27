@@ -11,6 +11,7 @@ import '../../../core/data/repository_providers.dart';
 import '../../../core/errors/app_failure.dart';
 import '../../admin/data/admin_repository.dart';
 import '../../admin/presentation/admin_common.dart';
+import '../../teaching/data/teaching_repository.dart';
 import 'content_repository.dart';
 
 /// A file chosen for a submission, and where its upload stands.
@@ -56,7 +57,8 @@ class QueuedFile {
 class QueuedSubmission {
   QueuedSubmission({
     required this.id,
-    required this.assignmentId,
+    this.assignmentId,
+    this.portionId,
     required this.files,
     this.text,
     this.state = 'pending',
@@ -65,7 +67,8 @@ class QueuedSubmission {
 
   factory QueuedSubmission.fromJson(Map<String, dynamic> j) => QueuedSubmission(
     id: j['id'] as String,
-    assignmentId: j['assignment_id'] as String,
+    assignmentId: j['assignment_id'] as String?,
+    portionId: j['portion_id'] as String?,
     text: j['text'] as String?,
     files: [
       for (final f in (j['files'] as List? ?? const []))
@@ -76,7 +79,10 @@ class QueuedSubmission {
   );
 
   final String id;
-  final String assignmentId;
+  final String? assignmentId;
+
+  /// Teaching portion (recitation) instead of an assignment.
+  final String? portionId;
   final String? text;
   final List<QueuedFile> files;
   String state;
@@ -85,6 +91,7 @@ class QueuedSubmission {
   Map<String, Object?> toJson() => {
     'id': id,
     'assignment_id': assignmentId,
+    'portion_id': portionId,
     'text': text,
     'files': [for (final f in files) f.toJson()],
     'state': state,
@@ -116,14 +123,17 @@ class SubmissionQueue extends AsyncNotifier<List<QueuedSubmission>> {
   /// Queues work and tries to send it now. Returns true when the server
   /// accepted it; false when it stays queued (offline or failed).
   Future<bool> submit({
-    required String assignmentId,
+    String? assignmentId,
+    String? portionId,
     String? text,
     required List<QueuedFile> files,
   }) async {
+    assert((assignmentId == null) != (portionId == null));
     final list = [...(await future)];
     final entry = QueuedSubmission(
       id: const Uuid().v4(),
       assignmentId: assignmentId,
+      portionId: portionId,
       text: text,
       files: files,
     );
@@ -165,22 +175,42 @@ class SubmissionQueue extends AsyncNotifier<List<QueuedSubmission>> {
         );
         await _save(list); // remember each finished upload
       }
-      await ref
-          .read(contentRepositoryProvider)
-          .submitWork(
-            submissionId: entry.id,
-            assignmentId: entry.assignmentId,
-            text: entry.text,
-            files: [
-              for (final f in entry.files)
-                {
-                  'media_asset_id': f.mediaAssetId,
-                  'file_name': f.name,
-                  'mime_type': mimeTypeFor(f.name),
-                  'bytes': f.bytes,
-                },
-            ],
-          );
+      final files = [
+        for (final f in entry.files)
+          {
+            'media_asset_id': f.mediaAssetId,
+            'file_name': f.name,
+            'mime_type': mimeTypeFor(f.name),
+            'bytes': f.bytes,
+          },
+      ];
+      if (entry.portionId != null) {
+        await ref
+            .read(teachingRepositoryProvider)
+            .submit(
+              submissionId: entry.id,
+              portionId: entry.portionId!,
+              text: entry.text,
+              files: files,
+            );
+      } else {
+        await ref
+            .read(contentRepositoryProvider)
+            .submitWork(
+              submissionId: entry.id,
+              assignmentId: entry.assignmentId!,
+              text: entry.text,
+              files: [
+                for (final f in entry.files)
+                  {
+                    'media_asset_id': f.mediaAssetId,
+                    'file_name': f.name,
+                    'mime_type': mimeTypeFor(f.name),
+                    'bytes': f.bytes,
+                  },
+              ],
+            );
+      }
       list.removeWhere((e) => e.id == entry.id);
       await _save(list);
       return true;

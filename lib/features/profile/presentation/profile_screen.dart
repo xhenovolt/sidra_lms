@@ -97,6 +97,12 @@ class ProfileScreen extends ConsumerWidget {
           ),
           ListTile(
             contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.info_outline),
+            title: Text(l10n.aboutTitle),
+            onTap: () => context.push(Routes.about),
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.logout),
             title: Text(l10n.signOut),
             onTap: () => ref.read(authServiceProvider).signOut(),

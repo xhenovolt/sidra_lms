@@ -2331,4 +2331,490 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get uploadUploading => 'جارٍ الرفع…';
+
+  @override
+  String get aboutTitle => 'عن سدرة';
+
+  @override
+  String get aboutBody =>
+      'سدرة تطبيق المنتهى لتعلّم القرآن والعلوم الإسلامية. يعطي المعلم ورد اليوم مرة واحدة، ويقرأ المتعلمون ويستمعون ويسجّلون، ويحصل كل متعلم على تصحيح معلمه الخاص.';
+
+  @override
+  String get aboutBy => 'صُنع للمنتهى بواسطة Xhenvolt.';
+
+  @override
+  String get aboutLicences => 'تراخيص البرمجيات المفتوحة';
+
+  @override
+  String aboutVersion(String version, String build) {
+    return 'الإصدار $version (البناء $build)';
+  }
+
+  @override
+  String get aboutWhatsNew => 'ما الجديد';
+
+  @override
+  String get analyticsTitle => 'مؤشرات التعليم';
+
+  @override
+  String analyticsDays(int days) {
+    return '$days يومًا';
+  }
+
+  @override
+  String get anWaiting => 'بانتظار المراجعة';
+
+  @override
+  String get anWaitingQ => 'أعمال لم تُراجَع بعد';
+
+  @override
+  String get anTurnaround => 'زمن المراجعة';
+
+  @override
+  String get anTurnaroundQ => 'متوسط الوقت حتى أول مراجعة';
+
+  @override
+  String get anFirstTry => 'صحيح من أول مرة';
+
+  @override
+  String get anFirstTryQ => 'المحاولات الأولى الصحيحة';
+
+  @override
+  String get anSubmissions => 'التسليمات';
+
+  @override
+  String get anSubmissionsQ => 'التسجيلات والأعمال المسلّمة';
+
+  @override
+  String get anIncomplete => 'غير مكتمل';
+
+  @override
+  String get anIncompleteQ => 'أوراد مفتوحة بعد 3 أيام';
+
+  @override
+  String get anTopCorrections => 'أكثر التصحيحات استخدامًا';
+
+  @override
+  String get anTopCategories => 'أكثر الأخطاء شيوعًا';
+
+  @override
+  String get anRepeat => 'متعلمون يعيدون كثيرًا';
+
+  @override
+  String get anByTeacher => 'المراجعات لكل معلم';
+
+  @override
+  String get anNone => 'لا شيء بعد';
+
+  @override
+  String get attNew => 'أعمال جديدة';
+
+  @override
+  String get attResubmissions => 'أعادوا المحاولة';
+
+  @override
+  String get attCorrection => 'بانتظار إعادة المحاولة';
+
+  @override
+  String get attNotSubmitted => 'لم يُرسل بعد';
+
+  @override
+  String get attBehind => 'متأخرون';
+
+  @override
+  String attOpenPortions(int count) {
+    return '$count أوراد مفتوحة';
+  }
+
+  @override
+  String get attAllClear => 'لا شيء يحتاجك الآن.';
+
+  @override
+  String get audioPlay => 'تشغيل';
+
+  @override
+  String get audioPause => 'إيقاف مؤقت';
+
+  @override
+  String get audioRecord => 'تسجيل';
+
+  @override
+  String get audioRecording => 'جارٍ التسجيل';
+
+  @override
+  String get audioPaused => 'متوقف مؤقتًا';
+
+  @override
+  String get audioPauseRecording => 'إيقاف مؤقت';
+
+  @override
+  String get audioResume => 'متابعة';
+
+  @override
+  String get audioStop => 'إيقاف';
+
+  @override
+  String get audioDiscard => 'حذف';
+
+  @override
+  String get audioRecordAgain => 'سجّل من جديد';
+
+  @override
+  String audioYourRecording(String duration) {
+    return 'تسجيلك ($duration)';
+  }
+
+  @override
+  String get audioNeedsMicrophone =>
+      'يحتاج سدرة إلى الميكروفون للتسجيل. اسمح به من إعدادات الهاتف.';
+
+  @override
+  String get audioRecordFailed => 'لم ينجح التسجيل. حاول مرة أخرى.';
+
+  @override
+  String get audioCannotPlay => 'لا يمكن تشغيل هذا التسجيل.';
+
+  @override
+  String get audioLibraryTitle => 'مكتبة الصوتيات';
+
+  @override
+  String get audioSearch => 'ابحث في التسجيلات';
+
+  @override
+  String get audioOnlyMine => 'تسجيلاتي فقط';
+
+  @override
+  String get audioNone => 'لا تسجيلات بعد';
+
+  @override
+  String get correctionLibrary => 'مكتبة التصحيحات';
+
+  @override
+  String get correctionLibraryHint =>
+      'التصحيحات المحفوظة أثناء المراجعة تظهر هنا جاهزة لإعادة الاستخدام.';
+
+  @override
+  String get correctionAdd => 'تصحيح جديد';
+
+  @override
+  String get correctionSearch => 'ابحث: ص، الشدة، المد…';
+
+  @override
+  String get correctionNone => 'لا توجد تصحيحات';
+
+  @override
+  String get correctionTitle => 'العنوان';
+
+  @override
+  String get correctionTitleHint => 'مثل: الفرق بين ص و س';
+
+  @override
+  String get correctionCategory => 'نوع الخطأ';
+
+  @override
+  String get correctionExplanation => 'شرح قصير (اختياري)';
+
+  @override
+  String correctionUsed(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'استُخدم $count مرات',
+      one: 'استُخدم مرة',
+      zero: 'لم يُستخدم',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get correctionArchive => 'أرشفة';
+
+  @override
+  String get correctionForYou => 'تصحيح لك';
+
+  @override
+  String get groupNew => 'مجموعة جديدة';
+
+  @override
+  String get groupName => 'اسم المجموعة';
+
+  @override
+  String groupLearners(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count متعلمين',
+      one: 'متعلم واحد',
+      zero: 'لا متعلمين',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get groupNoLearners => 'لا يوجد متعلمون مسجلون في هذه الدورة بعد.';
+
+  @override
+  String get groupMembers => 'المتعلمون';
+
+  @override
+  String groupWaiting(int count) {
+    return '$count بانتظارك';
+  }
+
+  @override
+  String get groupsNone => 'لا مجموعات بعد. أنشئ مجموعة لصف تدرّسه.';
+
+  @override
+  String get myGroups => 'مجموعاتي';
+
+  @override
+  String get needsAttention => 'يحتاج انتباهي';
+
+  @override
+  String get navTeaching => 'التدريس';
+
+  @override
+  String get libraryTitle => 'مكتبة المحتوى';
+
+  @override
+  String get librarySearch => 'ابحث في الملفات والروابط';
+
+  @override
+  String get libraryRenameTag => 'إعادة تسمية أو وسم';
+
+  @override
+  String get libraryReplace => 'استبدال بنسخة جديدة';
+
+  @override
+  String get libraryReplaced =>
+      'حُفظت النسخة الجديدة. الأعمال المعيّنة سابقًا تبقى على القديمة.';
+
+  @override
+  String libraryUsedIn(int lessons, int portions) {
+    return 'في $lessons دروس و$portions أوراد';
+  }
+
+  @override
+  String get listenTeacher => 'استمع إلى معلمك';
+
+  @override
+  String get listenModel => 'استمع إلى القراءة النموذجية';
+
+  @override
+  String get notSentYet => 'محفوظ على هذا الهاتف. لم يصل إلى معلمك بعد.';
+
+  @override
+  String get noteAdd => 'ملاحظة خاصة';
+
+  @override
+  String get notePrivate => 'ملاحظة (يراها المعلمون فقط)';
+
+  @override
+  String get notePrivateHint => 'مثل: ما زال يخلط بين ض و ظ';
+
+  @override
+  String notesAbout(String name) {
+    return 'ملاحظات عن $name';
+  }
+
+  @override
+  String get notificationsTitle => 'الإشعارات';
+
+  @override
+  String get notificationsNone => 'لا إشعارات';
+
+  @override
+  String get notificationsMarkRead => 'تعليم الكل كمقروء';
+
+  @override
+  String get partNew => 'جديد';
+
+  @override
+  String get partToDo => 'للإنجاز';
+
+  @override
+  String get partWaiting => 'أُرسل · بالانتظار';
+
+  @override
+  String get partUnderReview => 'المعلم يستمع';
+
+  @override
+  String get partTryAgain => 'أعد المحاولة';
+
+  @override
+  String get partDone => 'تم';
+
+  @override
+  String get portionDefaultTitle => 'صفحة ';
+
+  @override
+  String get portionCreateToday => 'إنشاء ورد اليوم';
+
+  @override
+  String portionCreateNext(String title) {
+    return 'التالي بعد $title';
+  }
+
+  @override
+  String get portionsTitle => 'الأوراد';
+
+  @override
+  String get portionEdit => 'تعديل الورد';
+
+  @override
+  String get portionTitle => 'العنوان';
+
+  @override
+  String get portionTitleHint => 'مثل: صفحة 12';
+
+  @override
+  String get portionTask => 'المطلوب من المتعلمين';
+
+  @override
+  String get portionTaskHint => 'مثل: اقرأ الصفحة ثلاث مرات وانتبه للشدة.';
+
+  @override
+  String get portionExplainedIn => 'لغة الشرح';
+
+  @override
+  String get portionLearnersSend => 'يرسل المتعلمون';
+
+  @override
+  String get portionPage => 'الصفحة';
+
+  @override
+  String get portionAddPage => 'إضافة صفحة (صورة أو PDF)';
+
+  @override
+  String get portionInstruction => 'تعليمات المعلم';
+
+  @override
+  String get portionRecordInstruction => 'سجّل التعليمات';
+
+  @override
+  String get portionModel => 'القراءة النموذجية';
+
+  @override
+  String get portionRecordModel => 'سجّل القراءة النموذجية';
+
+  @override
+  String get portionFromLibrary => 'من صوتياتي';
+
+  @override
+  String get portionUseRecording => 'استخدم هذا التسجيل';
+
+  @override
+  String get portionAssignGroup => 'تعيين للمجموعة';
+
+  @override
+  String get portionAssignChosen => 'تعيين لمتعلمين محددين';
+
+  @override
+  String portionAssignCount(int count) {
+    return 'تعيين لـ $count';
+  }
+
+  @override
+  String portionAssigned(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'وصل إلى $count متعلمين',
+      one: 'وصل إلى متعلم واحد',
+      zero: 'لدى الجميع مسبقًا',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get portionSaveDraft => 'حفظ كمسودة';
+
+  @override
+  String get portionNotAssigned => 'لم يُعيَّن لأحد بعد';
+
+  @override
+  String get portionBoardHint => 'اضغط على المتعلم للاستماع والمراجعة.';
+
+  @override
+  String get recordHint => 'اقرأ الصفحة بصوت مسموع وسجّل نفسك.';
+
+  @override
+  String get recordAgainBelow => 'استمع، ثم سجّل مرة أخرى في الأسفل.';
+
+  @override
+  String get resExcellent => 'ممتاز';
+
+  @override
+  String get resCorrect => 'صحيح';
+
+  @override
+  String get resMinor => 'صحيح مع ملاحظة';
+
+  @override
+  String get resCorrection => 'يحتاج تصحيحًا';
+
+  @override
+  String get resExplain => 'يحتاج شرحًا';
+
+  @override
+  String get reviewCorrectionTitle => 'التصحيح';
+
+  @override
+  String get reviewUseExisting => 'تصحيح محفوظ';
+
+  @override
+  String get reviewRecordNew => 'سجّل جديدًا';
+
+  @override
+  String get reviewSaveToLibrary => 'احفظ في مكتبة التصحيحات';
+
+  @override
+  String get reviewSaveToLibraryHint =>
+      'أعد استخدامه للمتعلم التالي بنفس الخطأ.';
+
+  @override
+  String get reviewFeedbackOptional => 'ملاحظة مكتوبة (اختياري)';
+
+  @override
+  String get reviewSent => 'أُرسل إلى المتعلم';
+
+  @override
+  String get sendToTeacher => 'أرسل إلى المعلم';
+
+  @override
+  String get sentToTeacher => 'أُرسل. وصل إلى معلمك.';
+
+  @override
+  String get sentWaiting => 'أُرسل: بانتظار معلمك';
+
+  @override
+  String get sentWaitingBody => 'ستُبلَّغ عندما يرد معلمك.';
+
+  @override
+  String teacherSays(String text) {
+    return 'معلمك: $text';
+  }
+
+  @override
+  String get theirRecording => 'تسجيله';
+
+  @override
+  String get todayLearning => 'تعلّم اليوم';
+
+  @override
+  String get useThis => 'استخدم';
+
+  @override
+  String yourAttempts(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'محاولاتك ($count)',
+      one: 'محاولتك',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get yourTask => 'مهمتك';
 }

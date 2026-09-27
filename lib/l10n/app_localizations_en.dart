@@ -2357,4 +2357,492 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get uploadUploading => 'Uploading…';
+
+  @override
+  String get aboutTitle => 'About Sidra';
+
+  @override
+  String get aboutBody =>
+      'Sidra is Almuntahha\'s learning app for the Qur\'an and the Islamic sciences. Teachers give each day\'s portion once, learners read, listen and record, and every learner still gets their teacher\'s personal correction.';
+
+  @override
+  String get aboutBy => 'Made for Almuntahha by Xhenvolt.';
+
+  @override
+  String get aboutLicences => 'Open-source licences';
+
+  @override
+  String aboutVersion(String version, String build) {
+    return 'Version $version (build $build)';
+  }
+
+  @override
+  String get aboutWhatsNew => 'What\'s new';
+
+  @override
+  String get analyticsTitle => 'Teaching insights';
+
+  @override
+  String analyticsDays(int days) {
+    return '$days days';
+  }
+
+  @override
+  String get anWaiting => 'Waiting';
+
+  @override
+  String get anWaitingQ => 'Work not yet reviewed';
+
+  @override
+  String get anTurnaround => 'Review time';
+
+  @override
+  String get anTurnaroundQ => 'Average time until first review';
+
+  @override
+  String get anFirstTry => 'Right first time';
+
+  @override
+  String get anFirstTryQ => 'First attempts marked correct';
+
+  @override
+  String get anSubmissions => 'Submissions';
+
+  @override
+  String get anSubmissionsQ => 'Recordings and work handed in';
+
+  @override
+  String get anIncomplete => 'Not finished';
+
+  @override
+  String get anIncompleteQ => 'Portions still open after 3 days';
+
+  @override
+  String get anTopCorrections => 'Most used corrections';
+
+  @override
+  String get anTopCategories => 'Most common mistakes';
+
+  @override
+  String get anRepeat => 'Learners trying many times';
+
+  @override
+  String get anByTeacher => 'Reviews by teacher';
+
+  @override
+  String get anNone => 'Nothing yet';
+
+  @override
+  String get attNew => 'New work';
+
+  @override
+  String get attResubmissions => 'Tried again';
+
+  @override
+  String get attCorrection => 'Waiting to try again';
+
+  @override
+  String get attNotSubmitted => 'Not sent yet';
+
+  @override
+  String get attBehind => 'Falling behind';
+
+  @override
+  String attOpenPortions(int count) {
+    return '$count portions open';
+  }
+
+  @override
+  String get attAllClear => 'Nothing needs you right now.';
+
+  @override
+  String get audioPlay => 'Play';
+
+  @override
+  String get audioPause => 'Pause';
+
+  @override
+  String get audioRecord => 'Record';
+
+  @override
+  String get audioRecording => 'Recording';
+
+  @override
+  String get audioPaused => 'Paused';
+
+  @override
+  String get audioPauseRecording => 'Pause';
+
+  @override
+  String get audioResume => 'Continue';
+
+  @override
+  String get audioStop => 'Stop';
+
+  @override
+  String get audioDiscard => 'Discard';
+
+  @override
+  String get audioRecordAgain => 'Record again';
+
+  @override
+  String audioYourRecording(String duration) {
+    return 'Your recording ($duration)';
+  }
+
+  @override
+  String get audioNeedsMicrophone =>
+      'Sidra needs the microphone to record. Allow it in your phone\'s settings.';
+
+  @override
+  String get audioRecordFailed => 'Recording did not work. Please try again.';
+
+  @override
+  String get audioCannotPlay => 'This recording cannot be played.';
+
+  @override
+  String get audioLibraryTitle => 'Audio library';
+
+  @override
+  String get audioSearch => 'Search recordings';
+
+  @override
+  String get audioOnlyMine => 'Only mine';
+
+  @override
+  String get audioNone => 'No recordings yet';
+
+  @override
+  String get correctionLibrary => 'Correction library';
+
+  @override
+  String get correctionLibraryHint =>
+      'Corrections saved while reviewing appear here, ready to reuse.';
+
+  @override
+  String get correctionAdd => 'New correction';
+
+  @override
+  String get correctionSearch => 'Search: ص, shaddah, madd…';
+
+  @override
+  String get correctionNone => 'No corrections found';
+
+  @override
+  String get correctionTitle => 'Title';
+
+  @override
+  String get correctionTitleHint => 'e.g. Difference between ص and س';
+
+  @override
+  String get correctionCategory => 'Mistake category';
+
+  @override
+  String get correctionExplanation => 'Short explanation (optional)';
+
+  @override
+  String correctionUsed(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'used $count times',
+      one: 'used once',
+      zero: 'not used yet',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get correctionArchive => 'Archive';
+
+  @override
+  String get correctionForYou => 'Correction for you';
+
+  @override
+  String get groupNew => 'New group';
+
+  @override
+  String get groupName => 'Group name';
+
+  @override
+  String groupLearners(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count learners',
+      one: '1 learner',
+      zero: 'No learners',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get groupNoLearners => 'No learners are enrolled in this course yet.';
+
+  @override
+  String get groupMembers => 'Learners';
+
+  @override
+  String groupWaiting(int count) {
+    return '$count waiting';
+  }
+
+  @override
+  String get groupsNone => 'No groups yet. Create one for a class you teach.';
+
+  @override
+  String get myGroups => 'My groups';
+
+  @override
+  String get needsAttention => 'Needs my attention';
+
+  @override
+  String get navTeaching => 'Teaching';
+
+  @override
+  String get libraryTitle => 'Content library';
+
+  @override
+  String get librarySearch => 'Search files and links';
+
+  @override
+  String get libraryRenameTag => 'Rename or tag';
+
+  @override
+  String get libraryReplace => 'Replace with a new version';
+
+  @override
+  String get libraryReplaced =>
+      'New version saved. Work already assigned keeps the old one.';
+
+  @override
+  String libraryUsedIn(int lessons, int portions) {
+    return 'in $lessons lessons, $portions portions';
+  }
+
+  @override
+  String get listenTeacher => 'Listen to your teacher';
+
+  @override
+  String get listenModel => 'Listen to the model reading';
+
+  @override
+  String get notSentYet =>
+      'Saved on this phone. Your teacher has not received it yet.';
+
+  @override
+  String get noteAdd => 'Private note';
+
+  @override
+  String get notePrivate => 'Note (only teachers see it)';
+
+  @override
+  String get notePrivateHint => 'e.g. Still confusing ض and ظ';
+
+  @override
+  String notesAbout(String name) {
+    return 'Notes about $name';
+  }
+
+  @override
+  String get notificationsTitle => 'Notifications';
+
+  @override
+  String get notificationsNone => 'No notifications';
+
+  @override
+  String get notificationsMarkRead => 'Mark all read';
+
+  @override
+  String get partNew => 'New';
+
+  @override
+  String get partToDo => 'To do';
+
+  @override
+  String get partWaiting => 'Sent · waiting';
+
+  @override
+  String get partUnderReview => 'Teacher is listening';
+
+  @override
+  String get partTryAgain => 'Try again';
+
+  @override
+  String get partDone => 'Done';
+
+  @override
+  String get portionDefaultTitle => 'Page ';
+
+  @override
+  String get portionCreateToday => 'Create today\'s portion';
+
+  @override
+  String portionCreateNext(String title) {
+    return 'Next after $title';
+  }
+
+  @override
+  String get portionsTitle => 'Portions';
+
+  @override
+  String get portionEdit => 'Edit portion';
+
+  @override
+  String get portionTitle => 'Title';
+
+  @override
+  String get portionTitleHint => 'e.g. Page 12';
+
+  @override
+  String get portionTask => 'What learners should do';
+
+  @override
+  String get portionTaskHint =>
+      'e.g. Read this page three times. Watch the shaddah.';
+
+  @override
+  String get portionExplainedIn => 'Instructions given in';
+
+  @override
+  String get portionLearnersSend => 'Learners send';
+
+  @override
+  String get portionPage => 'Page';
+
+  @override
+  String get portionAddPage => 'Add page (photo, image or PDF)';
+
+  @override
+  String get portionInstruction => 'Teacher instruction';
+
+  @override
+  String get portionRecordInstruction => 'Record instruction';
+
+  @override
+  String get portionModel => 'Model recitation';
+
+  @override
+  String get portionRecordModel => 'Record model';
+
+  @override
+  String get portionFromLibrary => 'From my audio';
+
+  @override
+  String get portionUseRecording => 'Use this recording';
+
+  @override
+  String get portionAssignGroup => 'Assign to the group';
+
+  @override
+  String get portionAssignChosen => 'Assign to chosen learners';
+
+  @override
+  String portionAssignCount(int count) {
+    return 'Assign to $count';
+  }
+
+  @override
+  String portionAssigned(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count learners received it',
+      one: '1 learner received it',
+      zero: 'Everyone already had it',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get portionSaveDraft => 'Save as draft';
+
+  @override
+  String get portionNotAssigned => 'Not assigned to anyone yet';
+
+  @override
+  String get portionBoardHint => 'Tap a learner to listen and review.';
+
+  @override
+  String get recordHint => 'Read the page aloud and record yourself.';
+
+  @override
+  String get recordAgainBelow => 'Listen, then record again below.';
+
+  @override
+  String get resExcellent => 'Excellent';
+
+  @override
+  String get resCorrect => 'Correct';
+
+  @override
+  String get resMinor => 'Correct, small note';
+
+  @override
+  String get resCorrection => 'Correction required';
+
+  @override
+  String get resExplain => 'Needs explanation';
+
+  @override
+  String get reviewCorrectionTitle => 'Correction';
+
+  @override
+  String get reviewUseExisting => 'Existing correction';
+
+  @override
+  String get reviewRecordNew => 'Record new';
+
+  @override
+  String get reviewSaveToLibrary => 'Save to correction library';
+
+  @override
+  String get reviewSaveToLibraryHint =>
+      'Reuse it for the next learner with this mistake.';
+
+  @override
+  String get reviewFeedbackOptional => 'Written feedback (optional)';
+
+  @override
+  String get reviewSent => 'Sent to the learner';
+
+  @override
+  String get sendToTeacher => 'Send to teacher';
+
+  @override
+  String get sentToTeacher => 'Sent. Your teacher has it.';
+
+  @override
+  String get sentWaiting => 'Sent: waiting for your teacher';
+
+  @override
+  String get sentWaitingBody => 'You will be told when your teacher replies.';
+
+  @override
+  String teacherSays(String text) {
+    return 'Your teacher: $text';
+  }
+
+  @override
+  String get theirRecording => 'Their recording';
+
+  @override
+  String get todayLearning => 'Today\'s learning';
+
+  @override
+  String get useThis => 'Use';
+
+  @override
+  String yourAttempts(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Your $count attempts',
+      one: 'Your attempt',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get yourTask => 'Your task';
 }

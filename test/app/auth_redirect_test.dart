@@ -136,7 +136,7 @@ void main() {
     test('each role starts on its own home', () {
       for (final (role, home) in [
         ('learner', Routes.home),
-        ('teacher', Routes.teacherLearners),
+        ('teacher', Routes.teacherTeaching),
         ('admin', Routes.adminDashboard),
       ]) {
         expect(
@@ -158,8 +158,8 @@ void main() {
       expect(go('learner', Routes.adminPeople), Routes.home);
       expect(go('learner', '/teach/courses/new'), Routes.home);
       expect(go('learner', Routes.teacherLearners), Routes.home);
-      expect(go('teacher', Routes.adminPeople), Routes.teacherLearners);
-      expect(go('teacher', Routes.home), Routes.teacherLearners);
+      expect(go('teacher', Routes.adminPeople), Routes.teacherTeaching);
+      expect(go('teacher', Routes.home), Routes.teacherTeaching);
       expect(go('teacher', '/teach/courses/c1'), isNull);
       expect(go('admin', Routes.explore), Routes.adminDashboard);
       expect(go('admin', Routes.teacherMore), Routes.adminDashboard);
