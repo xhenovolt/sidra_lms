@@ -221,7 +221,17 @@ class CoursePerson {
 /// SECURITY DEFINER checks). The UI only decides what to OFFER.
 /// Authoring requires a connection; it is deliberately not queued offline.
 class AdminRepository {
-  AdminRepository(this.api, {Dio? uploader}) : _uploader = uploader ?? Dio();
+  AdminRepository(this.api, {Dio? uploader})
+    : _uploader =
+          uploader ??
+          Dio(
+            BaseOptions(
+              // Fail clearly when the network is gone instead of spinning;
+              // no send limit, since big files on slow data take a while.
+              connectTimeout: const Duration(seconds: 20),
+              receiveTimeout: const Duration(minutes: 2),
+            ),
+          );
 
   final PostgresApi api;
   final Dio _uploader;
@@ -713,6 +723,11 @@ class AdminRepository {
         onSendProgress: onProgress,
       );
     } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.connectionError ||
+          e.type == DioExceptionType.receiveTimeout) {
+        throw const OfflineFailure('Could not reach the upload service');
+      }
       final msg = (e.response?.data is Map)
           ? ((e.response!.data as Map)['error']?['message'] as String?)
           : null;

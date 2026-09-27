@@ -25,6 +25,14 @@ class PgClient {
   Connection? _conn;
   Future<void> _tail = Future.value();
 
+  /// When the connection was last used. Phones drop idle sockets silently
+  /// (screen off, Wi-Fi to mobile data, Neon idle close): a dead socket
+  /// would make the next query hang until the query timeout, which is what
+  /// showed up as uploads "timing out".
+  DateTime _lastUsed = DateTime.fromMillisecondsSinceEpoch(0);
+  static const _idleCheckAfter = Duration(seconds: 30);
+  static const _pingTimeout = Duration(seconds: 5);
+
   static Endpoint _endpointFrom(String url) {
     final uri = Uri.parse(url);
     final user = uri.userInfo.split(':');
@@ -43,7 +51,9 @@ class PgClient {
     _tail = _tail.then((_) async {
       try {
         final conn = await _open();
-        done.complete(await conn.runTx(body));
+        final result = await conn.runTx(body);
+        _lastUsed = DateTime.now();
+        done.complete(result);
       } catch (e, st) {
         final failure = mapPgError(e);
         if (failure is OfflineFailure || failure is TimeoutFailure) {
@@ -57,7 +67,21 @@ class PgClient {
 
   Future<Connection> _open() async {
     final existing = _conn;
-    if (existing != null && existing.isOpen) return existing;
+    if (existing != null && existing.isOpen) {
+      if (DateTime.now().difference(_lastUsed) < _idleCheckAfter) {
+        return existing;
+      }
+      // Idle for a while: make sure it is still alive (one quick round
+      // trip), otherwise reconnect now instead of hanging.
+      try {
+        await existing.execute('select 1').timeout(_pingTimeout);
+        _lastUsed = DateTime.now();
+        return existing;
+      } catch (_) {
+        _log.debug('stale connection replaced');
+        await _drop();
+      }
+    }
     _conn = await Connection.open(
       _endpoint,
       settings: ConnectionSettings(
@@ -67,6 +91,7 @@ class PgClient {
         queryTimeout: queryTimeout ?? const Duration(seconds: 25),
       ),
     );
+    _lastUsed = DateTime.now();
     return _conn!;
   }
 

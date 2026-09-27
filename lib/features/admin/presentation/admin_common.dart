@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -180,7 +181,21 @@ String slugify(String s) => s
     .replaceAll(RegExp(r'^-+|-+$'), '');
 
 /// Opens the system file picker. Returns (path, name) or null if cancelled.
+///
+/// Pictures are resized on the phone first (longest side 1600 px, good
+/// JPEG quality): a camera photo drops from 5–10 MB to a few hundred KB, so
+/// thumbnails and lesson images upload quickly on mobile data.
 Future<({String path, String name})?> pickLocalFile(FileType type) async {
+  if (type == FileType.image) {
+    final x = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1600,
+      maxHeight: 1600,
+      imageQuality: 85,
+    );
+    if (x == null) return null;
+    return (path: x.path, name: x.name);
+  }
   final file = await FilePicker.pickFile(type: type);
   final path = file?.path;
   if (file == null || path == null) return null;
