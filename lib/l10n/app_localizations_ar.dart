@@ -2883,4 +2883,51 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get resourcesForUnit => 'مصادر هذه الوحدة';
+
+  @override
+  String get libraryUsageAccess => 'أماكن الاستخدام ومن يراه';
+
+  @override
+  String get libraryWhoCanSee => 'من يمكنه رؤيته';
+
+  @override
+  String get libraryAccessLearners => 'المتعلمون المصرّح لهم';
+
+  @override
+  String get libraryAccessLearnersHint =>
+      'فقط المتعلمون المسموح لهم بالدرس أو الدورة التي يُستخدم فيها، والطاقم.';
+
+  @override
+  String get libraryAccessPublic => 'كل من يطّلع على صفحة الدورة';
+
+  @override
+  String get libraryAccessPublicHint =>
+      'وأيضًا المسجلون غير الملتحقين بعد، مثل نشرة أو صفحة نموذجية.';
+
+  @override
+  String get libraryUsedWhere => 'أين يُستخدم';
+
+  @override
+  String get libraryAddTo => 'أضف إلى…';
+
+  @override
+  String get libraryMoveHint =>
+      'لنقله: أضفه إلى المكان الجديد ثم أزله من القديم. تحتفظ الأوراد اليومية بملفاتها.';
+
+  @override
+  String get libraryNotUsed => 'غير مستخدم بعد.';
+
+  @override
+  String get libraryAddToCourse => 'إلى أي دورة؟';
+
+  @override
+  String libraryAddWhere(String course) {
+    return 'أين في $course؟';
+  }
+
+  @override
+  String get libraryCoursePage => 'صفحة الدورة';
+
+  @override
+  String get librarySection => 'القسم';
 }

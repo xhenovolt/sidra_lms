@@ -856,5 +856,19 @@
   "categoryDelete": "حذف",
   "categoryDeleteBody": "حذف «{name}» وأنواعه الفرعية؟ تبقى تصحيحاته بلا نوع.",
   "resourcesForSection": "مصادر هذا القسم",
-  "resourcesForUnit": "مصادر هذه الوحدة"
+  "resourcesForUnit": "مصادر هذه الوحدة",
+  "libraryUsageAccess": "أماكن الاستخدام ومن يراه",
+  "libraryWhoCanSee": "من يمكنه رؤيته",
+  "libraryAccessLearners": "المتعلمون المصرّح لهم",
+  "libraryAccessLearnersHint": "فقط المتعلمون المسموح لهم بالدرس أو الدورة التي يُستخدم فيها، والطاقم.",
+  "libraryAccessPublic": "كل من يطّلع على صفحة الدورة",
+  "libraryAccessPublicHint": "وأيضًا المسجلون غير الملتحقين بعد، مثل نشرة أو صفحة نموذجية.",
+  "libraryUsedWhere": "أين يُستخدم",
+  "libraryAddTo": "أضف إلى…",
+  "libraryMoveHint": "لنقله: أضفه إلى المكان الجديد ثم أزله من القديم. تحتفظ الأوراد اليومية بملفاتها.",
+  "libraryNotUsed": "غير مستخدم بعد.",
+  "libraryAddToCourse": "إلى أي دورة؟",
+  "libraryAddWhere": "أين في {course}؟",
+  "libraryCoursePage": "صفحة الدورة",
+  "librarySection": "القسم"
 }

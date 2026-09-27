@@ -16,6 +16,7 @@ import '../../admin/data/admin_repository.dart';
 import '../../admin/presentation/admin_common.dart';
 import '../../audio/presentation/audio_widgets.dart';
 import '../../content/data/content_repository.dart';
+import '../../curriculum/domain/curriculum_models.dart';
 import '../../content/presentation/resource_widgets.dart';
 import '../data/teaching_repository.dart';
 
@@ -733,6 +734,9 @@ class _ContentLibraryScreenState extends ConsumerState<ContentLibraryScreen> {
                     trailing: PopupMenuButton<String>(
                       onSelected: (v) async {
                         switch (v) {
+                          case 'usage':
+                            await showResourceUsage(context, ref, r);
+                            setState(() => _reload++);
                           case 'edit':
                             await _edit(r);
                           case 'replace':
@@ -758,6 +762,10 @@ class _ContentLibraryScreenState extends ConsumerState<ContentLibraryScreen> {
                         }
                       },
                       itemBuilder: (_) => [
+                        PopupMenuItem(
+                          value: 'usage',
+                          child: Text(l10n.libraryUsageAccess),
+                        ),
                         PopupMenuItem(
                           value: 'edit',
                           child: Text(l10n.libraryRenameTag),
@@ -1125,6 +1133,260 @@ class _CategoryCard extends ConsumerWidget {
               title: Text(s.name),
               trailing: _menu(context, ref, s, subs, i),
             ),
+        ],
+      ),
+    );
+  }
+}
+
+// ============================================== where used, who can see ==
+
+/// Where a file is used (show, hide or remove it in each place), attach it
+/// somewhere else (move = add here, remove there), and who may see it.
+Future<void> showResourceUsage(
+  BuildContext context,
+  WidgetRef ref,
+  Json resource,
+) => showModalBottomSheet<void>(
+  context: context,
+  isScrollControlled: true,
+  showDragHandle: true,
+  builder: (_) => _UsageSheet(resource: resource),
+);
+
+class _UsageSheet extends ConsumerStatefulWidget {
+  const _UsageSheet({required this.resource});
+  final Json resource;
+
+  @override
+  ConsumerState<_UsageSheet> createState() => _UsageSheetState();
+}
+
+class _UsageSheetState extends ConsumerState<_UsageSheet> {
+  int _reload = 0;
+  late bool _public = widget.resource['is_public'] == true;
+
+  String get _id => '${widget.resource['id']}';
+  PostgresApi get _api => ref.read(adminRepositoryProvider).api;
+
+  Future<void> _setPublic(bool v) async {
+    if (await runAdminAction(
+      context,
+      () => _api.update(
+        'resources',
+        {'is_public': v},
+        filters: {'id': Pg.eq(_id)},
+      ),
+    )) {
+      setState(() => _public = v);
+    }
+  }
+
+  Future<void> _attach() async {
+    final l10n = AppLocalizations.of(context);
+    final courses = await ref.read(adminRepositoryProvider).allCourses();
+    if (!mounted) return;
+    final course = await showDialog<Course>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text(l10n.libraryAddToCourse),
+        children: [
+          for (final c in courses)
+            SimpleDialogOption(
+              onPressed: () => Navigator.pop(context, c),
+              child: Text(c.title),
+            ),
+        ],
+      ),
+    );
+    if (course == null || !mounted) return;
+    final lessons = await _api.select(
+      'lessons',
+      columns: 'id,title,position',
+      filters: {'course_id': Pg.eq(course.id)},
+      order: 'position.asc',
+    );
+    if (!mounted) return;
+    // null = the course page itself
+    final target = await showDialog<(String, String)?>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text(l10n.libraryAddWhere(course.title)),
+        children: [
+          SimpleDialogOption(
+            onPressed: () => Navigator.pop(context, ('course_id', course.id)),
+            child: Text(l10n.libraryCoursePage),
+          ),
+          for (final l in lessons)
+            SimpleDialogOption(
+              onPressed: () =>
+                  Navigator.pop(context, ('lesson_id', '${l['id']}')),
+              child: Text('${l['title']}'),
+            ),
+        ],
+      ),
+    );
+    if (target == null || !mounted) return;
+    if (await runAdminAction(
+      context,
+      () => _api.insert('resource_links', {
+        'resource_id': _id,
+        target.$1: target.$2,
+      }),
+      success: l10n.adminSaved,
+    )) {
+      setState(() => _reload++);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    String targetName(String t) => switch (t) {
+      'course' => l10n.libraryCoursePage,
+      'unit' => l10n.adminUnitLabel,
+      'section' => l10n.librarySection,
+      'lesson' => l10n.lessonTitle,
+      'assignment' => l10n.assignmentsTitle,
+      'portion' => l10n.portionsTitle,
+      _ => t,
+    };
+    return SizedBox(
+      height: MediaQuery.sizeOf(context).height * 0.8,
+      child: ListView(
+        padding: const EdgeInsets.fromLTRB(Space.md, 0, Space.md, Space.lg),
+        children: [
+          Text(
+            '${widget.resource['title']}',
+            style: theme.textTheme.titleLarge,
+          ),
+          const SizedBox(height: Space.sm),
+          Text(l10n.libraryWhoCanSee, style: theme.textTheme.titleSmall),
+          RadioGroup<bool>(
+            groupValue: _public,
+            onChanged: (v) => v == null ? null : _setPublic(v),
+            child: Column(
+              children: [
+                RadioListTile<bool>(
+                  contentPadding: EdgeInsets.zero,
+                  value: false,
+                  title: Text(l10n.libraryAccessLearners),
+                  subtitle: Text(l10n.libraryAccessLearnersHint),
+                ),
+                RadioListTile<bool>(
+                  contentPadding: EdgeInsets.zero,
+                  value: true,
+                  title: Text(l10n.libraryAccessPublic),
+                  subtitle: Text(l10n.libraryAccessPublicHint),
+                ),
+              ],
+            ),
+          ),
+          const Divider(height: Space.lg),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  l10n.libraryUsedWhere,
+                  style: theme.textTheme.titleSmall,
+                ),
+              ),
+              TextButton.icon(
+                onPressed: _attach,
+                icon: const Icon(Icons.add_link),
+                label: Text(l10n.libraryAddTo),
+              ),
+            ],
+          ),
+          Text(l10n.libraryMoveHint, style: theme.textTheme.bodySmall),
+          FutureBuilder<List<Json>>(
+            key: ValueKey(_reload),
+            future: _api
+                .rpcRows('resource_usages', params: {'p_resource_id': _id})
+                .then(
+                  (rows) => [
+                    for (final r in rows)
+                      Map<String, dynamic>.from(
+                        (r['resource_usages'] ?? r) as Map,
+                      ),
+                  ],
+                ),
+            builder: (context, snap) {
+              if (snap.hasError) return ErrorView(error: snap.error!);
+              if (!snap.hasData) return const LinearProgressIndicator();
+              if (snap.data!.isEmpty) {
+                return Padding(
+                  padding: const EdgeInsets.all(Space.md),
+                  child: Text(l10n.libraryNotUsed),
+                );
+              }
+              return Column(
+                children: [
+                  for (final u in snap.data!)
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: Icon(
+                        u['kind'] == 'portion'
+                            ? Icons.co_present_outlined
+                            : Icons.link,
+                      ),
+                      title: Text('${u['title'] ?? ''}'),
+                      subtitle: Text(
+                        [
+                          targetName('${u['target']}'),
+                          if (u['course_title'] != null &&
+                              u['target'] != 'course')
+                            '${u['course_title']}',
+                          if (u['group'] != null) '${u['group']}',
+                          if (u['kind'] == 'link' && u['status'] != 'published')
+                            l10n.adminHidden,
+                        ].join(' · '),
+                      ),
+                      trailing: u['kind'] != 'link'
+                          ? null
+                          : PopupMenuButton<String>(
+                              onSelected: (v) async {
+                                final id = '${u['link_id']}';
+                                final ok = await runAdminAction(
+                                  context,
+                                  () => v == 'remove'
+                                      ? _api.delete(
+                                          'resource_links',
+                                          filters: {'id': Pg.eq(id)},
+                                        )
+                                      : _api.update(
+                                          'resource_links',
+                                          {
+                                            'status': u['status'] == 'published'
+                                                ? 'draft'
+                                                : 'published',
+                                          },
+                                          filters: {'id': Pg.eq(id)},
+                                        ),
+                                );
+                                if (ok) setState(() => _reload++);
+                              },
+                              itemBuilder: (_) => [
+                                PopupMenuItem(
+                                  value: 'toggle',
+                                  child: Text(
+                                    u['status'] == 'published'
+                                        ? l10n.resourceHide
+                                        : l10n.resourceShow,
+                                  ),
+                                ),
+                                PopupMenuItem(
+                                  value: 'remove',
+                                  child: Text(l10n.resourceRemove),
+                                ),
+                              ],
+                            ),
+                    ),
+                ],
+              );
+            },
+          ),
         ],
       ),
     );

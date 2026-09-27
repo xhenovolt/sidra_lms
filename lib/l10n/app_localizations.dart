@@ -5244,6 +5244,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resources for this unit'**
   String get resourcesForUnit;
+
+  /// No description provided for @libraryUsageAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Where used & who can see'**
+  String get libraryUsageAccess;
+
+  /// No description provided for @libraryWhoCanSee.
+  ///
+  /// In en, this message translates to:
+  /// **'Who can see it'**
+  String get libraryWhoCanSee;
+
+  /// No description provided for @libraryAccessLearners.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners with access'**
+  String get libraryAccessLearners;
+
+  /// No description provided for @libraryAccessLearnersHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Only learners allowed into the lesson or course where it is used, and staff.'**
+  String get libraryAccessLearnersHint;
+
+  /// No description provided for @libraryAccessPublic.
+  ///
+  /// In en, this message translates to:
+  /// **'Anyone viewing the course page'**
+  String get libraryAccessPublic;
+
+  /// No description provided for @libraryAccessPublicHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Also signed-in people not enrolled yet, e.g. a brochure or sample page.'**
+  String get libraryAccessPublicHint;
+
+  /// No description provided for @libraryUsedWhere.
+  ///
+  /// In en, this message translates to:
+  /// **'Where it is used'**
+  String get libraryUsedWhere;
+
+  /// No description provided for @libraryAddTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to…'**
+  String get libraryAddTo;
+
+  /// No description provided for @libraryMoveHint.
+  ///
+  /// In en, this message translates to:
+  /// **'To move it, add it to the new place, then remove it from the old one. Daily portions keep the files they were given.'**
+  String get libraryMoveHint;
+
+  /// No description provided for @libraryNotUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not used anywhere yet.'**
+  String get libraryNotUsed;
+
+  /// No description provided for @libraryAddToCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to which course?'**
+  String get libraryAddToCourse;
+
+  /// No description provided for @libraryAddWhere.
+  ///
+  /// In en, this message translates to:
+  /// **'Where in {course}?'**
+  String libraryAddWhere(String course);
+
+  /// No description provided for @libraryCoursePage.
+  ///
+  /// In en, this message translates to:
+  /// **'Course page'**
+  String get libraryCoursePage;
+
+  /// No description provided for @librarySection.
+  ///
+  /// In en, this message translates to:
+  /// **'Section'**
+  String get librarySection;
 }
 
 class _AppLocalizationsDelegate

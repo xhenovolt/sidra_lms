@@ -219,4 +219,51 @@ void main() {
     expect(w.$3['name'], 'Waqf');
     expect(w.$3['position'], 1);
   });
+
+  testWidgets('content library: where used and who can see', (tester) async {
+    final api = staffServer('admin');
+    api.rpcHandlers['content_library'] = (_) => [
+      {
+        'id': 'r1',
+        'kind': 'image',
+        'title': 'Page 12 scan',
+        'provider': 'cloudinary',
+        'is_public': false,
+        'used_in_lessons': 1,
+        'used_in_portions': 1,
+      },
+    ];
+    api.rpcHandlers['resource_usages'] = (_) => [
+      {
+        'kind': 'link',
+        'link_id': 'k1',
+        'target': 'lesson',
+        'title': 'Short vowels',
+        'course_title': 'Yassarna: Beginners',
+        'status': 'published',
+      },
+      {
+        'kind': 'portion',
+        'target': 'portion',
+        'title': 'Page 12',
+        'course_title': 'Yassarna: Beginners',
+        'group': 'Group A',
+      },
+    ];
+    await signInAs(tester, 'admin', api: api);
+    GoRouter.of(tester.element(find.byType(NavigationBar)))
+        .go('/admin/library');
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(PopupMenuButton<String>).first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Where used & who can see'));
+    await tester.pumpAndSettle();
+    expect(find.text('Short vowels'), findsOneWidget);
+    expect(find.textContaining('Group A'), findsOneWidget);
+    await tester.tap(find.text('Anyone viewing the course page'));
+    await tester.pumpAndSettle();
+    final w = api.writes.single;
+    expect(w.$2, 'resources');
+    expect(w.$3['is_public'], isTrue);
+  });
 }

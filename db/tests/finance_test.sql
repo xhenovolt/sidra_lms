@@ -1,6 +1,13 @@
 -- Enrolments, payments, waivers, refunds, expenses, finance (0016).
 -- Uses access_test fixtures: admin_1 (Admin role), learner_a, learner_b.
 
+-- Totals are compared against a baseline: the live database may already
+-- hold real payments and waivers.
+select pg_temp.login_as('admin_1');
+set local role authenticated;
+select set_config('t.base', public.finance_summary(p_course_id => null)::text, true);
+reset role;
+
 insert into courses (id, slug, title, subject, access, price_amount, price_currency, status)
 values ('00000000-0000-0000-0000-00000000f001', 'paid-quran', 'Paid Quran', 'Quran',
         'paid', 50000, 'UGX', 'published');
@@ -119,14 +126,15 @@ select set_config('t.exp', (public.record_expense('Rent', 100000, current_date, 
 select public.void_expense(current_setting('t.exp')::uuid, 'Entered twice');
 select public.record_expense('Transport', 2000, current_date);
 select set_config('t.sum', public.finance_summary(p_course_id => null)::text, true);
-select pg_temp.check((current_setting('t.sum')::jsonb->>'collected')::numeric = 50000,
+select pg_temp.check((current_setting('t.sum')::jsonb->>'collected')::numeric = (current_setting('t.base')::jsonb->>'collected')::numeric + 50000,
   'collected = verified payments only (reversed and pending excluded)');
-select pg_temp.check((current_setting('t.sum')::jsonb->>'provider_fees')::numeric = 1500,
+select pg_temp.check((current_setting('t.sum')::jsonb->>'provider_fees')::numeric = (current_setting('t.base')::jsonb->>'provider_fees')::numeric + 1500,
   'MarzPay fees counted');
-select pg_temp.check((current_setting('t.sum')::jsonb->>'retained')::numeric = 50000 - 1000 - 1500 - 2000,
+select pg_temp.check((current_setting('t.sum')::jsonb->>'retained')::numeric = (current_setting('t.base')::jsonb->>'retained')::numeric + 50000 - 1000 - 1500 - 2000,
   'retained = collected − refunds − provider fees − expenses (voided excluded)');
-select pg_temp.check((current_setting('t.sum')::jsonb->>'waived')::numeric = 30000, 'waivers reported');
-select pg_temp.check((current_setting('t.sum')::jsonb->>'pending_count')::int = 0,
+select pg_temp.check((current_setting('t.sum')::jsonb->>'waived')::numeric = (current_setting('t.base')::jsonb->>'waived')::numeric + 30000,
+  'waivers reported');
+select pg_temp.check((current_setting('t.sum')::jsonb->>'pending_count')::int = (current_setting('t.base')::jsonb->>'pending_count')::int,
   'nothing waiting for verification');
 select pg_temp.check(exists (select 1 from public.finance_balances()
                              where user_id = '00000000-0000-0000-0000-0000000000a1'

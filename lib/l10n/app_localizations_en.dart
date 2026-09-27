@@ -2912,4 +2912,51 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resourcesForUnit => 'Resources for this unit';
+
+  @override
+  String get libraryUsageAccess => 'Where used & who can see';
+
+  @override
+  String get libraryWhoCanSee => 'Who can see it';
+
+  @override
+  String get libraryAccessLearners => 'Learners with access';
+
+  @override
+  String get libraryAccessLearnersHint =>
+      'Only learners allowed into the lesson or course where it is used, and staff.';
+
+  @override
+  String get libraryAccessPublic => 'Anyone viewing the course page';
+
+  @override
+  String get libraryAccessPublicHint =>
+      'Also signed-in people not enrolled yet, e.g. a brochure or sample page.';
+
+  @override
+  String get libraryUsedWhere => 'Where it is used';
+
+  @override
+  String get libraryAddTo => 'Add to…';
+
+  @override
+  String get libraryMoveHint =>
+      'To move it, add it to the new place, then remove it from the old one. Daily portions keep the files they were given.';
+
+  @override
+  String get libraryNotUsed => 'Not used anywhere yet.';
+
+  @override
+  String get libraryAddToCourse => 'Add to which course?';
+
+  @override
+  String libraryAddWhere(String course) {
+    return 'Where in $course?';
+  }
+
+  @override
+  String get libraryCoursePage => 'Course page';
+
+  @override
+  String get librarySection => 'Section';
 }

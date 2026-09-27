@@ -225,4 +225,16 @@ select pg_temp.check((select version from resources where id = current_setting('
   'new version recorded');
 reset role;
 
+-- Content library: where a resource is used.
+select pg_temp.login_as('admin_1');
+set local role authenticated;
+select pg_temp.check((select count(*) from public.resource_usages('00000000-0000-0000-0000-0000000aad02') u
+                      where u->>'target' = 'portion') >= 1, 'usage lists the portions using it');
+reset role;
+select pg_temp.login_as_id(current_setting('t.a')::uuid);
+set local role authenticated;
+select pg_temp.check(not exists (select 1 from public.resource_usages('00000000-0000-0000-0000-0000000aad02')),
+  'learners cannot list usages');
+reset role;
+
 select 'ALL TEACHING TESTS PASSED' as result;

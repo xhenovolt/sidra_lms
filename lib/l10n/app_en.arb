@@ -1367,5 +1367,26 @@
     }
   },
   "resourcesForSection": "Resources for this section",
-  "resourcesForUnit": "Resources for this unit"
+  "resourcesForUnit": "Resources for this unit",
+  "libraryUsageAccess": "Where used & who can see",
+  "libraryWhoCanSee": "Who can see it",
+  "libraryAccessLearners": "Learners with access",
+  "libraryAccessLearnersHint": "Only learners allowed into the lesson or course where it is used, and staff.",
+  "libraryAccessPublic": "Anyone viewing the course page",
+  "libraryAccessPublicHint": "Also signed-in people not enrolled yet, e.g. a brochure or sample page.",
+  "libraryUsedWhere": "Where it is used",
+  "libraryAddTo": "Add to…",
+  "libraryMoveHint": "To move it, add it to the new place, then remove it from the old one. Daily portions keep the files they were given.",
+  "libraryNotUsed": "Not used anywhere yet.",
+  "libraryAddToCourse": "Add to which course?",
+  "libraryAddWhere": "Where in {course}?",
+  "@libraryAddWhere": {
+    "placeholders": {
+      "course": {
+        "type": "String"
+      }
+    }
+  },
+  "libraryCoursePage": "Course page",
+  "librarySection": "Section"
 }
