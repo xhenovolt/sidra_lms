@@ -870,5 +870,7 @@
   "libraryAddToCourse": "إلى أي دورة؟",
   "libraryAddWhere": "أين في {course}؟",
   "libraryCoursePage": "صفحة الدورة",
-  "librarySection": "القسم"
+  "librarySection": "القسم",
+  "personTeachesIn": "يدرّس بـ",
+  "personTeachesInNone": "غير محدد. اضغط لاختيار اللغات."
 }

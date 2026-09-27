@@ -2930,4 +2930,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get librarySection => 'القسم';
+
+  @override
+  String get personTeachesIn => 'يدرّس بـ';
+
+  @override
+  String get personTeachesInNone => 'غير محدد. اضغط لاختيار اللغات.';
 }

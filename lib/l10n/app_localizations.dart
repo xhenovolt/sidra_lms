@@ -5328,6 +5328,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Section'**
   String get librarySection;
+
+  /// No description provided for @personTeachesIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Teaches in'**
+  String get personTeachesIn;
+
+  /// No description provided for @personTeachesInNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set. Tap to choose languages.'**
+  String get personTeachesInNone;
 }
 
 class _AppLocalizationsDelegate

@@ -7,6 +7,7 @@ import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/json.dart';
 import '../../../shared/widgets/state_views.dart';
+import '../../content/data/content_repository.dart';
 import '../data/admin_repository.dart';
 import 'admin_common.dart';
 import 'people_tab.dart';
@@ -148,6 +149,7 @@ class _Profile extends StatelessWidget {
         ),
         if (profile.teaching.isNotEmpty || user.role.name != 'learner') ...[
           _Heading(l10n.personTeaching),
+          _TeachingLanguages(userId: user.id, languages: profile.languages),
           if (profile.teaching.isEmpty)
             _Empty(l10n.personNoTeaching)
           else
@@ -341,6 +343,81 @@ class _Line extends StatelessWidget {
           const SizedBox(width: Space.sm),
           Expanded(child: Text(text, style: theme.textTheme.bodyMedium)),
         ],
+      ),
+    );
+  }
+}
+
+/// The languages a teacher teaches in, editable.
+class _TeachingLanguages extends ConsumerWidget {
+  const _TeachingLanguages({required this.userId, required this.languages});
+  final String userId;
+  final List<String> languages;
+
+  Future<void> _edit(BuildContext context, WidgetRef ref) async {
+    final l10n = AppLocalizations.of(context);
+    final all = await ref.read(languagesProvider.future);
+    if (!context.mounted) return;
+    final chosen = {...languages};
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => StatefulBuilder(
+        builder: (context, setState) => AlertDialog(
+          title: Text(l10n.personTeachesIn),
+          content: Wrap(
+            spacing: Space.xs,
+            runSpacing: Space.xs,
+            children: [
+              for (final l in all)
+                FilterChip(
+                  label: Text(l.name),
+                  selected: chosen.contains(l.code),
+                  onSelected: (v) => setState(
+                    () => v ? chosen.add(l.code) : chosen.remove(l.code),
+                  ),
+                ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: Text(l10n.adminCancel),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(dialogContext, true),
+              child: Text(l10n.adminSave),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (ok != true || !context.mounted) return;
+    if (await runAdminAction(
+      context,
+      () => ref
+          .read(adminRepositoryProvider)
+          .setLanguages(userId, chosen.toList()),
+      success: l10n.adminSaved,
+    )) {
+      ref.invalidate(personProfileProvider(userId));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final langs = ref.watch(languagesProvider).value;
+    return Card(
+      child: ListTile(
+        leading: const Icon(Icons.translate),
+        title: Text(l10n.personTeachesIn),
+        subtitle: Text(
+          languages.isEmpty
+              ? l10n.personTeachesInNone
+              : languages.map((c) => languageName(langs, c)).join(', '),
+        ),
+        trailing: const Icon(Icons.edit_outlined),
+        onTap: () => _edit(context, ref),
       ),
     );
   }

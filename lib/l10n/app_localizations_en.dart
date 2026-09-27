@@ -2959,4 +2959,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get librarySection => 'Section';
+
+  @override
+  String get personTeachesIn => 'Teaches in';
+
+  @override
+  String get personTeachesInNone => 'Not set. Tap to choose languages.';
 }

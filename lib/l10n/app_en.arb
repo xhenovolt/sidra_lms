@@ -1388,5 +1388,7 @@
     }
   },
   "libraryCoursePage": "Course page",
-  "librarySection": "Section"
+  "librarySection": "Section",
+  "personTeachesIn": "Teaches in",
+  "personTeachesInNone": "Not set. Tap to choose languages."
 }

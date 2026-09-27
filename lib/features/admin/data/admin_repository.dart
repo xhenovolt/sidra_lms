@@ -506,6 +506,11 @@ class AdminRepository {
     return (res as Map)['mode'] as String;
   }
 
+  Future<void> setLanguages(String userId, List<String> languages) => api.rpc(
+    'set_user_languages',
+    params: {'p_user_id': userId, 'p_languages': languages},
+  );
+
   Future<void> setSuperadmin(String userId, bool value) => api.rpc(
     'set_superadmin',
     params: {'p_user_id': userId, 'p_superadmin': value},
@@ -795,6 +800,7 @@ class PersonProfile {
     required this.quizAttempts,
     this.lastSignIn,
     this.activity,
+    this.languages = const [],
   });
 
   factory PersonProfile.fromJson(Json j) {
@@ -807,6 +813,7 @@ class PersonProfile {
       user: AppUserRow.fromJson(user),
       roles: [for (final r in list(user['roles'])) r.str('name')],
       lastSignIn: user.dateOrNull('last_sign_in'),
+      languages: user.strList('languages'),
       enrolments: list(j['enrolments']).map(PersonEnrolment.fromJson).toList(),
       teaching: list(j['teaching']).map(PersonTeaching.fromJson).toList(),
       reviews: list(j['reviews']),
@@ -817,6 +824,9 @@ class PersonProfile {
 
   final AppUserRow user;
   final List<String> roles;
+
+  /// Languages this person teaches in (staff).
+  final List<String> languages;
   final DateTime? lastSignIn;
   final List<PersonEnrolment> enrolments;
   final List<PersonTeaching> teaching;

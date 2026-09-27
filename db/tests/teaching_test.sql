@@ -237,4 +237,14 @@ select pg_temp.check(not exists (select 1 from public.resource_usages('00000000-
   'learners cannot list usages');
 reset role;
 
+-- Teaching languages on the profile.
+select pg_temp.login_as('admin_1');
+set local role authenticated;
+select public.set_user_languages(current_setting('t.tt')::uuid, array['en', 'lg']);
+select pg_temp.check(public.admin_person_profile(current_setting('t.tt')::uuid)->'user'->'languages'
+                     = '["en", "lg"]'::jsonb, 'teacher languages saved and shown');
+select pg_temp.expect_error($q$select public.set_user_languages(current_setting('t.tt')::uuid, array['xx'])$q$,
+  'unknown language');
+reset role;
+
 select 'ALL TEACHING TESTS PASSED' as result;
