@@ -3038,4 +3038,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get avatarSaved => 'تم تحديث صورة الملف الشخصي';
+
+  @override
+  String get viewerDownloading => 'جارٍ التنزيل…';
+
+  @override
+  String get viewerOpenAgain => 'افتح مرة أخرى';
+
+  @override
+  String get viewerNoApp =>
+      'لا يوجد على هذا الهاتف تطبيق يفتح هذا النوع من المستندات. ثبّت تطبيق مستندات (مثل Microsoft Word أو WPS Office) ثم حاول مجددًا.';
 }

@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/data/repository_providers.dart';
 import '../../../core/errors/app_failure.dart';
@@ -16,6 +15,7 @@ import '../../admin/presentation/admin_common.dart';
 import '../../lessons/domain/external_link.dart';
 import '../data/content_repository.dart';
 import '../data/link_preview.dart';
+import '../../media/presentation/media_viewer.dart';
 
 typedef ResourceKey = ({ResourceTarget target, String id});
 
@@ -60,12 +60,15 @@ Future<void> openResource(
 ) async {
   final l10n = AppLocalizations.of(context);
   try {
-    final url = r.isLink
-        ? r.url!
-        : await ref.read(contentRepositoryProvider).mediaUrl(r.mediaAssetId!);
-    final uri = parseExternalLink(url);
-    if (uri == null) throw const UnexpectedFailure('bad link');
-    await launchUrl(uri, mode: LaunchMode.externalApplication);
+    await openInApp(
+      context,
+      assetId: r.isLink ? null : r.mediaAssetId,
+      url: r.url,
+      kind: r.kind,
+      mimeType: r.mimeType,
+      fileName: r.fileName,
+      title: r.title.isEmpty ? (r.fileName ?? '') : r.title,
+    );
   } on AppFailure catch (e) {
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(

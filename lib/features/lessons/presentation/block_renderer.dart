@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/theme/app_theme.dart';
 import '../../../core/theme/app_tokens.dart';
@@ -11,6 +10,7 @@ import '../../media/presentation/media_widgets.dart';
 import '../domain/content_blocks.dart';
 import '../domain/external_link.dart';
 import 'simple_markdown.dart';
+import '../../media/presentation/media_viewer.dart';
 
 /// Renders one content block. Adding a block type = one case here plus
 /// one in [ContentBlock.fromJson]. Curriculum structure never lives here.
@@ -107,10 +107,7 @@ class BlockView extends StatelessWidget {
         trailing: url == null ? null : const Icon(Icons.open_in_new, size: 18),
         onTap: url == null
             ? null
-            : () => launchUrl(
-                Uri.parse(url),
-                mode: LaunchMode.externalApplication,
-              ),
+            : () => openInApp(context, url: url, kind: 'link', title: citation),
       ),
       CalloutBlock(:final text, :final tone) => _Callout(
         text: text,
@@ -239,11 +236,18 @@ class _AttachmentTile extends ConsumerWidget {
         onTap: () async {
           final repo = await ref.read(mediaRepositoryProvider.future);
           final source = await repo.resolve(assetId);
-          final uri = switch (source) {
-            LocalMedia(:final file) => Uri.file(file.path),
-            RemoteMedia(:final url) => Uri.parse(url),
+          if (!context.mounted) return;
+          final name = switch (source) {
+            LocalMedia(:final file) => file.path.split(RegExp(r'[\\/]')).last,
+            RemoteMedia(:final url) => Uri.parse(url).pathSegments.last,
           };
-          await launchUrl(uri, mode: LaunchMode.externalApplication);
+          await openInApp(
+            context,
+            assetId: assetId,
+            localPath: source is LocalMedia ? source.file.path : null,
+            fileName: name,
+            title: title,
+          );
         },
       ),
     );
@@ -281,7 +285,12 @@ class ExternalLinkCard extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () => launchUrl(block.uri, mode: LaunchMode.externalApplication),
+        onTap: () => openInApp(
+          context,
+          url: block.uri.toString(),
+          kind: 'link',
+          title: block.uri.host,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

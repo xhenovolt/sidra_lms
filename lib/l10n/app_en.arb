@@ -1472,5 +1472,8 @@
   "avatarUpload": "Upload from the phone",
   "avatarChoose": "Or choose an avatar",
   "avatarRemove": "Remove photo",
-  "avatarSaved": "Profile photo updated"
+  "avatarSaved": "Profile photo updated",
+  "viewerDownloading": "Downloading…",
+  "viewerOpenAgain": "Open again",
+  "viewerNoApp": "No app on this phone can open this kind of document. Install a document app (e.g. Microsoft Word, WPS Office) and try again."
 }

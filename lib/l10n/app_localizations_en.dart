@@ -3068,4 +3068,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get avatarSaved => 'Profile photo updated';
+
+  @override
+  String get viewerDownloading => 'Downloading…';
+
+  @override
+  String get viewerOpenAgain => 'Open again';
+
+  @override
+  String get viewerNoApp =>
+      'No app on this phone can open this kind of document. Install a document app (e.g. Microsoft Word, WPS Office) and try again.';
 }

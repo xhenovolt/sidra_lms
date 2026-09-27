@@ -5514,6 +5514,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile photo updated'**
   String get avatarSaved;
+
+  /// No description provided for @viewerDownloading.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading…'**
+  String get viewerDownloading;
+
+  /// No description provided for @viewerOpenAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Open again'**
+  String get viewerOpenAgain;
+
+  /// No description provided for @viewerNoApp.
+  ///
+  /// In en, this message translates to:
+  /// **'No app on this phone can open this kind of document. Install a document app (e.g. Microsoft Word, WPS Office) and try again.'**
+  String get viewerNoApp;
 }
 
 class _AppLocalizationsDelegate

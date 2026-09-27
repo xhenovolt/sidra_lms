@@ -900,5 +900,8 @@
   "avatarUpload": "ارفع من الهاتف",
   "avatarChoose": "أو اختر رمزًا",
   "avatarRemove": "إزالة الصورة",
-  "avatarSaved": "تم تحديث صورة الملف الشخصي"
+  "avatarSaved": "تم تحديث صورة الملف الشخصي",
+  "viewerDownloading": "جارٍ التنزيل…",
+  "viewerOpenAgain": "افتح مرة أخرى",
+  "viewerNoApp": "لا يوجد على هذا الهاتف تطبيق يفتح هذا النوع من المستندات. ثبّت تطبيق مستندات (مثل Microsoft Word أو WPS Office) ثم حاول مجددًا."
 }
