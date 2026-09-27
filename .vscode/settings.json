@@ -1,0 +1,9 @@
+{
+  // The Java extension treats android/ as a Java project and keeps a Gradle
+  // build running, which locks the folder and breaks `flutter build apk`.
+  // Flutter builds Android itself; the extension is not needed here.
+  "java.import.gradle.enabled": false,
+  "java.import.maven.enabled": false,
+  "java.configuration.updateBuildConfiguration": "disabled",
+  "java.autobuild.enabled": false
+}
