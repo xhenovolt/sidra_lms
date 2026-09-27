@@ -801,6 +801,7 @@ class PersonProfile {
     this.lastSignIn,
     this.activity,
     this.languages = const [],
+    this.avatarUrl,
   });
 
   factory PersonProfile.fromJson(Json j) {
@@ -814,6 +815,7 @@ class PersonProfile {
       roles: [for (final r in list(user['roles'])) r.str('name')],
       lastSignIn: user.dateOrNull('last_sign_in'),
       languages: user.strList('languages'),
+      avatarUrl: user.strOrNull('avatar_url'),
       enrolments: list(j['enrolments']).map(PersonEnrolment.fromJson).toList(),
       teaching: list(j['teaching']).map(PersonTeaching.fromJson).toList(),
       reviews: list(j['reviews']),
@@ -827,6 +829,7 @@ class PersonProfile {
 
   /// Languages this person teaches in (staff).
   final List<String> languages;
+  final String? avatarUrl;
   final DateTime? lastSignIn;
   final List<PersonEnrolment> enrolments;
   final List<PersonTeaching> teaching;

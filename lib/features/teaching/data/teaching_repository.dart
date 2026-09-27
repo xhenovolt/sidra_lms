@@ -129,6 +129,7 @@ class BoardRow {
   final Json j;
   String get userId => j.str('user_id');
   String get name => j.strOrNull('name') ?? '—';
+  String? get avatarUrl => j.strOrNull('avatar_url');
   Participation get status => participationOf(j.strOrNull('status'));
   ReviewResult? get lastResult => reviewResultOf(j.strOrNull('last_result'));
   int get attempts => j.integer('attempts', fallback: 0);

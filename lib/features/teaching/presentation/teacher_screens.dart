@@ -22,6 +22,7 @@ import '../../content/presentation/resource_widgets.dart';
 import '../../curriculum/domain/curriculum_models.dart';
 import '../data/teaching_repository.dart';
 import 'learner_portion_screen.dart' show participationLabel, resultLabel;
+import '../../../shared/widgets/user_avatar.dart';
 
 /// Upload a local file once and register it as a shared resource.
 Future<String> uploadAsResource(
@@ -1183,6 +1184,12 @@ class _BoardTile extends ConsumerWidget {
             children: [
               Row(
                 children: [
+                  UserAvatar(
+                    avatarUrl: row.avatarUrl,
+                    name: row.name,
+                    radius: 16,
+                  ),
+                  const SizedBox(width: Space.sm),
                   Expanded(
                     child: Text(row.name, style: theme.textTheme.titleSmall),
                   ),

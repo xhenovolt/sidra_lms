@@ -427,23 +427,22 @@ void main() {
     },
   );
 
-  testWidgets(
-    'if the menu cannot load, the bottom bar and menu still show',
-    (tester) async {
-      final api = staffServer('admin');
-      api.rpcHandlers['my_permissions'] = (_) =>
-          throw const UnexpectedFailure('Database error');
-      // A user never seen on this device: nothing saved to fall back on,
-      // so the role's usual menu is shown (the database still checks
-      // every action).
-      await signInAs(tester, 'admin', api: api, userId: 'fresh-admin');
-      expect(find.byType(NavigationBar), findsOneWidget);
-      expect(navLabels(tester), contains('More'));
-      await openDrawer(tester);
-      await scrollDrawerTo(tester, 'My account');
-      expect(inDrawer('My account'), findsOneWidget);
-      // Administrators are superadmin-only, even in the fallback.
-      expect(inDrawer('Administrators'), findsNothing);
-    },
-  );
+  testWidgets('if the menu cannot load, the bottom bar and menu still show', (
+    tester,
+  ) async {
+    final api = staffServer('admin');
+    api.rpcHandlers['my_permissions'] = (_) =>
+        throw const UnexpectedFailure('Database error');
+    // A user never seen on this device: nothing saved to fall back on,
+    // so the role's usual menu is shown (the database still checks
+    // every action).
+    await signInAs(tester, 'admin', api: api, userId: 'fresh-admin');
+    expect(find.byType(NavigationBar), findsOneWidget);
+    expect(navLabels(tester), contains('More'));
+    await openDrawer(tester);
+    await scrollDrawerTo(tester, 'My account');
+    expect(inDrawer('My account'), findsOneWidget);
+    // Administrators are superadmin-only, even in the fallback.
+    expect(inDrawer('Administrators'), findsNothing);
+  });
 }

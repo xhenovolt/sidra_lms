@@ -1465,5 +1465,12 @@
         "type": "int"
       }
     }
-  }
+  },
+  "avatarTitle": "Profile photo",
+  "avatarChange": "Change profile photo",
+  "avatarTakePhoto": "Take a photo",
+  "avatarUpload": "Upload from the phone",
+  "avatarChoose": "Or choose an avatar",
+  "avatarRemove": "Remove photo",
+  "avatarSaved": "Profile photo updated"
 }

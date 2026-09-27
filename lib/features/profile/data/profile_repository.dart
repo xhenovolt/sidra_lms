@@ -13,6 +13,7 @@ class UserProfile {
     this.displayName,
     this.email,
     this.isSuperadmin = false,
+    this.avatarUrl,
   });
 
   factory UserProfile.fromJson(Json j) => UserProfile(
@@ -21,6 +22,7 @@ class UserProfile {
     displayName: j.strOrNull('display_name'),
     email: j.strOrNull('email'),
     isSuperadmin: j.boolean('is_superadmin'),
+    avatarUrl: j.strOrNull('avatar_url'),
   );
 
   final String id;
@@ -31,6 +33,9 @@ class UserProfile {
   /// Can manage administrators (creating, promoting, disabling admins).
   final bool isSuperadmin;
 
+  /// `media:<id>`, `avatar:<key>` or null (see UserAvatar).
+  final String? avatarUrl;
+
   bool get isStaff => role == UserRole.teacher || role == UserRole.admin;
   bool get isAdmin => role == UserRole.admin;
 
@@ -40,6 +45,7 @@ class UserProfile {
     'display_name': displayName,
     'email': email,
     'is_superadmin': isSuperadmin,
+    'avatar_url': avatarUrl,
   };
 }
 
@@ -61,7 +67,8 @@ class ProfileRepository {
         params: {
           'p_display_name': user.displayName,
           'p_email': user.email,
-          'p_avatar_url': user.imageUrl,
+          // The picture is changed only through set_my_avatar.
+          'p_avatar_url': null,
         },
       );
       final profile = UserProfile.fromJson(Json.from(json as Map));

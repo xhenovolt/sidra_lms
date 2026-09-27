@@ -12,6 +12,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../auth/presentation/auth_providers.dart';
 import '../../profile/data/profile_repository.dart';
 import 'people_tab.dart';
+import '../../profile/presentation/avatar_editor.dart';
 
 /// A staff tab page with its own title bar.
 class StaffPage extends StatelessWidget {
@@ -44,7 +45,6 @@ class StaffMoreScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
     final user = ref.watch(authSessionProvider).user;
     final sync = ref.watch(syncStatusProvider).value;
     final role = UserRole.values.asNameMap()[user?.role] ?? UserRole.learner;
@@ -56,12 +56,7 @@ class StaffMoreScreen extends ConsumerWidget {
         children: [
           Card(
             child: ListTile(
-              leading: CircleAvatar(
-                backgroundColor: theme.colorScheme.primaryContainer,
-                child: Text(
-                  (user?.displayName ?? '?').characters.first.toUpperCase(),
-                ),
-              ),
+              leading: const MyAvatar(radius: 22),
               title: Text(user?.displayName ?? ''),
               subtitle: Text(
                 [

@@ -5472,6 +5472,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} waiting'**
   String repTeacherWaiting(int count);
+
+  /// No description provided for @avatarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile photo'**
+  String get avatarTitle;
+
+  /// No description provided for @avatarChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Change profile photo'**
+  String get avatarChange;
+
+  /// No description provided for @avatarTakePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a photo'**
+  String get avatarTakePhoto;
+
+  /// No description provided for @avatarUpload.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload from the phone'**
+  String get avatarUpload;
+
+  /// No description provided for @avatarChoose.
+  ///
+  /// In en, this message translates to:
+  /// **'Or choose an avatar'**
+  String get avatarChoose;
+
+  /// No description provided for @avatarRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove photo'**
+  String get avatarRemove;
+
+  /// No description provided for @avatarSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile photo updated'**
+  String get avatarSaved;
 }
 
 class _AppLocalizationsDelegate

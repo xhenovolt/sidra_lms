@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sidra_lms/features/auth/domain/auth_session.dart';
+import 'package:sidra_lms/features/profile/presentation/avatar_editor.dart';
 
 import '../helpers/fake_auth_service.dart';
 import '../helpers/test_app.dart';
@@ -319,5 +320,28 @@ void main() {
       find.textContaining('18 reviews · 3.5 h to review · 2 waiting'),
       findsOneWidget,
     );
+  });
+
+  testWidgets('learner chooses a profile avatar', (tester) async {
+    final api = emptyServer();
+    api.rpcHandlers['set_my_avatar'] = (p) => p['p_value'];
+    await tester.pumpWidget(
+      await buildTestApp(
+        FakeAuthService(const AuthSession.signedIn(testUser)),
+        api: api,
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Profile').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(MyAvatar));
+    await tester.pumpAndSettle();
+    expect(find.text('Take a photo'), findsOneWidget);
+    expect(find.text('Upload from the phone'), findsOneWidget);
+    expect(find.text('Or choose an avatar'), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.nightlight_round));
+    await tester.pumpAndSettle();
+    final call = api.rpcCalls.lastWhere((c) => c.$1 == 'set_my_avatar');
+    expect(call.$2['p_value'], 'avatar:crescent');
   });
 }

@@ -11,6 +11,7 @@ import '../../content/data/content_repository.dart';
 import '../data/admin_repository.dart';
 import 'admin_common.dart';
 import 'people_tab.dart';
+import '../../../shared/widgets/user_avatar.dart';
 
 final personProfileProvider = FutureProvider.autoDispose
     .family<PersonProfile, String>(
@@ -90,13 +91,10 @@ class _Profile extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    CircleAvatar(
+                    UserAvatar(
+                      avatarUrl: profile.avatarUrl,
+                      name: user.name,
                       radius: 28,
-                      backgroundColor: theme.colorScheme.primaryContainer,
-                      child: Text(
-                        user.name.characters.first.toUpperCase(),
-                        style: theme.textTheme.titleLarge,
-                      ),
                     ),
                     const SizedBox(width: Space.md),
                     Expanded(

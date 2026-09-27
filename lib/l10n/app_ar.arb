@@ -893,5 +893,12 @@
   "repTeachersQ": "من يراجع، وبأي سرعة، وما الذي ينتظرهم؟",
   "repTeacherReviews": "{count} مراجعة",
   "repTeacherTurnaround": "{hours} ساعة للمراجعة",
-  "repTeacherWaiting": "{count} بانتظاره"
+  "repTeacherWaiting": "{count} بانتظاره",
+  "avatarTitle": "صورة الملف الشخصي",
+  "avatarChange": "تغيير صورة الملف الشخصي",
+  "avatarTakePhoto": "التقط صورة",
+  "avatarUpload": "ارفع من الهاتف",
+  "avatarChoose": "أو اختر رمزًا",
+  "avatarRemove": "إزالة الصورة",
+  "avatarSaved": "تم تحديث صورة الملف الشخصي"
 }

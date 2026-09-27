@@ -3017,4 +3017,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String repTeacherWaiting(int count) {
     return '$count بانتظاره';
   }
+
+  @override
+  String get avatarTitle => 'صورة الملف الشخصي';
+
+  @override
+  String get avatarChange => 'تغيير صورة الملف الشخصي';
+
+  @override
+  String get avatarTakePhoto => 'التقط صورة';
+
+  @override
+  String get avatarUpload => 'ارفع من الهاتف';
+
+  @override
+  String get avatarChoose => 'أو اختر رمزًا';
+
+  @override
+  String get avatarRemove => 'إزالة الصورة';
+
+  @override
+  String get avatarSaved => 'تم تحديث صورة الملف الشخصي';
 }

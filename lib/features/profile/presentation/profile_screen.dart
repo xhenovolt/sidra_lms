@@ -12,6 +12,7 @@ import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../auth/presentation/auth_providers.dart';
 import '../data/profile_repository.dart';
+import 'avatar_editor.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -23,10 +24,6 @@ class ProfileScreen extends ConsumerWidget {
     final user = ref.watch(authSessionProvider).user;
     final profile = ref.watch(profileProvider).value;
     final sync = ref.watch(syncStatusProvider).value;
-    final initial = (user?.displayName ?? user?.identifier ?? '?')
-        .characters
-        .first
-        .toUpperCase();
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.profileTitle)),
@@ -35,14 +32,7 @@ class ProfileScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              CircleAvatar(
-                radius: 32,
-                backgroundColor: theme.colorScheme.primaryContainer,
-                foregroundImage: user?.imageUrl == null
-                    ? null
-                    : NetworkImage(user!.imageUrl!),
-                child: Text(initial, style: theme.textTheme.titleLarge),
-              ),
+              const MyAvatar(),
               const SizedBox(width: Space.md),
               Expanded(
                 child: Column(

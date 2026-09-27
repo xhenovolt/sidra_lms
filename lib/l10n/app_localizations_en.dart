@@ -3047,4 +3047,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String repTeacherWaiting(int count) {
     return '$count waiting';
   }
+
+  @override
+  String get avatarTitle => 'Profile photo';
+
+  @override
+  String get avatarChange => 'Change profile photo';
+
+  @override
+  String get avatarTakePhoto => 'Take a photo';
+
+  @override
+  String get avatarUpload => 'Upload from the phone';
+
+  @override
+  String get avatarChoose => 'Or choose an avatar';
+
+  @override
+  String get avatarRemove => 'Remove photo';
+
+  @override
+  String get avatarSaved => 'Profile photo updated';
 }

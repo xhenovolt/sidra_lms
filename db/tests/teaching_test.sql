@@ -278,4 +278,30 @@ select pg_temp.check(not exists (select 1 from public.poll_notifications(current
                       now() - interval '1 hour')), 'revoked token reads nothing');
 reset role;
 
+-- Profile photos.
+insert into media_assets (id, kind, resource_type, delivery, public_id, format, uploaded_by) values
+  ('00000000-0000-0000-0000-0000000aaf41', 'image', 'image', 'authenticated',
+   'sidra/submissions/' || current_setting('t.a') || '/me', 'jpg', current_setting('t.a')::uuid),
+  ('00000000-0000-0000-0000-0000000aaf42', 'image', 'image', 'authenticated',
+   'sidra/submissions/' || current_setting('t.b') || '/me', 'jpg', current_setting('t.b')::uuid);
+select pg_temp.login_as_id(current_setting('t.a')::uuid);
+set local role authenticated;
+select pg_temp.expect_error($q$select public.set_my_avatar('media:00000000-0000-0000-0000-0000000aaf42')$q$,
+  'one you uploaded');
+select pg_temp.expect_error($q$select public.set_my_avatar('https://evil.example/x.png')$q$, 'unknown avatar');
+select public.set_my_avatar('avatar:crescent');
+select public.set_my_avatar('media:00000000-0000-0000-0000-0000000aaf41');
+reset role;
+select pg_temp.login_as_id(current_setting('t.b')::uuid);
+set local role authenticated;
+select pg_temp.check(public.media_url('00000000-0000-0000-0000-0000000aaf41') like 'https://%',
+  'a classmate can see the profile photo');
+reset role;
+select pg_temp.login_as_id(current_setting('t.a')::uuid);
+set local role authenticated;
+select public.set_my_avatar(null);
+reset role;
+select pg_temp.check(not exists (select 1 from media_assets where id = '00000000-0000-0000-0000-0000000aaf41'),
+  'an old photo is deleted when replaced');
+
 select 'ALL TEACHING TESTS PASSED' as result;
