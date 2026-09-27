@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,6 +13,7 @@ import '../../lessons/domain/external_link.dart';
 import '../data/content_repository.dart';
 import '../data/link_preview.dart';
 import '../../media/presentation/media_viewer.dart';
+import '../../media/presentation/capture_sheet.dart';
 
 typedef ResourceKey = ({ResourceTarget target, String id});
 
@@ -314,22 +312,25 @@ Future<bool> uploadResourceFlow(
   int position = 0,
 }) async {
   final l10n = AppLocalizations.of(context);
-  final picked = await FilePicker.pickFile(
-    type: FileType.custom,
-    allowedExtensions: allowedResourceExtensions,
+  var captured = await captureContent(
+    context,
+    fileExtensions: allowedResourceExtensions,
   );
-  final path = picked?.path;
-  if (picked == null || path == null || !context.mounted) return false;
+  if (captured == null || !context.mounted) return false;
+  if (captured.kind == 'text') captured = await pastedTextAsFile(captured);
+  if (!context.mounted) return false;
+  final picked = (name: captured.name, size: captured.bytes);
+  final path = captured.path;
   final details = await _resourceDetails(
     context,
     ref,
     title: picked.name.replaceAll(RegExp(r'\.[^.]+$'), ''),
-    subtitle: '${picked.name} · ${formatBytes(File(path).lengthSync())}',
+    subtitle: '${picked.name} · ${formatBytes(picked.size)}',
   );
   if (details == null || !context.mounted) return false;
   final profile = await ref.read(profileProvider.future);
   if (!context.mounted) return false;
-  final kind = fileKindFor(picked.name);
+  final kind = captured.kind == 'text' ? 'document' : captured.kind;
   var ok = false;
   await showDialog<void>(
     context: context,
@@ -366,7 +367,7 @@ Future<bool> uploadResourceFlow(
                 'extension': picked.name.contains('.')
                     ? picked.name.split('.').last.toLowerCase()
                     : null,
-                'bytes': File(path).lengthSync(),
+                'bytes': picked.size,
               },
             );
         ok = true;
@@ -773,6 +774,8 @@ class _UploadProgress extends StatefulWidget {
 
 class _UploadProgressState extends State<_UploadProgress> {
   double? _progress;
+  int _sent = 0;
+  int _total = 0;
   String? _error;
 
   @override
@@ -788,7 +791,13 @@ class _UploadProgressState extends State<_UploadProgress> {
     });
     try {
       await widget.run((sent, total) {
-        if (mounted && total > 0) setState(() => _progress = sent / total);
+        if (mounted && total > 0) {
+          setState(() {
+            _progress = sent / total;
+            _sent = sent;
+            _total = total;
+          });
+        }
       });
       if (mounted) Navigator.pop(context);
     } on AppFailure catch (e) {
@@ -813,9 +822,16 @@ class _UploadProgressState extends State<_UploadProgress> {
         children: [
           Text(widget.label),
           const SizedBox(height: Space.sm),
-          if (_error == null)
-            LinearProgressIndicator(value: _progress)
-          else
+          if (_error == null) ...[
+            LinearProgressIndicator(value: _progress),
+            if (_total > 0)
+              Padding(
+                padding: const EdgeInsets.only(top: Space.xs),
+                child: Text(
+                  '${formatFileSize(_sent)} / ${formatFileSize(_total)}',
+                ),
+              ),
+          ] else
             Text(
               _error!,
               style: TextStyle(color: Theme.of(context).colorScheme.error),

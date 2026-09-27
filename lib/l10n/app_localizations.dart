@@ -5532,6 +5532,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No app on this phone can open this kind of document. Install a document app (e.g. Microsoft Word, WPS Office) and try again.'**
   String get viewerNoApp;
+
+  /// No description provided for @capPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take photo'**
+  String get capPhoto;
+
+  /// No description provided for @capVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Record video'**
+  String get capVideo;
+
+  /// No description provided for @capScan.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan pages (PDF)'**
+  String get capScan;
+
+  /// No description provided for @capAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Record audio'**
+  String get capAudio;
+
+  /// No description provided for @capGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'From gallery'**
+  String get capGallery;
+
+  /// No description provided for @capFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose file'**
+  String get capFile;
+
+  /// No description provided for @capPaste.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste text'**
+  String get capPaste;
+
+  /// No description provided for @capFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open: {reason}'**
+  String capFailed(String reason);
+
+  /// No description provided for @capSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Size: {size}'**
+  String capSize(String size);
+
+  /// No description provided for @capPages.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 page} other{{count} pages}}'**
+  String capPages(int count);
+
+  /// No description provided for @capLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a large file. Uploading it uses a lot of mobile data; Wi-Fi is better.'**
+  String get capLarge;
+
+  /// No description provided for @capUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload this'**
+  String get capUse;
+
+  /// No description provided for @capAddContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Add: take, record, scan or choose'**
+  String get capAddContent;
+
+  /// No description provided for @capAddWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Add photo, scan or file'**
+  String get capAddWork;
+
+  /// No description provided for @capClipboardEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no text to paste. Copy some text first.'**
+  String get capClipboardEmpty;
+
+  /// No description provided for @capPasted.
+  ///
+  /// In en, this message translates to:
+  /// **'Text added. Tap it to edit.'**
+  String get capPasted;
 }
 
 class _AppLocalizationsDelegate

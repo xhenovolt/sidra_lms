@@ -1475,5 +1475,42 @@
   "avatarSaved": "Profile photo updated",
   "viewerDownloading": "Downloading…",
   "viewerOpenAgain": "Open again",
-  "viewerNoApp": "No app on this phone can open this kind of document. Install a document app (e.g. Microsoft Word, WPS Office) and try again."
+  "viewerNoApp": "No app on this phone can open this kind of document. Install a document app (e.g. Microsoft Word, WPS Office) and try again.",
+  "capPhoto": "Take photo",
+  "capVideo": "Record video",
+  "capScan": "Scan pages (PDF)",
+  "capAudio": "Record audio",
+  "capGallery": "From gallery",
+  "capFile": "Choose file",
+  "capPaste": "Paste text",
+  "capFailed": "Could not open: {reason}",
+  "@capFailed": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "capSize": "Size: {size}",
+  "@capSize": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "capPages": "{count, plural, =1{1 page} other{{count} pages}}",
+  "@capPages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "capLarge": "This is a large file. Uploading it uses a lot of mobile data; Wi-Fi is better.",
+  "capUse": "Upload this",
+  "capAddContent": "Add: take, record, scan or choose",
+  "capAddWork": "Add photo, scan or file",
+  "capClipboardEmpty": "There is no text to paste. Copy some text first.",
+  "capPasted": "Text added. Tap it to edit."
 }

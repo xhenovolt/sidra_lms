@@ -3048,4 +3048,65 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get viewerNoApp =>
       'لا يوجد على هذا الهاتف تطبيق يفتح هذا النوع من المستندات. ثبّت تطبيق مستندات (مثل Microsoft Word أو WPS Office) ثم حاول مجددًا.';
+
+  @override
+  String get capPhoto => 'التقاط صورة';
+
+  @override
+  String get capVideo => 'تسجيل فيديو';
+
+  @override
+  String get capScan => 'مسح صفحات (PDF)';
+
+  @override
+  String get capAudio => 'تسجيل صوت';
+
+  @override
+  String get capGallery => 'من المعرض';
+
+  @override
+  String get capFile => 'اختيار ملف';
+
+  @override
+  String get capPaste => 'لصق نص';
+
+  @override
+  String capFailed(String reason) {
+    return 'تعذّر الفتح: $reason';
+  }
+
+  @override
+  String capSize(String size) {
+    return 'الحجم: $size';
+  }
+
+  @override
+  String capPages(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count صفحات',
+      one: 'صفحة واحدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get capLarge =>
+      'هذا ملف كبير. رفعه يستهلك بيانات كثيرة؛ الأفضل استخدام Wi-Fi.';
+
+  @override
+  String get capUse => 'ارفع هذا';
+
+  @override
+  String get capAddContent => 'أضف: التقط أو سجّل أو امسح أو اختر';
+
+  @override
+  String get capAddWork => 'أضف صورة أو مسحًا أو ملفًا';
+
+  @override
+  String get capClipboardEmpty => 'لا يوجد نص للصق. انسخ نصًا أولًا.';
+
+  @override
+  String get capPasted => 'أُضيف النص. اضغط عليه لتعديله.';
 }

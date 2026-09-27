@@ -1,5 +1,5 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,6 +18,7 @@ import '../../content/presentation/assignment_widgets.dart';
 import '../../content/presentation/resource_widgets.dart';
 import 'admin_common.dart';
 import 'lesson_overview_tab.dart';
+import '../../media/presentation/capture_sheet.dart';
 
 class _EditorData {
   const _EditorData(this.lesson, this.rows);
@@ -47,6 +48,7 @@ final _editorProvider = FutureProvider.autoDispose.family<_EditorData, String>((
 /// Block types offered to teachers, in the order they are most used.
 enum _NewBlock {
   text('rich_text', Icons.notes),
+  paste('paste', Icons.content_paste),
   heading('heading', Icons.title),
   quran('quran_text', Icons.menu_book),
   translation('translation', Icons.translate),
@@ -199,6 +201,10 @@ class _LessonEditorScreenState extends ConsumerState<LessonEditorScreen>
       ),
     );
     if (type == null || !context.mounted) return;
+    if (type == _NewBlock.paste) {
+      await _pasteBlock(context, ref, data);
+      return;
+    }
     final position = data.rows.isEmpty
         ? 0
         : data.rows
@@ -218,6 +224,7 @@ class _LessonEditorScreenState extends ConsumerState<LessonEditorScreen>
 
 String _typeLabel(AppLocalizations l10n, String t) => switch (t) {
   'rich_text' => l10n.adminBlockText,
+  'paste' => l10n.capPaste,
   'heading' => l10n.adminBlockHeading,
   'quran_text' => l10n.adminBlockQuran,
   'translation' => l10n.adminBlockTranslation,
@@ -457,6 +464,7 @@ Future<bool> showBlockEditor(
 
     case 'image' || 'audio' || 'video' || 'attachment':
       String? mediaId = existing?['media_asset_id'] as String?;
+      int? fileSize;
       final caption = TextEditingController(
         text: (body['caption'] ?? body['title']) as String?,
       );
@@ -480,13 +488,32 @@ Future<bool> showBlockEditor(
                       onPressed: uploading
                           ? null
                           : () async {
-                              final file = await pickLocalFile(switch (dbType) {
-                                'image' => FileType.image,
-                                'video' => FileType.video,
-                                'audio' => FileType.audio,
-                                _ => FileType.any,
-                              });
+                              final file = await captureContent(
+                                context,
+                                allow: switch (dbType) {
+                                  'image' => const {
+                                    CaptureSource.photo,
+                                    CaptureSource.gallery,
+                                    CaptureSource.file,
+                                  },
+                                  'video' => const {
+                                    CaptureSource.video,
+                                    CaptureSource.gallery,
+                                    CaptureSource.file,
+                                  },
+                                  'audio' => const {
+                                    CaptureSource.audio,
+                                    CaptureSource.file,
+                                  },
+                                  _ => const {
+                                    CaptureSource.scan,
+                                    CaptureSource.photo,
+                                    CaptureSource.file,
+                                  },
+                                },
+                              );
                               if (file == null || !context.mounted) return;
+                              fileSize = file.bytes;
                               final profile = await ref.read(
                                 profileProvider.future,
                               );
@@ -519,8 +546,9 @@ Future<bool> showBlockEditor(
                             ),
                       label: Text(
                         mediaId == null
-                            ? l10n.adminChooseFile
-                            : l10n.adminFileUploaded,
+                            ? l10n.capAddContent
+                            : '${l10n.adminFileUploaded}'
+                                  '${fileSize == null ? '' : ' · ${formatFileSize(fileSize!)}'}',
                       ),
                     ),
                     const SizedBox(height: Space.md),
@@ -949,4 +977,39 @@ Future<String?> _pickLanguage(BuildContext context, String? current) {
       ),
     ),
   );
+}
+
+/// Paste text from the clipboard as a new text block (editable afterwards).
+Future<void> _pasteBlock(
+  BuildContext context,
+  WidgetRef ref,
+  _EditorData data,
+) async {
+  final l10n = AppLocalizations.of(context);
+  final clip = await Clipboard.getData(Clipboard.kTextPlain);
+  final text = clip?.text?.trim() ?? '';
+  if (!context.mounted) return;
+  if (text.isEmpty) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(l10n.capClipboardEmpty)));
+    return;
+  }
+  final position = data.rows.isEmpty
+      ? 0
+      : data.rows
+                .map((r) => r['position'] as int)
+                .reduce((a, b) => a > b ? a : b) +
+            1;
+  if (await runAdminAction(
+    context,
+    () => ref.read(adminRepositoryProvider).save('lesson_content_blocks', {
+      'lesson_id': data.lesson.id,
+      'position': position,
+      'block_type': 'rich_text',
+      'body': {'text': text, 'format': 'plain'},
+    }),
+    success: l10n.capPasted,
+  )) {
+    ref.invalidate(_editorProvider(data.lesson.id));
+  }
 }

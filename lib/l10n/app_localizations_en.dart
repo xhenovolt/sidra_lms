@@ -3078,4 +3078,66 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get viewerNoApp =>
       'No app on this phone can open this kind of document. Install a document app (e.g. Microsoft Word, WPS Office) and try again.';
+
+  @override
+  String get capPhoto => 'Take photo';
+
+  @override
+  String get capVideo => 'Record video';
+
+  @override
+  String get capScan => 'Scan pages (PDF)';
+
+  @override
+  String get capAudio => 'Record audio';
+
+  @override
+  String get capGallery => 'From gallery';
+
+  @override
+  String get capFile => 'Choose file';
+
+  @override
+  String get capPaste => 'Paste text';
+
+  @override
+  String capFailed(String reason) {
+    return 'Could not open: $reason';
+  }
+
+  @override
+  String capSize(String size) {
+    return 'Size: $size';
+  }
+
+  @override
+  String capPages(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pages',
+      one: '1 page',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get capLarge =>
+      'This is a large file. Uploading it uses a lot of mobile data; Wi-Fi is better.';
+
+  @override
+  String get capUse => 'Upload this';
+
+  @override
+  String get capAddContent => 'Add: take, record, scan or choose';
+
+  @override
+  String get capAddWork => 'Add photo, scan or file';
+
+  @override
+  String get capClipboardEmpty =>
+      'There is no text to paste. Copy some text first.';
+
+  @override
+  String get capPasted => 'Text added. Tap it to edit.';
 }

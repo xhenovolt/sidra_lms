@@ -903,5 +903,21 @@
   "avatarSaved": "تم تحديث صورة الملف الشخصي",
   "viewerDownloading": "جارٍ التنزيل…",
   "viewerOpenAgain": "افتح مرة أخرى",
-  "viewerNoApp": "لا يوجد على هذا الهاتف تطبيق يفتح هذا النوع من المستندات. ثبّت تطبيق مستندات (مثل Microsoft Word أو WPS Office) ثم حاول مجددًا."
+  "viewerNoApp": "لا يوجد على هذا الهاتف تطبيق يفتح هذا النوع من المستندات. ثبّت تطبيق مستندات (مثل Microsoft Word أو WPS Office) ثم حاول مجددًا.",
+  "capPhoto": "التقاط صورة",
+  "capVideo": "تسجيل فيديو",
+  "capScan": "مسح صفحات (PDF)",
+  "capAudio": "تسجيل صوت",
+  "capGallery": "من المعرض",
+  "capFile": "اختيار ملف",
+  "capPaste": "لصق نص",
+  "capFailed": "تعذّر الفتح: {reason}",
+  "capSize": "الحجم: {size}",
+  "capPages": "{count, plural, =1{صفحة واحدة} other{{count} صفحات}}",
+  "capLarge": "هذا ملف كبير. رفعه يستهلك بيانات كثيرة؛ الأفضل استخدام Wi-Fi.",
+  "capUse": "ارفع هذا",
+  "capAddContent": "أضف: التقط أو سجّل أو امسح أو اختر",
+  "capAddWork": "أضف صورة أو مسحًا أو ملفًا",
+  "capClipboardEmpty": "لا يوجد نص للصق. انسخ نصًا أولًا.",
+  "capPasted": "أُضيف النص. اضغط عليه لتعديله."
 }

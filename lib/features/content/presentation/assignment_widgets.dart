@@ -1,21 +1,19 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/errors/app_failure.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/state_views.dart';
-import '../../admin/data/admin_repository.dart' show fileKindFor;
 import '../../admin/presentation/admin_common.dart';
 import '../data/content_repository.dart';
 import '../data/submission_queue.dart';
 import 'resource_widgets.dart';
+import '../../media/presentation/capture_sheet.dart';
 
 final lessonAssignmentsProvider = FutureProvider.autoDispose
     .family<List<Assignment>, String>(
@@ -236,50 +234,23 @@ class _SubmitWorkSheetState extends ConsumerState<SubmitWorkSheet> {
 
   Assignment get a => widget.assignment;
 
-  Future<void> _photo(ImageSource source) async {
-    final x = await ImagePicker().pickImage(
-      source: source,
-      imageQuality: 80,
-      maxWidth: 2200,
+  /// Photo, multi-page scan (PDF), gallery or file, with its size shown.
+  Future<void> _capture() async {
+    final f = await captureContent(
+      context,
+      allow: {
+        if (a.submissionTypes.contains('image')) ...{
+          CaptureSource.photo,
+          CaptureSource.gallery,
+        },
+        CaptureSource.scan,
+        CaptureSource.file,
+      },
     );
-    if (x == null) return;
-    final size = await File(x.path).length();
+    if (f == null) return;
     setState(
       () => _files.add(
-        QueuedFile(path: x.path, name: x.name, kind: 'image', bytes: size),
-      ),
-    );
-  }
-
-  Future<void> _file() async {
-    final exts = [
-      if (a.submissionTypes.contains('document')) ...[
-        'pdf', 'doc', 'docx', 'txt', //
-      ],
-      if (a.submissionTypes.contains('image')) ...[
-        'jpg',
-        'jpeg',
-        'png',
-        'webp',
-      ],
-      if (a.submissionTypes.contains('audio')) ...['mp3', 'm4a', 'wav', 'aac'],
-      if (a.submissionTypes.contains('video')) ...['mp4', 'mov'],
-    ];
-    if (exts.isEmpty) return;
-    final f = await FilePicker.pickFile(
-      type: FileType.custom,
-      allowedExtensions: exts,
-    );
-    final path = f?.path;
-    if (f == null || path == null) return;
-    setState(
-      () => _files.add(
-        QueuedFile(
-          path: path,
-          name: f.name,
-          kind: fileKindFor(f.name),
-          bytes: File(path).lengthSync(),
-        ),
+        QueuedFile(path: f.path, name: f.name, kind: f.kind, bytes: f.bytes),
       ),
     );
   }
@@ -325,30 +296,12 @@ class _SubmitWorkSheetState extends ConsumerState<SubmitWorkSheet> {
           Text(a.title, style: theme.textTheme.titleLarge),
           if (a.instructions != null) Text(a.instructions!),
           const SizedBox(height: Space.md),
-          Wrap(
-            spacing: Space.sm,
-            runSpacing: Space.sm,
-            children: [
-              if (allowsImages) ...[
-                OutlinedButton.icon(
-                  onPressed: full ? null : () => _photo(ImageSource.camera),
-                  icon: const Icon(Icons.photo_camera_outlined),
-                  label: Text(l10n.subTakePhoto),
-                ),
-                OutlinedButton.icon(
-                  onPressed: full ? null : () => _photo(ImageSource.gallery),
-                  icon: const Icon(Icons.photo_library_outlined),
-                  label: Text(l10n.subFromGallery),
-                ),
-              ],
-              if (allowsFiles || allowsImages)
-                OutlinedButton.icon(
-                  onPressed: full ? null : _file,
-                  icon: const Icon(Icons.attach_file),
-                  label: Text(l10n.subAttachFile),
-                ),
-            ],
-          ),
+          if (allowsImages || allowsFiles)
+            OutlinedButton.icon(
+              onPressed: full ? null : _capture,
+              icon: const Icon(Icons.add_a_photo_outlined),
+              label: Text(l10n.capAddWork),
+            ),
           for (final (i, f) in _files.indexed)
             ListTile(
               contentPadding: EdgeInsets.zero,

@@ -1,11 +1,9 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/data/repository_providers.dart';
@@ -23,6 +21,7 @@ import '../../curriculum/domain/curriculum_models.dart';
 import '../data/teaching_repository.dart';
 import 'learner_portion_screen.dart' show participationLabel, resultLabel;
 import '../../../shared/widgets/user_avatar.dart';
+import '../../media/presentation/capture_sheet.dart';
 
 /// Upload a local file once and register it as a shared resource.
 Future<String> uploadAsResource(
@@ -573,59 +572,24 @@ class _PortionEditorScreenState extends ConsumerState<PortionEditorScreen> {
   }
 
   Future<void> _addPage() async {
-    final l10n = AppLocalizations.of(context);
-    final source = await showModalBottomSheet<String>(
-      context: context,
-      builder: (context) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.photo_camera_outlined),
-              title: Text(l10n.subTakePhoto),
-              onTap: () => Navigator.pop(context, 'camera'),
-            ),
-            ListTile(
-              leading: const Icon(Icons.photo_library_outlined),
-              title: Text(l10n.subFromGallery),
-              onTap: () => Navigator.pop(context, 'gallery'),
-            ),
-            ListTile(
-              leading: const Icon(Icons.picture_as_pdf_outlined),
-              title: Text(l10n.subAttachFile),
-              onTap: () => Navigator.pop(context, 'file'),
-            ),
-          ],
-        ),
-      ),
+    final f = await captureContent(
+      context,
+      allow: const {
+        CaptureSource.photo,
+        CaptureSource.scan,
+        CaptureSource.gallery,
+        CaptureSource.file,
+      },
+      fileExtensions: const ['pdf', 'jpg', 'jpeg', 'png', 'webp'],
     );
-    if (source == null) return;
-    String? path;
-    String? name;
-    if (source == 'file') {
-      final f = await FilePicker.pickFile(
-        type: FileType.custom,
-        allowedExtensions: const ['pdf', 'jpg', 'jpeg', 'png', 'webp'],
-      );
-      path = f?.path;
-      name = f?.name;
-    } else {
-      final x = await ImagePicker().pickImage(
-        source: source == 'camera' ? ImageSource.camera : ImageSource.gallery,
-        imageQuality: 85,
-        maxWidth: 2400,
-      );
-      path = x?.path;
-      name = x?.name;
-    }
-    if (path == null || name == null) return;
+    if (f == null) return;
     await _attach(
       'page',
       () => uploadAsResource(
         ref,
-        path: path!,
-        fileName: name!,
-        kind: fileKindFor(name),
+        path: f.path,
+        fileName: f.name,
+        kind: f.kind,
         title: _title.text.trim(),
       ),
     );
