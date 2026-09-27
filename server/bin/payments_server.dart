@@ -57,6 +57,8 @@ class PaymentsServer {
     Timer.periodic(const Duration(seconds: 5), (_) => runQueue());
     Timer.periodic(const Duration(seconds: 20), (_) => reconcile());
     Timer.periodic(const Duration(seconds: 30), (_) => heartbeat());
+    Timer.periodic(const Duration(minutes: 5), (_) => purgeMedia());
+    unawaited(purgeMedia());
     Timer.periodic(const Duration(seconds: 10), (_) => runDiagnosticsQueue());
     unawaited(runQueue());
     unawaited(reconcile());
@@ -142,6 +144,67 @@ class PaymentsServer {
       _log('diagnostics: $e');
     } finally {
       _diagBusy = false;
+    }
+  }
+
+  bool _purgeBusy = false;
+
+  /// Deletes files of removed learners from Cloudinary. The database signs
+  /// each request; this server only forwards it.
+  Future<void> purgeMedia() async {
+    if (_purgeBusy) return;
+    _purgeBusy = true;
+    final client = HttpClient()
+      ..connectionTimeout = const Duration(seconds: 15);
+    try {
+      final rows = await _db(
+        (c) => c.execute('select payments_api.claim_media_purge(20)'),
+      );
+      for (final row in rows) {
+        final job = row.first is Map
+            ? (row.first! as Map).cast<String, dynamic>()
+            : (jsonDecode('${row.first}') as Map).cast<String, dynamic>();
+        String? error;
+        try {
+          final req = await client.postUrl(Uri.parse(job['url'] as String));
+          req.headers.contentType = ContentType(
+            'application',
+            'x-www-form-urlencoded',
+          );
+          req.write(
+            Uri(
+              queryParameters: (job['fields'] as Map).map(
+                (k, v) => MapEntry('$k', '$v'),
+              ),
+            ).query,
+          );
+          final res = await req.close();
+          final body = await res.transform(utf8.decoder).join();
+          // "not found" means it is already gone: that counts as done.
+          if (res.statusCode != 200 ||
+              !(body.contains('"ok"') || body.contains('not found'))) {
+            error = 'HTTP ${res.statusCode}: $body';
+          }
+        } catch (e) {
+          error = '$e';
+        }
+        await _db(
+          (c) => c.execute(
+            Sql.named('select payments_api.finish_media_purge(@id, @e)'),
+            parameters: {'id': job['id'], 'e': error},
+          ),
+        );
+        _log(
+          error == null
+              ? 'purged media ${job['id']}'
+              : 'purge ${job['id']} failed: $error',
+        );
+      }
+    } catch (e) {
+      _log('media purge: $e');
+    } finally {
+      client.close(force: true);
+      _purgeBusy = false;
     }
   }
 
