@@ -1350,5 +1350,20 @@
   "deleteReason": "Reason (optional, kept in the activity log)",
   "deleteLearnerConfirm": "Delete permanently",
   "deleteLearnerDone": "Learner deleted.",
-  "deleteLearnerKept": "Learner deleted. Their payments are kept for the accounts as \"Removed learner\"."
+  "deleteLearnerKept": "Learner deleted. Their payments are kept for the accounts as \"Removed learner\".",
+  "categoriesTitle": "Categories",
+  "categoriesHint": "Mistake categories organise the correction library. Rename, reorder or add your own; deleting a category keeps its corrections.",
+  "categoryAdd": "New category",
+  "categoryAddSub": "Add sub-category",
+  "categoryRename": "Rename",
+  "categoryName": "Name",
+  "categoryDelete": "Delete",
+  "categoryDeleteBody": "Delete \"{name}\" and its sub-categories? Corrections in it are kept, without a category.",
+  "@categoryDeleteBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }

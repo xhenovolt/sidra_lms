@@ -2850,4 +2850,31 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get deleteLearnerKept =>
       'حُذف المتعلم. حُفظت مدفوعاته للحسابات باسم «متعلم محذوف».';
+
+  @override
+  String get categoriesTitle => 'الأنواع';
+
+  @override
+  String get categoriesHint =>
+      'تنظّم أنواع الأخطاء مكتبة التصحيحات. أعد التسمية أو الترتيب أو أضف أنواعًا؛ حذف النوع يُبقي تصحيحاته.';
+
+  @override
+  String get categoryAdd => 'نوع جديد';
+
+  @override
+  String get categoryAddSub => 'إضافة نوع فرعي';
+
+  @override
+  String get categoryRename => 'إعادة تسمية';
+
+  @override
+  String get categoryName => 'الاسم';
+
+  @override
+  String get categoryDelete => 'حذف';
+
+  @override
+  String categoryDeleteBody(String name) {
+    return 'حذف «$name» وأنواعه الفرعية؟ تبقى تصحيحاته بلا نوع.';
+  }
 }

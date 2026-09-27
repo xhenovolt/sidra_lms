@@ -172,6 +172,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             builder: (_, _) => const TeachingHomeScreen(),
           ),
           GoRoute(
+            path: Routes.adminCorrections,
+            builder: (_, _) => const CorrectionLibraryScreen(),
+          ),
+          GoRoute(
             path: Routes.adminLibrary,
             builder: (_, _) => const ContentLibraryScreen(),
           ),

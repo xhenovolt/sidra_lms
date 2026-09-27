@@ -2879,4 +2879,31 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get deleteLearnerKept =>
       'Learner deleted. Their payments are kept for the accounts as \"Removed learner\".';
+
+  @override
+  String get categoriesTitle => 'Categories';
+
+  @override
+  String get categoriesHint =>
+      'Mistake categories organise the correction library. Rename, reorder or add your own; deleting a category keeps its corrections.';
+
+  @override
+  String get categoryAdd => 'New category';
+
+  @override
+  String get categoryAddSub => 'Add sub-category';
+
+  @override
+  String get categoryRename => 'Rename';
+
+  @override
+  String get categoryName => 'Name';
+
+  @override
+  String get categoryDelete => 'Delete';
+
+  @override
+  String categoryDeleteBody(String name) {
+    return 'Delete \"$name\" and its sub-categories? Corrections in it are kept, without a category.';
+  }
 }

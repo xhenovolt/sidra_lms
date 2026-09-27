@@ -5184,6 +5184,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Learner deleted. Their payments are kept for the accounts as \"Removed learner\".'**
   String get deleteLearnerKept;
+
+  /// No description provided for @categoriesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categoriesTitle;
+
+  /// No description provided for @categoriesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Mistake categories organise the correction library. Rename, reorder or add your own; deleting a category keeps its corrections.'**
+  String get categoriesHint;
+
+  /// No description provided for @categoryAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'New category'**
+  String get categoryAdd;
+
+  /// No description provided for @categoryAddSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Add sub-category'**
+  String get categoryAddSub;
+
+  /// No description provided for @categoryRename.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename'**
+  String get categoryRename;
+
+  /// No description provided for @categoryName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get categoryName;
+
+  /// No description provided for @categoryDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get categoryDelete;
+
+  /// No description provided for @categoryDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete \"{name}\" and its sub-categories? Corrections in it are kept, without a category.'**
+  String categoryDeleteBody(String name);
 }
 
 class _AppLocalizationsDelegate

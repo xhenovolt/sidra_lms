@@ -83,6 +83,12 @@ final adminSections = <AdminSection>[
       {'teaching.review'},
     ),
     AdminDestination(
+      Routes.adminCorrections,
+      Icons.school_outlined,
+      (l) => l.correctionLibrary,
+      {'teaching.review', 'content.upload'},
+    ),
+    AdminDestination(
       Routes.adminLibrary,
       Icons.perm_media_outlined,
       (l) => l.libraryTitle,

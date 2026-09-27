@@ -44,7 +44,23 @@ class _CorrectionLibraryScreenState
         ? const <CorrectionCategory>[]
         : cats.where((c) => c.parentId == _category).toList();
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.correctionLibrary)),
+      appBar: AppBar(
+        title: Text(l10n.correctionLibrary),
+        actions: [
+          TextButton.icon(
+            onPressed: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => const CategoryEditorScreen(),
+                ),
+              );
+              ref.invalidate(correctionCategoriesProvider);
+            },
+            icon: const Icon(Icons.category_outlined),
+            label: Text(l10n.categoriesTitle),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           if (await _addCorrection(context, cats)) setState(() => _reload++);
@@ -868,6 +884,248 @@ class NotificationBell extends ConsumerWidget {
         isLabelVisible: unread > 0,
         label: Text('$unread'),
         child: const Icon(Icons.notifications_outlined),
+      ),
+    );
+  }
+}
+
+// =================================================== mistake categories ==
+
+typedef _EditCategory = Future<void> Function(
+  CorrectionCategory? existing, {
+  String? parentId,
+  int position,
+});
+typedef _MoveCategory = Future<void> Function(
+  List<CorrectionCategory> siblings,
+  int index,
+  int delta,
+);
+
+/// Edit the mistake taxonomy: top-level categories and their sub-categories.
+class CategoryEditorScreen extends ConsumerWidget {
+  const CategoryEditorScreen({super.key});
+
+  Future<void> _edit(
+    BuildContext context,
+    WidgetRef ref, {
+    CorrectionCategory? existing,
+    String? parentId,
+    int position = 0,
+  }) async {
+    final l10n = AppLocalizations.of(context);
+    final name = TextEditingController(text: existing?.name);
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(
+          existing != null
+              ? l10n.categoryRename
+              : (parentId == null ? l10n.categoryAdd : l10n.categoryAddSub),
+        ),
+        content: TextField(
+          controller: name,
+          autofocus: true,
+          decoration: InputDecoration(labelText: l10n.categoryName),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(l10n.adminCancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: Text(l10n.adminSave),
+          ),
+        ],
+      ),
+    );
+    if (ok != true || name.text.trim().isEmpty || !context.mounted) return;
+    if (await runAdminAction(
+      context,
+      () => ref
+          .read(teachingRepositoryProvider)
+          .saveCategory(
+            name: name.text.trim(),
+            parentId: parentId,
+            id: existing?.id,
+            position: existing == null ? position : null,
+          ),
+      success: l10n.adminSaved,
+    )) {
+      ref.invalidate(correctionCategoriesProvider);
+    }
+  }
+
+  Future<void> _move(
+    BuildContext context,
+    WidgetRef ref,
+    List<CorrectionCategory> siblings,
+    int index,
+    int delta,
+  ) async {
+    final j = index + delta;
+    if (j < 0 || j >= siblings.length) return;
+    final order = [...siblings];
+    order.insert(j, order.removeAt(index));
+    final repo = ref.read(teachingRepositoryProvider);
+    if (await runAdminAction(context, () async {
+      for (final (i, c) in order.indexed) {
+        await repo.saveCategory(name: c.name, id: c.id, position: i);
+      }
+    })) {
+      ref.invalidate(correctionCategoriesProvider);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final cats = ref.watch(correctionCategoriesProvider);
+    final tops = (cats.value ?? const <CorrectionCategory>[])
+        .where((c) => c.parentId == null)
+        .toList();
+    return Scaffold(
+      appBar: AppBar(title: Text(l10n.categoriesTitle)),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => _edit(context, ref, position: tops.length),
+        icon: const Icon(Icons.add),
+        label: Text(l10n.categoryAdd),
+      ),
+      body: switch (cats) {
+        AsyncData(:final value) => ListView(
+          padding: const EdgeInsets.only(bottom: 96),
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(Space.md),
+              child: Text(l10n.categoriesHint),
+            ),
+            for (final (i, top) in tops.indexed)
+              _CategoryCard(
+                top: top,
+                subs: value.where((c) => c.parentId == top.id).toList(),
+                tops: tops,
+                topIndex: i,
+                onEdit: (c, {parentId, position = 0}) => _edit(
+                  context,
+                  ref,
+                  existing: c,
+                  parentId: parentId,
+                  position: position,
+                ),
+                onMove: (siblings, index, delta) =>
+                    _move(context, ref, siblings, index, delta),
+              ),
+          ],
+        ),
+        AsyncError(:final error) => ErrorView(
+          error: error,
+          onRetry: () => ref.invalidate(correctionCategoriesProvider),
+        ),
+        _ => const LoadingView(),
+      },
+    );
+  }
+}
+
+class _CategoryCard extends ConsumerWidget {
+  const _CategoryCard({
+    required this.top,
+    required this.subs,
+    required this.tops,
+    required this.topIndex,
+    required this.onEdit,
+    required this.onMove,
+  });
+  final CorrectionCategory top;
+  final List<CorrectionCategory> subs;
+  final List<CorrectionCategory> tops;
+  final int topIndex;
+  final _EditCategory onEdit;
+  final _MoveCategory onMove;
+
+  Future<void> _delete(
+    BuildContext context,
+    WidgetRef ref,
+    CorrectionCategory c,
+  ) async {
+    final l10n = AppLocalizations.of(context);
+    if (!await confirm(
+          context,
+          title: l10n.categoryDelete,
+          message: l10n.categoryDeleteBody(c.name),
+          destructive: true,
+        ) ||
+        !context.mounted) {
+      return;
+    }
+    if (await runAdminAction(
+      context,
+      () => ref.read(teachingRepositoryProvider).deleteCategory(c.id),
+    )) {
+      ref.invalidate(correctionCategoriesProvider);
+    }
+  }
+
+  Widget _menu(
+    BuildContext context,
+    WidgetRef ref,
+    CorrectionCategory c,
+    List<CorrectionCategory> siblings,
+    int index,
+  ) {
+    final l10n = AppLocalizations.of(context);
+    return PopupMenuButton<String>(
+      onSelected: (v) async {
+        switch (v) {
+          case 'rename':
+            await onEdit(c);
+          case 'sub':
+            await onEdit(null, parentId: c.id, position: subs.length);
+          case 'up':
+            await onMove(siblings, index, -1);
+          case 'down':
+            await onMove(siblings, index, 1);
+          case 'delete':
+            await _delete(context, ref, c);
+        }
+      },
+      itemBuilder: (_) => [
+        PopupMenuItem(value: 'rename', child: Text(l10n.categoryRename)),
+        if (c.parentId == null)
+          PopupMenuItem(value: 'sub', child: Text(l10n.categoryAddSub)),
+        if (index > 0)
+          PopupMenuItem(value: 'up', child: Text(l10n.adminMoveUp)),
+        if (index < siblings.length - 1)
+          PopupMenuItem(value: 'down', child: Text(l10n.adminMoveDown)),
+        PopupMenuItem(value: 'delete', child: Text(l10n.categoryDelete)),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: Space.md, vertical: 4),
+      child: ExpansionTile(
+        title: Text(top.name, style: Theme.of(context).textTheme.titleMedium),
+        subtitle: Text(
+          subs.map((s) => s.name).join(' · '),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        trailing: _menu(context, ref, top, tops, topIndex),
+        children: [
+          for (final (i, s) in subs.indexed)
+            ListTile(
+              contentPadding: const EdgeInsetsDirectional.only(
+                start: Space.xl,
+                end: Space.xs,
+              ),
+              title: Text(s.name),
+              trailing: _menu(context, ref, s, subs, i),
+            ),
+        ],
       ),
     );
   }

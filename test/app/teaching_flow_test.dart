@@ -193,4 +193,30 @@ void main() {
     );
     expect(find.text('The beginning'), findsOneWidget);
   });
+
+  testWidgets('admin edits mistake categories', (tester) async {
+    final api = staffServer('admin');
+    api.selectHandlers['correction_categories'] = (_) => [
+      {'id': 't1', 'name': 'Tajwīd', 'position': 0},
+      {'id': 's1', 'name': 'Ghunnah', 'parent_id': 't1', 'position': 0},
+    ];
+    await signInAs(tester, 'admin', api: api);
+    GoRouter.of(tester.element(find.byType(NavigationBar)))
+        .push('/teach/corrections');
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Categories'));
+    await tester.pumpAndSettle();
+    expect(find.text('Tajwīd'), findsOneWidget);
+    expect(find.text('Ghunnah'), findsOneWidget); // listed under it
+    await tester.tap(find.text('New category'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).last, 'Waqf');
+    await tester.tap(find.text('Save'));
+    await tester.pumpAndSettle();
+    final w = api.writes.single;
+    expect(w.$1, 'insert');
+    expect(w.$2, 'correction_categories');
+    expect(w.$3['name'], 'Waqf');
+    expect(w.$3['position'], 1);
+  });
 }

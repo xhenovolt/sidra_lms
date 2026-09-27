@@ -403,6 +403,32 @@ class TeachingRepository {
     ),
   );
 
+  Future<void> saveCategory({
+    required String name,
+    String? parentId,
+    String? id,
+    int? position,
+  }) async {
+    if (id == null) {
+      await api.insert('correction_categories', {
+        'name': name,
+        'parent_id': parentId,
+        'position': ?position,
+      });
+    } else {
+      await api.update(
+        'correction_categories',
+        {'name': name, 'position': ?position},
+        filters: {'id': Pg.eq(id)},
+      );
+    }
+  }
+
+  /// Deleting a category keeps its corrections (they become uncategorised);
+  /// its sub-categories are deleted with it.
+  Future<void> deleteCategory(String id) =>
+      api.delete('correction_categories', filters: {'id': Pg.eq(id)});
+
   Future<void> archiveCorrection(String id) => api.update(
     'corrections',
     {'archived_at': DateTime.now().toUtc().toIso8601String()},

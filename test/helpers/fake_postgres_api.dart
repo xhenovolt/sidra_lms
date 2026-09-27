@@ -73,18 +73,38 @@ class FakePostgresApi implements PostgresApi {
     Object rows, {
     bool upsert = false,
     String? onConflict,
-  }) => throw UnimplementedError();
+  }) async {
+    final list = rows is List ? rows : [rows];
+    final out = <Map<String, dynamic>>[];
+    for (final r in list) {
+      final row = {
+        'id': 'new-${writes.length}',
+        ...Map<String, dynamic>.from(r as Map),
+      };
+      writes.add(('insert', table, row));
+      out.add(row);
+    }
+    return out;
+  }
 
   @override
   Future<List<Map<String, dynamic>>> update(
     String table,
     Map<String, dynamic> values, {
     required Map<String, String> filters,
-  }) => throw UnimplementedError();
+  }) async {
+    writes.add(('update', table, {...values, '_filters': filters}));
+    return [values];
+  }
 
   @override
-  Future<void> delete(String table, {required Map<String, String> filters}) =>
-      throw UnimplementedError();
+  Future<void> delete(
+    String table, {
+    required Map<String, String> filters,
+  }) async => writes.add(('delete', table, {'_filters': filters}));
+
+  /// Every insert / update / delete, in order: (kind, table, values).
+  final writes = <(String, String, Map<String, dynamic>)>[];
 }
 
 Future<LocalDatabase> openTestDatabase() {

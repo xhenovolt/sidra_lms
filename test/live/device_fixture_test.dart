@@ -66,12 +66,20 @@ void main() {
       // ------------------------------------------ accounts (owner connection)
       // package:postgres does not know Neon's channel_binding parameter.
       final owner = await Connection.openFromUrl(
-        env['DATABASE_URL']!.replaceAll(RegExp(r'[&?]channel_binding=[^&]*'), ''),
+        env['DATABASE_URL']!.replaceAll(
+          RegExp(r'[&?]channel_binding=[^&]*'),
+          '',
+        ),
       );
       String? teacherId;
       String? learnerId;
       try {
-        Future<String> account(String name, String username, String role, String password) async {
+        Future<String> account(
+          String name,
+          String username,
+          String role,
+          String password,
+        ) async {
           final found = await owner.execute(
             Sql.named('select id::text from users where username = @u'),
             parameters: {'u': username},
@@ -86,15 +94,27 @@ void main() {
           final id = r.first.first! as String;
           if (role != 'learner') {
             await owner.execute(
-              Sql.named("insert into user_roles (user_id, role_key) values (@id::uuid, @r) on conflict do nothing"),
+              Sql.named(
+                "insert into user_roles (user_id, role_key) values (@id::uuid, @r) on conflict do nothing",
+              ),
               parameters: {'id': id, 'r': role},
             );
           }
           return id;
         }
 
-        teacherId = await account('Test Teacher', 'test_teacher', 'teacher', 'teacher-pass-1');
-        learnerId = await account('Test Learner', 'test_learner', 'learner', 'learner-pass-1');
+        teacherId = await account(
+          'Test Teacher',
+          'test_teacher',
+          'teacher',
+          'teacher-pass-1',
+        );
+        learnerId = await account(
+          'Test Learner',
+          'test_learner',
+          'learner',
+          'learner-pass-1',
+        );
         await owner.execute(
           Sql.named('''
             with c as (select id from courses where slug = 'quran-yassarna-beginner')
@@ -103,11 +123,13 @@ void main() {
           parameters: {'t': teacherId},
         );
         await owner.execute(
-          Sql.named('''
+          Sql.named(
+            '''
             with c as (select id from courses where slug = 'quran-yassarna-beginner')
             insert into course_enrolments (course_id, user_id, status, source)
             select c.id, @l::uuid, 'active', 'admin_grant' from c
-            on conflict (course_id, user_id) do update set status = 'active' '''),
+            on conflict (course_id, user_id) do update set status = 'active' ''',
+          ),
           parameters: {'l': learnerId},
         );
       } finally {
@@ -120,7 +142,8 @@ void main() {
       final session = await auth.login('test_teacher', 'teacher-pass-1');
       final api = PgWireApi(
         client,
-        ({bool forceRefresh = false}) async => session['access_token'] as String,
+        ({bool forceRefresh = false}) async =>
+            session['access_token'] as String,
       );
       final teaching = TeachingRepository(api);
       final admin = AdminRepository(api);
@@ -132,12 +155,14 @@ void main() {
         final courseId = course['id'] as String;
         final groups = await teaching.myGroups();
         final group = groups.where((g) => g.name == 'Test Group A').firstOrNull;
-        final groupId = group?.id ??
+        final groupId =
+            group?.id ??
             (await teaching.saveGroup(
-              courseId: courseId,
-              name: 'Test Group A',
-              learnerIds: [learnerId],
-            ))['id'] as String;
+                  courseId: courseId,
+                  name: 'Test Group A',
+                  learnerIds: [learnerId],
+                ))['id']
+                as String;
 
         final portion = await teaching.savePortion(
           courseId: courseId,
@@ -149,7 +174,12 @@ void main() {
         );
         final portionId = portion['id'] as String;
 
-        Future<String> resource(String path, String name, String kind, String title) async {
+        Future<String> resource(
+          String path,
+          String name,
+          String kind,
+          String title,
+        ) async {
           final asset = await admin.uploadMedia(
             filePath: path,
             fileName: name,
@@ -170,17 +200,32 @@ void main() {
           return row['id'] as String;
         }
 
-        final page = await resource('assets/images/sidra.jpg', 'page-12.jpg', 'image', 'Page 12 (device test)');
+        final page = await resource(
+          'assets/images/sidra.jpg',
+          'page-12.jpg',
+          'image',
+          'Page 12 (device test)',
+        );
         await teaching.setResource(portionId, page, 'page');
-        final tone = _toneWav('${Directory.systemTemp.path}${Platform.pathSeparator}instruction.wav');
-        final instruction = await resource(tone.path, 'instruction.wav', 'audio', 'Page 12 · Teacher instruction');
+        final tone = _toneWav(
+          '${Directory.systemTemp.path}${Platform.pathSeparator}instruction.wav',
+        );
+        final instruction = await resource(
+          tone.path,
+          'instruction.wav',
+          'audio',
+          'Page 12 · Teacher instruction',
+        );
         await teaching.setResource(portionId, instruction, 'instruction');
         final n = await teaching.assign(portionId);
         // ignore: avoid_print
         print('portion $portionId assigned to $n learner(s); group $groupId');
         expect(n, 1);
       } finally {
-        await auth.logout(session['refresh_token'] as String, session['access_token'] as String);
+        await auth.logout(
+          session['refresh_token'] as String,
+          session['access_token'] as String,
+        );
         await client.close();
       }
     },

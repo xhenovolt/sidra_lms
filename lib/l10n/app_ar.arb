@@ -846,5 +846,13 @@
   "deleteReason": "السبب (اختياري، يُحفظ في سجل النشاط)",
   "deleteLearnerConfirm": "حذف نهائي",
   "deleteLearnerDone": "حُذف المتعلم.",
-  "deleteLearnerKept": "حُذف المتعلم. حُفظت مدفوعاته للحسابات باسم «متعلم محذوف»."
+  "deleteLearnerKept": "حُذف المتعلم. حُفظت مدفوعاته للحسابات باسم «متعلم محذوف».",
+  "categoriesTitle": "الأنواع",
+  "categoriesHint": "تنظّم أنواع الأخطاء مكتبة التصحيحات. أعد التسمية أو الترتيب أو أضف أنواعًا؛ حذف النوع يُبقي تصحيحاته.",
+  "categoryAdd": "نوع جديد",
+  "categoryAddSub": "إضافة نوع فرعي",
+  "categoryRename": "إعادة تسمية",
+  "categoryName": "الاسم",
+  "categoryDelete": "حذف",
+  "categoryDeleteBody": "حذف «{name}» وأنواعه الفرعية؟ تبقى تصحيحاته بلا نوع."
 }
