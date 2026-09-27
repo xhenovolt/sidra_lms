@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sidra_lms/app/router/learner_preview.dart';
 import 'package:sidra_lms/app/sidra_app.dart';
 import 'package:sidra_lms/core/config/app_config.dart';
 import 'package:sidra_lms/core/providers.dart';
@@ -19,6 +20,7 @@ Future<Widget> buildTestApp(
   bool onboarded = true,
   FakePostgresApi? api,
   bool authConfigured = false,
+  bool realSplash = false,
 }) async {
   SharedPreferences.setMockInitialValues({
     if (onboarded) 'onboarding_completed_v1': true,
@@ -28,6 +30,8 @@ Future<Widget> buildTestApp(
   final db = await openTestDatabase();
   return ProviderScope(
     overrides: [
+      if (!realSplash)
+        splashHoldProvider.overrideWith((_) => SplashHold.released()),
       authServiceProvider.overrideWithValue(auth),
       if (authConfigured)
         appConfigProvider.overrideWithValue(

@@ -47,6 +47,22 @@ void main() {
     expect(find.byType(NavigationBar), findsOneWidget);
   });
 
+  testWidgets('the splash ("from Almuntahha") stays at least 1.2 s', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      await buildTestApp(
+        FakeAuthService(const AuthSession.signedIn(testUser)),
+        realSplash: true,
+      ),
+    );
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.bySemanticsLabel('from Almuntahha'), findsOneWidget);
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.pumpAndSettle();
+    expect(find.byType(NavigationBar), findsOneWidget);
+  });
+
   testWidgets('Arabic locale lays out right-to-left', (tester) async {
     final auth = FakeAuthService(const AuthSession.signedIn(testUser));
     await tester.pumpWidget(

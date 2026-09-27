@@ -47,6 +47,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   final auth = ref.watch(authServiceProvider);
   final onboarding = ref.watch(onboardingControllerProvider);
   final preview = ref.watch(learnerPreviewProvider);
+  final splashHold = ref.watch(splashHoldProvider);
 
   Widget titled(String Function(AppLocalizations) title, Widget child) =>
       Builder(
@@ -56,9 +57,14 @@ final routerProvider = Provider<GoRouter>((ref) {
 
   final router = GoRouter(
     initialLocation: Routes.home,
-    refreshListenable: Listenable.merge([auth, onboarding, preview]),
+    refreshListenable: Listenable.merge([
+      auth,
+      onboarding,
+      preview,
+      splashHold,
+    ]),
     redirect: (context, state) => authRedirect(
-      auth.session.status,
+      splashHold.holding ? AuthStatus.initializing : auth.session.status,
       state.matchedLocation,
       onboarded: onboarding.completed,
       mustChangePassword: auth.session.user?.mustChangePassword ?? false,
