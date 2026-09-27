@@ -12,6 +12,14 @@ class Release {
 }
 
 final changelog = <Release>[
+  Release('2.23.0', DateTime(2026, 9, 28), 'Capture, view and browse', [
+    'Add course content straight from the phone: take a photo, record video or audio, scan many pages into one PDF, or paste text.',
+    'See the size of every file before it is uploaded.',
+    'Files open inside Sidra: pictures, audio, video, PDFs and text. Office documents open in the phone\x27s document app.',
+    'Uploads no longer time out after the phone has been idle.',
+    'Top courses (most enrolled) carousel; courses in a grid or a list.',
+    'Administrators can preview the app as a learner.',
+  ]),
   Release(
     '2.20.0',
     DateTime(2026, 9, 28),
