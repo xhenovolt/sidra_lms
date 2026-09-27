@@ -2845,4 +2845,38 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get yourTask => 'Your task';
+
+  @override
+  String get deleteLearner => 'Delete permanently';
+
+  @override
+  String get deleteLearnerHint =>
+      'Erase this learner and everything about them';
+
+  @override
+  String deleteLearnerTitle(String name) {
+    return 'Delete $name?';
+  }
+
+  @override
+  String get deleteLearnerBody =>
+      'This erases their account, enrolments, progress, recordings, photos, teacher notes and notifications. It cannot be undone. If they have made payments, the payments are kept for the accounts under \"Removed learner\", with no name or contact details.';
+
+  @override
+  String deleteLearnerTypeName(String name) {
+    return 'Type \"$name\" to confirm';
+  }
+
+  @override
+  String get deleteReason => 'Reason (optional, kept in the activity log)';
+
+  @override
+  String get deleteLearnerConfirm => 'Delete permanently';
+
+  @override
+  String get deleteLearnerDone => 'Learner deleted.';
+
+  @override
+  String get deleteLearnerKept =>
+      'Learner deleted. Their payments are kept for the accounts as \"Removed learner\".';
 }

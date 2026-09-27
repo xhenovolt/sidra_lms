@@ -488,6 +488,24 @@ class AdminRepository {
     params: {'p_user_id': userId, 'p_active': active},
   );
 
+  /// Erases a learner. Returns "deleted", or "anonymised" when payments
+  /// must be kept for the books.
+  Future<String> deleteLearner(
+    String userId, {
+    required String confirmName,
+    String? reason,
+  }) async {
+    final res = await api.rpc(
+      'delete_learner',
+      params: {
+        'p_user_id': userId,
+        'p_confirm': confirmName,
+        'p_reason': ?reason,
+      },
+    );
+    return (res as Map)['mode'] as String;
+  }
+
   Future<void> setSuperadmin(String userId, bool value) => api.rpc(
     'set_superadmin',
     params: {'p_user_id': userId, 'p_superadmin': value},

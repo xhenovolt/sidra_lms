@@ -1327,5 +1327,28 @@
       }
     }
   },
-  "yourTask": "Your task"
+  "yourTask": "Your task",
+  "deleteLearner": "Delete permanently",
+  "deleteLearnerHint": "Erase this learner and everything about them",
+  "deleteLearnerTitle": "Delete {name}?",
+  "@deleteLearnerTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteLearnerBody": "This erases their account, enrolments, progress, recordings, photos, teacher notes and notifications. It cannot be undone. If they have made payments, the payments are kept for the accounts under \"Removed learner\", with no name or contact details.",
+  "deleteLearnerTypeName": "Type \"{name}\" to confirm",
+  "@deleteLearnerTypeName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteReason": "Reason (optional, kept in the activity log)",
+  "deleteLearnerConfirm": "Delete permanently",
+  "deleteLearnerDone": "Learner deleted.",
+  "deleteLearnerKept": "Learner deleted. Their payments are kept for the accounts as \"Removed learner\"."
 }

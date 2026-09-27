@@ -13,6 +13,7 @@ import '../../curriculum/domain/curriculum_models.dart';
 import '../../profile/data/profile_repository.dart';
 import '../data/admin_repository.dart';
 import 'admin_common.dart';
+import 'admin_shell.dart' show myPermissionsProvider;
 import 'courses_tab.dart';
 import 'roles_audit_screens.dart';
 
@@ -644,6 +645,23 @@ class PersonSheet extends ConsumerWidget {
                   }
                 },
               ),
+            if (!isSelf &&
+                person.role == UserRole.learner &&
+                (ref.watch(myPermissionsProvider).value ?? const {}).contains(
+                  'learners.delete',
+                ))
+              ListTile(
+                leading: Icon(
+                  Icons.delete_forever_outlined,
+                  color: theme.colorScheme.error,
+                ),
+                title: Text(
+                  l10n.deleteLearner,
+                  style: TextStyle(color: theme.colorScheme.error),
+                ),
+                subtitle: Text(l10n.deleteLearnerHint),
+                onTap: () => _deleteFlow(context, ref, person),
+              ),
           ],
         ),
       ),
@@ -836,4 +854,87 @@ Future<void> showPersonForm(
       ],
     ),
   );
+}
+
+/// Type the name to confirm, then erase the learner.
+Future<void> _deleteFlow(
+  BuildContext context,
+  WidgetRef ref,
+  AppUserRow person,
+) async {
+  final l10n = AppLocalizations.of(context);
+  final name = TextEditingController();
+  final reason = TextEditingController();
+  final ok = await showDialog<bool>(
+    context: context,
+    builder: (dialogContext) => StatefulBuilder(
+      builder: (context, setState) => AlertDialog(
+        title: Text(l10n.deleteLearnerTitle(person.name)),
+        content: SizedBox(
+          width: 420,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(l10n.deleteLearnerBody),
+                const SizedBox(height: Space.sm),
+                TextField(
+                  controller: name,
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    labelText: l10n.deleteLearnerTypeName(person.name),
+                  ),
+                  onChanged: (_) => setState(() {}),
+                ),
+                TextField(
+                  controller: reason,
+                  decoration: InputDecoration(labelText: l10n.deleteReason),
+                ),
+              ],
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: Text(l10n.adminCancel),
+          ),
+          FilledButton(
+            style: FilledButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.error,
+            ),
+            onPressed:
+                name.text.trim().toLowerCase() ==
+                    person.name.trim().toLowerCase()
+                ? () => Navigator.pop(dialogContext, true)
+                : null,
+            child: Text(l10n.deleteLearnerConfirm),
+          ),
+        ],
+      ),
+    ),
+  );
+  if (ok != true || !context.mounted) return;
+  String? mode;
+  final done = await runAdminAction(
+    context,
+    () async => mode = await ref
+        .read(adminRepositoryProvider)
+        .deleteLearner(
+          person.id,
+          confirmName: name.text,
+          reason: nullIfBlank(reason.text),
+        ),
+  );
+  if (!done || !context.mounted) return;
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        mode == 'anonymised' ? l10n.deleteLearnerKept : l10n.deleteLearnerDone,
+      ),
+    ),
+  );
+  ref.invalidate(peopleProvider);
+  Navigator.pop(context, 'deleted');
 }

@@ -95,7 +95,10 @@ class TeachingHomeScreen extends ConsumerWidget {
             const SizedBox(height: Space.xs),
             switch (attention) {
               AsyncData(:final value) => _AttentionCard(attention: value),
-              AsyncError(:final error) => ErrorView(error: error, onRetry: refresh),
+              AsyncError(:final error) => ErrorView(
+                error: error,
+                onRetry: refresh,
+              ),
               _ => const Padding(
                 padding: EdgeInsets.all(Space.md),
                 child: Center(child: CircularProgressIndicator()),

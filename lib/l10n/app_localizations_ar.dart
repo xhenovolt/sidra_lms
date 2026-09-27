@@ -2817,4 +2817,37 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get yourTask => 'مهمتك';
+
+  @override
+  String get deleteLearner => 'حذف نهائي';
+
+  @override
+  String get deleteLearnerHint => 'مسح هذا المتعلم وكل ما يتعلق به';
+
+  @override
+  String deleteLearnerTitle(String name) {
+    return 'حذف $name؟';
+  }
+
+  @override
+  String get deleteLearnerBody =>
+      'يمسح هذا حسابه وتسجيلاته في الدورات وتقدّمه وتسجيلاته الصوتية وصوره وملاحظات المعلمين والإشعارات. لا يمكن التراجع. إن كانت له مدفوعات فتُحفظ للحسابات باسم «متعلم محذوف» دون اسم أو بيانات اتصال.';
+
+  @override
+  String deleteLearnerTypeName(String name) {
+    return 'اكتب «$name» للتأكيد';
+  }
+
+  @override
+  String get deleteReason => 'السبب (اختياري، يُحفظ في سجل النشاط)';
+
+  @override
+  String get deleteLearnerConfirm => 'حذف نهائي';
+
+  @override
+  String get deleteLearnerDone => 'حُذف المتعلم.';
+
+  @override
+  String get deleteLearnerKept =>
+      'حُذف المتعلم. حُفظت مدفوعاته للحسابات باسم «متعلم محذوف».';
 }

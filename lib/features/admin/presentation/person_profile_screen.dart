@@ -34,12 +34,16 @@ class PersonProfileScreen extends ConsumerWidget {
           if (profile.value case final p?)
             TextButton.icon(
               onPressed: () async {
-                await showModalBottomSheet<void>(
+                final result = await showModalBottomSheet<Object?>(
                   context: context,
                   isScrollControlled: true,
                   showDragHandle: true,
                   builder: (_) => PersonSheet(person: p.user),
                 );
+                if (result == 'deleted') {
+                  if (context.mounted) Navigator.of(context).pop();
+                  return;
+                }
                 ref.invalidate(personProfileProvider(userId));
               },
               icon: const Icon(Icons.more_horiz),

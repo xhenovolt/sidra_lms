@@ -837,5 +837,14 @@
   "todayLearning": "تعلّم اليوم",
   "useThis": "استخدم",
   "yourAttempts": "{count, plural, =1{محاولتك} other{محاولاتك ({count})}}",
-  "yourTask": "مهمتك"
+  "yourTask": "مهمتك",
+  "deleteLearner": "حذف نهائي",
+  "deleteLearnerHint": "مسح هذا المتعلم وكل ما يتعلق به",
+  "deleteLearnerTitle": "حذف {name}؟",
+  "deleteLearnerBody": "يمسح هذا حسابه وتسجيلاته في الدورات وتقدّمه وتسجيلاته الصوتية وصوره وملاحظات المعلمين والإشعارات. لا يمكن التراجع. إن كانت له مدفوعات فتُحفظ للحسابات باسم «متعلم محذوف» دون اسم أو بيانات اتصال.",
+  "deleteLearnerTypeName": "اكتب «{name}» للتأكيد",
+  "deleteReason": "السبب (اختياري، يُحفظ في سجل النشاط)",
+  "deleteLearnerConfirm": "حذف نهائي",
+  "deleteLearnerDone": "حُذف المتعلم.",
+  "deleteLearnerKept": "حُذف المتعلم. حُفظت مدفوعاته للحسابات باسم «متعلم محذوف»."
 }

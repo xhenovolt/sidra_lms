@@ -5130,6 +5130,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your task'**
   String get yourTask;
+
+  /// No description provided for @deleteLearner.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete permanently'**
+  String get deleteLearner;
+
+  /// No description provided for @deleteLearnerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Erase this learner and everything about them'**
+  String get deleteLearnerHint;
+
+  /// No description provided for @deleteLearnerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {name}?'**
+  String deleteLearnerTitle(String name);
+
+  /// No description provided for @deleteLearnerBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This erases their account, enrolments, progress, recordings, photos, teacher notes and notifications. It cannot be undone. If they have made payments, the payments are kept for the accounts under \"Removed learner\", with no name or contact details.'**
+  String get deleteLearnerBody;
+
+  /// No description provided for @deleteLearnerTypeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Type \"{name}\" to confirm'**
+  String deleteLearnerTypeName(String name);
+
+  /// No description provided for @deleteReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason (optional, kept in the activity log)'**
+  String get deleteReason;
+
+  /// No description provided for @deleteLearnerConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete permanently'**
+  String get deleteLearnerConfirm;
+
+  /// No description provided for @deleteLearnerDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Learner deleted.'**
+  String get deleteLearnerDone;
+
+  /// No description provided for @deleteLearnerKept.
+  ///
+  /// In en, this message translates to:
+  /// **'Learner deleted. Their payments are kept for the accounts as \"Removed learner\".'**
+  String get deleteLearnerKept;
 }
 
 class _AppLocalizationsDelegate
