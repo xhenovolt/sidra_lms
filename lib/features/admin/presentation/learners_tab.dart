@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/data/cache_first.dart';
+import '../../curriculum/domain/curriculum_models.dart';
+
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/state_views.dart';
@@ -12,10 +15,18 @@ final teacherLearnersProvider = FutureProvider.autoDispose<List<LearnerStatus>>(
   (ref) => ref.watch(adminRepositoryProvider).learners(),
 );
 
-final staffCoursesProvider = FutureProvider.autoDispose((ref) async {
-  final courses = await ref.watch(adminRepositoryProvider).allCourses();
-  return {for (final c in courses) c.id: c};
-});
+final staffCoursesProvider = StreamProvider.autoDispose<Map<String, Course>>(
+  (ref) => cacheFirst<List<Course>>(
+    ref,
+    key: 'admin_courses',
+    fetch: () => ref.read(adminRepositoryProvider).allCourses(),
+    encode: (v) => [for (final c in v) c.toJson()],
+    decode: (j) => [
+      for (final c in j! as List)
+        Course.fromJson(Map<String, dynamic>.from(c as Map)),
+    ],
+  ).map((courses) => {for (final c in courses) c.id: c}),
+);
 
 /// Teacher's queue: learners waiting for review first.
 class LearnersTab extends ConsumerWidget {

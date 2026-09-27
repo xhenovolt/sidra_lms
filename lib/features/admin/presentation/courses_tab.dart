@@ -1,6 +1,9 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../core/data/cache_first.dart';
+
 import 'package:go_router/go_router.dart';
 
 import '../../../core/data/repository_providers.dart';
@@ -15,8 +18,17 @@ import '../../content/presentation/resource_widgets.dart';
 import 'admin_common.dart';
 import 'learners_tab.dart';
 
-final adminCoursesProvider = FutureProvider.autoDispose<List<Course>>(
-  (ref) => ref.watch(adminRepositoryProvider).allCourses(),
+final adminCoursesProvider = StreamProvider.autoDispose<List<Course>>(
+  (ref) => cacheFirst<List<Course>>(
+    ref,
+    key: 'admin_courses',
+    fetch: () => ref.read(adminRepositoryProvider).allCourses(),
+    encode: (v) => [for (final c in v) c.toJson()],
+    decode: (j) => [
+      for (final c in j! as List)
+        Course.fromJson(Map<String, dynamic>.from(c as Map)),
+    ],
+  ),
 );
 
 class CoursesTab extends ConsumerStatefulWidget {

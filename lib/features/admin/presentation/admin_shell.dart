@@ -1,11 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show ScrollDirection;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/router/routes.dart';
+import '../../../core/data/cache_first.dart';
 import '../../../core/data/data_providers.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
@@ -16,20 +15,31 @@ import 'admin_common.dart';
 
 /// What the signed-in console user may do (from their roles). Cached on the
 /// device so the drawer renders offline; PostgreSQL re-checks every action.
-final myPermissionsProvider = FutureProvider<Set<String>>((ref) async {
+///
+/// The saved copy is shown at once and refreshed in the background, so the
+/// bottom bar and menu never wait for the internet.
+final myPermissionsProvider = StreamProvider<Set<String>>((ref) {
   final userId = ref.watch(authSessionProvider.select((s) => s.user?.id));
-  if (userId == null) return const {};
-  final local = await ref.watch(localDatabaseProvider.future);
-  try {
-    final perms = await ref.watch(adminRepositoryProvider).myPermissions();
-    await local.setKv('permissions:$userId', jsonEncode(perms.toList()));
-    return perms;
-  } catch (_) {
-    final cached = await local.getKv('permissions:$userId');
-    if (cached == null) rethrow;
-    return {for (final p in jsonDecode(cached) as List) p as String};
-  }
+  if (userId == null) return Stream.value(const {});
+  return cacheFirst<Set<String>>(
+    ref,
+    key: 'permissions:$userId',
+    fetch: () => ref.read(adminRepositoryProvider).myPermissions(),
+    encode: (v) => v.toList(),
+    decode: (j) => {for (final p in j! as List) p as String},
+  );
 });
+
+/// Before permissions have ever been loaded on this phone (first sign-in
+/// while offline), show what the role normally has. Display only: the
+/// database checks every action.
+Set<String> fallbackPermissions(bool superadmin) =>
+    {
+      for (final d in [...adminTabs, ...adminSections.expand((s) => s.items)])
+        ...d.anyOf,
+    }..removeAll(
+      superadmin ? const <String>{} : const {'admins.manage', 'roles.manage'},
+    );
 
 /// One drawer destination, shown when the user has any of [anyOf].
 class AdminDestination {
@@ -269,54 +279,21 @@ class _AdminShellState extends ConsumerState<AdminShell> {
         .where((d) => location.startsWith(d.path))
         .firstOrNull;
 
-    final drawer = switch (perms) {
-      AsyncData(:final value) => _AdminDrawer(
-        permissions: value,
-        location: location,
-        closeOnTap: !wide,
-      ),
-      // Never an empty drawer: say what went wrong, offer a retry, and keep
-      // the account page (sign out) reachable.
-      AsyncError() => Drawer(
-        child: SafeArea(
-          child: ListView(
-            padding: const EdgeInsets.all(Space.md),
-            children: [
-              const SidraMark(size: 36),
-              const SizedBox(height: Space.md),
-              Text(l10n.drawerLoadFailed),
-              const SizedBox(height: Space.sm),
-              FilledButton.tonalIcon(
-                onPressed: () => ref.invalidate(myPermissionsProvider),
-                icon: const Icon(Icons.refresh),
-                label: Text(l10n.retry),
-              ),
-              const Divider(height: Space.xl),
-              ListTile(
-                leading: const Icon(Icons.account_circle_outlined),
-                title: Text(l10n.drawerAccount),
-                onTap: () {
-                  if (!wide) Navigator.of(context).pop();
-                  context.go(Routes.adminMore);
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-      _ => const Drawer(child: LoadingView()),
-    };
+    // Saved permissions (or the role's usual ones on a phone that has never
+    // loaded them): the bar and menu never wait for the internet.
+    final superadmin = ref.watch(
+      authSessionProvider.select((s) => s.user?.isSuperadmin ?? false),
+    );
+    final permSet = perms.value ?? fallbackPermissions(superadmin);
+    final drawer = _AdminDrawer(
+      permissions: permSet,
+      location: location,
+      closeOnTap: !wide,
+    );
 
-    final page = switch (perms) {
-      AsyncData(:final value)
-          when current != null && !allowed(current, value) =>
-        EmptyView(icon: Icons.lock_outline, title: l10n.adminNotAllowed),
-      AsyncError(:final error) => ErrorView(
-        error: error,
-        onRetry: () => ref.invalidate(myPermissionsProvider),
-      ),
-      _ => widget.child,
-    };
+    final page = perms.hasValue && current != null && !allowed(current, permSet)
+        ? EmptyView(icon: Icons.lock_outline, title: l10n.adminNotAllowed)
+        : widget.child;
 
     if (wide) {
       return Scaffold(
@@ -340,7 +317,7 @@ class _AdminShellState extends ConsumerState<AdminShell> {
 
     final tabs = [
       for (final t in adminTabs)
-        if (allowed(t, perms.value ?? const {})) t,
+        if (allowed(t, permSet)) t,
     ].take(4).toList();
     final tabIndex = tabs.indexWhere((t) => location.startsWith(t.path));
     // Pages reached from the drawer highlight More.

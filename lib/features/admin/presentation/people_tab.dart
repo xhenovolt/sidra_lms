@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../core/data/cache_first.dart';
+
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:go_router/go_router.dart';
 
@@ -38,8 +41,14 @@ String roleLabel(
 
 // ================================================================ overview ==
 
-final overviewProvider = FutureProvider.autoDispose(
-  (ref) => ref.watch(adminRepositoryProvider).overview(),
+final overviewProvider = StreamProvider.autoDispose<Map<String, dynamic>>(
+  (ref) => cacheFirst<Map<String, dynamic>>(
+    ref,
+    key: 'admin_overview',
+    fetch: () => ref.read(adminRepositoryProvider).overview(),
+    encode: (v) => v,
+    decode: (j) => Map<String, dynamic>.from(j! as Map),
+  ),
 );
 
 /// Admin home: live numbers and the most common actions.

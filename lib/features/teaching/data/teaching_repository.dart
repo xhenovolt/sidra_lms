@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/data/cache_first.dart';
 import '../../../core/data/data_providers.dart';
 import '../../../core/network/postgres_api.dart';
 import '../../../shared/models/json.dart';
@@ -492,16 +493,40 @@ final teachingRepositoryProvider = Provider<TeachingRepository>(
   (ref) => TeachingRepository(ref.watch(postgresApiProvider)),
 );
 
-final learnerTodayProvider = FutureProvider.autoDispose<List<LearnerPortion>>(
-  (ref) => ref.watch(teachingRepositoryProvider).today(),
+final learnerTodayProvider = StreamProvider.autoDispose<List<LearnerPortion>>(
+  (ref) => cacheFirst<List<LearnerPortion>>(
+    ref,
+    key: 'learner_today',
+    fetch: () => ref.read(teachingRepositoryProvider).today(),
+    encode: (v) => [for (final p in v) p.j],
+    decode: (j) => [
+      for (final p in j! as List)
+        LearnerPortion(Map<String, dynamic>.from(p as Map)),
+    ],
+  ),
 );
 
-final myGroupsProvider = FutureProvider.autoDispose<List<TeachingGroup>>(
-  (ref) => ref.watch(teachingRepositoryProvider).myGroups(),
+final myGroupsProvider = StreamProvider.autoDispose<List<TeachingGroup>>(
+  (ref) => cacheFirst<List<TeachingGroup>>(
+    ref,
+    key: 'my_groups',
+    fetch: () => ref.read(teachingRepositoryProvider).myGroups(),
+    encode: (v) => [for (final g in v) g.j],
+    decode: (j) => [
+      for (final g in j! as List)
+        TeachingGroup(Map<String, dynamic>.from(g as Map)),
+    ],
+  ),
 );
 
-final attentionProvider = FutureProvider.autoDispose<Json>(
-  (ref) => ref.watch(teachingRepositoryProvider).attention(),
+final attentionProvider = StreamProvider.autoDispose<Json>(
+  (ref) => cacheFirst<Json>(
+    ref,
+    key: 'teacher_attention',
+    fetch: () => ref.read(teachingRepositoryProvider).attention(),
+    encode: (v) => v,
+    decode: (j) => Map<String, dynamic>.from(j! as Map),
+  ),
 );
 
 final portionBoardProvider = FutureProvider.autoDispose
@@ -509,8 +534,17 @@ final portionBoardProvider = FutureProvider.autoDispose
       (ref, id) => ref.watch(teachingRepositoryProvider).board(id),
     );
 
-final notificationsProvider = FutureProvider.autoDispose<List<AppNotification>>(
-  (ref) => ref.watch(teachingRepositoryProvider).notifications(),
+final notificationsProvider = StreamProvider.autoDispose<List<AppNotification>>(
+  (ref) => cacheFirst<List<AppNotification>>(
+    ref,
+    key: 'notifications',
+    fetch: () => ref.read(teachingRepositoryProvider).notifications(),
+    encode: (v) => [for (final n in v) n.j],
+    decode: (j) => [
+      for (final n in j! as List)
+        AppNotification(Map<String, dynamic>.from(n as Map)),
+    ],
+  ),
 );
 
 final correctionCategoriesProvider =
