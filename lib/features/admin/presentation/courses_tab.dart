@@ -274,6 +274,14 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
   late CourseAccess _access = widget.course?.access ?? CourseAccess.free;
   late Progression _progression =
       widget.course?.progression ?? Progression.teacherGated;
+  late int _passMark = widget.course?.passMarkPercent ?? 70;
+  late final _maxAttempts = TextEditingController(
+    text: widget.course?.maxAttempts?.toString() ?? '',
+  );
+  late final Map<String, bool> _notify = {
+    for (final k in courseNotificationKinds)
+      k: widget.course?.notifies(k) ?? true,
+  };
   late String? _thumbnail = widget.course?.thumbnailAssetId;
   bool _saving = false;
   bool _uploading = false;
@@ -343,6 +351,15 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
       'difficulty': enumToDb(_difficulty),
       'access': enumToDb(_access),
       'progression': enumToDb(_progression),
+      'pass_mark_percent': _passMark,
+      'max_attempts': int.tryParse(_maxAttempts.text.trim()),
+      'metadata': {
+        ...?widget.course?.metadata,
+        'notify': {
+          for (final e in _notify.entries)
+            if (!e.value) e.key: false,
+        },
+      },
       'estimated_hours': double.tryParse(_hours.text.trim()),
       'learning_objectives': [
         for (final l in _objectives.text.split('\n'))
@@ -471,24 +488,14 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
               onChanged: (v) => setState(() => _difficulty = v!),
             ),
             const SizedBox(height: Space.md),
-            DropdownButtonFormField<Progression>(
-              initialValue: _progression,
-              decoration: InputDecoration(labelText: l10n.adminProgression),
-              items: [
-                DropdownMenuItem(
-                  value: Progression.teacherGated,
-                  child: Text(l10n.adminProgressionTeacher),
-                ),
-                DropdownMenuItem(
-                  value: Progression.sequential,
-                  child: Text(l10n.adminProgressionSequential),
-                ),
-                DropdownMenuItem(
-                  value: Progression.open,
-                  child: Text(l10n.adminProgressionOpen),
-                ),
-              ],
-              onChanged: (v) => setState(() => _progression = v!),
+            _LessonRules(
+              progression: _progression,
+              passMark: _passMark,
+              maxAttempts: _maxAttempts,
+              notify: _notify,
+              onProgression: (v) => setState(() => _progression = v),
+              onPassMark: (v) => setState(() => _passMark = v),
+              onNotify: (kind, on) => setState(() => _notify[kind] = on),
             ),
             const SizedBox(height: Space.md),
             DropdownButtonFormField<CourseAccess>(
@@ -714,6 +721,137 @@ class _PrerequisitePicker extends ConsumerWidget {
             ),
           ),
       ],
+    );
+  }
+}
+
+/// Notification kinds an admin can switch off per course.
+const courseNotificationKinds = [
+  'lesson_work',
+  'reviewed',
+  'correction',
+  'portion_assigned',
+  'submission',
+];
+
+String notificationKindLabel(AppLocalizations l10n, String kind) =>
+    switch (kind) {
+      'lesson_work' => l10n.notifyLessonWork,
+      'reviewed' => l10n.notifyReviewed,
+      'correction' => l10n.notifyCorrection,
+      'portion_assigned' => l10n.notifyPortionAssigned,
+      'submission' => l10n.notifySubmission,
+      'resubmission' => l10n.notifyResubmission,
+      _ => kind,
+    };
+
+/// How lessons unlock, the pass mark, attempts and this course's
+/// notifications.
+class _LessonRules extends StatelessWidget {
+  const _LessonRules({
+    required this.progression,
+    required this.passMark,
+    required this.maxAttempts,
+    required this.notify,
+    required this.onProgression,
+    required this.onPassMark,
+    required this.onNotify,
+  });
+
+  final Progression progression;
+  final int passMark;
+  final TextEditingController maxAttempts;
+  final Map<String, bool> notify;
+  final ValueChanged<Progression> onProgression;
+  final ValueChanged<int> onPassMark;
+  final void Function(String kind, bool on) onNotify;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final rules = [
+      (Progression.afterApproval, l10n.ruleApproval, l10n.ruleApprovalHint),
+      (
+        Progression.afterSubmission,
+        l10n.ruleSubmission,
+        l10n.ruleSubmissionHint,
+      ),
+      (
+        Progression.teacherGated,
+        l10n.adminProgressionTeacher,
+        l10n.ruleTeacherHint,
+      ),
+      (
+        Progression.sequential,
+        l10n.adminProgressionSequential,
+        l10n.ruleSequentialHint,
+      ),
+      (Progression.open, l10n.adminProgressionOpen, l10n.ruleOpenHint),
+    ];
+    return Card(
+      margin: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.all(Space.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(l10n.rulesTitle, style: theme.textTheme.titleMedium),
+            Text(l10n.rulesHint, style: theme.textTheme.bodySmall),
+            RadioGroup<Progression>(
+              groupValue: progression,
+              onChanged: (v) => v == null ? null : onProgression(v),
+              child: Column(
+                children: [
+                  for (final (value, title, hint) in rules)
+                    RadioListTile<Progression>(
+                      contentPadding: EdgeInsets.zero,
+                      value: value,
+                      title: Text(title),
+                      subtitle: Text(hint),
+                    ),
+                ],
+              ),
+            ),
+            if (progression == Progression.afterApproval) ...[
+              Text(
+                l10n.rulePassMark(passMark),
+                style: theme.textTheme.labelLarge,
+              ),
+              Slider(
+                value: passMark.toDouble(),
+                max: 100,
+                divisions: 20,
+                label: '$passMark%',
+                onChanged: (v) => onPassMark(v.round()),
+              ),
+            ],
+            if (progression.needsWork)
+              TextField(
+                controller: maxAttempts,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: l10n.ruleMaxAttempts,
+                  helperText: l10n.ruleMaxAttemptsHint,
+                ),
+              ),
+            const Divider(height: Space.xl),
+            Text(l10n.courseNotifications, style: theme.textTheme.titleSmall),
+            Text(
+              l10n.courseNotificationsHint,
+              style: theme.textTheme.bodySmall,
+            ),
+            for (final k in courseNotificationKinds)
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                dense: true,
+                value: notify[k] ?? true,
+                onChanged: (v) => onNotify(k, v),
+                title: Text(notificationKindLabel(l10n, k)),
+              ),
+          ],
+        ),
+      ),
     );
   }
 }

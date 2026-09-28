@@ -21,16 +21,8 @@ class SidraApp extends ConsumerWidget {
     ref.watch(phoneNotificationsProvider);
     // A tapped notification opens its portion: teachers the review board,
     // learners their own page.
-    PhoneNotifications.onOpen = (data) {
-      final id = data['portion_id'];
-      if (id == null) {
-        router.push('/notifications');
-        return;
-      }
-      final forTeacher =
-          data['kind'] == 'submission' || data['kind'] == 'resubmission';
-      router.push(forTeacher ? '/teach/portions/$id' : '/learn/portions/$id');
-    };
+    PhoneNotifications.onOpen = (data) =>
+        router.push(notificationRoute(data['kind'] as String?, data));
     return MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context).appName,
       debugShowCheckedModeBanner: false,

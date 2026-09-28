@@ -20,7 +20,9 @@ import '../../features/about/presentation/about_screen.dart';
 import '../splash_screen.dart';
 import '../../features/admin/presentation/reports_screen.dart';
 import '../../features/content/presentation/assignment_widgets.dart';
+import '../../features/teaching/data/lesson_work.dart';
 import '../../features/teaching/presentation/learner_portion_screen.dart';
+import '../../features/teaching/presentation/lesson_work_widgets.dart';
 import '../../features/teaching/presentation/library_screens.dart';
 import '../../features/teaching/presentation/teacher_screens.dart';
 import '../../features/auth/domain/auth_session.dart';
@@ -276,6 +278,17 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/teach/portions/:portionId/edit',
         builder: (_, state) =>
             PortionEditorScreen(portionId: state.pathParameters['portionId']!),
+      ),
+      GoRoute(
+        path: '/teach/work',
+        builder: (_, _) => const LessonWorkQueueScreen(),
+      ),
+      GoRoute(
+        path: '/teach/work/:submissionId',
+        builder: (_, state) => LessonWorkReviewScreen(
+          submissionId: state.pathParameters['submissionId']!,
+          work: state.extra is LessonWork ? state.extra! as LessonWork : null,
+        ),
       ),
       GoRoute(
         path: '/teach/corrections',

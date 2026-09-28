@@ -143,7 +143,11 @@ class PhoneNotifications {
             priority: Priority.high,
           ),
         ),
-        payload: jsonEncode({'kind': n['kind'], 'portion_id': n['portion_id']}),
+        payload: jsonEncode({
+          ...?(n['data'] as Map?)?.cast<String, dynamic>(),
+          'kind': n['kind'],
+          'portion_id': n['portion_id'],
+        }),
       );
       latest = n['created_at'] as String? ?? latest;
     }
@@ -209,4 +213,24 @@ Future<void> signOutEverywhere(WidgetRef ref) async {
   } catch (_) {}
   ref.read(learnerPreviewProvider).on = false;
   await ref.read(authServiceProvider).signOut();
+}
+
+/// Where a notification opens: teachers the work to review, learners the
+/// lesson or portion it is about.
+String notificationRoute(String? kind, Map<String, dynamic> data) {
+  final portion = data['portion_id'];
+  final submission = data['submission_id'];
+  final lesson = data['lesson_id'];
+  final course = data['course_id'];
+  if (kind == 'lesson_work' && submission != null) {
+    return '/teach/work/$submission';
+  }
+  if ((kind == 'submission' || kind == 'resubmission') && portion != null) {
+    return '/teach/portions/$portion';
+  }
+  if (portion != null) return '/learn/portions/$portion';
+  if (lesson != null && course != null) {
+    return '/courses/$course/lessons/$lesson';
+  }
+  return '/notifications';
 }

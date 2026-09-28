@@ -11,6 +11,7 @@ import '../../../core/data/repository_providers.dart';
 import '../../../core/errors/app_failure.dart';
 import '../../admin/data/admin_repository.dart';
 import '../../admin/presentation/admin_common.dart';
+import '../../teaching/data/lesson_work.dart';
 import '../../teaching/data/teaching_repository.dart';
 import 'content_repository.dart';
 
@@ -59,6 +60,7 @@ class QueuedSubmission {
     required this.id,
     this.assignmentId,
     this.portionId,
+    this.lessonId,
     required this.files,
     this.text,
     this.state = 'pending',
@@ -69,6 +71,7 @@ class QueuedSubmission {
     id: j['id'] as String,
     assignmentId: j['assignment_id'] as String?,
     portionId: j['portion_id'] as String?,
+    lessonId: j['lesson_id'] as String?,
     text: j['text'] as String?,
     files: [
       for (final f in (j['files'] as List? ?? const []))
@@ -83,6 +86,9 @@ class QueuedSubmission {
 
   /// Teaching portion (recitation) instead of an assignment.
   final String? portionId;
+
+  /// A lesson's own work (course rules).
+  final String? lessonId;
   final String? text;
   final List<QueuedFile> files;
   String state;
@@ -92,6 +98,7 @@ class QueuedSubmission {
     'id': id,
     'assignment_id': assignmentId,
     'portion_id': portionId,
+    'lesson_id': lessonId,
     'text': text,
     'files': [for (final f in files) f.toJson()],
     'state': state,
@@ -125,15 +132,19 @@ class SubmissionQueue extends AsyncNotifier<List<QueuedSubmission>> {
   Future<bool> submit({
     String? assignmentId,
     String? portionId,
+    String? lessonId,
     String? text,
     required List<QueuedFile> files,
   }) async {
-    assert((assignmentId == null) != (portionId == null));
+    assert(
+      [assignmentId, portionId, lessonId].where((e) => e != null).length == 1,
+    );
     final list = [...(await future)];
     final entry = QueuedSubmission(
       id: const Uuid().v4(),
       assignmentId: assignmentId,
       portionId: portionId,
+      lessonId: lessonId,
       text: text,
       files: files,
     );
@@ -184,7 +195,16 @@ class SubmissionQueue extends AsyncNotifier<List<QueuedSubmission>> {
             'bytes': f.bytes,
           },
       ];
-      if (entry.portionId != null) {
+      if (entry.lessonId != null) {
+        await ref
+            .read(lessonWorkRepositoryProvider)
+            .submit(
+              submissionId: entry.id,
+              lessonId: entry.lessonId!,
+              text: entry.text,
+              files: files,
+            );
+      } else if (entry.portionId != null) {
         await ref
             .read(teachingRepositoryProvider)
             .submit(

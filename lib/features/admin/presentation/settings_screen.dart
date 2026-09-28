@@ -6,6 +6,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/state_views.dart';
 import '../data/finance_repository.dart';
 import 'admin_common.dart';
+import 'courses_tab.dart' show courseNotificationKinds, notificationKindLabel;
 import 'marzpay_test_screen.dart';
 
 final orgSettingsAdminProvider =
@@ -54,6 +55,12 @@ class _SettingsFormState extends ConsumerState<_SettingsForm> {
       k: TextEditingController(text: widget.values[k] ?? ''),
   };
   late bool _marzpay = widget.values['marzpay_enabled'] != 'false';
+
+  /// Notification kinds switched on for every course (`notify_<kind>`).
+  static const _notifyKinds = [...courseNotificationKinds, 'resubmission'];
+  late final Map<String, bool> _notify = {
+    for (final k in _notifyKinds) k: widget.values['notify_$k'] != 'false',
+  };
   bool _saving = false;
 
   @override
@@ -78,6 +85,12 @@ class _SettingsFormState extends ConsumerState<_SettingsForm> {
       final m = _marzpay ? 'true' : 'false';
       if (m != (widget.values['marzpay_enabled'] ?? 'true')) {
         await repo.setSetting('marzpay_enabled', m);
+      }
+      for (final e in _notify.entries) {
+        final v = e.value ? 'true' : 'false';
+        if (v != (widget.values['notify_${e.key}'] ?? 'true')) {
+          await repo.setSetting('notify_${e.key}', v);
+        }
       }
     }, success: l10n.adminSaved);
     if (!mounted) return;
@@ -122,6 +135,17 @@ class _SettingsFormState extends ConsumerState<_SettingsForm> {
           title: Text(l10n.settingsMarzPay),
           subtitle: Text(l10n.settingsMarzPayHint),
         ),
+        const SizedBox(height: Space.md),
+        Text(l10n.settingsNotifications, style: theme.textTheme.titleMedium),
+        Text(l10n.settingsNotificationsHint, style: theme.textTheme.bodySmall),
+        for (final k in _notifyKinds)
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            dense: true,
+            value: _notify[k]!,
+            onChanged: (v) => setState(() => _notify[k] = v),
+            title: Text(notificationKindLabel(l10n, k)),
+          ),
         const SizedBox(height: Space.md),
         FilledButton(
           onPressed: _saving ? null : _save,

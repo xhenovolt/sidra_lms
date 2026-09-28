@@ -1529,5 +1529,101 @@
   "previewAsLearnerHint": "See the app exactly as learners see it",
   "previewBanner": "You are previewing as a learner",
   "previewExit": "Exit",
-  "previewNoProgress": "Preview: progress is recorded for learners only"
+  "previewNoProgress": "Preview: progress is recorded for learners only",
+  "rulesTitle": "Lesson rules",
+  "rulesHint": "How a learner moves from one lesson to the next. The database enforces this: learners cannot open locked lessons.",
+  "ruleApproval": "After the teacher approves the work",
+  "ruleApprovalHint": "The learner hands in work; the teacher marks it (word by word if wished). A score at or above the pass mark unlocks the next lesson.",
+  "ruleSubmission": "After handing in work",
+  "ruleSubmissionHint": "Handing in the lesson's work unlocks the next lesson; the teacher reviews it afterwards.",
+  "ruleTeacherHint": "The teacher unlocks each next lesson by hand.",
+  "ruleSequentialHint": "Finishing (reading) a lesson unlocks the next.",
+  "ruleOpenHint": "All lessons are open in any order.",
+  "rulePassMark": "Pass mark: {percent}%",
+  "@rulePassMark": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "ruleMaxAttempts": "Maximum attempts per lesson (optional)",
+  "ruleMaxAttemptsHint": "Leave empty for unlimited tries.",
+  "courseNotifications": "Notifications for this course",
+  "courseNotificationsHint": "Switch off what this course should not send. Switches under Settings apply to every course.",
+  "notifyLessonWork": "New work for teachers",
+  "notifyReviewed": "Work approved (to learners)",
+  "notifyCorrection": "Corrections (to learners)",
+  "notifyPortionAssigned": "New daily portion (to learners)",
+  "notifySubmission": "Portion recordings (to teachers)",
+  "notifyResubmission": "Tried again (to teachers)",
+  "lessonWorkRequired": "Needs handed-in work",
+  "lessonWorkFollowsCourse": "Follows the course rule ({answer})",
+  "@lessonWorkFollowsCourse": {
+    "placeholders": {
+      "answer": {
+        "type": "String"
+      }
+    }
+  },
+  "lessonWorkFollowCourse": "Follow the course rule",
+  "lessonWorkYes": "Yes, learners hand in work",
+  "lessonWorkNo": "No work for this lesson",
+  "yes": "Yes",
+  "no": "No",
+  "workSubmit": "Submit work",
+  "workSubmitAgain": "Submit again",
+  "workTitle": "Your work",
+  "workHint": "Record your reading, or add a photo, scan or file of your work, then send it to your teacher.",
+  "workAnswer": "Written answer (optional)",
+  "workWaiting": "Handed in: waiting for your teacher",
+  "workApproved": "Approved. The next lesson is open.",
+  "workApprovedNoUnlock": "Approved.",
+  "workTryAgain": "Your teacher asks you to try again",
+  "workScore": "Score: {score}% (pass mark {pass}%)",
+  "@workScore": {
+    "placeholders": {
+      "score": {
+        "type": "String"
+      },
+      "pass": {
+        "type": "int"
+      }
+    }
+  },
+  "workNeededToFinish": "Hand in your work to finish this lesson",
+  "workQueueTitle": "Lesson work",
+  "workQueueEmpty": "No lesson work waiting",
+  "workMarkWords": "Mark word by word",
+  "workMarkWordsHint": "Tap a word: correct → weak → wrong. The score follows your marks; you can still adjust it.",
+  "workScoreLabel": "Overall score: {score}%",
+  "@workScoreLabel": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "workWillPass": "Passes (pass mark {pass}%): the next lesson will open",
+  "@workWillPass": {
+    "placeholders": {
+      "pass": {
+        "type": "int"
+      }
+    }
+  },
+  "workWillFail": "Below the pass mark ({pass}%): the learner will be asked to try again",
+  "@workWillFail": {
+    "placeholders": {
+      "pass": {
+        "type": "int"
+      }
+    }
+  },
+  "workApprove": "Approve",
+  "workNeedsCorrection": "Needs correction",
+  "workNoText": "This lesson has no Qur'anic text to mark word by word; give an overall score.",
+  "workLegend": "correct · weak · wrong",
+  "settingsNotifications": "Notifications",
+  "settingsNotificationsHint": "Switch off a kind of notification for every course. Courses can also switch them off one by one."
 }

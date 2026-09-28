@@ -7,6 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/data/repository_providers.dart';
+import '../../../core/notifications/phone_notifications.dart'
+    show notificationRoute;
 import '../../../core/network/postgres_api.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
@@ -850,14 +852,12 @@ class NotificationsScreen extends ConsumerWidget {
                     .read(teachingRepositoryProvider)
                     .markRead(ids: [n.id]);
                 ref.invalidate(notificationsProvider);
-                if (n.portionId == null || !context.mounted) return;
-                final isTeacher =
-                    n.kind == 'submission' || n.kind == 'resubmission';
-                await context.push(
-                  isTeacher
-                      ? '/teach/portions/${n.portionId}'
-                      : '/learn/portions/${n.portionId}',
+                if (!context.mounted) return;
+                final route = notificationRoute(
+                  n.kind,
+                  Map<String, dynamic>.from((n.j['data'] as Map?) ?? const {}),
                 );
+                if (route != '/notifications') await context.push(route);
               },
             );
           },

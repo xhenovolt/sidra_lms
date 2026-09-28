@@ -5688,6 +5688,312 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Preview: progress is recorded for learners only'**
   String get previewNoProgress;
+
+  /// No description provided for @rulesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson rules'**
+  String get rulesTitle;
+
+  /// No description provided for @rulesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'How a learner moves from one lesson to the next. The database enforces this: learners cannot open locked lessons.'**
+  String get rulesHint;
+
+  /// No description provided for @ruleApproval.
+  ///
+  /// In en, this message translates to:
+  /// **'After the teacher approves the work'**
+  String get ruleApproval;
+
+  /// No description provided for @ruleApprovalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The learner hands in work; the teacher marks it (word by word if wished). A score at or above the pass mark unlocks the next lesson.'**
+  String get ruleApprovalHint;
+
+  /// No description provided for @ruleSubmission.
+  ///
+  /// In en, this message translates to:
+  /// **'After handing in work'**
+  String get ruleSubmission;
+
+  /// No description provided for @ruleSubmissionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Handing in the lesson\'s work unlocks the next lesson; the teacher reviews it afterwards.'**
+  String get ruleSubmissionHint;
+
+  /// No description provided for @ruleTeacherHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The teacher unlocks each next lesson by hand.'**
+  String get ruleTeacherHint;
+
+  /// No description provided for @ruleSequentialHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Finishing (reading) a lesson unlocks the next.'**
+  String get ruleSequentialHint;
+
+  /// No description provided for @ruleOpenHint.
+  ///
+  /// In en, this message translates to:
+  /// **'All lessons are open in any order.'**
+  String get ruleOpenHint;
+
+  /// No description provided for @rulePassMark.
+  ///
+  /// In en, this message translates to:
+  /// **'Pass mark: {percent}%'**
+  String rulePassMark(int percent);
+
+  /// No description provided for @ruleMaxAttempts.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum attempts per lesson (optional)'**
+  String get ruleMaxAttempts;
+
+  /// No description provided for @ruleMaxAttemptsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty for unlimited tries.'**
+  String get ruleMaxAttemptsHint;
+
+  /// No description provided for @courseNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications for this course'**
+  String get courseNotifications;
+
+  /// No description provided for @courseNotificationsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch off what this course should not send. Switches under Settings apply to every course.'**
+  String get courseNotificationsHint;
+
+  /// No description provided for @notifyLessonWork.
+  ///
+  /// In en, this message translates to:
+  /// **'New work for teachers'**
+  String get notifyLessonWork;
+
+  /// No description provided for @notifyReviewed.
+  ///
+  /// In en, this message translates to:
+  /// **'Work approved (to learners)'**
+  String get notifyReviewed;
+
+  /// No description provided for @notifyCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Corrections (to learners)'**
+  String get notifyCorrection;
+
+  /// No description provided for @notifyPortionAssigned.
+  ///
+  /// In en, this message translates to:
+  /// **'New daily portion (to learners)'**
+  String get notifyPortionAssigned;
+
+  /// No description provided for @notifySubmission.
+  ///
+  /// In en, this message translates to:
+  /// **'Portion recordings (to teachers)'**
+  String get notifySubmission;
+
+  /// No description provided for @notifyResubmission.
+  ///
+  /// In en, this message translates to:
+  /// **'Tried again (to teachers)'**
+  String get notifyResubmission;
+
+  /// No description provided for @lessonWorkRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs handed-in work'**
+  String get lessonWorkRequired;
+
+  /// No description provided for @lessonWorkFollowsCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Follows the course rule ({answer})'**
+  String lessonWorkFollowsCourse(String answer);
+
+  /// No description provided for @lessonWorkFollowCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow the course rule'**
+  String get lessonWorkFollowCourse;
+
+  /// No description provided for @lessonWorkYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, learners hand in work'**
+  String get lessonWorkYes;
+
+  /// No description provided for @lessonWorkNo.
+  ///
+  /// In en, this message translates to:
+  /// **'No work for this lesson'**
+  String get lessonWorkNo;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// No description provided for @workSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit work'**
+  String get workSubmit;
+
+  /// No description provided for @workSubmitAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit again'**
+  String get workSubmitAgain;
+
+  /// No description provided for @workTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your work'**
+  String get workTitle;
+
+  /// No description provided for @workHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Record your reading, or add a photo, scan or file of your work, then send it to your teacher.'**
+  String get workHint;
+
+  /// No description provided for @workAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Written answer (optional)'**
+  String get workAnswer;
+
+  /// No description provided for @workWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Handed in: waiting for your teacher'**
+  String get workWaiting;
+
+  /// No description provided for @workApproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Approved. The next lesson is open.'**
+  String get workApproved;
+
+  /// No description provided for @workApprovedNoUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Approved.'**
+  String get workApprovedNoUnlock;
+
+  /// No description provided for @workTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Your teacher asks you to try again'**
+  String get workTryAgain;
+
+  /// No description provided for @workScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Score: {score}% (pass mark {pass}%)'**
+  String workScore(String score, int pass);
+
+  /// No description provided for @workNeededToFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'Hand in your work to finish this lesson'**
+  String get workNeededToFinish;
+
+  /// No description provided for @workQueueTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson work'**
+  String get workQueueTitle;
+
+  /// No description provided for @workQueueEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No lesson work waiting'**
+  String get workQueueEmpty;
+
+  /// No description provided for @workMarkWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark word by word'**
+  String get workMarkWords;
+
+  /// No description provided for @workMarkWordsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a word: correct → weak → wrong. The score follows your marks; you can still adjust it.'**
+  String get workMarkWordsHint;
+
+  /// No description provided for @workScoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall score: {score}%'**
+  String workScoreLabel(int score);
+
+  /// No description provided for @workWillPass.
+  ///
+  /// In en, this message translates to:
+  /// **'Passes (pass mark {pass}%): the next lesson will open'**
+  String workWillPass(int pass);
+
+  /// No description provided for @workWillFail.
+  ///
+  /// In en, this message translates to:
+  /// **'Below the pass mark ({pass}%): the learner will be asked to try again'**
+  String workWillFail(int pass);
+
+  /// No description provided for @workApprove.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve'**
+  String get workApprove;
+
+  /// No description provided for @workNeedsCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs correction'**
+  String get workNeedsCorrection;
+
+  /// No description provided for @workNoText.
+  ///
+  /// In en, this message translates to:
+  /// **'This lesson has no Qur\'anic text to mark word by word; give an overall score.'**
+  String get workNoText;
+
+  /// No description provided for @workLegend.
+  ///
+  /// In en, this message translates to:
+  /// **'correct · weak · wrong'**
+  String get workLegend;
+
+  /// No description provided for @settingsNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get settingsNotifications;
+
+  /// No description provided for @settingsNotificationsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch off a kind of notification for every course. Courses can also switch them off one by one.'**
+  String get settingsNotificationsHint;
 }
 
 class _AppLocalizationsDelegate

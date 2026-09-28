@@ -3179,4 +3179,178 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get previewNoProgress =>
       'Preview: progress is recorded for learners only';
+
+  @override
+  String get rulesTitle => 'Lesson rules';
+
+  @override
+  String get rulesHint =>
+      'How a learner moves from one lesson to the next. The database enforces this: learners cannot open locked lessons.';
+
+  @override
+  String get ruleApproval => 'After the teacher approves the work';
+
+  @override
+  String get ruleApprovalHint =>
+      'The learner hands in work; the teacher marks it (word by word if wished). A score at or above the pass mark unlocks the next lesson.';
+
+  @override
+  String get ruleSubmission => 'After handing in work';
+
+  @override
+  String get ruleSubmissionHint =>
+      'Handing in the lesson\'s work unlocks the next lesson; the teacher reviews it afterwards.';
+
+  @override
+  String get ruleTeacherHint => 'The teacher unlocks each next lesson by hand.';
+
+  @override
+  String get ruleSequentialHint =>
+      'Finishing (reading) a lesson unlocks the next.';
+
+  @override
+  String get ruleOpenHint => 'All lessons are open in any order.';
+
+  @override
+  String rulePassMark(int percent) {
+    return 'Pass mark: $percent%';
+  }
+
+  @override
+  String get ruleMaxAttempts => 'Maximum attempts per lesson (optional)';
+
+  @override
+  String get ruleMaxAttemptsHint => 'Leave empty for unlimited tries.';
+
+  @override
+  String get courseNotifications => 'Notifications for this course';
+
+  @override
+  String get courseNotificationsHint =>
+      'Switch off what this course should not send. Switches under Settings apply to every course.';
+
+  @override
+  String get notifyLessonWork => 'New work for teachers';
+
+  @override
+  String get notifyReviewed => 'Work approved (to learners)';
+
+  @override
+  String get notifyCorrection => 'Corrections (to learners)';
+
+  @override
+  String get notifyPortionAssigned => 'New daily portion (to learners)';
+
+  @override
+  String get notifySubmission => 'Portion recordings (to teachers)';
+
+  @override
+  String get notifyResubmission => 'Tried again (to teachers)';
+
+  @override
+  String get lessonWorkRequired => 'Needs handed-in work';
+
+  @override
+  String lessonWorkFollowsCourse(String answer) {
+    return 'Follows the course rule ($answer)';
+  }
+
+  @override
+  String get lessonWorkFollowCourse => 'Follow the course rule';
+
+  @override
+  String get lessonWorkYes => 'Yes, learners hand in work';
+
+  @override
+  String get lessonWorkNo => 'No work for this lesson';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get workSubmit => 'Submit work';
+
+  @override
+  String get workSubmitAgain => 'Submit again';
+
+  @override
+  String get workTitle => 'Your work';
+
+  @override
+  String get workHint =>
+      'Record your reading, or add a photo, scan or file of your work, then send it to your teacher.';
+
+  @override
+  String get workAnswer => 'Written answer (optional)';
+
+  @override
+  String get workWaiting => 'Handed in: waiting for your teacher';
+
+  @override
+  String get workApproved => 'Approved. The next lesson is open.';
+
+  @override
+  String get workApprovedNoUnlock => 'Approved.';
+
+  @override
+  String get workTryAgain => 'Your teacher asks you to try again';
+
+  @override
+  String workScore(String score, int pass) {
+    return 'Score: $score% (pass mark $pass%)';
+  }
+
+  @override
+  String get workNeededToFinish => 'Hand in your work to finish this lesson';
+
+  @override
+  String get workQueueTitle => 'Lesson work';
+
+  @override
+  String get workQueueEmpty => 'No lesson work waiting';
+
+  @override
+  String get workMarkWords => 'Mark word by word';
+
+  @override
+  String get workMarkWordsHint =>
+      'Tap a word: correct → weak → wrong. The score follows your marks; you can still adjust it.';
+
+  @override
+  String workScoreLabel(int score) {
+    return 'Overall score: $score%';
+  }
+
+  @override
+  String workWillPass(int pass) {
+    return 'Passes (pass mark $pass%): the next lesson will open';
+  }
+
+  @override
+  String workWillFail(int pass) {
+    return 'Below the pass mark ($pass%): the learner will be asked to try again';
+  }
+
+  @override
+  String get workApprove => 'Approve';
+
+  @override
+  String get workNeedsCorrection => 'Needs correction';
+
+  @override
+  String get workNoText =>
+      'This lesson has no Qur\'anic text to mark word by word; give an overall score.';
+
+  @override
+  String get workLegend => 'correct · weak · wrong';
+
+  @override
+  String get settingsNotifications => 'Notifications';
+
+  @override
+  String get settingsNotificationsHint =>
+      'Switch off a kind of notification for every course. Courses can also switch them off one by one.';
 }

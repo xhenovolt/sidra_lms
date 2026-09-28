@@ -3147,4 +3147,177 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get previewNoProgress => 'معاينة: يُسجَّل التقدم للمتعلمين فقط';
+
+  @override
+  String get rulesTitle => 'قواعد الدروس';
+
+  @override
+  String get rulesHint =>
+      'كيف ينتقل المتعلم من درس إلى الذي يليه. تفرض قاعدة البيانات ذلك: لا يمكن فتح الدروس المقفلة.';
+
+  @override
+  String get ruleApproval => 'بعد موافقة المعلم على العمل';
+
+  @override
+  String get ruleApprovalHint =>
+      'يسلّم المتعلم عمله ويصححه المعلم (كلمة كلمة إن شاء). الدرجة التي تبلغ علامة النجاح تفتح الدرس التالي.';
+
+  @override
+  String get ruleSubmission => 'بعد تسليم العمل';
+
+  @override
+  String get ruleSubmissionHint =>
+      'تسليم عمل الدرس يفتح الدرس التالي، ويراجعه المعلم لاحقًا.';
+
+  @override
+  String get ruleTeacherHint => 'يفتح المعلم كل درس تالٍ يدويًا.';
+
+  @override
+  String get ruleSequentialHint => 'إنهاء (قراءة) الدرس يفتح الدرس التالي.';
+
+  @override
+  String get ruleOpenHint => 'كل الدروس مفتوحة بأي ترتيب.';
+
+  @override
+  String rulePassMark(int percent) {
+    return 'علامة النجاح: $percent%';
+  }
+
+  @override
+  String get ruleMaxAttempts => 'الحد الأقصى للمحاولات في الدرس (اختياري)';
+
+  @override
+  String get ruleMaxAttemptsHint => 'اتركه فارغًا لمحاولات غير محدودة.';
+
+  @override
+  String get courseNotifications => 'إشعارات هذه الدورة';
+
+  @override
+  String get courseNotificationsHint =>
+      'أوقف ما لا ينبغي أن ترسله هذه الدورة. مفاتيح الإعدادات تنطبق على كل الدورات.';
+
+  @override
+  String get notifyLessonWork => 'عمل جديد للمعلمين';
+
+  @override
+  String get notifyReviewed => 'قبول العمل (للمتعلمين)';
+
+  @override
+  String get notifyCorrection => 'التصحيحات (للمتعلمين)';
+
+  @override
+  String get notifyPortionAssigned => 'ورد يومي جديد (للمتعلمين)';
+
+  @override
+  String get notifySubmission => 'تسجيلات الأوراد (للمعلمين)';
+
+  @override
+  String get notifyResubmission => 'إعادة المحاولة (للمعلمين)';
+
+  @override
+  String get lessonWorkRequired => 'يتطلب تسليم عمل';
+
+  @override
+  String lessonWorkFollowsCourse(String answer) {
+    return 'يتبع قاعدة الدورة ($answer)';
+  }
+
+  @override
+  String get lessonWorkFollowCourse => 'اتبع قاعدة الدورة';
+
+  @override
+  String get lessonWorkYes => 'نعم، يسلّم المتعلمون عملًا';
+
+  @override
+  String get lessonWorkNo => 'لا عمل في هذا الدرس';
+
+  @override
+  String get yes => 'نعم';
+
+  @override
+  String get no => 'لا';
+
+  @override
+  String get workSubmit => 'سلّم العمل';
+
+  @override
+  String get workSubmitAgain => 'سلّم مرة أخرى';
+
+  @override
+  String get workTitle => 'عملك';
+
+  @override
+  String get workHint =>
+      'سجّل قراءتك، أو أضف صورة أو مسحًا أو ملفًا لعملك، ثم أرسله إلى معلمك.';
+
+  @override
+  String get workAnswer => 'إجابة مكتوبة (اختياري)';
+
+  @override
+  String get workWaiting => 'سُلّم: بانتظار معلمك';
+
+  @override
+  String get workApproved => 'قُبل. الدرس التالي مفتوح.';
+
+  @override
+  String get workApprovedNoUnlock => 'قُبل.';
+
+  @override
+  String get workTryAgain => 'يطلب منك معلمك إعادة المحاولة';
+
+  @override
+  String workScore(String score, int pass) {
+    return 'الدرجة: $score% (علامة النجاح $pass%)';
+  }
+
+  @override
+  String get workNeededToFinish => 'سلّم عملك لإنهاء هذا الدرس';
+
+  @override
+  String get workQueueTitle => 'أعمال الدروس';
+
+  @override
+  String get workQueueEmpty => 'لا توجد أعمال بانتظار المراجعة';
+
+  @override
+  String get workMarkWords => 'صحّح كلمة كلمة';
+
+  @override
+  String get workMarkWordsHint =>
+      'اضغط على الكلمة: صحيحة ← ضعيفة ← خاطئة. تتبع الدرجة تصحيحك ويمكنك تعديلها.';
+
+  @override
+  String workScoreLabel(int score) {
+    return 'الدرجة الكلية: $score%';
+  }
+
+  @override
+  String workWillPass(int pass) {
+    return 'ناجح (علامة النجاح $pass%): سيُفتح الدرس التالي';
+  }
+
+  @override
+  String workWillFail(int pass) {
+    return 'أقل من علامة النجاح ($pass%): سيُطلب من المتعلم إعادة المحاولة';
+  }
+
+  @override
+  String get workApprove => 'قبول';
+
+  @override
+  String get workNeedsCorrection => 'يحتاج تصحيحًا';
+
+  @override
+  String get workNoText =>
+      'لا يحتوي هذا الدرس على نص قرآني للتصحيح كلمة كلمة؛ ضع درجة كلية.';
+
+  @override
+  String get workLegend => 'صحيحة · ضعيفة · خاطئة';
+
+  @override
+  String get settingsNotifications => 'الإشعارات';
+
+  @override
+  String get settingsNotificationsHint =>
+      'أوقف نوعًا من الإشعارات لكل الدورات. ويمكن أيضًا إيقافها لكل دورة على حدة.';
 }

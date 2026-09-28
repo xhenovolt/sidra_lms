@@ -59,6 +59,38 @@ class CourseOutline {
   bool isUnlocked(String lessonId) =>
       order.any((o) => o.lessonId == lessonId && o.isUnlocked);
 
+  /// The course as a brand-new learner sees it: only the first lesson
+  /// (plus free previews, or everything in an open course) is unlocked.
+  /// Used when an administrator previews the learner app.
+  CourseOutline asNewLearner() {
+    final previews = {
+      for (final l in lessons)
+        if (l.isPreview) l.id,
+    };
+    final first = order.isEmpty
+        ? null
+        : order.reduce((a, b) => a.seq <= b.seq ? a : b).lessonId;
+    return CourseOutline(
+      course: course,
+      units: units,
+      nodes: nodes,
+      lessons: lessons,
+      books: books,
+      levelLabels: levelLabels,
+      order: [
+        for (final o in order)
+          LessonOrderEntry(
+            lessonId: o.lessonId,
+            seq: o.seq,
+            isUnlocked:
+                course.progression == Progression.open ||
+                o.lessonId == first ||
+                previews.contains(o.lessonId),
+          ),
+      ],
+    );
+  }
+
   Json toJson() => {
     'course': course.toJson(),
     'units': [for (final u in units) u.toJson()],

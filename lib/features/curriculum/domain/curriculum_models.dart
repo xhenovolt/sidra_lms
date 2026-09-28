@@ -6,7 +6,26 @@ enum Difficulty { beginner, intermediate, advanced }
 
 enum CourseAccess { free, paid, restricted }
 
-enum Progression { teacherGated, sequential, open }
+/// How the next lesson unlocks.
+enum Progression {
+  /// The teacher unlocks each lesson by hand.
+  teacherGated,
+
+  /// Finishing (reading) a lesson unlocks the next.
+  sequential,
+
+  /// Every lesson is open.
+  open,
+
+  /// Handing in the lesson's work unlocks the next.
+  afterSubmission,
+
+  /// The teacher marks the work; a pass (score >= pass mark) unlocks the next.
+  afterApproval;
+
+  /// Lessons need handed-in work by default.
+  bool get needsWork => this == afterSubmission || this == afterApproval;
+}
 
 class Course {
   const Course({
@@ -36,6 +55,8 @@ class Course {
     this.publishedAt,
     this.archivedAt,
     this.trackKey,
+    this.passMarkPercent = 70,
+    this.maxAttempts,
     this.deliveryLanguages = const [],
     this.hidden = false,
     this.targetLearner,
@@ -85,6 +106,8 @@ class Course {
     publishedAt: j.dateOrNull('published_at'),
     archivedAt: j.dateOrNull('archived_at'),
     trackKey: j.strOrNull('track_key'),
+    passMarkPercent: j.integer('pass_mark_percent', fallback: 70),
+    maxAttempts: j.intOrNull('max_attempts'),
     deliveryLanguages: j.strList('delivery_languages'),
     hidden: j.strOrNull('visibility') == 'hidden',
     targetLearner: j.strOrNull('target_learner'),
@@ -123,6 +146,15 @@ class Course {
 
   /// Learning track (quran_reading, tajwid, quranic_arabic…).
   final String? trackKey;
+
+  /// Score needed to pass lesson work (after-approval courses).
+  final int passMarkPercent;
+
+  /// Attempts allowed per lesson (null: unlimited).
+  final int? maxAttempts;
+
+  /// Notification switched off for this course (metadata.notify).
+  bool notifies(String kind) => (metadata['notify'] as Map?)?[kind] != false;
 
   /// Languages taught in besides [language] (the primary one).
   final List<String> deliveryLanguages;
@@ -169,6 +201,8 @@ class Course {
     'published_at': publishedAt?.toIso8601String(),
     'archived_at': archivedAt?.toIso8601String(),
     'track_key': trackKey,
+    'pass_mark_percent': passMarkPercent,
+    'max_attempts': maxAttempts,
     'delivery_languages': deliveryLanguages,
     'visibility': hidden ? 'hidden' : 'catalogue',
     'target_learner': targetLearner,
@@ -467,6 +501,7 @@ class Lesson {
     this.quranAyahStart,
     this.quranAyahEnd,
     this.metadata = const {},
+    this.workRequired,
   });
 
   factory Lesson.fromJson(Json j) => Lesson(
@@ -491,6 +526,7 @@ class Lesson {
     quranAyahStart: j.intOrNull('quran_ayah_start'),
     quranAyahEnd: j.intOrNull('quran_ayah_end'),
     metadata: Map<String, dynamic>.from((j['metadata'] as Map?) ?? const {}),
+    workRequired: j['work_required'] as bool?,
   );
 
   final String id;
@@ -518,6 +554,10 @@ class Lesson {
   /// Seeded content waiting for a teacher / scholar to confirm it.
   bool get needsReview => metadata['provisional'] == true;
 
+  /// Needs handed-in work: this lesson's own setting, else the course's rule.
+  final bool? workRequired;
+  bool needsWork(Course course) => workRequired ?? course.progression.needsWork;
+
   String? get quranReference => quranSurah == null
       ? null
       : quranAyahStart == null
@@ -534,6 +574,7 @@ class Lesson {
     'quran_surah': quranSurah,
     'quran_ayah_start': quranAyahStart,
     'quran_ayah_end': quranAyahEnd,
+    'work_required': workRequired,
     'metadata': metadata,
     'unit_id': unitId,
     'node_id': nodeId,

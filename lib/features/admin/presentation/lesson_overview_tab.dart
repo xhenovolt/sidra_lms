@@ -143,6 +143,7 @@ class LessonOverviewTab extends ConsumerWidget {
                   : languageName(langs, p.lesson.deliveryLanguage!),
             ),
           ),
+          _WorkRequiredTile(place: p, onChanged: reload),
           if (p.lesson.quranReference != null)
             ListTile(
               contentPadding: EdgeInsets.zero,
@@ -394,5 +395,56 @@ Future<void> showCopyLessonDialog(
   );
   if (ok && newId != null && context.mounted) {
     await context.push('/teach/lessons/$newId');
+  }
+}
+
+/// Whether this lesson needs handed-in work (or follows the course rule).
+class _WorkRequiredTile extends ConsumerWidget {
+  const _WorkRequiredTile({required this.place, required this.onChanged});
+  final LessonPlace place;
+  final VoidCallback onChanged;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final lesson = place.lesson;
+    final courseDefault = place.course.progression.needsWork;
+    Future<void> set(bool? v) async {
+      if (await runAdminAction(
+        context,
+        () => ref.read(adminRepositoryProvider).save('lessons', {
+          'work_required': v,
+        }, id: lesson.id),
+        success: l10n.adminSaved,
+      )) {
+        onChanged();
+      }
+    }
+
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      leading: const Icon(Icons.assignment_turned_in_outlined),
+      title: Text(l10n.lessonWorkRequired),
+      subtitle: Text(
+        lesson.workRequired == null
+            ? l10n.lessonWorkFollowsCourse(courseDefault ? l10n.yes : l10n.no)
+            : (lesson.workRequired! ? l10n.yes : l10n.no),
+      ),
+      trailing: PopupMenuButton<String>(
+        onSelected: (v) => set(switch (v) {
+          'yes' => true,
+          'no' => false,
+          _ => null,
+        }),
+        itemBuilder: (_) => [
+          PopupMenuItem(
+            value: 'course',
+            child: Text(l10n.lessonWorkFollowCourse),
+          ),
+          PopupMenuItem(value: 'yes', child: Text(l10n.lessonWorkYes)),
+          PopupMenuItem(value: 'no', child: Text(l10n.lessonWorkNo)),
+        ],
+      ),
+    );
   }
 }

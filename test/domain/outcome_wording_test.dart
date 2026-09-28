@@ -7,7 +7,10 @@ void main() {
       learnerFacingOutcome('The learner names and pronounces ا ب ت.'),
       'Names and pronounces ا ب ت.',
     );
-    expect(learnerFacingOutcome('the learner reads fluently'), 'Reads fluently');
+    expect(
+      learnerFacingOutcome('the learner reads fluently'),
+      'Reads fluently',
+    );
     expect(learnerFacingOutcome('Reads short sūrahs.'), 'Reads short sūrahs.');
   });
 }

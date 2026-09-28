@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../app/router/learner_preview.dart';
 import '../../features/assessments/data/assessment_repository.dart';
 import '../../features/auth/presentation/auth_providers.dart';
 import '../../features/courses/data/course_repository.dart';
@@ -82,8 +83,16 @@ final courseOutlineProvider = StreamProvider.family<CourseOutline, String>((
   ref,
   courseId,
 ) async* {
+  // An administrator previewing the learner app sees the locks a new
+  // learner would (staff can otherwise open every lesson).
+  final preview = ref.watch(learnerPreviewProvider);
+  void changed() => ref.invalidateSelf();
+  preview.addListener(changed);
+  ref.onDispose(() => preview.removeListener(changed));
   final repo = await ref.watch(courseRepositoryProvider.future);
-  yield* repo.watchOutline(courseId);
+  yield* repo
+      .watchOutline(courseId)
+      .map((o) => preview.on ? o.asNewLearner() : o);
 });
 
 /// Local progress for a course, refreshed from the server in the background.

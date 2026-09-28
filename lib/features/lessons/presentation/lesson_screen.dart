@@ -14,6 +14,7 @@ import '../../auth/presentation/auth_providers.dart';
 import '../../content/data/content_repository.dart';
 import '../../content/presentation/assignment_widgets.dart';
 import '../../content/presentation/resource_widgets.dart';
+import '../../teaching/presentation/lesson_work_widgets.dart';
 import '../../courses/data/course_repository.dart';
 import '../../curriculum/domain/curriculum_models.dart';
 import '../../curriculum/domain/curriculum_tree.dart';
@@ -206,6 +207,29 @@ class _LessonBodyState extends ConsumerState<_LessonBody> {
                                   icon: const Icon(Icons.check),
                                   label: Text(l10n.completedLabel),
                                 )
+                              // Work lessons finish when the work is handed
+                              // in / approved, never by a button.
+                              : lesson.needsWork(widget.outline.course)
+                              ? FilledButton.icon(
+                                  onPressed: () async {
+                                    await showSubmitLessonWork(
+                                      context,
+                                      ref,
+                                      lesson.id,
+                                    );
+                                    ref.invalidate(
+                                      courseProgressProvider(courseId),
+                                    );
+                                    ref.invalidate(
+                                      courseOutlineProvider(courseId),
+                                    );
+                                  },
+                                  icon: const Icon(Icons.upload),
+                                  label: Text(
+                                    l10n.workSubmit,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                )
                               : FilledButton(
                                   onPressed: _saving ? null : _complete,
                                   child: _saving
@@ -296,6 +320,12 @@ class _LessonBodyState extends ConsumerState<_LessonBody> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                if (lesson.needsWork(widget.outline.course) &&
+                    (ref.read(authSessionProvider).user?.role ?? 'learner') ==
+                        'learner') ...[
+                  LessonWorkPanel(lessonId: lesson.id),
+                  const SizedBox(height: Space.md),
+                ],
                 ResourceListView(target: ResourceTarget.lesson, id: lesson.id),
                 if (lesson.nodeId != null)
                   ResourceListView(
