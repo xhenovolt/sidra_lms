@@ -96,4 +96,48 @@ void main() {
     expect(marks[1]['m'], 'wrong');
     expect(marks[2]['m'], 'weak');
   });
+
+  testWidgets('the teacher inbox lists every kind of waiting work', (
+    tester,
+  ) async {
+    final api = staffServer('teacher');
+    api.rpcHandlers['teacher_inbox'] = (_) => [
+      {
+        'type': 'portion',
+        'id': 's1',
+        'portion_id': 'p1',
+        'learner': 'Ahmad',
+        'title': 'Page 12',
+        'context': 'Group A',
+        'attempt': 1,
+        'has_audio': true,
+      },
+      {
+        'type': 'lesson_work',
+        'id': 's2',
+        'learner': 'Maryam',
+        'title': 'Al-Fatihah 1-4',
+        'context': 'Yassarna',
+        'attempt': 2,
+        'has_audio': true,
+      },
+      {
+        'type': 'assignment',
+        'id': 's3',
+        'learner': 'Yusuf',
+        'title': 'Write ا ب ت',
+        'context': 'Yassarna',
+        'attempt': 1,
+      },
+    ];
+    await signInAs(tester, 'teacher', api: api);
+    expect(find.text('Inbox'), findsOneWidget);
+    expect(find.text('3 pieces of work waiting'), findsOneWidget);
+    await tester.tap(find.text('Inbox'));
+    await tester.pumpAndSettle();
+    expect(find.text('Review next automatically'), findsOneWidget);
+    expect(find.text('Ahmad'), findsOneWidget);
+    expect(find.textContaining('attempt 2'), findsOneWidget);
+    expect(find.text('Yusuf'), findsOneWidget);
+  });
 }

@@ -3320,4 +3320,28 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get settingsNotificationsHint =>
       'أوقف نوعًا من الإشعارات لكل الدورات. ويمكن أيضًا إيقافها لكل دورة على حدة.';
+
+  @override
+  String get inboxTitle => 'صندوق الأعمال';
+
+  @override
+  String get inboxEmpty => 'لا شيء بانتظارك';
+
+  @override
+  String inboxWaiting(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count أعمال بانتظارك',
+      one: 'عمل واحد بانتظارك',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get inboxAutoNext => 'راجع التالي تلقائيًا';
+
+  @override
+  String get inboxAutoNextHint =>
+      'بعد إنهاء عمل يُفتح التالي، لتصحح الصف كله دفعة واحدة.';
 }

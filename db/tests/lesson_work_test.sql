@@ -113,4 +113,25 @@ select pg_temp.check(public.lesson_marking_text('00000000-0000-0000-0000-0000000
   'learners cannot fetch the marking text');
 reset role;
 
+-- One inbox for teachers.
+insert into media_assets (id, kind, resource_type, delivery, public_id, format, uploaded_by) values
+  ('00000000-0000-0000-0000-0000000ccf03', 'audio', 'video', 'authenticated',
+   'sidra/submissions/' || current_setting('t.ll') || '/w3', 'm4a', current_setting('t.ll')::uuid);
+select pg_temp.login_as_id(current_setting('t.ll')::uuid);
+set local role authenticated;
+select public.submit_lesson_work('00000000-0000-0000-0000-0000000cc505', '00000000-0000-0000-0000-0000000cca02',
+  null, '[{"media_asset_id": "00000000-0000-0000-0000-0000000ccf03"}]');
+reset role;
+select pg_temp.login_as_id(current_setting('t.lt')::uuid);
+set local role authenticated;
+select pg_temp.check(exists (select 1 from public.teacher_inbox() i
+                             where i->>'type' = 'lesson_work' and i->>'learner' = 'Maryam Lw'
+                               and (i->>'has_audio')::boolean),
+  'lesson work in the teacher inbox, with its recording');
+reset role;
+select pg_temp.login_as_id(current_setting('t.ll')::uuid);
+set local role authenticated;
+select pg_temp.check(not exists (select 1 from public.teacher_inbox()), 'learners have no inbox');
+reset role;
+
 select 'ALL LESSON WORK TESTS PASSED' as result;

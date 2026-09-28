@@ -18,7 +18,7 @@ import '../../audio/presentation/audio_widgets.dart';
 import '../../content/data/content_repository.dart';
 import '../../content/presentation/resource_widgets.dart';
 import '../../curriculum/domain/curriculum_models.dart';
-import '../data/lesson_work.dart';
+import 'inbox_screen.dart' show InboxCard;
 import '../data/teaching_repository.dart';
 import 'learner_portion_screen.dart' show participationLabel, resultLabel;
 import '../../../shared/widgets/user_avatar.dart';
@@ -92,6 +92,8 @@ class TeachingHomeScreen extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(Space.md, Space.md, Space.md, 96),
           children: [
+            const InboxCard(),
+            const SizedBox(height: Space.md),
             Text(l10n.needsAttention, style: theme.textTheme.titleLarge),
             const SizedBox(height: Space.xs),
             switch (attention) {
@@ -105,7 +107,6 @@ class TeachingHomeScreen extends ConsumerWidget {
                 child: Center(child: CircularProgressIndicator()),
               ),
             },
-            const _LessonWorkCard(),
             const SizedBox(height: Space.md),
             Wrap(
               spacing: Space.sm,
@@ -164,35 +165,6 @@ class TeachingHomeScreen extends ConsumerWidget {
             },
           ],
         ),
-      ),
-    );
-  }
-}
-
-/// Lesson work waiting for this teacher (course rules), with a count.
-class _LessonWorkCard extends ConsumerWidget {
-  const _LessonWorkCard();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context);
-    final waiting = ref.watch(lessonWorkQueueProvider).value?.length ?? 0;
-    return Card(
-      child: ListTile(
-        leading: Badge(
-          isLabelVisible: waiting > 0,
-          label: Text('$waiting'),
-          child: const Icon(Icons.assignment_outlined),
-        ),
-        title: Text(l10n.workQueueTitle),
-        subtitle: Text(
-          waiting == 0 ? l10n.workQueueEmpty : l10n.groupWaiting(waiting),
-        ),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: () async {
-          await context.push('/teach/work');
-          ref.invalidate(lessonWorkQueueProvider);
-        },
       ),
     );
   }

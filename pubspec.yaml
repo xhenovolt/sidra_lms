@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 2.25.0+44
+version: 2.26.0+45
 
 environment:
   sdk: ^3.13.0
@@ -120,20 +120,26 @@ flutter_launcher_icons:
 # Launch screen: Sidra mark, "from Almuntahha" at the bottom.
 #   dart run flutter_native_splash:create
 flutter_native_splash:
+  # The Sidra logo on the brand background, also in dark mode (the
+  # dark-green logo is not readable on a dark background).
   color: "#FAF7F1"
   image: assets/branding/mark.png
   branding: assets/branding/from_almuntahha.png
   branding_mode: bottom
   branding_bottom_padding: 48
-  color_dark: "#0E3B36"
-  branding_dark: assets/branding/from_almuntahha_dark.png
+  color_dark: "#FAF7F1"
+  image_dark: assets/branding/mark.png
+  branding_dark: assets/branding/from_almuntahha.png
   android_12:
+    # Android 12+ crops the icon to a circle: this version keeps the whole
+    # logo inside it (the plain logo had its leaf tips cut off).
+    image: assets/branding/splash_android12.png
     color: "#FAF7F1"
-    image: assets/branding/mark.png
     icon_background_color: "#FAF7F1"
     branding: assets/branding/from_almuntahha.png
-    color_dark: "#0E3B36"
-    icon_background_color_dark: "#0E3B36"
-    branding_dark: assets/branding/from_almuntahha_dark.png
+    image_dark: assets/branding/splash_android12.png
+    color_dark: "#FAF7F1"
+    icon_background_color_dark: "#FAF7F1"
+    branding_dark: assets/branding/from_almuntahha.png
   ios: false
   web: false

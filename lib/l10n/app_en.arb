@@ -1625,5 +1625,17 @@
   "workNoText": "This lesson has no Qur'anic text to mark word by word; give an overall score.",
   "workLegend": "correct · weak · wrong",
   "settingsNotifications": "Notifications",
-  "settingsNotificationsHint": "Switch off a kind of notification for every course. Courses can also switch them off one by one."
+  "settingsNotificationsHint": "Switch off a kind of notification for every course. Courses can also switch them off one by one.",
+  "inboxTitle": "Inbox",
+  "inboxEmpty": "Nothing waiting for you",
+  "inboxWaiting": "{count, plural, =1{1 piece of work waiting} other{{count} pieces of work waiting}}",
+  "@inboxWaiting": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "inboxAutoNext": "Review next automatically",
+  "inboxAutoNextHint": "After you finish one, the next opens so you can mark a whole class in one go."
 }

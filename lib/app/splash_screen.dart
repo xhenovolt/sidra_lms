@@ -4,16 +4,16 @@ import '../core/theme/app_tokens.dart';
 import '../shared/widgets/sidra_mark.dart';
 
 /// Shown while Sidra starts (session restore). Matches the Android launch
-/// screen exactly, so the hand-over is seamless: the mark in the middle,
-/// "from Almuntahha" at the bottom.
+/// screen exactly, so the hand-over is seamless: the Sidra logo in the
+/// middle, "from Almuntahha" at the bottom, on the brand background — also
+/// in dark mode, where the dark-green logo would not be readable.
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final dark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: dark ? SidraColors.teal900 : SidraColors.parchment,
+      backgroundColor: SidraColors.parchment,
       body: SafeArea(
         child: Column(
           children: [
@@ -23,9 +23,7 @@ class SplashScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: Space.lg),
               child: Image.asset(
-                dark
-                    ? 'assets/branding/from_almuntahha_dark.png'
-                    : 'assets/branding/from_almuntahha.png',
+                'assets/branding/from_almuntahha.png',
                 width: 200,
                 semanticLabel: 'from Almuntahha',
               ),

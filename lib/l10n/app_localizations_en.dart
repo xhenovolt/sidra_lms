@@ -3353,4 +3353,28 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get settingsNotificationsHint =>
       'Switch off a kind of notification for every course. Courses can also switch them off one by one.';
+
+  @override
+  String get inboxTitle => 'Inbox';
+
+  @override
+  String get inboxEmpty => 'Nothing waiting for you';
+
+  @override
+  String inboxWaiting(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count pieces of work waiting',
+      one: '1 piece of work waiting',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get inboxAutoNext => 'Review next automatically';
+
+  @override
+  String get inboxAutoNextHint =>
+      'After you finish one, the next opens so you can mark a whole class in one go.';
 }

@@ -5994,6 +5994,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Switch off a kind of notification for every course. Courses can also switch them off one by one.'**
   String get settingsNotificationsHint;
+
+  /// No description provided for @inboxTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Inbox'**
+  String get inboxTitle;
+
+  /// No description provided for @inboxEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing waiting for you'**
+  String get inboxEmpty;
+
+  /// No description provided for @inboxWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 piece of work waiting} other{{count} pieces of work waiting}}'**
+  String inboxWaiting(int count);
+
+  /// No description provided for @inboxAutoNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Review next automatically'**
+  String get inboxAutoNext;
+
+  /// No description provided for @inboxAutoNextHint.
+  ///
+  /// In en, this message translates to:
+  /// **'After you finish one, the next opens so you can mark a whole class in one go.'**
+  String get inboxAutoNextHint;
 }
 
 class _AppLocalizationsDelegate
