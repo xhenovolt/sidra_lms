@@ -3144,4 +3144,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get previewExit => 'خروج';
+
+  @override
+  String get previewNoProgress => 'معاينة: يُسجَّل التقدم للمتعلمين فقط';
 }

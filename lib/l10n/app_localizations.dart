@@ -5682,6 +5682,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Exit'**
   String get previewExit;
+
+  /// No description provided for @previewNoProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview: progress is recorded for learners only'**
+  String get previewNoProgress;
 }
 
 class _AppLocalizationsDelegate

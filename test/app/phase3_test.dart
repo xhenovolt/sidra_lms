@@ -125,7 +125,7 @@ void main() {
     expect(find.textContaining('Arabic'), findsNothing);
     expect(find.text('بِسْمِ ٱللَّهِ'), findsOneWidget);
     expect(
-      find.text('The learner names Alif and Ba and tells them apart.'),
+      find.text('Names Alif and Ba and tells them apart.'),
       findsOneWidget,
     );
 

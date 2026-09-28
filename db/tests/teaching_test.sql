@@ -290,6 +290,8 @@ select pg_temp.expect_error($q$select public.set_my_avatar('media:00000000-0000-
   'one you uploaded');
 select pg_temp.expect_error($q$select public.set_my_avatar('https://evil.example/x.png')$q$, 'unknown avatar');
 select public.set_my_avatar('avatar:crescent');
+select pg_temp.check(public.ensure_profile()->>'avatar_url' = 'avatar:crescent',
+  'the profile the app reloads shows the new picture');
 select public.set_my_avatar('media:00000000-0000-0000-0000-0000000aaf41');
 reset role;
 select pg_temp.login_as_id(current_setting('t.b')::uuid);

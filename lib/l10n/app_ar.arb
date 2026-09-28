@@ -928,5 +928,6 @@
   "previewAsLearner": "معاينة كمتعلم",
   "previewAsLearnerHint": "شاهد التطبيق كما يراه المتعلمون تمامًا",
   "previewBanner": "أنت تعاين التطبيق كمتعلم",
-  "previewExit": "خروج"
+  "previewExit": "خروج",
+  "previewNoProgress": "معاينة: يُسجَّل التقدم للمتعلمين فقط"
 }

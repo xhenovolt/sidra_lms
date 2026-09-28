@@ -3175,4 +3175,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get previewExit => 'Exit';
+
+  @override
+  String get previewNoProgress =>
+      'Preview: progress is recorded for learners only';
 }

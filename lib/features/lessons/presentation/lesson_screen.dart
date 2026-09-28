@@ -10,6 +10,7 @@ import '../../../core/data/repository_providers.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/state_views.dart';
+import '../../auth/presentation/auth_providers.dart';
 import '../../content/data/content_repository.dart';
 import '../../content/presentation/assignment_widgets.dart';
 import '../../content/presentation/resource_widgets.dart';
@@ -87,7 +88,12 @@ class _LessonBodyState extends ConsumerState<_LessonBody> {
     super.dispose();
   }
 
+  /// Progress is for learners. Staff (and admins previewing) only look.
+  bool get _isLearner =>
+      (ref.read(authSessionProvider).user?.role ?? 'learner') == 'learner';
+
   Future<void> _record(ProgressStatus status) async {
+    if (!_isLearner) return;
     final repo = await ref.read(progressRepositoryProvider.future);
     final fraction = _scroll.hasClients && _scroll.position.maxScrollExtent > 0
         ? _scroll.offset / _scroll.position.maxScrollExtent
@@ -170,7 +176,7 @@ class _LessonBodyState extends ConsumerState<_LessonBody> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (progress != null && !progress.synced)
+                    if (_isLearner && progress != null && !progress.synced)
                       Padding(
                         padding: const EdgeInsets.only(bottom: Space.xxs),
                         child: Text(
@@ -186,7 +192,15 @@ class _LessonBodyState extends ConsumerState<_LessonBody> {
                           icon: const Icon(Icons.chevron_left),
                         ),
                         Expanded(
-                          child: completed
+                          child: !_isLearner
+                              ? Center(
+                                  child: Text(
+                                    l10n.previewNoProgress,
+                                    textAlign: TextAlign.center,
+                                    style: theme.textTheme.labelMedium,
+                                  ),
+                                )
+                              : completed
                               ? FilledButton.tonalIcon(
                                   onPressed: null,
                                   icon: const Icon(Icons.check),
@@ -370,8 +384,8 @@ class _LessonHeader extends ConsumerWidget {
         ),
         if (lesson.objectives.isNotEmpty) ...[
           const SizedBox(height: Space.xs),
-          Text(l10n.lessonYouWill, style: theme.textTheme.titleSmall),
-          for (final o in lesson.objectives)
+          Text(l10n.lessonOutcomes, style: theme.textTheme.titleSmall),
+          for (final o in lesson.objectives.map(learnerFacingOutcome))
             Padding(
               padding: const EdgeInsets.only(top: Space.xxs),
               child: Row(
@@ -387,4 +401,13 @@ class _LessonHeader extends ConsumerWidget {
       ],
     );
   }
+}
+
+/// Outcomes are written for teachers ("The learner names and pronounces
+/// …"); learners read them as plain outcomes ("Names and pronounces …").
+String learnerFacingOutcome(String o) {
+  final m = RegExp(r'^\s*the learner\s+', caseSensitive: false).firstMatch(o);
+  if (m == null) return o;
+  final rest = o.substring(m.end);
+  return rest.isEmpty ? o : rest[0].toUpperCase() + rest.substring(1);
 }

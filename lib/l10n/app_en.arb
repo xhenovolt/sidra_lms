@@ -1528,5 +1528,6 @@
   "previewAsLearner": "Preview as learner",
   "previewAsLearnerHint": "See the app exactly as learners see it",
   "previewBanner": "You are previewing as a learner",
-  "previewExit": "Exit"
+  "previewExit": "Exit",
+  "previewNoProgress": "Preview: progress is recorded for learners only"
 }
