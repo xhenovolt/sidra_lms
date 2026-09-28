@@ -43,8 +43,10 @@ Future<void> main(List<String> args) async {
           'provider_ref=${c.providerReference} amount=${c.amount}',
         );
       default:
-        stderr.writeln('usage: services | collect <phone> <amount> [--wait] '
-            '| status <uuid>');
+        stderr.writeln(
+          'usage: services | collect <phone> <amount> [--wait] '
+          '| status <uuid>',
+        );
         exitCode = 64;
     }
   } on MarzPayException catch (e) {

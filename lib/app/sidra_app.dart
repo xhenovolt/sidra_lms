@@ -3,6 +3,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/notifications/phone_notifications.dart';
+import '../core/settings/public_settings.dart';
+import '../core/settings/update_gate.dart';
 import '../core/theme/app_theme.dart';
 import '../l10n/app_localizations.dart';
 import 'router/app_router.dart';
@@ -19,6 +21,9 @@ class SidraApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     ref.watch(phoneNotificationsProvider);
+    // Organisation name, password rule and the like, as set by admins.
+    final settings = ref.watch(publicSettingsProvider).value;
+    if (settings != null) applyPublicSettings(settings);
     // A tapped notification opens its portion: teachers the review board,
     // learners their own page.
     PhoneNotifications.onOpen = (data) =>
@@ -37,6 +42,8 @@ class SidraApp extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       routerConfig: router,
+      builder: (context, child) =>
+          UpdateGate(child: child ?? const SizedBox.shrink()),
     );
   }
 }

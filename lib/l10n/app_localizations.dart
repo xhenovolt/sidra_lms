@@ -107,8 +107,8 @@ abstract class AppLocalizations {
   /// No description provided for @appTagline.
   ///
   /// In en, this message translates to:
-  /// **'Islamic learning by Almuntahha'**
-  String get appTagline;
+  /// **'Islamic learning by {org}'**
+  String appTagline(String org);
 
   /// No description provided for @navHome.
   ///
@@ -221,8 +221,8 @@ abstract class AppLocalizations {
   /// No description provided for @exploreEmptyBody.
   ///
   /// In en, this message translates to:
-  /// **'Published courses from Almuntahha will be listed here.'**
-  String get exploreEmptyBody;
+  /// **'Published courses from {org} will be listed here.'**
+  String exploreEmptyBody(String org);
 
   /// No description provided for @downloadsTitle.
   ///
@@ -341,8 +341,8 @@ abstract class AppLocalizations {
   /// No description provided for @onboard1Body.
   ///
   /// In en, this message translates to:
-  /// **'Courses prepared by Almuntahha teachers — from Quran reading for beginners to Islamic theology — organised into clear units and lessons.'**
-  String get onboard1Body;
+  /// **'Courses prepared by {org} teachers — from Quran reading for beginners to Islamic theology — organised into clear units and lessons.'**
+  String onboard1Body(String org);
 
   /// No description provided for @onboard2Title.
   ///
@@ -377,8 +377,8 @@ abstract class AppLocalizations {
   /// No description provided for @signInUnavailableBody.
   ///
   /// In en, this message translates to:
-  /// **'This build of Sidra has not been connected to its sign-in service. Please install the latest version or contact Almuntahha.'**
-  String get signInUnavailableBody;
+  /// **'This build of Sidra has not been connected to its sign-in service. Please install the latest version or contact {org}.'**
+  String signInUnavailableBody(String org);
 
   /// No description provided for @signInUnavailableDevHint.
   ///
@@ -461,14 +461,14 @@ abstract class AppLocalizations {
   /// No description provided for @accessRequiredTitle.
   ///
   /// In en, this message translates to:
-  /// **'Enrolment by Almuntahha'**
-  String get accessRequiredTitle;
+  /// **'Enrolment by {org}'**
+  String accessRequiredTitle(String org);
 
   /// No description provided for @accessRequiredBody.
   ///
   /// In en, this message translates to:
-  /// **'This course is opened for learners by the Almuntahha team. Please contact your teacher or Almuntahha to join.'**
-  String get accessRequiredBody;
+  /// **'This course is opened for learners by the {org} team. Please contact your teacher or {org} to join.'**
+  String accessRequiredBody(String org);
 
   /// No description provided for @courseOutline.
   ///
@@ -1859,8 +1859,8 @@ abstract class AppLocalizations {
   /// No description provided for @authForgotBody.
   ///
   /// In en, this message translates to:
-  /// **'Ask your teacher or Almuntahha to reset it. You will get a temporary password and choose a new one when you sign in.'**
-  String get authForgotBody;
+  /// **'Ask your teacher or {org} to reset it. You will get a temporary password and choose a new one when you sign in.'**
+  String authForgotBody(String org);
 
   /// No description provided for @authChangePasswordTitle.
   ///
@@ -1913,8 +1913,8 @@ abstract class AppLocalizations {
   /// No description provided for @authPasswordRule.
   ///
   /// In en, this message translates to:
-  /// **'At least 8 characters'**
-  String get authPasswordRule;
+  /// **'At least {n} characters'**
+  String authPasswordRule(int n);
 
   /// No description provided for @authPasswordsDiffer.
   ///
@@ -1967,8 +1967,8 @@ abstract class AppLocalizations {
   /// No description provided for @authErrorDisabled.
   ///
   /// In en, this message translates to:
-  /// **'This account is disabled. Contact Almuntahha.'**
-  String get authErrorDisabled;
+  /// **'This account is disabled. Contact {org}.'**
+  String authErrorDisabled(String org);
 
   /// No description provided for @authErrorSamePassword.
   ///
@@ -4288,14 +4288,14 @@ abstract class AppLocalizations {
   /// No description provided for @aboutBody.
   ///
   /// In en, this message translates to:
-  /// **'Sidra is Almuntahha\'s learning app for the Qur\'an and the Islamic sciences. Teachers give each day\'s portion once, learners read, listen and record, and every learner still gets their teacher\'s personal correction.'**
-  String get aboutBody;
+  /// **'Sidra is {org}\'s learning app for the Qur\'an and the Islamic sciences. Teachers give each day\'s portion once, learners read, listen and record, and every learner still gets their teacher\'s personal correction.'**
+  String aboutBody(String org);
 
   /// No description provided for @aboutBy.
   ///
   /// In en, this message translates to:
-  /// **'Made for Almuntahha by Xhenvolt.'**
-  String get aboutBy;
+  /// **'Made for {org} by Xhenvolt.'**
+  String aboutBy(String org);
 
   /// No description provided for @aboutLicences.
   ///
@@ -6024,6 +6024,366 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'After you finish one, the next opens so you can mark a whole class in one go.'**
   String get inboxAutoNextHint;
+
+  /// No description provided for @authErrorSignupClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'{org} is not taking new sign-ups right now. Ask them to add you.'**
+  String authErrorSignupClosed(String org);
+
+  /// No description provided for @settingsOrgNameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Organisation name in Arabic'**
+  String get settingsOrgNameAr;
+
+  /// No description provided for @settingsSignupSecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign-up and security'**
+  String get settingsSignupSecurity;
+
+  /// No description provided for @settingsAllowSignup.
+  ///
+  /// In en, this message translates to:
+  /// **'Anyone can create an account'**
+  String get settingsAllowSignup;
+
+  /// No description provided for @settingsAllowSignupHint.
+  ///
+  /// In en, this message translates to:
+  /// **'When off, only staff can add learners.'**
+  String get settingsAllowSignupHint;
+
+  /// No description provided for @settingsMinPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Shortest password allowed (6–64)'**
+  String get settingsMinPassword;
+
+  /// No description provided for @settingsLockoutAttempts.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong passwords before an account is locked (3–20)'**
+  String get settingsLockoutAttempts;
+
+  /// No description provided for @settingsLockoutMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes an account stays locked'**
+  String get settingsLockoutMinutes;
+
+  /// No description provided for @settingsTeachingDefaults.
+  ///
+  /// In en, this message translates to:
+  /// **'Teaching defaults'**
+  String get settingsTeachingDefaults;
+
+  /// No description provided for @settingsTeachingDefaultsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Used for new courses and for teachers\' attention lists.'**
+  String get settingsTeachingDefaultsHint;
+
+  /// No description provided for @settingsStaleDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Days before unreviewed work needs attention'**
+  String get settingsStaleDays;
+
+  /// No description provided for @settingsFallingBehind.
+  ///
+  /// In en, this message translates to:
+  /// **'Portions behind before a learner is flagged'**
+  String get settingsFallingBehind;
+
+  /// No description provided for @settingsDefaultRule.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson rule for new courses'**
+  String get settingsDefaultRule;
+
+  /// No description provided for @settingsDefaultPassMark.
+  ///
+  /// In en, this message translates to:
+  /// **'Pass mark for new courses: {n}%'**
+  String settingsDefaultPassMark(int n);
+
+  /// No description provided for @settingsAppUpdates.
+  ///
+  /// In en, this message translates to:
+  /// **'App updates'**
+  String get settingsAppUpdates;
+
+  /// No description provided for @settingsAppUpdatesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'When you publish a new version, phones with an older one are asked to update.'**
+  String get settingsAppUpdatesHint;
+
+  /// No description provided for @settingsLatestVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Newest version (e.g. 2.27.0)'**
+  String get settingsLatestVersion;
+
+  /// No description provided for @settingsLatestBuild.
+  ///
+  /// In en, this message translates to:
+  /// **'Newest build number'**
+  String get settingsLatestBuild;
+
+  /// No description provided for @settingsDownloadUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Download link (https://…)'**
+  String get settingsDownloadUrl;
+
+  /// No description provided for @settingsMinBuild.
+  ///
+  /// In en, this message translates to:
+  /// **'Oldest build still allowed'**
+  String get settingsMinBuild;
+
+  /// No description provided for @settingsMinBuildHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Older phones must update before continuing. Leave empty to allow all.'**
+  String get settingsMinBuildHint;
+
+  /// No description provided for @settingsThisBuild.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone has version {version} (build {build}).'**
+  String settingsThisBuild(String version, String build);
+
+  /// No description provided for @settingsLanguagesTracks.
+  ///
+  /// In en, this message translates to:
+  /// **'Languages and learning tracks'**
+  String get settingsLanguagesTracks;
+
+  /// No description provided for @settingsLanguagesTracksHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What courses are taught in and grouped by'**
+  String get settingsLanguagesTracksHint;
+
+  /// No description provided for @settingsExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export data'**
+  String get settingsExport;
+
+  /// No description provided for @settingsExportHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners, enrolments, payments and progress as spreadsheets'**
+  String get settingsExportHint;
+
+  /// No description provided for @langTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Languages and tracks'**
+  String get langTitle;
+
+  /// No description provided for @langLanguages.
+  ///
+  /// In en, this message translates to:
+  /// **'Languages'**
+  String get langLanguages;
+
+  /// No description provided for @langTracks.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning tracks'**
+  String get langTracks;
+
+  /// No description provided for @langAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add language'**
+  String get langAdd;
+
+  /// No description provided for @trackAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add track'**
+  String get trackAdd;
+
+  /// No description provided for @langCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Code (e.g. fr)'**
+  String get langCode;
+
+  /// No description provided for @langName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name in English'**
+  String get langName;
+
+  /// No description provided for @langNative.
+  ///
+  /// In en, this message translates to:
+  /// **'Name in the language itself'**
+  String get langNative;
+
+  /// No description provided for @langRtl.
+  ///
+  /// In en, this message translates to:
+  /// **'Written right to left'**
+  String get langRtl;
+
+  /// No description provided for @langActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Available for courses'**
+  String get langActive;
+
+  /// No description provided for @langHidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden'**
+  String get langHidden;
+
+  /// No description provided for @langCodeInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Use 2–3 lowercase letters, like fr'**
+  String get langCodeInvalid;
+
+  /// No description provided for @trackKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Short key (e.g. fiqh)'**
+  String get trackKey;
+
+  /// No description provided for @trackKeyInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Lowercase letters, digits and _, starting with a letter'**
+  String get trackKeyInvalid;
+
+  /// No description provided for @trackName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get trackName;
+
+  /// No description provided for @trackDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get trackDescription;
+
+  /// No description provided for @exportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Export data'**
+  String get exportTitle;
+
+  /// No description provided for @exportLearners.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners'**
+  String get exportLearners;
+
+  /// No description provided for @exportLearnersHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Every learner with contacts and number of courses'**
+  String get exportLearnersHint;
+
+  /// No description provided for @exportEnrolments.
+  ///
+  /// In en, this message translates to:
+  /// **'Enrolments'**
+  String get exportEnrolments;
+
+  /// No description provided for @exportEnrolmentsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Who is in which course and how far they are'**
+  String get exportEnrolmentsHint;
+
+  /// No description provided for @exportPayments.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments'**
+  String get exportPayments;
+
+  /// No description provided for @exportPaymentsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Every payment and its status'**
+  String get exportPaymentsHint;
+
+  /// No description provided for @exportProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson progress'**
+  String get exportProgress;
+
+  /// No description provided for @exportProgressHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Each learner\'s progress lesson by lesson'**
+  String get exportProgressHint;
+
+  /// No description provided for @exportSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved {count} rows'**
+  String exportSaved(int count);
+
+  /// No description provided for @exportEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to export yet'**
+  String get exportEmpty;
+
+  /// No description provided for @exportNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Files open in Excel, Google Sheets or any spreadsheet app.'**
+  String get exportNote;
+
+  /// No description provided for @updateAvailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A new version is ready'**
+  String get updateAvailableTitle;
+
+  /// No description provided for @updateAvailableBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Sidra {version} is available with the latest improvements.'**
+  String updateAvailableBody(String version);
+
+  /// No description provided for @updateRequiredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please update Sidra'**
+  String get updateRequiredTitle;
+
+  /// No description provided for @updateRequiredBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This version is no longer supported. Download the new one to continue.'**
+  String get updateRequiredBody;
+
+  /// No description provided for @updateNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get updateNow;
+
+  /// No description provided for @updateLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get updateLater;
 }
 
 class _AppLocalizationsDelegate

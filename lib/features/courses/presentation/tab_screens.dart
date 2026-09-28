@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../app/router/routes.dart';
 import '../../../core/data/repository_providers.dart';
+import '../../../core/settings/public_settings.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/state_views.dart';
@@ -68,7 +69,7 @@ class ExploreScreen extends ConsumerWidget {
                 EmptyView(
                   icon: Icons.explore_outlined,
                   title: l10n.exploreEmptyTitle,
-                  message: l10n.exploreEmptyBody,
+                  message: l10n.exploreEmptyBody(orgFor(l10n)),
                 ),
               ],
             ),

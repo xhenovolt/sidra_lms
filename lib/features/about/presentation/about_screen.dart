@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../../../core/settings/public_settings.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../domain/changelog.dart';
@@ -52,9 +53,9 @@ class AboutScreen extends ConsumerWidget {
             style: theme.textTheme.bodySmall,
           ),
           const SizedBox(height: Space.md),
-          Text(l10n.aboutBody, style: theme.textTheme.bodyLarge),
+          Text(l10n.aboutBody(orgFor(l10n)), style: theme.textTheme.bodyLarge),
           const SizedBox(height: Space.sm),
-          Text(l10n.aboutBy, style: theme.textTheme.bodyMedium),
+          Text(l10n.aboutBy(orgFor(l10n)), style: theme.textTheme.bodyMedium),
           const Divider(height: Space.xl),
           Text(l10n.aboutWhatsNew, style: theme.textTheme.titleLarge),
           const SizedBox(height: Space.sm),

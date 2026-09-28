@@ -39,7 +39,7 @@ Future<void> main(List<String> args) async {
       case 'migrate':
         await _migrate(conn, env);
       case 'test':
-        await _test(conn);
+        await _test(conn, args.skip(1).toList());
       case 'promote':
         if (args.length != 3) {
           _usage();
@@ -93,6 +93,23 @@ class _Abort implements Exception {
 Future<Connection> _connect(String url) {
   final uri = Uri.parse(url);
   final userInfo = uri.userInfo.split(':');
+  // Networks that block port 5432: run `node tool/pg_ws_bridge.mjs` and set
+  // SIDRA_DB_BRIDGE=127.0.0.1:55432. The bridge carries the connection over
+  // Neon's WebSocket endpoint (HTTPS, port 443), which provides the TLS.
+  final bridge = Platform.environment['SIDRA_DB_BRIDGE'];
+  if (bridge != null && bridge.isNotEmpty) {
+    final parts = bridge.split(':');
+    return Connection.open(
+      Endpoint(
+        host: parts.first,
+        port: int.parse(parts.last),
+        database: uri.pathSegments.first,
+        username: Uri.decodeComponent(userInfo.first),
+        password: Uri.decodeComponent(userInfo.skip(1).join(':')),
+      ),
+      settings: const ConnectionSettings(sslMode: SslMode.disable),
+    );
+  }
   return Connection.open(
     Endpoint(
       host: uri.host,
@@ -223,12 +240,22 @@ Future<void> _syncSettings(Session s, Map<String, String> env) async {
 
 /// Runs pending migrations and every db/tests/*.sql file in ONE
 /// transaction, then rolls back. Nothing is left in the database.
-Future<void> _test(Connection conn) async {
+/// Runs pending migrations and the database tests in one transaction that
+/// is always rolled back. `only` limits the run to test files whose name
+/// contains one of the words. Each file goes to the server as one batch (a
+/// single round trip), so slow or far-away links finish quickly; a failure
+/// is then re-run statement by statement to point at the failing one.
+Future<void> _test(Connection conn, [List<String> only = const []]) async {
   final tests =
       Directory(_testsDir)
           .listSync()
           .whereType<File>()
           .where((f) => f.path.endsWith('.sql'))
+          .where(
+            (f) =>
+                only.isEmpty ||
+                only.any((w) => f.uri.pathSegments.last.contains(w)),
+          )
           .toList()
         ..sort((a, b) => a.path.compareTo(b.path));
 
@@ -242,6 +269,20 @@ Future<void> _test(Connection conn) async {
     for (final t in tests) {
       stdout.write('(tx) running ${t.uri.pathSegments.last} … ');
       final statements = splitSql(t.readAsStringSync());
+      await conn.execute('savepoint test_file');
+      try {
+        await conn.execute(
+          _asOneBlock(statements),
+          queryMode: QueryMode.simple,
+        );
+        await conn.execute('release savepoint test_file');
+        stdout.writeln('passed (${statements.length} statements)');
+        continue;
+      } on ServerException catch (e) {
+        stderr.writeln('\n  ${e.message}');
+        // Re-run one statement at a time to show the failing one.
+        await conn.execute('rollback to savepoint test_file');
+      }
       for (final (i, stmt) in statements.indexed) {
         try {
           await conn.execute(stmt, queryMode: QueryMode.simple);
@@ -269,6 +310,23 @@ Future<void> _test(Connection conn) async {
       stdout.writeln('(connection closed — server discarded the transaction)');
     }
   }
+}
+
+/// All statements of a test file as one `DO` block (one round trip). Each
+/// statement runs through EXECUTE in order; a failure names its number.
+String _asOneBlock(List<String> statements) {
+  final b = StringBuffer('do \$sidra_block\$\ndeclare n int := 0;\nbegin\n');
+  for (final (i, s) in statements.indexed) {
+    final body = s.trim().replaceFirst(RegExp(r';\s*$'), '');
+    b.writeln('  n := ${i + 1};');
+    b.writeln('  execute \$sidra_s${i + 1}\$$body\$sidra_s${i + 1}\$;');
+  }
+  b.write(
+    'exception when others then\n'
+    "  raise exception 'statement %: %', n, sqlerrm;\n"
+    'end \$sidra_block\$',
+  );
+  return b.toString();
 }
 
 /// Changes a user's role, found by phone (E.164) or email.

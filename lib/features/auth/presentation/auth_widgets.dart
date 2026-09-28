@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/errors/app_failure.dart';
+import '../../../core/settings/public_settings.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/sidra_mark.dart';
@@ -16,7 +17,8 @@ String authErrorText(AppLocalizations l10n, Object error) => switch (error) {
     'weak_password' => l10n.authErrorWeak,
     'invalid_identifier' || 'name_required' => l10n.authErrorIdentifier,
     'locked' => l10n.authErrorLocked,
-    'disabled' => l10n.authErrorDisabled,
+    'disabled' => l10n.authErrorDisabled(orgFor(l10n)),
+    'signup_closed' => l10n.authErrorSignupClosed(orgFor(l10n)),
     'same_password' => l10n.authErrorSamePassword,
     _ => l10n.genericError,
   },
@@ -26,7 +28,8 @@ String authErrorText(AppLocalizations l10n, Object error) => switch (error) {
 
 String? validatePassword(AppLocalizations l10n, String? v) {
   if (v == null || v.isEmpty) return l10n.authRequired;
-  if (v.length < 8) return l10n.authPasswordRule;
+  final min = AuthRules.minPasswordLength;
+  if (v.length < min) return l10n.authPasswordRule(min);
   return null;
 }
 

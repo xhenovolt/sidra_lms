@@ -13,7 +13,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appName => 'سدرة';
 
   @override
-  String get appTagline => 'تعليم إسلامي من المنتهى';
+  String appTagline(String org) {
+    return 'تعليم إسلامي من $org';
+  }
 
   @override
   String get navHome => 'الرئيسية';
@@ -78,7 +80,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get exploreEmptyTitle => 'الدورات قريبًا';
 
   @override
-  String get exploreEmptyBody => 'ستُعرض هنا الدورات المنشورة من المنتهى.';
+  String exploreEmptyBody(String org) {
+    return 'ستُعرض هنا الدورات المنشورة من $org.';
+  }
 
   @override
   String get downloadsTitle => 'التنزيلات';
@@ -139,8 +143,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get onboard1Title => 'تعلّم بمنهجية';
 
   @override
-  String get onboard1Body =>
-      'دورات أعدّها معلّمو المنتهى — من تعليم قراءة القرآن للمبتدئين إلى العقيدة الإسلامية — مرتّبة في وحدات ودروس واضحة.';
+  String onboard1Body(String org) {
+    return 'دورات أعدّها معلّمو $org — من تعليم قراءة القرآن للمبتدئين إلى العقيدة الإسلامية — مرتّبة في وحدات ودروس واضحة.';
+  }
 
   @override
   String get onboard2Title => 'بإشراف معلّمك';
@@ -160,8 +165,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get signInUnavailableTitle => 'تسجيل الدخول غير متاح بعد';
 
   @override
-  String get signInUnavailableBody =>
-      'لم يُربط هذا الإصدار من سدرة بخدمة تسجيل الدخول. يرجى تثبيت أحدث إصدار أو التواصل مع المنتهى.';
+  String signInUnavailableBody(String org) {
+    return 'لم يُربط هذا الإصدار من سدرة بخدمة تسجيل الدخول. يرجى تثبيت أحدث إصدار أو التواصل مع $org.';
+  }
 
   @override
   String get signInUnavailableDevHint =>
@@ -220,11 +226,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get enrolling => 'جارٍ التسجيل…';
 
   @override
-  String get accessRequiredTitle => 'التسجيل عبر المنتهى';
+  String accessRequiredTitle(String org) {
+    return 'التسجيل عبر $org';
+  }
 
   @override
-  String get accessRequiredBody =>
-      'يفتح فريق المنتهى هذه الدورة للطلاب. تواصل مع معلّمك أو مع المنتهى للانضمام.';
+  String accessRequiredBody(String org) {
+    return 'يفتح فريق $org هذه الدورة للطلاب. تواصل مع معلّمك أو مع $org للانضمام.';
+  }
 
   @override
   String get courseOutline => 'محتوى الدورة';
@@ -957,8 +966,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get authForgot => 'نسيت كلمة المرور؟';
 
   @override
-  String get authForgotBody =>
-      'اطلب من معلّمك أو من المنتهى إعادة تعيينها. ستحصل على كلمة مرور مؤقتة وتختار كلمة جديدة عند الدخول.';
+  String authForgotBody(String org) {
+    return 'اطلب من معلّمك أو من $org إعادة تعيينها. ستحصل على كلمة مرور مؤقتة وتختار كلمة جديدة عند الدخول.';
+  }
 
   @override
   String get authChangePasswordTitle => 'اختر كلمة مرور جديدة';
@@ -986,7 +996,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get authRequired => 'مطلوب';
 
   @override
-  String get authPasswordRule => '٨ أحرف على الأقل';
+  String authPasswordRule(int n) {
+    return '$n أحرف على الأقل';
+  }
 
   @override
   String get authPasswordsDiffer => 'كلمتا المرور غير متطابقتين';
@@ -1016,7 +1028,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get authErrorLocked => 'محاولات كثيرة. انتظر ١٥ دقيقة ثم حاول مجددًا.';
 
   @override
-  String get authErrorDisabled => 'هذا الحساب معطّل. تواصل مع المنتهى.';
+  String authErrorDisabled(String org) {
+    return 'هذا الحساب معطّل. تواصل مع $org.';
+  }
 
   @override
   String get authErrorSamePassword => 'اختر كلمة مرور مختلفة عن الحالية.';
@@ -2336,11 +2350,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get aboutTitle => 'عن سدرة';
 
   @override
-  String get aboutBody =>
-      'سدرة تطبيق المنتهى لتعلّم القرآن والعلوم الإسلامية. يعطي المعلم ورد اليوم مرة واحدة، ويقرأ المتعلمون ويستمعون ويسجّلون، ويحصل كل متعلم على تصحيح معلمه الخاص.';
+  String aboutBody(String org) {
+    return 'سدرة تطبيق $org لتعلّم القرآن والعلوم الإسلامية. يعطي المعلم ورد اليوم مرة واحدة، ويقرأ المتعلمون ويستمعون ويسجّلون، ويحصل كل متعلم على تصحيح معلمه الخاص.';
+  }
 
   @override
-  String get aboutBy => 'صُنع للمنتهى بواسطة Xhenvolt.';
+  String aboutBy(String org) {
+    return 'صُنع لـ$org بواسطة Xhenvolt.';
+  }
 
   @override
   String get aboutLicences => 'تراخيص البرمجيات المفتوحة';
@@ -3344,4 +3361,204 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get inboxAutoNextHint =>
       'بعد إنهاء عمل يُفتح التالي، لتصحح الصف كله دفعة واحدة.';
+
+  @override
+  String authErrorSignupClosed(String org) {
+    return 'لا تقبل $org تسجيلات جديدة حاليًا. اطلب منهم إضافتك.';
+  }
+
+  @override
+  String get settingsOrgNameAr => 'اسم المؤسسة بالعربية';
+
+  @override
+  String get settingsSignupSecurity => 'التسجيل والأمان';
+
+  @override
+  String get settingsAllowSignup => 'يمكن لأي شخص إنشاء حساب';
+
+  @override
+  String get settingsAllowSignupHint =>
+      'عند الإيقاف، يضيف الموظفون المتعلمين فقط.';
+
+  @override
+  String get settingsMinPassword => 'أقصر كلمة مرور مسموحة (6–64)';
+
+  @override
+  String get settingsLockoutAttempts =>
+      'عدد المحاولات الخاطئة قبل قفل الحساب (3–20)';
+
+  @override
+  String get settingsLockoutMinutes => 'دقائق بقاء الحساب مقفلًا';
+
+  @override
+  String get settingsTeachingDefaults => 'إعدادات التدريس الافتراضية';
+
+  @override
+  String get settingsTeachingDefaultsHint =>
+      'تُستخدم للدورات الجديدة ولقوائم متابعة المعلمين.';
+
+  @override
+  String get settingsStaleDays =>
+      'أيام قبل أن يحتاج العمل غير المراجَع إلى متابعة';
+
+  @override
+  String get settingsFallingBehind =>
+      'عدد المقاطع المتأخرة قبل التنبيه على المتعلم';
+
+  @override
+  String get settingsDefaultRule => 'قاعدة الدروس للدورات الجديدة';
+
+  @override
+  String settingsDefaultPassMark(int n) {
+    return 'درجة النجاح للدورات الجديدة: $n%';
+  }
+
+  @override
+  String get settingsAppUpdates => 'تحديثات التطبيق';
+
+  @override
+  String get settingsAppUpdatesHint =>
+      'عند نشر إصدار جديد، يُطلب من الهواتف ذات الإصدار الأقدم التحديث.';
+
+  @override
+  String get settingsLatestVersion => 'أحدث إصدار (مثل 2.27.0)';
+
+  @override
+  String get settingsLatestBuild => 'رقم أحدث بناء';
+
+  @override
+  String get settingsDownloadUrl => 'رابط التنزيل (https://…)';
+
+  @override
+  String get settingsMinBuild => 'أقدم بناء مسموح به';
+
+  @override
+  String get settingsMinBuildHint =>
+      'يجب على الهواتف الأقدم التحديث للمتابعة. اتركه فارغًا للسماح للجميع.';
+
+  @override
+  String settingsThisBuild(String version, String build) {
+    return 'هذا الهاتف يعمل بالإصدار $version (بناء $build).';
+  }
+
+  @override
+  String get settingsLanguagesTracks => 'اللغات ومسارات التعلم';
+
+  @override
+  String get settingsLanguagesTracksHint => 'لغات تدريس الدورات وطريقة تجميعها';
+
+  @override
+  String get settingsExport => 'تصدير البيانات';
+
+  @override
+  String get settingsExportHint =>
+      'المتعلمون والتسجيلات والمدفوعات والتقدم كجداول';
+
+  @override
+  String get langTitle => 'اللغات والمسارات';
+
+  @override
+  String get langLanguages => 'اللغات';
+
+  @override
+  String get langTracks => 'مسارات التعلم';
+
+  @override
+  String get langAdd => 'إضافة لغة';
+
+  @override
+  String get trackAdd => 'إضافة مسار';
+
+  @override
+  String get langCode => 'الرمز (مثل fr)';
+
+  @override
+  String get langName => 'الاسم بالإنجليزية';
+
+  @override
+  String get langNative => 'الاسم باللغة نفسها';
+
+  @override
+  String get langRtl => 'تُكتب من اليمين إلى اليسار';
+
+  @override
+  String get langActive => 'متاحة للدورات';
+
+  @override
+  String get langHidden => 'مخفية';
+
+  @override
+  String get langCodeInvalid => 'استخدم حرفين أو ثلاثة صغيرة، مثل fr';
+
+  @override
+  String get trackKey => 'مفتاح قصير (مثل fiqh)';
+
+  @override
+  String get trackKeyInvalid => 'حروف صغيرة وأرقام و _، تبدأ بحرف';
+
+  @override
+  String get trackName => 'الاسم';
+
+  @override
+  String get trackDescription => 'الوصف';
+
+  @override
+  String get exportTitle => 'تصدير البيانات';
+
+  @override
+  String get exportLearners => 'المتعلمون';
+
+  @override
+  String get exportLearnersHint => 'كل متعلم مع وسائل الاتصال وعدد الدورات';
+
+  @override
+  String get exportEnrolments => 'التسجيلات';
+
+  @override
+  String get exportEnrolmentsHint => 'من في أي دورة وإلى أين وصل';
+
+  @override
+  String get exportPayments => 'المدفوعات';
+
+  @override
+  String get exportPaymentsHint => 'كل دفعة وحالتها';
+
+  @override
+  String get exportProgress => 'تقدم الدروس';
+
+  @override
+  String get exportProgressHint => 'تقدم كل متعلم درسًا بدرس';
+
+  @override
+  String exportSaved(int count) {
+    return 'تم حفظ $count صفًا';
+  }
+
+  @override
+  String get exportEmpty => 'لا يوجد ما يُصدَّر بعد';
+
+  @override
+  String get exportNote =>
+      'تُفتح الملفات في Excel أو Google Sheets أو أي تطبيق جداول.';
+
+  @override
+  String get updateAvailableTitle => 'إصدار جديد جاهز';
+
+  @override
+  String updateAvailableBody(String version) {
+    return 'سدرة $version متاح مع أحدث التحسينات.';
+  }
+
+  @override
+  String get updateRequiredTitle => 'يرجى تحديث سدرة';
+
+  @override
+  String get updateRequiredBody =>
+      'لم يعد هذا الإصدار مدعومًا. نزّل الإصدار الجديد للمتابعة.';
+
+  @override
+  String get updateNow => 'تحديث';
+
+  @override
+  String get updateLater => 'لاحقًا';
 }

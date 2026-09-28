@@ -16,6 +16,7 @@ import '../../curriculum/domain/curriculum_models.dart';
 import '../../content/data/content_repository.dart';
 import '../../content/presentation/resource_widgets.dart';
 import '../../courses/presentation/course_browsing.dart';
+import '../data/finance_repository.dart';
 import 'admin_common.dart';
 import 'learners_tab.dart';
 
@@ -247,10 +248,30 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
     final id = widget.course?.id;
     if (id == null) {
       _prerequisites = {};
+      _loadDefaults();
     } else {
       ref.read(contentRepositoryProvider).prerequisites(id).then((v) {
         if (mounted) setState(() => _prerequisites = v.toSet());
       });
+    }
+  }
+
+  /// A new course starts from the lesson rule and pass mark set under
+  /// Settings → Teaching defaults.
+  Future<void> _loadDefaults() async {
+    try {
+      final s = await ref.read(financeRepositoryProvider).settings();
+      if (!mounted) return;
+      setState(() {
+        _progression = enumByName(
+          Progression.values,
+          s['default_progression'],
+          _progression,
+        );
+        _passMark = int.tryParse(s['default_pass_mark'] ?? '') ?? _passMark;
+      });
+    } catch (_) {
+      // keep the built-in defaults
     }
   }
 

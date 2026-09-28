@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
   "appName": "Sidra",
-  "appTagline": "Islamic learning by Almuntahha",
+  "appTagline": "Islamic learning by {org}",
   "navHome": "Home",
   "navMyLearning": "My Learning",
   "navExplore": "Explore",
@@ -41,7 +41,7 @@
   "myLearningEmptyBody": "Courses you enrol in will appear here with your progress.",
   "exploreTitle": "Explore",
   "exploreEmptyTitle": "Catalogue coming soon",
-  "exploreEmptyBody": "Published courses from Almuntahha will be listed here.",
+  "exploreEmptyBody": "Published courses from {org} will be listed here.",
   "downloadsTitle": "Downloads",
   "downloadsEmptyTitle": "No downloads",
   "downloadsEmptyBody": "Download a course to study it without an internet connection.",
@@ -61,13 +61,13 @@
   "next": "Next",
   "getStarted": "Get started",
   "onboard1Title": "Learn with structure",
-  "onboard1Body": "Courses prepared by Almuntahha teachers — from Quran reading for beginners to Islamic theology — organised into clear units and lessons.",
+  "onboard1Body": "Courses prepared by {org} teachers — from Quran reading for beginners to Islamic theology — organised into clear units and lessons.",
   "onboard2Title": "Guided by your teacher",
   "onboard2Body": "Your teacher reviews your progress and opens each next lesson when you are ready, so you always know what to study next.",
   "onboard3Title": "Study anywhere",
   "onboard3Body": "Download your lessons and keep learning without an internet connection. Your progress syncs when you are back online.",
   "signInUnavailableTitle": "Sign-in is not available yet",
-  "signInUnavailableBody": "This build of Sidra has not been connected to its sign-in service. Please install the latest version or contact Almuntahha.",
+  "signInUnavailableBody": "This build of Sidra has not been connected to its sign-in service. Please install the latest version or contact {org}.",
   "signInUnavailableDevHint": "Developer: run  dart run tool/db.dart app-role  then  dart run tool/gen_config.dart",
   "accessFree": "Free",
   "accessPaid": "Paid",
@@ -102,8 +102,8 @@
   "startCourse": "Start this course",
   "continueAction": "Continue",
   "enrolling": "Enrolling…",
-  "accessRequiredTitle": "Enrolment by Almuntahha",
-  "accessRequiredBody": "This course is opened for learners by the Almuntahha team. Please contact your teacher or Almuntahha to join.",
+  "accessRequiredTitle": "Enrolment by {org}",
+  "accessRequiredBody": "This course is opened for learners by the {org} team. Please contact your teacher or {org} to join.",
   "courseOutline": "Course outline",
   "learningObjectives": "What you will learn",
   "prerequisitesTitle": "Before you start",
@@ -380,7 +380,7 @@
   "authSignUpTitle": "Create your account",
   "authSignUpSubtitle": "Use your phone number or email. You will sign in with it and your password.",
   "authForgot": "Forgot your password?",
-  "authForgotBody": "Ask your teacher or Almuntahha to reset it. You will get a temporary password and choose a new one when you sign in.",
+  "authForgotBody": "Ask your teacher or {org} to reset it. You will get a temporary password and choose a new one when you sign in.",
   "authChangePasswordTitle": "Choose a new password",
   "authChangePasswordForced": "Your password was reset. Please choose a new one to continue.",
   "authCurrentPassword": "Current (or temporary) password",
@@ -389,7 +389,14 @@
   "authPasswordChanged": "Password changed",
   "authChangePassword": "Change password",
   "authRequired": "Required",
-  "authPasswordRule": "At least 8 characters",
+  "authPasswordRule": "At least {n} characters",
+  "@authPasswordRule": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "authPasswordsDiffer": "Passwords do not match",
   "authPhoneInvalid": "Start with + and your country code",
   "authEmailInvalid": "Enter a valid email address",
@@ -398,7 +405,7 @@
   "authErrorWeak": "Password must be at least 8 characters.",
   "authErrorIdentifier": "Check the phone number (with country code) or email.",
   "authErrorLocked": "Too many attempts. Please wait 15 minutes and try again.",
-  "authErrorDisabled": "This account is disabled. Contact Almuntahha.",
+  "authErrorDisabled": "This account is disabled. Contact {org}.",
   "authErrorSamePassword": "Choose a password different from the current one.",
   "authErrorOffline": "No connection. Check your internet and try again.",
   "adminResetPassword": "Reset password",
@@ -1083,8 +1090,8 @@
   "uploadFailed": "Upload failed",
   "uploadUploading": "Uploading…",
   "aboutTitle": "About Sidra",
-  "aboutBody": "Sidra is Almuntahha's learning app for the Qur'an and the Islamic sciences. Teachers give each day's portion once, learners read, listen and record, and every learner still gets their teacher's personal correction.",
-  "aboutBy": "Made for Almuntahha by Xhenvolt.",
+  "aboutBody": "Sidra is {org}'s learning app for the Qur'an and the Islamic sciences. Teachers give each day's portion once, learners read, listen and record, and every learner still gets their teacher's personal correction.",
+  "aboutBy": "Made for {org} by Xhenvolt.",
   "aboutLicences": "Open-source licences",
   "aboutVersion": "Version {version} (build {build})",
   "@aboutVersion": {
@@ -1637,5 +1644,173 @@
     }
   },
   "inboxAutoNext": "Review next automatically",
-  "inboxAutoNextHint": "After you finish one, the next opens so you can mark a whole class in one go."
+  "inboxAutoNextHint": "After you finish one, the next opens so you can mark a whole class in one go.",
+  "@appTagline": {
+    "placeholders": {
+      "org": {
+        "type": "String"
+      }
+    }
+  },
+  "@exploreEmptyBody": {
+    "placeholders": {
+      "org": {
+        "type": "String"
+      }
+    }
+  },
+  "@onboard1Body": {
+    "placeholders": {
+      "org": {
+        "type": "String"
+      }
+    }
+  },
+  "@signInUnavailableBody": {
+    "placeholders": {
+      "org": {
+        "type": "String"
+      }
+    }
+  },
+  "@accessRequiredTitle": {
+    "placeholders": {
+      "org": {
+        "type": "String"
+      }
+    }
+  },
+  "@accessRequiredBody": {
+    "placeholders": {
+      "org": {
+        "type": "String"
+      }
+    }
+  },
+  "@authForgotBody": {
+    "placeholders": {
+      "org": {
+        "type": "String"
+      }
+    }
+  },
+  "@authErrorDisabled": {
+    "placeholders": {
+      "org": {
+        "type": "String"
+      }
+    }
+  },
+  "@aboutBody": {
+    "placeholders": {
+      "org": {
+        "type": "String"
+      }
+    }
+  },
+  "@aboutBy": {
+    "placeholders": {
+      "org": {
+        "type": "String"
+      }
+    }
+  },
+  "authErrorSignupClosed": "{org} is not taking new sign-ups right now. Ask them to add you.",
+  "@authErrorSignupClosed": {
+    "placeholders": {
+      "org": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsOrgNameAr": "Organisation name in Arabic",
+  "settingsSignupSecurity": "Sign-up and security",
+  "settingsAllowSignup": "Anyone can create an account",
+  "settingsAllowSignupHint": "When off, only staff can add learners.",
+  "settingsMinPassword": "Shortest password allowed (6–64)",
+  "settingsLockoutAttempts": "Wrong passwords before an account is locked (3–20)",
+  "settingsLockoutMinutes": "Minutes an account stays locked",
+  "settingsTeachingDefaults": "Teaching defaults",
+  "settingsTeachingDefaultsHint": "Used for new courses and for teachers' attention lists.",
+  "settingsStaleDays": "Days before unreviewed work needs attention",
+  "settingsFallingBehind": "Portions behind before a learner is flagged",
+  "settingsDefaultRule": "Lesson rule for new courses",
+  "settingsDefaultPassMark": "Pass mark for new courses: {n}%",
+  "@settingsDefaultPassMark": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsAppUpdates": "App updates",
+  "settingsAppUpdatesHint": "When you publish a new version, phones with an older one are asked to update.",
+  "settingsLatestVersion": "Newest version (e.g. 2.27.0)",
+  "settingsLatestBuild": "Newest build number",
+  "settingsDownloadUrl": "Download link (https://…)",
+  "settingsMinBuild": "Oldest build still allowed",
+  "settingsMinBuildHint": "Older phones must update before continuing. Leave empty to allow all.",
+  "settingsThisBuild": "This phone has version {version} (build {build}).",
+  "@settingsThisBuild": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "build": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLanguagesTracks": "Languages and learning tracks",
+  "settingsLanguagesTracksHint": "What courses are taught in and grouped by",
+  "settingsExport": "Export data",
+  "settingsExportHint": "Learners, enrolments, payments and progress as spreadsheets",
+  "langTitle": "Languages and tracks",
+  "langLanguages": "Languages",
+  "langTracks": "Learning tracks",
+  "langAdd": "Add language",
+  "trackAdd": "Add track",
+  "langCode": "Code (e.g. fr)",
+  "langName": "Name in English",
+  "langNative": "Name in the language itself",
+  "langRtl": "Written right to left",
+  "langActive": "Available for courses",
+  "langHidden": "Hidden",
+  "langCodeInvalid": "Use 2–3 lowercase letters, like fr",
+  "trackKey": "Short key (e.g. fiqh)",
+  "trackKeyInvalid": "Lowercase letters, digits and _, starting with a letter",
+  "trackName": "Name",
+  "trackDescription": "Description",
+  "exportTitle": "Export data",
+  "exportLearners": "Learners",
+  "exportLearnersHint": "Every learner with contacts and number of courses",
+  "exportEnrolments": "Enrolments",
+  "exportEnrolmentsHint": "Who is in which course and how far they are",
+  "exportPayments": "Payments",
+  "exportPaymentsHint": "Every payment and its status",
+  "exportProgress": "Lesson progress",
+  "exportProgressHint": "Each learner's progress lesson by lesson",
+  "exportSaved": "Saved {count} rows",
+  "@exportSaved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "exportEmpty": "Nothing to export yet",
+  "exportNote": "Files open in Excel, Google Sheets or any spreadsheet app.",
+  "updateAvailableTitle": "A new version is ready",
+  "updateAvailableBody": "Sidra {version} is available with the latest improvements.",
+  "@updateAvailableBody": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "updateRequiredTitle": "Please update Sidra",
+  "updateRequiredBody": "This version is no longer supported. Download the new one to continue.",
+  "updateNow": "Update",
+  "updateLater": "Later"
 }

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router/routes.dart';
 import '../../../core/data/repository_providers.dart';
 import '../../../core/errors/app_failure.dart';
+import '../../../core/settings/public_settings.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/state_views.dart';
@@ -197,8 +198,8 @@ class _CourseBodyState extends ConsumerState<_CourseBody> {
                 else
                   _NoticeCard(
                     icon: Icons.verified_user_outlined,
-                    title: l10n.accessRequiredTitle,
-                    body: l10n.accessRequiredBody,
+                    title: l10n.accessRequiredTitle(orgFor(l10n)),
+                    body: l10n.accessRequiredBody(orgFor(l10n)),
                   ),
                 if (course.targetLearner != null) ...[
                   const SizedBox(height: Space.md),

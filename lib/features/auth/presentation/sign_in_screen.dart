@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../app/router/routes.dart';
 import '../../../core/providers.dart';
+import '../../../core/settings/public_settings.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import 'auth_providers.dart';
@@ -60,7 +61,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.authForgot),
-        content: Text(l10n.authForgotBody),
+        content: Text(l10n.authForgotBody(orgFor(l10n))),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -121,11 +122,15 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                           )
                         : Text(l10n.authSignIn),
                   ),
-                  const SizedBox(height: Space.md),
-                  TextButton(
-                    onPressed: () => context.push(Routes.signUp),
-                    child: Text(l10n.authNoAccount),
-                  ),
+                  // Administrators can close public sign-up under Settings.
+                  if (ref.watch(publicSettingsProvider).value?.allowSignup ??
+                      true) ...[
+                    const SizedBox(height: Space.md),
+                    TextButton(
+                      onPressed: () => context.push(Routes.signUp),
+                      child: Text(l10n.authNoAccount),
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -163,7 +168,7 @@ class _SignInUnavailable extends StatelessWidget {
               ],
             ),
             const SizedBox(height: Space.sm),
-            Text(l10n.signInUnavailableBody),
+            Text(l10n.signInUnavailableBody(orgFor(l10n))),
             if (missingKeys.isNotEmpty) ...[
               const SizedBox(height: Space.md),
               const Divider(),

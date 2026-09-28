@@ -13,7 +13,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appName => 'Sidra';
 
   @override
-  String get appTagline => 'Islamic learning by Almuntahha';
+  String appTagline(String org) {
+    return 'Islamic learning by $org';
+  }
 
   @override
   String get navHome => 'Home';
@@ -78,8 +80,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exploreEmptyTitle => 'Catalogue coming soon';
 
   @override
-  String get exploreEmptyBody =>
-      'Published courses from Almuntahha will be listed here.';
+  String exploreEmptyBody(String org) {
+    return 'Published courses from $org will be listed here.';
+  }
 
   @override
   String get downloadsTitle => 'Downloads';
@@ -141,8 +144,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboard1Title => 'Learn with structure';
 
   @override
-  String get onboard1Body =>
-      'Courses prepared by Almuntahha teachers — from Quran reading for beginners to Islamic theology — organised into clear units and lessons.';
+  String onboard1Body(String org) {
+    return 'Courses prepared by $org teachers — from Quran reading for beginners to Islamic theology — organised into clear units and lessons.';
+  }
 
   @override
   String get onboard2Title => 'Guided by your teacher';
@@ -162,8 +166,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signInUnavailableTitle => 'Sign-in is not available yet';
 
   @override
-  String get signInUnavailableBody =>
-      'This build of Sidra has not been connected to its sign-in service. Please install the latest version or contact Almuntahha.';
+  String signInUnavailableBody(String org) {
+    return 'This build of Sidra has not been connected to its sign-in service. Please install the latest version or contact $org.';
+  }
 
   @override
   String get signInUnavailableDevHint =>
@@ -219,11 +224,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enrolling => 'Enrolling…';
 
   @override
-  String get accessRequiredTitle => 'Enrolment by Almuntahha';
+  String accessRequiredTitle(String org) {
+    return 'Enrolment by $org';
+  }
 
   @override
-  String get accessRequiredBody =>
-      'This course is opened for learners by the Almuntahha team. Please contact your teacher or Almuntahha to join.';
+  String accessRequiredBody(String org) {
+    return 'This course is opened for learners by the $org team. Please contact your teacher or $org to join.';
+  }
 
   @override
   String get courseOutline => 'Course outline';
@@ -971,8 +979,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get authForgot => 'Forgot your password?';
 
   @override
-  String get authForgotBody =>
-      'Ask your teacher or Almuntahha to reset it. You will get a temporary password and choose a new one when you sign in.';
+  String authForgotBody(String org) {
+    return 'Ask your teacher or $org to reset it. You will get a temporary password and choose a new one when you sign in.';
+  }
 
   @override
   String get authChangePasswordTitle => 'Choose a new password';
@@ -1000,7 +1009,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get authRequired => 'Required';
 
   @override
-  String get authPasswordRule => 'At least 8 characters';
+  String authPasswordRule(int n) {
+    return 'At least $n characters';
+  }
 
   @override
   String get authPasswordsDiffer => 'Passwords do not match';
@@ -1031,8 +1042,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Too many attempts. Please wait 15 minutes and try again.';
 
   @override
-  String get authErrorDisabled =>
-      'This account is disabled. Contact Almuntahha.';
+  String authErrorDisabled(String org) {
+    return 'This account is disabled. Contact $org.';
+  }
 
   @override
   String get authErrorSamePassword =>
@@ -2362,11 +2374,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aboutTitle => 'About Sidra';
 
   @override
-  String get aboutBody =>
-      'Sidra is Almuntahha\'s learning app for the Qur\'an and the Islamic sciences. Teachers give each day\'s portion once, learners read, listen and record, and every learner still gets their teacher\'s personal correction.';
+  String aboutBody(String org) {
+    return 'Sidra is $org\'s learning app for the Qur\'an and the Islamic sciences. Teachers give each day\'s portion once, learners read, listen and record, and every learner still gets their teacher\'s personal correction.';
+  }
 
   @override
-  String get aboutBy => 'Made for Almuntahha by Xhenvolt.';
+  String aboutBy(String org) {
+    return 'Made for $org by Xhenvolt.';
+  }
 
   @override
   String get aboutLicences => 'Open-source licences';
@@ -3377,4 +3392,207 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get inboxAutoNextHint =>
       'After you finish one, the next opens so you can mark a whole class in one go.';
+
+  @override
+  String authErrorSignupClosed(String org) {
+    return '$org is not taking new sign-ups right now. Ask them to add you.';
+  }
+
+  @override
+  String get settingsOrgNameAr => 'Organisation name in Arabic';
+
+  @override
+  String get settingsSignupSecurity => 'Sign-up and security';
+
+  @override
+  String get settingsAllowSignup => 'Anyone can create an account';
+
+  @override
+  String get settingsAllowSignupHint =>
+      'When off, only staff can add learners.';
+
+  @override
+  String get settingsMinPassword => 'Shortest password allowed (6–64)';
+
+  @override
+  String get settingsLockoutAttempts =>
+      'Wrong passwords before an account is locked (3–20)';
+
+  @override
+  String get settingsLockoutMinutes => 'Minutes an account stays locked';
+
+  @override
+  String get settingsTeachingDefaults => 'Teaching defaults';
+
+  @override
+  String get settingsTeachingDefaultsHint =>
+      'Used for new courses and for teachers\' attention lists.';
+
+  @override
+  String get settingsStaleDays => 'Days before unreviewed work needs attention';
+
+  @override
+  String get settingsFallingBehind =>
+      'Portions behind before a learner is flagged';
+
+  @override
+  String get settingsDefaultRule => 'Lesson rule for new courses';
+
+  @override
+  String settingsDefaultPassMark(int n) {
+    return 'Pass mark for new courses: $n%';
+  }
+
+  @override
+  String get settingsAppUpdates => 'App updates';
+
+  @override
+  String get settingsAppUpdatesHint =>
+      'When you publish a new version, phones with an older one are asked to update.';
+
+  @override
+  String get settingsLatestVersion => 'Newest version (e.g. 2.27.0)';
+
+  @override
+  String get settingsLatestBuild => 'Newest build number';
+
+  @override
+  String get settingsDownloadUrl => 'Download link (https://…)';
+
+  @override
+  String get settingsMinBuild => 'Oldest build still allowed';
+
+  @override
+  String get settingsMinBuildHint =>
+      'Older phones must update before continuing. Leave empty to allow all.';
+
+  @override
+  String settingsThisBuild(String version, String build) {
+    return 'This phone has version $version (build $build).';
+  }
+
+  @override
+  String get settingsLanguagesTracks => 'Languages and learning tracks';
+
+  @override
+  String get settingsLanguagesTracksHint =>
+      'What courses are taught in and grouped by';
+
+  @override
+  String get settingsExport => 'Export data';
+
+  @override
+  String get settingsExportHint =>
+      'Learners, enrolments, payments and progress as spreadsheets';
+
+  @override
+  String get langTitle => 'Languages and tracks';
+
+  @override
+  String get langLanguages => 'Languages';
+
+  @override
+  String get langTracks => 'Learning tracks';
+
+  @override
+  String get langAdd => 'Add language';
+
+  @override
+  String get trackAdd => 'Add track';
+
+  @override
+  String get langCode => 'Code (e.g. fr)';
+
+  @override
+  String get langName => 'Name in English';
+
+  @override
+  String get langNative => 'Name in the language itself';
+
+  @override
+  String get langRtl => 'Written right to left';
+
+  @override
+  String get langActive => 'Available for courses';
+
+  @override
+  String get langHidden => 'Hidden';
+
+  @override
+  String get langCodeInvalid => 'Use 2–3 lowercase letters, like fr';
+
+  @override
+  String get trackKey => 'Short key (e.g. fiqh)';
+
+  @override
+  String get trackKeyInvalid =>
+      'Lowercase letters, digits and _, starting with a letter';
+
+  @override
+  String get trackName => 'Name';
+
+  @override
+  String get trackDescription => 'Description';
+
+  @override
+  String get exportTitle => 'Export data';
+
+  @override
+  String get exportLearners => 'Learners';
+
+  @override
+  String get exportLearnersHint =>
+      'Every learner with contacts and number of courses';
+
+  @override
+  String get exportEnrolments => 'Enrolments';
+
+  @override
+  String get exportEnrolmentsHint =>
+      'Who is in which course and how far they are';
+
+  @override
+  String get exportPayments => 'Payments';
+
+  @override
+  String get exportPaymentsHint => 'Every payment and its status';
+
+  @override
+  String get exportProgress => 'Lesson progress';
+
+  @override
+  String get exportProgressHint => 'Each learner\'s progress lesson by lesson';
+
+  @override
+  String exportSaved(int count) {
+    return 'Saved $count rows';
+  }
+
+  @override
+  String get exportEmpty => 'Nothing to export yet';
+
+  @override
+  String get exportNote =>
+      'Files open in Excel, Google Sheets or any spreadsheet app.';
+
+  @override
+  String get updateAvailableTitle => 'A new version is ready';
+
+  @override
+  String updateAvailableBody(String version) {
+    return 'Sidra $version is available with the latest improvements.';
+  }
+
+  @override
+  String get updateRequiredTitle => 'Please update Sidra';
+
+  @override
+  String get updateRequiredBody =>
+      'This version is no longer supported. Download the new one to continue.';
+
+  @override
+  String get updateNow => 'Update';
+
+  @override
+  String get updateLater => 'Later';
 }

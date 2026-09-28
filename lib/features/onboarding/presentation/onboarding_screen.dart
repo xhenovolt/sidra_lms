@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/settings/public_settings.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/sidra_mark.dart';
@@ -32,7 +33,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final pages = [
-      (Icons.auto_stories_outlined, l10n.onboard1Title, l10n.onboard1Body),
+      (
+        Icons.auto_stories_outlined,
+        l10n.onboard1Title,
+        l10n.onboard1Body(orgFor(l10n)),
+      ),
       (Icons.how_to_reg_outlined, l10n.onboard2Title, l10n.onboard2Body),
       (
         Icons.download_for_offline_outlined,
