@@ -27,7 +27,11 @@ import 'package:sidra_payments_server/diagnostics.dart';
 import 'package:sidra_payments_server/marzpay.dart';
 import 'package:sidra_payments_server/payment_tests.dart';
 
-Future<void> main() async {
+/// `--once`: do everything waiting (payments, confirmations, tests,
+/// diagnostics, file deletions), keep checking for [onceFor], then exit.
+/// For scheduled hosting (a cron job or a scheduled GitHub Action) when no
+/// always-on machine is available.
+Future<void> main(List<String> args) async {
   final env = _environment();
   final dbUrl = env['PAYMENTS_DATABASE_URL'];
   if (dbUrl == null) {
@@ -39,6 +43,11 @@ Future<void> main() async {
     marz: MarzPayClient.fromEnv(env),
     publicUrl: env['PUBLIC_URL'],
   );
+  if (args.contains('--once')) {
+    final minutes = int.tryParse(env['ONCE_MINUTES'] ?? '') ?? 5;
+    await server.runFor(Duration(minutes: minutes));
+    exit(0);
+  }
   await server.start(int.tryParse(env['PORT'] ?? '') ?? 8080);
 }
 
@@ -76,6 +85,26 @@ class PaymentsServer {
     await for (final req in http) {
       unawaited(_handle(req));
     }
+  }
+
+  /// Scheduled mode: the same work as [start], without the web endpoint,
+  /// for [duration]; the heartbeat keeps the app's status honest meanwhile.
+  Future<void> runFor(Duration duration) async {
+    _log('running for ${duration.inMinutes} minutes (scheduled mode)');
+    final end = DateTime.now().add(duration);
+    await heartbeat();
+    var tick = 0;
+    while (DateTime.now().isBefore(end)) {
+      await runQueue();
+      await runTests();
+      await runDiagnosticsQueue();
+      if (tick % 4 == 0) await reconcile();
+      if (tick % 6 == 0) await heartbeat();
+      if (tick % 60 == 0) await purgeMedia();
+      tick++;
+      await Future<void>.delayed(const Duration(seconds: 5));
+    }
+    await db.close();
   }
 
   Future<void> _listen() async {

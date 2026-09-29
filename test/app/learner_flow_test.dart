@@ -145,15 +145,15 @@ void main() {
     // Opening recorded "in progress" through the outbox.
     expect(api.rpcCalls.where((c) => c.$1 == 'record_progress'), isNotEmpty);
 
-    // Next is locked (teacher-gated); completing shows waiting message.
-    await tester.tap(find.text('I have finished this lesson'));
-    await tester.pumpAndSettle();
-    expect(find.text('Completed'), findsOneWidget);
+    // Teacher-gated: the learner submits work for the teacher to mark and
+    // cannot mark the lesson finished themselves.
+    expect(find.text('I have finished this lesson'), findsNothing);
+    expect(find.text('Submit work'), findsWidgets);
     expect(
       api.rpcCalls.any(
         (c) => c.$1 == 'record_progress' && c.$2['p_status'] == 'completed',
       ),
-      isTrue,
+      isFalse,
     );
   });
 }

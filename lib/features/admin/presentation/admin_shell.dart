@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router/routes.dart';
 import '../../../core/data/cache_first.dart';
 import '../../../core/data/data_providers.dart';
+import '../../../core/notifications/phone_notifications.dart' show signOutEverywhere;
+import '../../../core/payments/direct_payments.dart' show marzPayConfirmLoopProvider;
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/sidra_mark.dart';
@@ -271,6 +273,9 @@ class _AdminShellState extends ConsumerState<AdminShell> {
     ref.watch(syncSchedulerProvider);
     final l10n = AppLocalizations.of(context);
     final perms = ref.watch(myPermissionsProvider);
+    if (perms.value?.contains('finance.verify_payment') ?? false) {
+      ref.watch(marzPayConfirmLoopProvider);
+    }
     final wide = MediaQuery.sizeOf(context).width >= 1000;
     final location = widget.location;
 
@@ -564,6 +569,22 @@ class _AdminDrawer extends ConsumerWidget {
                       ),
                     ),
               ],
+            const Divider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Space.xs),
+              child: ListTile(
+                dense: true,
+                leading: Icon(Icons.logout, color: theme.colorScheme.error),
+                title: Text(
+                  l10n.signOut,
+                  style: TextStyle(color: theme.colorScheme.error),
+                ),
+                onTap: () {
+                  if (closeOnTap) Navigator.of(context).pop();
+                  signOutEverywhere(ref);
+                },
+              ),
+            ),
           ],
         ),
       ),

@@ -19,6 +19,7 @@ import '../../curriculum/domain/curriculum_models.dart';
 import '../../profile/data/profile_repository.dart';
 import '../data/admin_repository.dart';
 import 'admin_common.dart';
+import 'contact_import_screen.dart';
 import 'admin_shell.dart' show myPermissionsProvider;
 import 'courses_tab.dart';
 import 'roles_audit_screens.dart';
@@ -677,7 +678,44 @@ class _PeopleTabState extends ConsumerState<PeopleTab> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          await showPersonForm(context, ref, persona: widget.persona);
+          // Learners can also come in bulk from the phone's contacts.
+          final offerContacts =
+              canImportContacts &&
+              (widget.persona ?? UserRole.learner) == UserRole.learner;
+          final fromContacts = !offerContacts
+              ? false
+              : await showModalBottomSheet<bool>(
+                    context: context,
+                    showDragHandle: true,
+                    builder: (sheet) => SafeArea(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ListTile(
+                            leading: const Icon(Icons.person_add_alt),
+                            title: Text(l10n.contactsAddOne),
+                            onTap: () => Navigator.pop(sheet, false),
+                          ),
+                          ListTile(
+                            leading: const Icon(Icons.contacts_outlined),
+                            title: Text(l10n.contactsImportTitle),
+                            subtitle: Text(l10n.contactsImportHint),
+                            onTap: () => Navigator.pop(sheet, true),
+                          ),
+                        ],
+                      ),
+                    ),
+                );
+          if (fromContacts == null || !context.mounted) return;
+          if (fromContacts) {
+            await Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => const ContactImportScreen(),
+              ),
+            );
+          } else {
+            await showPersonForm(context, ref, persona: widget.persona);
+          }
           if (mounted) _load(reset: true);
         },
         icon: const Icon(Icons.person_add_alt),

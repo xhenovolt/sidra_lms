@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/data/data_providers.dart';
@@ -651,6 +652,88 @@ class LateWorkScreen extends ConsumerWidget {
                 error: error,
                 onRetry: () => ref.invalidate(policyEventsProvider),
               ),
+            ],
+          ),
+          _ => const LoadingView(),
+        },
+      ),
+    );
+  }
+}
+
+final _allMyIssuesProvider = FutureProvider.autoDispose<List<Json>>(
+  (ref) async => (await ref
+          .watch(postgresApiProvider)
+          .rpcRows('my_work_issues'))
+      .map(Json.from)
+      .toList(),
+);
+
+/// Learner: every problem report I sent, with the teacher's answers and any
+/// extra time given. Each opens the work it is about.
+class MyWorkIssuesScreen extends ConsumerWidget {
+  const MyWorkIssuesScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final issues = ref.watch(_allMyIssuesProvider);
+    return Scaffold(
+      appBar: AppBar(title: Text(l10n.issuesMine)),
+      body: RefreshIndicator(
+        onRefresh: () => ref.refresh(_allMyIssuesProvider.future),
+        child: switch (issues) {
+          AsyncData(:final value) when value.isEmpty => ListView(
+            children: [
+              EmptyView(
+                icon: Icons.check_circle_outline,
+                title: l10n.issuesNone,
+                message: l10n.issuesMineEmpty,
+              ),
+            ],
+          ),
+          AsyncData(:final value) => ListView(
+            padding: const EdgeInsets.all(Space.md),
+            children: [
+              for (final i in value)
+                Card(
+                  child: ListTile(
+                    title: Text('${i['work_title'] ?? ''}'),
+                    subtitle: Text(
+                      [
+                        issueCategoryLabel(l10n, '${i['category']}'),
+                        ?i['course_title'] as String?,
+                        _when(l10n, i.dateOrNull('created_at')),
+                        if (i['response'] != null)
+                          '${i['responder_name'] ?? ''}: ${i['response']}',
+                        if (i.dateOrNull('extension_until') case final ext?)
+                          l10n.issueNewDue(_when(l10n, ext)),
+                      ].join('\n'),
+                    ),
+                    isThreeLine: true,
+                    trailing: Text(
+                      i['status'] == 'open'
+                          ? l10n.issuesOpen
+                          : i['status'] == 'answered'
+                          ? l10n.issueAnsweredTitle
+                          : l10n.issuesResolved,
+                      style: theme.textTheme.labelSmall,
+                    ),
+                    onTap: () {
+                      if (i['portion_id'] != null) {
+                        context.push('/learn/portions/${i['portion_id']}');
+                      } else if (i['lesson_id'] != null) {
+                        context.push('/courses/${i['course_id']}/lessons/${i['lesson_id']}');
+                      }
+                    },
+                  ),
+                ),
+            ],
+          ),
+          AsyncError(:final error) => ListView(
+            children: [
+              ErrorView(error: error, onRetry: () => ref.invalidate(_allMyIssuesProvider)),
             ],
           ),
           _ => const LoadingView(),

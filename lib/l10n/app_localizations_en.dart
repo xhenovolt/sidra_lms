@@ -5151,4 +5151,81 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get ccMarzSelfChecks =>
       'Integration self-checks (duplicates, timeouts, validation)';
+
+  @override
+  String get issuesMine => 'My problem reports';
+
+  @override
+  String get issuesMineHint =>
+      'Problems you reported and your teachers\' answers';
+
+  @override
+  String get issuesMineEmpty =>
+      'To report a problem, open the lesson or work and tap \"Report a problem\".';
+
+  @override
+  String get contactsImportTitle => 'Import from contacts';
+
+  @override
+  String get contactsImportHint => 'Pick many learners from this phone at once';
+
+  @override
+  String get contactsAddOne => 'Add one person';
+
+  @override
+  String get contactsDenied => 'Sidra can\'t read your contacts';
+
+  @override
+  String get contactsDeniedBody =>
+      'Allow contacts access (Settings → Apps → Sidra → Permissions) and try again.';
+
+  @override
+  String get contactsNone => 'No contacts with a phone number';
+
+  @override
+  String get contactsSearch => 'Search name or number';
+
+  @override
+  String contactsSummary(int count, int created) {
+    return '$count contacts · $created added';
+  }
+
+  @override
+  String get contactsSelectAll => 'Select all';
+
+  @override
+  String get contactsSelectNone => 'Select none';
+
+  @override
+  String get contactsAlready => 'already in Sidra';
+
+  @override
+  String contactsCreated(String password) {
+    return 'added · password $password';
+  }
+
+  @override
+  String contactsImportN(int count) {
+    return 'Import $count as learners';
+  }
+
+  @override
+  String contactsImporting(int done, int count) {
+    return 'Adding $done of $count…';
+  }
+
+  @override
+  String contactsImportConfirm(int count) {
+    return 'Add $count learners?';
+  }
+
+  @override
+  String get contactsImportConfirmBody =>
+      'Each gets an account with their phone number and a temporary password, shown here after import. Copy the list and send each person theirs; they choose a new password at first sign-in.';
+
+  @override
+  String get contactsCopyPasswords => 'Copy names and passwords';
+
+  @override
+  String get contactsCopied => 'Copied. Send each learner their password.';
 }

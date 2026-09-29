@@ -129,8 +129,9 @@ void main() {
       findsOneWidget,
     );
 
+    // (the lesson's own "Submit work" comes first, the assignment's last)
     await tester.scrollUntilVisible(
-      find.text('Submit work'),
+      find.text('Submit work').last,
       300,
       scrollable: find.byType(Scrollable).first,
     );

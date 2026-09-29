@@ -41,7 +41,7 @@ class PhoneNotifications {
 
   static Future<void> _initPlugin() => _plugin.initialize(
     settings: const InitializationSettings(
-      android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+      android: AndroidInitializationSettings('ic_stat_sidra'),
     ),
     onDidReceiveNotificationResponse: (r) => _open(r.payload),
   );

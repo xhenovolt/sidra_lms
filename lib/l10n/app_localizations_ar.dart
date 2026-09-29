@@ -5099,4 +5099,80 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get ccMarzSelfChecks =>
       'فحوص ذاتية للتكامل (التكرار، المهلات، التحقق)';
+
+  @override
+  String get issuesMine => 'بلاغاتي عن المشكلات';
+
+  @override
+  String get issuesMineHint => 'المشكلات التي أبلغت عنها وردود معلميك';
+
+  @override
+  String get issuesMineEmpty =>
+      'للإبلاغ عن مشكلة، افتح الدرس أو العمل واضغط \"الإبلاغ عن مشكلة\".';
+
+  @override
+  String get contactsImportTitle => 'الاستيراد من جهات الاتصال';
+
+  @override
+  String get contactsImportHint => 'اختر عدة متعلمين من هذا الهاتف دفعة واحدة';
+
+  @override
+  String get contactsAddOne => 'إضافة شخص واحد';
+
+  @override
+  String get contactsDenied => 'لا يستطيع سدرة قراءة جهات اتصالك';
+
+  @override
+  String get contactsDeniedBody =>
+      'اسمح بالوصول إلى جهات الاتصال (الإعدادات ← التطبيقات ← سدرة ← الأذونات) ثم حاول مرة أخرى.';
+
+  @override
+  String get contactsNone => 'لا توجد جهات اتصال بها رقم هاتف';
+
+  @override
+  String get contactsSearch => 'ابحث بالاسم أو الرقم';
+
+  @override
+  String contactsSummary(int count, int created) {
+    return '$count جهة اتصال · أضيف $created';
+  }
+
+  @override
+  String get contactsSelectAll => 'تحديد الكل';
+
+  @override
+  String get contactsSelectNone => 'إلغاء التحديد';
+
+  @override
+  String get contactsAlready => 'موجود في سدرة';
+
+  @override
+  String contactsCreated(String password) {
+    return 'أضيف · كلمة المرور $password';
+  }
+
+  @override
+  String contactsImportN(int count) {
+    return 'استيراد $count كمتعلمين';
+  }
+
+  @override
+  String contactsImporting(int done, int count) {
+    return 'جارٍ إضافة $done من $count…';
+  }
+
+  @override
+  String contactsImportConfirm(int count) {
+    return 'إضافة $count متعلمين؟';
+  }
+
+  @override
+  String get contactsImportConfirmBody =>
+      'يحصل كل منهم على حساب برقم هاتفه وكلمة مرور مؤقتة تظهر هنا بعد الاستيراد. انسخ القائمة وأرسل لكل شخص كلمته، وسيختار كلمة جديدة عند أول تسجيل دخول.';
+
+  @override
+  String get contactsCopyPasswords => 'نسخ الأسماء وكلمات المرور';
+
+  @override
+  String get contactsCopied => 'تم النسخ. أرسل لكل متعلم كلمة مروره.';
 }

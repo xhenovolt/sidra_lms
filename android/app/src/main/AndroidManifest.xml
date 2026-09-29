@@ -4,6 +4,8 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- New portions, feedback and learners' work on the notification bar. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Admins import learners from the phone book (read only). -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <application
         android:label="Sidra"
         android:name="${applicationName}"

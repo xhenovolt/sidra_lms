@@ -256,6 +256,10 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, _) => const NotificationsScreen(),
       ),
       GoRoute(
+        path: '/learn/issues',
+        builder: (_, _) => const MyWorkIssuesScreen(),
+      ),
+      GoRoute(
         path: '/learn/portions/:portionId',
         builder: (_, state) =>
             LearnerPortionScreen(portionId: state.pathParameters['portionId']!),

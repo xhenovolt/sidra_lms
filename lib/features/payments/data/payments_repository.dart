@@ -26,6 +26,8 @@ class Payment {
     this.statusReason,
     this.phone,
     this.externalReference,
+    this.reference,
+    this.providerUuid,
     this.createdAt,
   });
 
@@ -43,6 +45,8 @@ class Payment {
     statusReason: j.strOrNull('status_reason'),
     phone: j.strOrNull('phone'),
     externalReference: j.strOrNull('external_reference'),
+    reference: j.strOrNull('reference'),
+    providerUuid: j.strOrNull('provider_uuid'),
     createdAt: j.dateOrNull('created_at'),
   );
 
@@ -55,6 +59,10 @@ class Payment {
   final String? statusReason;
   final String? phone;
   final String? externalReference;
+
+  /// Our reference at MarzPay, and MarzPay's own id once sent.
+  final String? reference;
+  final String? providerUuid;
   final DateTime? createdAt;
 
   /// Waiting on the payer's phone (MarzPay prompt).
@@ -99,8 +107,8 @@ class PaymentsRepository {
     return CourseBalance.fromJson(Map<String, dynamic>.from(res as Map));
   }
 
-  /// Queues a MarzPay collection for what is owed; the payments server
-  /// sends the prompt to [phone]. Returns the payment to watch.
+  /// Creates the MarzPay payment for what is owed (the app then sends the
+  /// prompt to [phone]; see DirectPayments). Returns the payment to watch.
   Future<Payment> payWithMobileMoney(String courseId, String phone) async {
     final res = await api.rpc(
       'start_course_payment',

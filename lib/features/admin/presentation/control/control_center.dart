@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:path_provider/path_provider.dart';
 
+import '../../../../core/config/app_config.dart';
 import '../../../../core/data/data_providers.dart';
 import '../../../../core/device/device_profile.dart';
 import '../../../../core/errors/app_failure.dart';
@@ -206,7 +207,10 @@ class _ControlCenterScreenState extends ConsumerState<ControlCenterScreen> {
   String? res(String k) => (tests[k] as Map?)?['result'] as String?;
   if (m['enabled'] != true) return (Health.disabled, l.ccMarzDisabled);
   if (res('connection') == 'failed') return (Health.failed, l.ccMarzConnFailed);
-  if (h.obj('payments_server')['online'] != true) {
+  // Apps built with MarzPay's keys talk to it themselves; the server is
+  // then optional.
+  if (!AppConfig.fromEnvironment().isMarzPayConfigured &&
+      h.obj('payments_server')['online'] != true) {
     return (Health.failed, l.ccMarzServerDown);
   }
   if (res('collection') == 'verified_success' ||

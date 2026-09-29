@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/errors/app_failure.dart';
+import '../../../core/payments/direct_payments.dart';
+import '../../../core/payments/marzpay_client.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../auth/presentation/auth_providers.dart';
@@ -12,7 +14,9 @@ import '../data/payments_repository.dart';
 
 /// Shown on a paid course the learner has not unlocked: what it costs,
 /// Pay with mobile money (MarzPay prompt on their phone), or report a
-/// payment made another way. Access opens only when the server confirms.
+/// payment made another way. With MarzPay credentials in the build the app
+/// sends the prompt and reads MarzPay's answer itself; staff phones then
+/// re-check it against MarzPay.
 class CoursePaymentCard extends ConsumerStatefulWidget {
   const CoursePaymentCard({
     super.key,
@@ -34,6 +38,7 @@ class _CoursePaymentCardState extends ConsumerState<CoursePaymentCard> {
   String? _error;
   Timer? _poll;
   DateTime? _startedAt;
+  bool _checking = false;
 
   static const _pollEvery = Duration(seconds: 3);
   static const _giveUpAfter = Duration(minutes: 4);
@@ -57,7 +62,11 @@ class _CoursePaymentCardState extends ConsumerState<CoursePaymentCard> {
     try {
       final list = await _repo.myPayments(widget.course.id);
       if (!mounted) return;
-      final latest = list.firstOrNull;
+      var latest = list.firstOrNull;
+      if (latest != null && latest.awaitingPayer) {
+        latest = await _askMarzPay(latest) ?? latest;
+        if (!mounted) return;
+      }
       if (latest == null) return;
       if (resume &&
           !latest.awaitingPayer &&
@@ -75,6 +84,38 @@ class _CoursePaymentCardState extends ConsumerState<CoursePaymentCard> {
       }
     } on AppFailure {
       // transient; the next tick tries again
+    }
+  }
+
+  /// Direct mode: sends a payment not yet sent, or asks MarzPay whether a
+  /// sent one is finished and records the answer.
+  Future<Payment?> _askMarzPay(Payment p) async {
+    final direct = ref.read(directPaymentsProvider);
+    if (direct == null || _checking || p.reference == null) return null;
+    _checking = true;
+    try {
+      if (p.providerUuid == null) {
+        if (p.status != PaymentStatus.initiated || p.phone == null) return null;
+        await direct.send(
+          paymentId: p.id,
+          reference: p.reference!,
+          amount: p.amount,
+          phone: p.phone!,
+          description: widget.course.title,
+        );
+        return null;
+      }
+      final res = await direct.check(
+        paymentId: p.id,
+        providerUuid: p.providerUuid!,
+        reference: p.reference!,
+      );
+      return res == null ? null : Payment.fromJson(res);
+    } on MarzPayException catch (e) {
+      if (!e.transient && mounted) setState(() => _error = e.message);
+      return null;
+    } finally {
+      _checking = false;
     }
   }
 
@@ -109,7 +150,8 @@ class _CoursePaymentCardState extends ConsumerState<CoursePaymentCard> {
       _poll = null;
       _startedAt = DateTime.now();
       setState(() => _payment = p);
-      _startPolling();
+      await _refresh();
+      if (mounted && (_payment?.awaitingPayer ?? false)) _startPolling();
     } on AppFailure catch (e) {
       if (!mounted) return;
       setState(

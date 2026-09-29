@@ -2697,5 +2697,67 @@
   "mcQueuedLong": "Still waiting: the payments server may be offline. The test starts as soon as it is running.",
   "mcEvidence": "Evidence",
   "mcEnvironment": "Environment",
-  "ccMarzSelfChecks": "Integration self-checks (duplicates, timeouts, validation)"
+  "ccMarzSelfChecks": "Integration self-checks (duplicates, timeouts, validation)",
+  "issuesMine": "My problem reports",
+  "issuesMineHint": "Problems you reported and your teachers' answers",
+  "issuesMineEmpty": "To report a problem, open the lesson or work and tap \"Report a problem\".",
+  "contactsImportTitle": "Import from contacts",
+  "contactsImportHint": "Pick many learners from this phone at once",
+  "contactsAddOne": "Add one person",
+  "contactsDenied": "Sidra can't read your contacts",
+  "contactsDeniedBody": "Allow contacts access (Settings → Apps → Sidra → Permissions) and try again.",
+  "contactsNone": "No contacts with a phone number",
+  "contactsSearch": "Search name or number",
+  "contactsSummary": "{count} contacts · {created} added",
+  "@contactsSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "created": {
+        "type": "int"
+      }
+    }
+  },
+  "contactsSelectAll": "Select all",
+  "contactsSelectNone": "Select none",
+  "contactsAlready": "already in Sidra",
+  "contactsCreated": "added · password {password}",
+  "@contactsCreated": {
+    "placeholders": {
+      "password": {
+        "type": "String"
+      }
+    }
+  },
+  "contactsImportN": "Import {count} as learners",
+  "@contactsImportN": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "contactsImporting": "Adding {done} of {count}…",
+  "@contactsImporting": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "contactsImportConfirm": "Add {count} learners?",
+  "@contactsImportConfirm": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "contactsImportConfirmBody": "Each gets an account with their phone number and a temporary password, shown here after import. Copy the list and send each person theirs; they choose a new password at first sign-in.",
+  "contactsCopyPasswords": "Copy names and passwords",
+  "contactsCopied": "Copied. Send each learner their password."
 }

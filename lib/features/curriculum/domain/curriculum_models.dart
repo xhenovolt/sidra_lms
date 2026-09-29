@@ -24,7 +24,11 @@ enum Progression {
   afterApproval;
 
   /// Lessons need handed-in work by default.
-  bool get needsWork => this == afterSubmission || this == afterApproval;
+  /// Learners hand in work and a teacher marks it (the learner never
+  /// marks their own lesson finished), except in "open" / "in order"
+  /// courses an administrator chose to be self-paced.
+  bool get needsWork =>
+      this == afterSubmission || this == afterApproval || this == teacherGated;
 }
 
 class Course {

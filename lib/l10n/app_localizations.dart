@@ -9029,6 +9029,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Integration self-checks (duplicates, timeouts, validation)'**
   String get ccMarzSelfChecks;
+
+  /// No description provided for @issuesMine.
+  ///
+  /// In en, this message translates to:
+  /// **'My problem reports'**
+  String get issuesMine;
+
+  /// No description provided for @issuesMineHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Problems you reported and your teachers\' answers'**
+  String get issuesMineHint;
+
+  /// No description provided for @issuesMineEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'To report a problem, open the lesson or work and tap \"Report a problem\".'**
+  String get issuesMineEmpty;
+
+  /// No description provided for @contactsImportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from contacts'**
+  String get contactsImportTitle;
+
+  /// No description provided for @contactsImportHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick many learners from this phone at once'**
+  String get contactsImportHint;
+
+  /// No description provided for @contactsAddOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Add one person'**
+  String get contactsAddOne;
+
+  /// No description provided for @contactsDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Sidra can\'t read your contacts'**
+  String get contactsDenied;
+
+  /// No description provided for @contactsDeniedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow contacts access (Settings → Apps → Sidra → Permissions) and try again.'**
+  String get contactsDeniedBody;
+
+  /// No description provided for @contactsNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No contacts with a phone number'**
+  String get contactsNone;
+
+  /// No description provided for @contactsSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search name or number'**
+  String get contactsSearch;
+
+  /// No description provided for @contactsSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} contacts · {created} added'**
+  String contactsSummary(int count, int created);
+
+  /// No description provided for @contactsSelectAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Select all'**
+  String get contactsSelectAll;
+
+  /// No description provided for @contactsSelectNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Select none'**
+  String get contactsSelectNone;
+
+  /// No description provided for @contactsAlready.
+  ///
+  /// In en, this message translates to:
+  /// **'already in Sidra'**
+  String get contactsAlready;
+
+  /// No description provided for @contactsCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'added · password {password}'**
+  String contactsCreated(String password);
+
+  /// No description provided for @contactsImportN.
+  ///
+  /// In en, this message translates to:
+  /// **'Import {count} as learners'**
+  String contactsImportN(int count);
+
+  /// No description provided for @contactsImporting.
+  ///
+  /// In en, this message translates to:
+  /// **'Adding {done} of {count}…'**
+  String contactsImporting(int done, int count);
+
+  /// No description provided for @contactsImportConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Add {count} learners?'**
+  String contactsImportConfirm(int count);
+
+  /// No description provided for @contactsImportConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Each gets an account with their phone number and a temporary password, shown here after import. Copy the list and send each person theirs; they choose a new password at first sign-in.'**
+  String get contactsImportConfirmBody;
+
+  /// No description provided for @contactsCopyPasswords.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy names and passwords'**
+  String get contactsCopyPasswords;
+
+  /// No description provided for @contactsCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied. Send each learner their password.'**
+  String get contactsCopied;
 }
 
 class _AppLocalizationsDelegate

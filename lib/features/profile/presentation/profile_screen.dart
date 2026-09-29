@@ -27,7 +27,16 @@ class ProfileScreen extends ConsumerWidget {
     final sync = ref.watch(syncStatusProvider).value;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.profileTitle)),
+      appBar: AppBar(
+        title: Text(l10n.profileTitle),
+        actions: [
+          IconButton(
+            tooltip: l10n.signOut,
+            icon: const Icon(Icons.logout),
+            onPressed: () => signOutEverywhere(ref),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.all(Space.lg),
         children: [
@@ -83,6 +92,14 @@ class ProfileScreen extends ConsumerWidget {
               ),
             ),
           const Divider(),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.report_problem_outlined),
+            title: Text(l10n.issuesMine),
+            subtitle: Text(l10n.issuesMineHint),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.push('/learn/issues'),
+          ),
           ListTile(
             contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.key_outlined),

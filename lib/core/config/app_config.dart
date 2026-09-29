@@ -8,17 +8,30 @@
 /// design. It can only sign people in and act as a signed-in person
 /// (see db/migrations/0011). The owner connection string and the
 /// Cloudinary API secret never go here.
+///
+/// The MarzPay credentials DO ship here, by the owner's decision, so the
+/// app talks to MarzPay itself. Every payment the app reports is re-checked
+/// against MarzPay by staff phones (see core/payments/direct_payments.dart).
 class AppConfig {
   const AppConfig({
     required this.environment,
     required this.appDatabaseUrl,
     required this.cloudinaryCloudName,
+    this.marzpayAuth = '',
+    this.marzpayBaseUrl = 'https://wallet.wearemarz.com/api/v1',
+    this.marzpayCountry = 'UG',
   });
 
   factory AppConfig.fromEnvironment() => const AppConfig(
     environment: String.fromEnvironment('SIDRA_ENV', defaultValue: 'dev'),
     appDatabaseUrl: String.fromEnvironment('APP_DATABASE_URL'),
     cloudinaryCloudName: String.fromEnvironment('CLOUDINARY_CLOUD_NAME'),
+    marzpayAuth: String.fromEnvironment('MARZPAY_AUTH_BASIC'),
+    marzpayBaseUrl: String.fromEnvironment(
+      'MARZPAY_BASE_URL',
+      defaultValue: 'https://wallet.wearemarz.com/api/v1',
+    ),
+    marzpayCountry: String.fromEnvironment('MARZPAY_COUNTRY', defaultValue: 'UG'),
   );
 
   final String environment;
@@ -27,6 +40,13 @@ class AppConfig {
   final String appDatabaseUrl;
 
   final String cloudinaryCloudName;
+
+  /// Basic auth for MarzPay: base64("API_KEY:API_SECRET").
+  final String marzpayAuth;
+  final String marzpayBaseUrl;
+  final String marzpayCountry;
+
+  bool get isMarzPayConfigured => marzpayAuth.isNotEmpty;
 
   bool get isProduction => environment == 'prod';
 

@@ -7,6 +7,8 @@ import 'package:intl/intl.dart' show DateFormat;
 
 import '../../../../core/data/data_providers.dart';
 import '../../../../core/errors/app_failure.dart';
+import '../../../../core/payments/marzpay_client.dart';
+import '../../../../core/payments/phone_test_runner.dart';
 import '../../../../core/theme/app_tokens.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/models/json.dart';
@@ -71,12 +73,16 @@ Future<void> startPaymentTest(
 ]) async {
   final l = AppLocalizations.of(context);
   try {
-    final id = await ref
-        .read(postgresApiProvider)
-        .rpc(
-          'request_payment_test',
-          params: {'p_kind': kind, 'p_params': params, 'p_confirm': confirm},
-        );
+    // Builds with MarzPay's keys run the test here on this phone; otherwise
+    // the payments server picks it up.
+    final marz = ref.read(marzPayClientProvider);
+    final api = ref.read(postgresApiProvider);
+    final id = marz != null
+        ? await PhoneTestRunner(api: api, marz: marz).start(kind, params, confirm)
+        : await api.rpc(
+            'request_payment_test',
+            params: {'p_kind': kind, 'p_params': params, 'p_confirm': confirm},
+          );
     ref.invalidate(_testsProvider);
     if (context.mounted) {
       await Navigator.of(context).push(

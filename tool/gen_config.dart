@@ -14,6 +14,13 @@ const publicKeys = [
   // db/migrations/0011). Never DATABASE_URL, which is the owner.
   'APP_DATABASE_URL',
   'CLOUDINARY_CLOUD_NAME',
+  // MarzPay, called straight from the app (the owner's decision,
+  // 2026-09-29): anyone who unpacks the APK can read these. They allow
+  // collections and reading transactions; sending money out needs a
+  // whitelisted IP, which phones never have.
+  'MARZPAY_AUTH_BASIC',
+  'MARZPAY_BASE_URL',
+  'MARZPAY_COUNTRY',
 ];
 
 void main(List<String> args) {
