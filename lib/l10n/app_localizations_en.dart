@@ -4285,4 +4285,870 @@ class AppLocalizationsEn extends AppLocalizations {
   String dashOpenReports(int n) {
     return '$n problem reported';
   }
+
+  @override
+  String get ccGeneral => 'General';
+
+  @override
+  String get ccGeneralHint =>
+      'Organisation name, time zone, contacts and messaging.';
+
+  @override
+  String get ccAccess => 'Users and access';
+
+  @override
+  String get ccAccessHint =>
+      'Who may sign up, password rules, lock-out and sign-in protection.';
+
+  @override
+  String get ccTeaching => 'Teaching';
+
+  @override
+  String get ccSecurity => 'Devices and security';
+
+  @override
+  String get ccSecurityHint =>
+      'Phones signed in, sessions, failed sign-ins and sign-outs.';
+
+  @override
+  String get ccPaymentsHint =>
+      'Payment methods, instructions for manual payment, and tracing a payment.';
+
+  @override
+  String get ccMarzpayHint =>
+      'Mobile money through MarzPay: its real status, test centre and safety limits.';
+
+  @override
+  String get ccStorage => 'Storage and media';
+
+  @override
+  String get ccStorageHint =>
+      'Where files are kept (Cloudinary), upload limit and storage checks.';
+
+  @override
+  String get ccDatabase => 'Database';
+
+  @override
+  String get ccDatabaseHint =>
+      'Connection and schema version. Changes to the structure are made by the release process, not here.';
+
+  @override
+  String get ccSync => 'Offline and sync';
+
+  @override
+  String get ccSyncHint => 'Work saved on this phone and waiting to be sent.';
+
+  @override
+  String get ccAudit => 'Audit and history';
+
+  @override
+  String get ccAuditHint =>
+      'Who changed which setting, when and why; data export.';
+
+  @override
+  String get ccApplication => 'Application';
+
+  @override
+  String get ccAdvanced => 'Diagnostics';
+
+  @override
+  String get ccAdvancedHint =>
+      'Run checks when something breaks, with a history of results.';
+
+  @override
+  String get ccTimeZone => 'Time zone (e.g. Africa/Kampala)';
+
+  @override
+  String get ccTimeZoneHint => 'Used for deadlines, weekends and holidays.';
+
+  @override
+  String get ccMessagingOn => 'Messaging for staff';
+
+  @override
+  String get ccMessagingLearners => 'Learners can use messaging too';
+
+  @override
+  String get ccSigninBrake => 'System-wide brake: failed sign-ins per minute';
+
+  @override
+  String get ccSigninBrakeHint =>
+      'Above this, sign-in answers \"try later\" for a minute (stops someone guessing many accounts).';
+
+  @override
+  String get ccPresenceMinutes => '\"Online\" means seen within (minutes)';
+
+  @override
+  String get ccAuthKeepDays => 'Keep sign-in history for (days)';
+
+  @override
+  String get ccDefaultPassMark => 'Pass mark for new courses (%)';
+
+  @override
+  String get ccMarzTestsOn => 'MarzPay tests allowed (emergency stop)';
+
+  @override
+  String get ccMarzTestsOnHint =>
+      'Off stops every test at once, including ones waiting to run.';
+
+  @override
+  String get ccMarzTestMax => 'Largest test amount (UGX)';
+
+  @override
+  String get ccMarzDisbursementOn => 'Allow sending-money tests';
+
+  @override
+  String get ccMarzDisbursementOnHint =>
+      'Money leaves the MarzPay wallet. Off by default.';
+
+  @override
+  String get ccUploadMax => 'Largest upload (MB)';
+
+  @override
+  String get ccUploadMaxHint =>
+      'Phones refuse bigger files before sending. Cloudinary\'s own plan limit also applies.';
+
+  @override
+  String get ccSendTestNotification => 'Send me a test notification';
+
+  @override
+  String get ccPaymentTrace => 'Trace a payment';
+
+  @override
+  String get ccMarzCenter => 'MarzPay test centre';
+
+  @override
+  String get ccDiagnostics => 'Diagnostics';
+
+  @override
+  String get ccSettingsHistory => 'Settings history';
+
+  @override
+  String get ccSecurityEvents => 'Security events';
+
+  @override
+  String get ccOk => 'OK';
+
+  @override
+  String get ccWarning => 'Attention';
+
+  @override
+  String get ccFailed => 'Failed';
+
+  @override
+  String get ccUntested => 'Untested';
+
+  @override
+  String get ccDisabled => 'Off';
+
+  @override
+  String get ccSearchHint =>
+      'Search settings: password, payment, notification…';
+
+  @override
+  String get ccHealthTitle => 'Is Sidra healthy right now?';
+
+  @override
+  String get ccHealthHint => 'Live status of each part. Tap one for details.';
+
+  @override
+  String get ccHealthNoPermission => 'Your role can\'t see system health.';
+
+  @override
+  String get ccSections => 'Sections';
+
+  @override
+  String get ccMarzDisabled => 'Switched off by an administrator';
+
+  @override
+  String get ccMarzConnFailed => 'The last connection test failed';
+
+  @override
+  String get ccMarzServerDown =>
+      'Payments server offline: payments can\'t be sent';
+
+  @override
+  String get ccMarzVerified =>
+      'Verified: money has been collected through Sidra';
+
+  @override
+  String get ccMarzAuthOnly =>
+      'Connected and authenticated; a real collection not yet proven';
+
+  @override
+  String get ccMarzUntested => 'Not tested yet';
+
+  @override
+  String ccDbLine(String have, String expected) {
+    return 'Schema $have (this app expects $expected)';
+  }
+
+  @override
+  String get ccPaymentsServer => 'Payments server';
+
+  @override
+  String ccServerOnline(Object version) {
+    return 'Online (version $version)';
+  }
+
+  @override
+  String get ccServerNever => 'Never seen: it isn\'t running anywhere';
+
+  @override
+  String ccServerLastSeen(String when) {
+    return 'Offline, last seen $when';
+  }
+
+  @override
+  String ccStorageLine(Object n, String when) {
+    return '$n uploads today; last $when';
+  }
+
+  @override
+  String get ccStorageMissing =>
+      'Cloudinary keys are missing: uploads will fail';
+
+  @override
+  String ccNotifLine(Object sent, Object phones, Object blocked) {
+    return '$sent sent today · $phones phones registered · $blocked phones block notifications';
+  }
+
+  @override
+  String ccSecurityLine(Object failed, Object locked, Object many) {
+    return '$failed failed sign-ins today · $locked locked · $many accounts on many phones';
+  }
+
+  @override
+  String get ccLearning => 'Learning';
+
+  @override
+  String ccLearningLine(
+    Object active,
+    Object reports,
+    Object late,
+    Object review,
+  ) {
+    return '$active active this week · $reports problem reports · $late late · $review waiting review 2+ days';
+  }
+
+  @override
+  String ccPaymentsLine(Object manual, Object stuck) {
+    return '$manual manual payments to verify · $stuck mobile-money payments stuck';
+  }
+
+  @override
+  String ccAppLine(String version, String build, Object latest) {
+    return 'This phone $version ($build) · newest build $latest';
+  }
+
+  @override
+  String ccDiagLine(Object n) {
+    return '$n failed checks in the last day';
+  }
+
+  @override
+  String ccCheckedAt(String when) {
+    return 'Checked $when';
+  }
+
+  @override
+  String ccSaved(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n settings saved',
+      one: '1 setting saved',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ccSavedSome(int ok, int failed) {
+    return '$ok saved, $failed refused: see the red messages';
+  }
+
+  @override
+  String get ccReason => 'Reason for the change (recorded)';
+
+  @override
+  String ccSaveChanges(int n) {
+    return 'Save $n';
+  }
+
+  @override
+  String ccRange(int min, int max) {
+    return 'Between $min and $max.';
+  }
+
+  @override
+  String ccLastChanged(String name, String when) {
+    return 'Last changed by $name, $when';
+  }
+
+  @override
+  String get ccSystem => 'the system';
+
+  @override
+  String get ccYes => 'Yes';
+
+  @override
+  String get ccNo => 'No';
+
+  @override
+  String get ccDbConnected => 'Connected';
+
+  @override
+  String get ccDbLatest => 'Newest applied change';
+
+  @override
+  String get ccDbAppExpects => 'This app expects';
+
+  @override
+  String get ccDbCount => 'Changes applied';
+
+  @override
+  String get ccDbBackups => 'Backups';
+
+  @override
+  String get ccDbBackupsHint =>
+      'Kept by Neon (see its console; paid plans restore to any moment)';
+
+  @override
+  String get ccStorageProvider => 'Provider';
+
+  @override
+  String get ccConfigured => 'Configured';
+
+  @override
+  String get ccLastUpload => 'Last upload';
+
+  @override
+  String get ccUploads24h => 'Uploads today';
+
+  @override
+  String get ccPurgeWaiting => 'Files waiting to be deleted';
+
+  @override
+  String get ccPublicAddress => 'Public address for callbacks';
+
+  @override
+  String get ccNoPollingOnly => 'No (payments are checked every 20 s)';
+
+  @override
+  String get ccVerifiedPayments => 'Verified mobile-money payments';
+
+  @override
+  String get ccStuckPayments => 'Stuck over an hour';
+
+  @override
+  String get ccThisPhone => 'This phone';
+
+  @override
+  String get ccBuildsInUse => 'Builds in use (build: phones)';
+
+  @override
+  String get ccFailedSignIns => 'Failed sign-ins (24 h)';
+
+  @override
+  String get ccThrottled => 'Brake applied (24 h)';
+
+  @override
+  String get ccLockedNow => 'Accounts locked now';
+
+  @override
+  String get ccRevoked7d => 'Phones signed out by admins (7 days)';
+
+  @override
+  String get ccManyDevices => 'Accounts signed in on more than 3 phones';
+
+  @override
+  String get ccSyncThisPhone => 'On this phone';
+
+  @override
+  String ccSyncLine(int pending, int rejected, int queued) {
+    return '$pending progress changes waiting · $rejected refused · $queued submissions queued';
+  }
+
+  @override
+  String get ccSyncNow => 'Send now';
+
+  @override
+  String get ccHistoryHint =>
+      'Every change to a setting: old value, new value, who, when and why. Tap one to see only that setting.';
+
+  @override
+  String get ccNoSecurityEvents => 'No security events';
+
+  @override
+  String get ccUnknownAccount => 'unknown number (no account)';
+
+  @override
+  String get ccTraceHint =>
+      'Search by learner name or phone, Sidra payment id, MarzPay id or reference. Each result follows the payment from request to MarzPay to Sidra\'s record.';
+
+  @override
+  String get ccTraceSearch => 'Name, phone, id or reference';
+
+  @override
+  String get ccTraceNone => 'No payment matches';
+
+  @override
+  String get ccTraceStep1 => '1 · The request in Sidra';
+
+  @override
+  String get ccTraceStep2 => '2 · At MarzPay';
+
+  @override
+  String get ccTraceStep3 => '3 · Callbacks received';
+
+  @override
+  String get ccTraceStep4 => '4 · Sidra\'s record and access';
+
+  @override
+  String get ccTraceMethod => 'Method';
+
+  @override
+  String get ccTraceCreated => 'Created';
+
+  @override
+  String get ccTraceSidraId => 'Sidra id';
+
+  @override
+  String get ccTraceReference => 'Reference';
+
+  @override
+  String get ccTraceProviderId => 'MarzPay id';
+
+  @override
+  String get ccTraceProviderStatus => 'MarzPay\'s last answer';
+
+  @override
+  String get ccTraceAttempts => 'Send attempts';
+
+  @override
+  String get ccTraceCallbacks => 'Callbacks';
+
+  @override
+  String get ccTraceNoCallbacks => 'None (checked by polling)';
+
+  @override
+  String get ccTraceSidraStatus => 'Sidra status';
+
+  @override
+  String get ccTraceVerifiedAt => 'Verified';
+
+  @override
+  String get ccTraceBalance => 'Still owed';
+
+  @override
+  String get ccTraceOutstanding => 'outstanding';
+
+  @override
+  String get ccTraceEnrolment => 'Course access';
+
+  @override
+  String get ccTraceHistory => 'Changes';
+
+  @override
+  String get ccTraceAskMarzPay => 'Ask MarzPay now';
+
+  @override
+  String get ccDiagnosticsHint =>
+      'Each check says what it tested, what should happen, what happened and what to do next. Results are kept.';
+
+  @override
+  String get ccRunAll => 'Run all checks';
+
+  @override
+  String get ccRunCheck => 'Run the check';
+
+  @override
+  String get ccTested => 'Tested';
+
+  @override
+  String get ccExpected => 'Expected';
+
+  @override
+  String get ccHappened => 'Happened';
+
+  @override
+  String get ccNextAction => 'Next';
+
+  @override
+  String get ccDiagHistory => 'Earlier results';
+
+  @override
+  String get ccSafetySettings => 'Safety settings';
+
+  @override
+  String get diagDbTested => 'A round trip to the database from this phone';
+
+  @override
+  String get diagDbExpected => 'An answer within a few seconds';
+
+  @override
+  String diagDbHappened(int ms) {
+    return 'Answered in $ms ms';
+  }
+
+  @override
+  String get diagSession => 'Sign-in session';
+
+  @override
+  String get diagSessionTested => 'Renewing this phone\'s session';
+
+  @override
+  String get diagSessionExpected => 'A fresh session';
+
+  @override
+  String get diagSessionOk => 'Session renewed';
+
+  @override
+  String get diagSessionNone => 'No session: this phone is signed out';
+
+  @override
+  String get diagDevice => 'This phone';
+
+  @override
+  String get diagDeviceTested => 'Registration, permissions and app version';
+
+  @override
+  String get diagDeviceExpected =>
+      'Registered, with notifications and microphone allowed';
+
+  @override
+  String diagDeviceLinked(String model, String version) {
+    return 'Registered as $model, Sidra $version';
+  }
+
+  @override
+  String get diagDeviceNotLinked =>
+      'Not linked to this session yet (sign out and in once)';
+
+  @override
+  String get diagStorageTested =>
+      'Uploading a tiny file to Cloudinary, then downloading it';
+
+  @override
+  String get diagStorageExpected => 'The same content comes back';
+
+  @override
+  String get diagStorageOk => 'Uploaded, signed and downloaded intact';
+
+  @override
+  String get diagStorageMismatch =>
+      'The downloaded file differs from what was uploaded';
+
+  @override
+  String get diagNotifTested => 'Creating a notification for you';
+
+  @override
+  String get diagNotifExpected =>
+      'It appears in the app and on the notification bar';
+
+  @override
+  String get diagNotifSent => 'Created';
+
+  @override
+  String get diagNotifNext =>
+      'It should appear on the notification bar within a minute while Sidra is open (15 minutes when closed). If not, check this phone\'s notification permission.';
+
+  @override
+  String get diagSyncTested => 'Work waiting on this phone';
+
+  @override
+  String get diagSyncExpected => 'Nothing stuck';
+
+  @override
+  String get diagServerTested => 'The payments server\'s heartbeat';
+
+  @override
+  String get diagServerExpected => 'Seen in the last 90 seconds';
+
+  @override
+  String get diagMarzTested => 'MarzPay\'s status from the latest tests';
+
+  @override
+  String get diagMarzExpected => 'Connected, and a real collection proven';
+
+  @override
+  String get diagAppTested => 'This app\'s build against the newest published';
+
+  @override
+  String get diagAppExpected => 'The newest build';
+
+  @override
+  String diagAppCurrent(String version, String build) {
+    return 'Up to date: $version ($build)';
+  }
+
+  @override
+  String diagAppOld(String build, int latest) {
+    return 'Build $build, newest is $latest';
+  }
+
+  @override
+  String get diagNextCheckNetwork =>
+      'Check this phone\'s internet, then run again.';
+
+  @override
+  String get diagNextSignIn => 'Sign in again.';
+
+  @override
+  String get diagNextPermissions =>
+      'Allow them in the phone\'s settings → Apps → Sidra.';
+
+  @override
+  String get diagNextStorage =>
+      'Check Cloudinary\'s status and plan limits; ask the developer if it continues.';
+
+  @override
+  String get diagNextSync =>
+      'Open Offline and sync and retry the failed items.';
+
+  @override
+  String get diagNextServer =>
+      'Start the payments server on its host (see docs/OPERATIONS.md). Until then, mobile-money payments wait.';
+
+  @override
+  String get diagNextMarz =>
+      'Open the MarzPay test centre and run the connection test.';
+
+  @override
+  String get diagNextUpdate => 'Install the newest APK.';
+
+  @override
+  String get mcConnection => 'Connection';
+
+  @override
+  String get mcConnectionHint =>
+      'Network, TLS, credentials, account, environment, latency.';
+
+  @override
+  String get mcCapabilities => 'What MarzPay offers this account';
+
+  @override
+  String get mcCapabilitiesHint =>
+      'Reads the collection and disbursement services, balance access and webhooks.';
+
+  @override
+  String get mcBalance => 'Balance';
+
+  @override
+  String get mcBalanceHint => 'The MarzPay wallet balance.';
+
+  @override
+  String get mcCollection => 'Collection (receive money)';
+
+  @override
+  String get mcCollectionHint =>
+      'A real prompt on a phone; proven from MarzPay\'s own ledger.';
+
+  @override
+  String get mcDisbursement => 'Disbursement (send money)';
+
+  @override
+  String get mcDisbursementHint =>
+      'Money leaves the wallet to a phone. Off until switched on.';
+
+  @override
+  String get mcLookup => 'Transaction lookup';
+
+  @override
+  String get mcLookupHint =>
+      'Compare Sidra\'s record with MarzPay\'s for one payment.';
+
+  @override
+  String get mcLookupField => 'Sidra id, MarzPay id or reference';
+
+  @override
+  String get mcCallbacks => 'Callbacks';
+
+  @override
+  String get mcCallbacksHint =>
+      'Can MarzPay notify Sidra? Lists what was received.';
+
+  @override
+  String get mcReconciliation => 'Reconciliation';
+
+  @override
+  String get mcReconciliationHint =>
+      'Every Sidra mobile-money payment (30 days) against MarzPay\'s ledger.';
+
+  @override
+  String get mcAuthentication => 'Authentication';
+
+  @override
+  String get mcCollectionMm => 'Mobile money collection (MTN, Airtel)';
+
+  @override
+  String get mcCard => 'Card payments';
+
+  @override
+  String get mcDisbursementMm => 'Mobile money disbursement';
+
+  @override
+  String get mcBank => 'Bank transfer';
+
+  @override
+  String get mcWallet => 'Account-to-account (wallet transfer)';
+
+  @override
+  String get mcRefund => 'Refund / reversal';
+
+  @override
+  String get mcMatrix => 'Capabilities';
+
+  @override
+  String get mcMatrixHint =>
+      'Provider: offered by MarzPay for this account. Sidra: built in Sidra. The badge shows the latest evidence.';
+
+  @override
+  String get mcProvider => 'MarzPay';
+
+  @override
+  String get mcSidra => 'Sidra';
+
+  @override
+  String get mcUnsupportedByProvider => 'Not offered by MarzPay';
+
+  @override
+  String get mcRunCapabilities => 'Run the capabilities test';
+
+  @override
+  String get mcSidraMissing => 'MarzPay offers it; Sidra doesn\'t use it yet';
+
+  @override
+  String get mcImplementedUntested => 'Built, not tested yet';
+
+  @override
+  String get mcImplementedBlocked => 'Built; verification blocked';
+
+  @override
+  String get mcVerified => 'Verified';
+
+  @override
+  String get mcAccepted => 'Accepted, not proven';
+
+  @override
+  String get mcFailedR => 'Failed';
+
+  @override
+  String get mcCancelled => 'Cancelled';
+
+  @override
+  String get mcPending => 'Pending';
+
+  @override
+  String get mcUnknown => 'Unknown';
+
+  @override
+  String get mcBlocked => 'Blocked';
+
+  @override
+  String get mcUnsupported => 'Unsupported';
+
+  @override
+  String get mcRunning => 'Running…';
+
+  @override
+  String get mcRealMoney => 'REAL MONEY';
+
+  @override
+  String get mcLast => 'Last';
+
+  @override
+  String get mcIntro =>
+      'Tests run on the payments server (the only place with MarzPay\'s keys). Each ends with proof or an honest reason why not. Opening this page never starts a test.';
+
+  @override
+  String get mcWhatTesting => 'What are you testing?';
+
+  @override
+  String get mcTestTab => 'Test';
+
+  @override
+  String get mcHistoryTab => 'History';
+
+  @override
+  String get mcCallbacksList =>
+      'Every call MarzPay made to Sidra, and what Sidra did with it.';
+
+  @override
+  String get mcNoCallbacks => 'No callbacks received yet';
+
+  @override
+  String get mcDuplicate => 'duplicate';
+
+  @override
+  String get mcNoTests => 'No tests yet';
+
+  @override
+  String get mcRunTest => 'Run test';
+
+  @override
+  String get mcFormInvalid =>
+      'Enter an MTN or Airtel Uganda number and an amount.';
+
+  @override
+  String get mcRealTitle => 'This moves real money';
+
+  @override
+  String mcRealCollect(int amount, String phone) {
+    return '$amount UGX will be requested from $phone. The phone owner must enter their PIN. The money goes into the MarzPay wallet.';
+  }
+
+  @override
+  String mcRealSend(int amount, String phone) {
+    return '$amount UGX will be sent from the MarzPay wallet to $phone. This can\'t be undone by Sidra.';
+  }
+
+  @override
+  String get mcContinue => 'Continue';
+
+  @override
+  String get mcTypeToConfirm => 'Type exactly this to confirm';
+
+  @override
+  String get mcCollectWarning =>
+      'A real payment prompt will appear on the phone you enter. Use your own phone and the smallest amount.';
+
+  @override
+  String get mcSendWarning =>
+      'Real money will leave the MarzPay wallet. The recipient should confirm receipt.';
+
+  @override
+  String get mcPayerPhone => 'Payer\'s phone (MTN or Airtel)';
+
+  @override
+  String get mcRecipientPhone => 'Recipient\'s phone (MTN or Airtel)';
+
+  @override
+  String get mcAmount => 'Amount (UGX)';
+
+  @override
+  String get mcAmountHint =>
+      'At least 500; at most the limit in Safety settings.';
+
+  @override
+  String get mcDescription => 'Note (optional)';
+
+  @override
+  String get mcStartCollection => 'Request the payment';
+
+  @override
+  String get mcStartDisbursement => 'Send the money';
+
+  @override
+  String get mcQueuedLong =>
+      'Still waiting: the payments server may be offline. The test starts as soon as it is running.';
+
+  @override
+  String get mcEvidence => 'Evidence';
+
+  @override
+  String get mcEnvironment => 'Environment';
+
+  @override
+  String get ccMarzSelfChecks =>
+      'Integration self-checks (duplicates, timeouts, validation)';
 }

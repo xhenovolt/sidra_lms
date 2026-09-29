@@ -2217,5 +2217,485 @@
         "type": "int"
       }
     }
-  }
+  },
+  "ccGeneral": "General",
+  "ccGeneralHint": "Organisation name, time zone, contacts and messaging.",
+  "ccAccess": "Users and access",
+  "ccAccessHint": "Who may sign up, password rules, lock-out and sign-in protection.",
+  "ccTeaching": "Teaching",
+  "ccSecurity": "Devices and security",
+  "ccSecurityHint": "Phones signed in, sessions, failed sign-ins and sign-outs.",
+  "ccPaymentsHint": "Payment methods, instructions for manual payment, and tracing a payment.",
+  "ccMarzpayHint": "Mobile money through MarzPay: its real status, test centre and safety limits.",
+  "ccStorage": "Storage and media",
+  "ccStorageHint": "Where files are kept (Cloudinary), upload limit and storage checks.",
+  "ccDatabase": "Database",
+  "ccDatabaseHint": "Connection and schema version. Changes to the structure are made by the release process, not here.",
+  "ccSync": "Offline and sync",
+  "ccSyncHint": "Work saved on this phone and waiting to be sent.",
+  "ccAudit": "Audit and history",
+  "ccAuditHint": "Who changed which setting, when and why; data export.",
+  "ccApplication": "Application",
+  "ccAdvanced": "Diagnostics",
+  "ccAdvancedHint": "Run checks when something breaks, with a history of results.",
+  "ccTimeZone": "Time zone (e.g. Africa/Kampala)",
+  "ccTimeZoneHint": "Used for deadlines, weekends and holidays.",
+  "ccMessagingOn": "Messaging for staff",
+  "ccMessagingLearners": "Learners can use messaging too",
+  "ccSigninBrake": "System-wide brake: failed sign-ins per minute",
+  "ccSigninBrakeHint": "Above this, sign-in answers \"try later\" for a minute (stops someone guessing many accounts).",
+  "ccPresenceMinutes": "\"Online\" means seen within (minutes)",
+  "ccAuthKeepDays": "Keep sign-in history for (days)",
+  "ccDefaultPassMark": "Pass mark for new courses (%)",
+  "ccMarzTestsOn": "MarzPay tests allowed (emergency stop)",
+  "ccMarzTestsOnHint": "Off stops every test at once, including ones waiting to run.",
+  "ccMarzTestMax": "Largest test amount (UGX)",
+  "ccMarzDisbursementOn": "Allow sending-money tests",
+  "ccMarzDisbursementOnHint": "Money leaves the MarzPay wallet. Off by default.",
+  "ccUploadMax": "Largest upload (MB)",
+  "ccUploadMaxHint": "Phones refuse bigger files before sending. Cloudinary's own plan limit also applies.",
+  "ccSendTestNotification": "Send me a test notification",
+  "ccPaymentTrace": "Trace a payment",
+  "ccMarzCenter": "MarzPay test centre",
+  "ccDiagnostics": "Diagnostics",
+  "ccSettingsHistory": "Settings history",
+  "ccSecurityEvents": "Security events",
+  "ccOk": "OK",
+  "ccWarning": "Attention",
+  "ccFailed": "Failed",
+  "ccUntested": "Untested",
+  "ccDisabled": "Off",
+  "ccSearchHint": "Search settings: password, payment, notification…",
+  "ccHealthTitle": "Is Sidra healthy right now?",
+  "ccHealthHint": "Live status of each part. Tap one for details.",
+  "ccHealthNoPermission": "Your role can't see system health.",
+  "ccSections": "Sections",
+  "ccMarzDisabled": "Switched off by an administrator",
+  "ccMarzConnFailed": "The last connection test failed",
+  "ccMarzServerDown": "Payments server offline: payments can't be sent",
+  "ccMarzVerified": "Verified: money has been collected through Sidra",
+  "ccMarzAuthOnly": "Connected and authenticated; a real collection not yet proven",
+  "ccMarzUntested": "Not tested yet",
+  "ccDbLine": "Schema {have} (this app expects {expected})",
+  "@ccDbLine": {
+    "placeholders": {
+      "have": {
+        "type": "String"
+      },
+      "expected": {
+        "type": "String"
+      }
+    }
+  },
+  "ccPaymentsServer": "Payments server",
+  "ccServerOnline": "Online (version {version})",
+  "@ccServerOnline": {
+    "placeholders": {
+      "version": {
+        "type": "Object"
+      }
+    }
+  },
+  "ccServerNever": "Never seen: it isn't running anywhere",
+  "ccServerLastSeen": "Offline, last seen {when}",
+  "@ccServerLastSeen": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "ccStorageLine": "{n} uploads today; last {when}",
+  "@ccStorageLine": {
+    "placeholders": {
+      "n": {
+        "type": "Object"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "ccStorageMissing": "Cloudinary keys are missing: uploads will fail",
+  "ccNotifLine": "{sent} sent today · {phones} phones registered · {blocked} phones block notifications",
+  "@ccNotifLine": {
+    "placeholders": {
+      "sent": {
+        "type": "Object"
+      },
+      "phones": {
+        "type": "Object"
+      },
+      "blocked": {
+        "type": "Object"
+      }
+    }
+  },
+  "ccSecurityLine": "{failed} failed sign-ins today · {locked} locked · {many} accounts on many phones",
+  "@ccSecurityLine": {
+    "placeholders": {
+      "failed": {
+        "type": "Object"
+      },
+      "locked": {
+        "type": "Object"
+      },
+      "many": {
+        "type": "Object"
+      }
+    }
+  },
+  "ccLearning": "Learning",
+  "ccLearningLine": "{active} active this week · {reports} problem reports · {late} late · {review} waiting review 2+ days",
+  "@ccLearningLine": {
+    "placeholders": {
+      "active": {
+        "type": "Object"
+      },
+      "reports": {
+        "type": "Object"
+      },
+      "late": {
+        "type": "Object"
+      },
+      "review": {
+        "type": "Object"
+      }
+    }
+  },
+  "ccPaymentsLine": "{manual} manual payments to verify · {stuck} mobile-money payments stuck",
+  "@ccPaymentsLine": {
+    "placeholders": {
+      "manual": {
+        "type": "Object"
+      },
+      "stuck": {
+        "type": "Object"
+      }
+    }
+  },
+  "ccAppLine": "This phone {version} ({build}) · newest build {latest}",
+  "@ccAppLine": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "build": {
+        "type": "String"
+      },
+      "latest": {
+        "type": "Object"
+      }
+    }
+  },
+  "ccDiagLine": "{n} failed checks in the last day",
+  "@ccDiagLine": {
+    "placeholders": {
+      "n": {
+        "type": "Object"
+      }
+    }
+  },
+  "ccCheckedAt": "Checked {when}",
+  "@ccCheckedAt": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "ccSaved": "{n, plural, =1{1 setting saved} other{{n} settings saved}}",
+  "@ccSaved": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "ccSavedSome": "{ok} saved, {failed} refused: see the red messages",
+  "@ccSavedSome": {
+    "placeholders": {
+      "ok": {
+        "type": "int"
+      },
+      "failed": {
+        "type": "int"
+      }
+    }
+  },
+  "ccReason": "Reason for the change (recorded)",
+  "ccSaveChanges": "Save {n}",
+  "@ccSaveChanges": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "ccRange": "Between {min} and {max}.",
+  "@ccRange": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "ccLastChanged": "Last changed by {name}, {when}",
+  "@ccLastChanged": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "ccSystem": "the system",
+  "ccYes": "Yes",
+  "ccNo": "No",
+  "ccDbConnected": "Connected",
+  "ccDbLatest": "Newest applied change",
+  "ccDbAppExpects": "This app expects",
+  "ccDbCount": "Changes applied",
+  "ccDbBackups": "Backups",
+  "ccDbBackupsHint": "Kept by Neon (see its console; paid plans restore to any moment)",
+  "ccStorageProvider": "Provider",
+  "ccConfigured": "Configured",
+  "ccLastUpload": "Last upload",
+  "ccUploads24h": "Uploads today",
+  "ccPurgeWaiting": "Files waiting to be deleted",
+  "ccPublicAddress": "Public address for callbacks",
+  "ccNoPollingOnly": "No (payments are checked every 20 s)",
+  "ccVerifiedPayments": "Verified mobile-money payments",
+  "ccStuckPayments": "Stuck over an hour",
+  "ccThisPhone": "This phone",
+  "ccBuildsInUse": "Builds in use (build: phones)",
+  "ccFailedSignIns": "Failed sign-ins (24 h)",
+  "ccThrottled": "Brake applied (24 h)",
+  "ccLockedNow": "Accounts locked now",
+  "ccRevoked7d": "Phones signed out by admins (7 days)",
+  "ccManyDevices": "Accounts signed in on more than 3 phones",
+  "ccSyncThisPhone": "On this phone",
+  "ccSyncLine": "{pending} progress changes waiting · {rejected} refused · {queued} submissions queued",
+  "@ccSyncLine": {
+    "placeholders": {
+      "pending": {
+        "type": "int"
+      },
+      "rejected": {
+        "type": "int"
+      },
+      "queued": {
+        "type": "int"
+      }
+    }
+  },
+  "ccSyncNow": "Send now",
+  "ccHistoryHint": "Every change to a setting: old value, new value, who, when and why. Tap one to see only that setting.",
+  "ccNoSecurityEvents": "No security events",
+  "ccUnknownAccount": "unknown number (no account)",
+  "ccTraceHint": "Search by learner name or phone, Sidra payment id, MarzPay id or reference. Each result follows the payment from request to MarzPay to Sidra's record.",
+  "ccTraceSearch": "Name, phone, id or reference",
+  "ccTraceNone": "No payment matches",
+  "ccTraceStep1": "1 · The request in Sidra",
+  "ccTraceStep2": "2 · At MarzPay",
+  "ccTraceStep3": "3 · Callbacks received",
+  "ccTraceStep4": "4 · Sidra's record and access",
+  "ccTraceMethod": "Method",
+  "ccTraceCreated": "Created",
+  "ccTraceSidraId": "Sidra id",
+  "ccTraceReference": "Reference",
+  "ccTraceProviderId": "MarzPay id",
+  "ccTraceProviderStatus": "MarzPay's last answer",
+  "ccTraceAttempts": "Send attempts",
+  "ccTraceCallbacks": "Callbacks",
+  "ccTraceNoCallbacks": "None (checked by polling)",
+  "ccTraceSidraStatus": "Sidra status",
+  "ccTraceVerifiedAt": "Verified",
+  "ccTraceBalance": "Still owed",
+  "ccTraceOutstanding": "outstanding",
+  "ccTraceEnrolment": "Course access",
+  "ccTraceHistory": "Changes",
+  "ccTraceAskMarzPay": "Ask MarzPay now",
+  "ccDiagnosticsHint": "Each check says what it tested, what should happen, what happened and what to do next. Results are kept.",
+  "ccRunAll": "Run all checks",
+  "ccRunCheck": "Run the check",
+  "ccTested": "Tested",
+  "ccExpected": "Expected",
+  "ccHappened": "Happened",
+  "ccNextAction": "Next",
+  "ccDiagHistory": "Earlier results",
+  "ccSafetySettings": "Safety settings",
+  "diagDbTested": "A round trip to the database from this phone",
+  "diagDbExpected": "An answer within a few seconds",
+  "diagDbHappened": "Answered in {ms} ms",
+  "@diagDbHappened": {
+    "placeholders": {
+      "ms": {
+        "type": "int"
+      }
+    }
+  },
+  "diagSession": "Sign-in session",
+  "diagSessionTested": "Renewing this phone's session",
+  "diagSessionExpected": "A fresh session",
+  "diagSessionOk": "Session renewed",
+  "diagSessionNone": "No session: this phone is signed out",
+  "diagDevice": "This phone",
+  "diagDeviceTested": "Registration, permissions and app version",
+  "diagDeviceExpected": "Registered, with notifications and microphone allowed",
+  "diagDeviceLinked": "Registered as {model}, Sidra {version}",
+  "@diagDeviceLinked": {
+    "placeholders": {
+      "model": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "diagDeviceNotLinked": "Not linked to this session yet (sign out and in once)",
+  "diagStorageTested": "Uploading a tiny file to Cloudinary, then downloading it",
+  "diagStorageExpected": "The same content comes back",
+  "diagStorageOk": "Uploaded, signed and downloaded intact",
+  "diagStorageMismatch": "The downloaded file differs from what was uploaded",
+  "diagNotifTested": "Creating a notification for you",
+  "diagNotifExpected": "It appears in the app and on the notification bar",
+  "diagNotifSent": "Created",
+  "diagNotifNext": "It should appear on the notification bar within a minute while Sidra is open (15 minutes when closed). If not, check this phone's notification permission.",
+  "diagSyncTested": "Work waiting on this phone",
+  "diagSyncExpected": "Nothing stuck",
+  "diagServerTested": "The payments server's heartbeat",
+  "diagServerExpected": "Seen in the last 90 seconds",
+  "diagMarzTested": "MarzPay's status from the latest tests",
+  "diagMarzExpected": "Connected, and a real collection proven",
+  "diagAppTested": "This app's build against the newest published",
+  "diagAppExpected": "The newest build",
+  "diagAppCurrent": "Up to date: {version} ({build})",
+  "@diagAppCurrent": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "build": {
+        "type": "String"
+      }
+    }
+  },
+  "diagAppOld": "Build {build}, newest is {latest}",
+  "@diagAppOld": {
+    "placeholders": {
+      "build": {
+        "type": "String"
+      },
+      "latest": {
+        "type": "int"
+      }
+    }
+  },
+  "diagNextCheckNetwork": "Check this phone's internet, then run again.",
+  "diagNextSignIn": "Sign in again.",
+  "diagNextPermissions": "Allow them in the phone's settings → Apps → Sidra.",
+  "diagNextStorage": "Check Cloudinary's status and plan limits; ask the developer if it continues.",
+  "diagNextSync": "Open Offline and sync and retry the failed items.",
+  "diagNextServer": "Start the payments server on its host (see docs/OPERATIONS.md). Until then, mobile-money payments wait.",
+  "diagNextMarz": "Open the MarzPay test centre and run the connection test.",
+  "diagNextUpdate": "Install the newest APK.",
+  "mcConnection": "Connection",
+  "mcConnectionHint": "Network, TLS, credentials, account, environment, latency.",
+  "mcCapabilities": "What MarzPay offers this account",
+  "mcCapabilitiesHint": "Reads the collection and disbursement services, balance access and webhooks.",
+  "mcBalance": "Balance",
+  "mcBalanceHint": "The MarzPay wallet balance.",
+  "mcCollection": "Collection (receive money)",
+  "mcCollectionHint": "A real prompt on a phone; proven from MarzPay's own ledger.",
+  "mcDisbursement": "Disbursement (send money)",
+  "mcDisbursementHint": "Money leaves the wallet to a phone. Off until switched on.",
+  "mcLookup": "Transaction lookup",
+  "mcLookupHint": "Compare Sidra's record with MarzPay's for one payment.",
+  "mcLookupField": "Sidra id, MarzPay id or reference",
+  "mcCallbacks": "Callbacks",
+  "mcCallbacksHint": "Can MarzPay notify Sidra? Lists what was received.",
+  "mcReconciliation": "Reconciliation",
+  "mcReconciliationHint": "Every Sidra mobile-money payment (30 days) against MarzPay's ledger.",
+  "mcAuthentication": "Authentication",
+  "mcCollectionMm": "Mobile money collection (MTN, Airtel)",
+  "mcCard": "Card payments",
+  "mcDisbursementMm": "Mobile money disbursement",
+  "mcBank": "Bank transfer",
+  "mcWallet": "Account-to-account (wallet transfer)",
+  "mcRefund": "Refund / reversal",
+  "mcMatrix": "Capabilities",
+  "mcMatrixHint": "Provider: offered by MarzPay for this account. Sidra: built in Sidra. The badge shows the latest evidence.",
+  "mcProvider": "MarzPay",
+  "mcSidra": "Sidra",
+  "mcUnsupportedByProvider": "Not offered by MarzPay",
+  "mcRunCapabilities": "Run the capabilities test",
+  "mcSidraMissing": "MarzPay offers it; Sidra doesn't use it yet",
+  "mcImplementedUntested": "Built, not tested yet",
+  "mcImplementedBlocked": "Built; verification blocked",
+  "mcVerified": "Verified",
+  "mcAccepted": "Accepted, not proven",
+  "mcFailedR": "Failed",
+  "mcCancelled": "Cancelled",
+  "mcPending": "Pending",
+  "mcUnknown": "Unknown",
+  "mcBlocked": "Blocked",
+  "mcUnsupported": "Unsupported",
+  "mcRunning": "Running…",
+  "mcRealMoney": "REAL MONEY",
+  "mcLast": "Last",
+  "mcIntro": "Tests run on the payments server (the only place with MarzPay's keys). Each ends with proof or an honest reason why not. Opening this page never starts a test.",
+  "mcWhatTesting": "What are you testing?",
+  "mcTestTab": "Test",
+  "mcHistoryTab": "History",
+  "mcCallbacksList": "Every call MarzPay made to Sidra, and what Sidra did with it.",
+  "mcNoCallbacks": "No callbacks received yet",
+  "mcDuplicate": "duplicate",
+  "mcNoTests": "No tests yet",
+  "mcRunTest": "Run test",
+  "mcFormInvalid": "Enter an MTN or Airtel Uganda number and an amount.",
+  "mcRealTitle": "This moves real money",
+  "mcRealCollect": "{amount} UGX will be requested from {phone}. The phone owner must enter their PIN. The money goes into the MarzPay wallet.",
+  "@mcRealCollect": {
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      },
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "mcRealSend": "{amount} UGX will be sent from the MarzPay wallet to {phone}. This can't be undone by Sidra.",
+  "@mcRealSend": {
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      },
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "mcContinue": "Continue",
+  "mcTypeToConfirm": "Type exactly this to confirm",
+  "mcCollectWarning": "A real payment prompt will appear on the phone you enter. Use your own phone and the smallest amount.",
+  "mcSendWarning": "Real money will leave the MarzPay wallet. The recipient should confirm receipt.",
+  "mcPayerPhone": "Payer's phone (MTN or Airtel)",
+  "mcRecipientPhone": "Recipient's phone (MTN or Airtel)",
+  "mcAmount": "Amount (UGX)",
+  "mcAmountHint": "At least 500; at most the limit in Safety settings.",
+  "mcDescription": "Note (optional)",
+  "mcStartCollection": "Request the payment",
+  "mcStartDisbursement": "Send the money",
+  "mcQueuedLong": "Still waiting: the payments server may be offline. The test starts as soon as it is running.",
+  "mcEvidence": "Evidence",
+  "mcEnvironment": "Environment",
+  "ccMarzSelfChecks": "Integration self-checks (duplicates, timeouts, validation)"
 }

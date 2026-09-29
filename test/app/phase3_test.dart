@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sidra_lms/features/auth/domain/auth_session.dart';
@@ -221,60 +221,107 @@ void main() {
     expect(find.text('Copy to another course…'), findsOneWidget);
   });
 
-  testWidgets('MarzPay test results read PASS / WARNING / FAIL', (
+  testWidgets('MarzPay: honest status, and a capability matrix from evidence', (
     tester,
   ) async {
     final api = staffServer('superadmin');
-    api.rpcHandlers['org_settings'] = (_) => {'org_name': 'Almuntahha'};
     api.rpcHandlers['my_permissions'] = (_) => [
       {
-        'my_permissions': [...permsFor('superadmin'), 'settings.manage'],
-      },
-    ];
-    api.rpcHandlers['payment_integration_status'] = (_) => {
-      'server_online': true,
-      'server_last_seen': '2026-09-27T08:00:00Z',
-      'server_version': '1.1.0',
-      'latest_run': {
-        'id': 'd1',
-        'status': 'done',
-        'finished_at': '2026-09-27T08:00:10Z',
-        'results': [
-          {
-            'key': 'authentication',
-            'label': 'Credentials accepted',
-            'result': 'pass',
-            'message': 'Collections available: MTN, Airtel.',
-          },
-          {
-            'key': 'webhook',
-            'label': 'Webhook address',
-            'result': 'warning',
-            'message': 'No PUBLIC_URL.',
-          },
+        'my_permissions': [
+          ...permsFor('superadmin'),
+          'settings.manage',
+          'payments.test',
+          'system.diagnose',
         ],
       },
+    ];
+    api.rpcHandlers['system_health'] = (_) => {
+      'checked_at': '2026-09-29T08:00:00Z',
+      'database': {
+        'ok': true,
+        'latest_migration': '0040_settings_validation.sql',
+        'migrations': 40,
+      },
+      'payments_server': {
+        'online': true,
+        'version': '1.1.0',
+        'public_url': false,
+      },
+      'marzpay': {
+        'enabled': true,
+        'verified_payments': 0,
+        'stuck': 0,
+        'latest_tests': {
+          'connection': {'result': 'verified_success'},
+        },
+      },
+      'storage': {'configured': true, 'uploads_24h': 3},
+      'notifications': {
+        'sent_24h': 5,
+        'phones_registered': 2,
+        'devices_blocking': 0,
+      },
+      'security': {
+        'failed_sign_ins_24h': 1,
+        'locked_now': 0,
+        'accounts_on_many_devices': 0,
+      },
+      'learning': {'active_learners_7d': 4},
+      'payments': {'manual_waiting': 0, 'stuck_mobile_money': 0},
+      'app': {'latest_build': '50'},
+      'recent_failed_diagnostics': 0,
     };
+    api.rpcHandlers['payment_tests'] = (_) => [
+      {
+        'id': 't2',
+        'kind': 'capabilities',
+        'status': 'done',
+        'result': 'verified_success',
+        'evidence': {
+          'collection': ['MTN', 'Airtel', 'Card Payments'],
+          'disbursement': ['MTN', 'Airtel', 'Bank Transfer', 'Wallet Transfer'],
+          'bank_transfer': true,
+          'wallet_transfer': true,
+        },
+      },
+      {
+        'id': 't1',
+        'kind': 'connection',
+        'status': 'done',
+        'result': 'verified_success',
+      },
+    ];
     await signInAs(tester, 'superadmin', api: api);
     GoRouter.of(tester.element(find.byType(NavigationBar)))
         .go('/admin/settings');
     await tester.pumpAndSettle();
-    await tester.scrollUntilVisible(
-      find.text('MarzPay (mobile money)'),
-      300,
-      // the settings list itself (text boxes inside it scroll too)
-      scrollable: find
-          .descendant(
-            of: find.byType(ListView).first,
-            matching: find.byType(Scrollable),
-          )
-          .first,
+
+    // Never "ON" without proof: connected, but no collection proven yet.
+    expect(
+      find.text(
+        'Connected and authenticated; a real collection not yet proven',
+      ),
+      findsOneWidget,
     );
-    await tester.tap(find.text('MarzPay (mobile money)'));
+
+    // Search finds the test centre.
+    await tester.enterText(find.byType(TextField).first, 'marzpay');
     await tester.pumpAndSettle();
-    expect(find.text('Payments server is running'), findsOneWidget);
-    expect(find.text('PASS'), findsOneWidget);
-    expect(find.text('WARNING'), findsOneWidget);
-    expect(find.textContaining('MTN, Airtel'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text('MarzPay test centre'),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(find.text('MarzPay test centre'));
+    await tester.pumpAndSettle();
+    expect(find.text('Capabilities'), findsOneWidget);
+    expect(
+      find.text("MarzPay offers it; Sidra doesn't use it yet"),
+      findsWidgets,
+    ); // bank, wallet, card
+    expect(find.text('Not offered by MarzPay'), findsOneWidget); // refunds
+    expect(find.text('Verified'), findsWidgets); // connection
+    // Money tests are clearly marked; opening the page started nothing.
+    expect(api.rpcCalls.any((c) => c.$1 == 'request_payment_test'), isFalse);
   });
 }

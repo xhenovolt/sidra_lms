@@ -7506,6 +7506,1529 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{n} problem reported'**
   String dashOpenReports(int n);
+
+  /// No description provided for @ccGeneral.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get ccGeneral;
+
+  /// No description provided for @ccGeneralHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Organisation name, time zone, contacts and messaging.'**
+  String get ccGeneralHint;
+
+  /// No description provided for @ccAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Users and access'**
+  String get ccAccess;
+
+  /// No description provided for @ccAccessHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Who may sign up, password rules, lock-out and sign-in protection.'**
+  String get ccAccessHint;
+
+  /// No description provided for @ccTeaching.
+  ///
+  /// In en, this message translates to:
+  /// **'Teaching'**
+  String get ccTeaching;
+
+  /// No description provided for @ccSecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'Devices and security'**
+  String get ccSecurity;
+
+  /// No description provided for @ccSecurityHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Phones signed in, sessions, failed sign-ins and sign-outs.'**
+  String get ccSecurityHint;
+
+  /// No description provided for @ccPaymentsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment methods, instructions for manual payment, and tracing a payment.'**
+  String get ccPaymentsHint;
+
+  /// No description provided for @ccMarzpayHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile money through MarzPay: its real status, test centre and safety limits.'**
+  String get ccMarzpayHint;
+
+  /// No description provided for @ccStorage.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage and media'**
+  String get ccStorage;
+
+  /// No description provided for @ccStorageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Where files are kept (Cloudinary), upload limit and storage checks.'**
+  String get ccStorageHint;
+
+  /// No description provided for @ccDatabase.
+  ///
+  /// In en, this message translates to:
+  /// **'Database'**
+  String get ccDatabase;
+
+  /// No description provided for @ccDatabaseHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection and schema version. Changes to the structure are made by the release process, not here.'**
+  String get ccDatabaseHint;
+
+  /// No description provided for @ccSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline and sync'**
+  String get ccSync;
+
+  /// No description provided for @ccSyncHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Work saved on this phone and waiting to be sent.'**
+  String get ccSyncHint;
+
+  /// No description provided for @ccAudit.
+  ///
+  /// In en, this message translates to:
+  /// **'Audit and history'**
+  String get ccAudit;
+
+  /// No description provided for @ccAuditHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Who changed which setting, when and why; data export.'**
+  String get ccAuditHint;
+
+  /// No description provided for @ccApplication.
+  ///
+  /// In en, this message translates to:
+  /// **'Application'**
+  String get ccApplication;
+
+  /// No description provided for @ccAdvanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Diagnostics'**
+  String get ccAdvanced;
+
+  /// No description provided for @ccAdvancedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Run checks when something breaks, with a history of results.'**
+  String get ccAdvancedHint;
+
+  /// No description provided for @ccTimeZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Time zone (e.g. Africa/Kampala)'**
+  String get ccTimeZone;
+
+  /// No description provided for @ccTimeZoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Used for deadlines, weekends and holidays.'**
+  String get ccTimeZoneHint;
+
+  /// No description provided for @ccMessagingOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Messaging for staff'**
+  String get ccMessagingOn;
+
+  /// No description provided for @ccMessagingLearners.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners can use messaging too'**
+  String get ccMessagingLearners;
+
+  /// No description provided for @ccSigninBrake.
+  ///
+  /// In en, this message translates to:
+  /// **'System-wide brake: failed sign-ins per minute'**
+  String get ccSigninBrake;
+
+  /// No description provided for @ccSigninBrakeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Above this, sign-in answers \"try later\" for a minute (stops someone guessing many accounts).'**
+  String get ccSigninBrakeHint;
+
+  /// No description provided for @ccPresenceMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'\"Online\" means seen within (minutes)'**
+  String get ccPresenceMinutes;
+
+  /// No description provided for @ccAuthKeepDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep sign-in history for (days)'**
+  String get ccAuthKeepDays;
+
+  /// No description provided for @ccDefaultPassMark.
+  ///
+  /// In en, this message translates to:
+  /// **'Pass mark for new courses (%)'**
+  String get ccDefaultPassMark;
+
+  /// No description provided for @ccMarzTestsOn.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay tests allowed (emergency stop)'**
+  String get ccMarzTestsOn;
+
+  /// No description provided for @ccMarzTestsOnHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Off stops every test at once, including ones waiting to run.'**
+  String get ccMarzTestsOnHint;
+
+  /// No description provided for @ccMarzTestMax.
+  ///
+  /// In en, this message translates to:
+  /// **'Largest test amount (UGX)'**
+  String get ccMarzTestMax;
+
+  /// No description provided for @ccMarzDisbursementOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow sending-money tests'**
+  String get ccMarzDisbursementOn;
+
+  /// No description provided for @ccMarzDisbursementOnHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Money leaves the MarzPay wallet. Off by default.'**
+  String get ccMarzDisbursementOnHint;
+
+  /// No description provided for @ccUploadMax.
+  ///
+  /// In en, this message translates to:
+  /// **'Largest upload (MB)'**
+  String get ccUploadMax;
+
+  /// No description provided for @ccUploadMaxHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Phones refuse bigger files before sending. Cloudinary\'s own plan limit also applies.'**
+  String get ccUploadMaxHint;
+
+  /// No description provided for @ccSendTestNotification.
+  ///
+  /// In en, this message translates to:
+  /// **'Send me a test notification'**
+  String get ccSendTestNotification;
+
+  /// No description provided for @ccPaymentTrace.
+  ///
+  /// In en, this message translates to:
+  /// **'Trace a payment'**
+  String get ccPaymentTrace;
+
+  /// No description provided for @ccMarzCenter.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay test centre'**
+  String get ccMarzCenter;
+
+  /// No description provided for @ccDiagnostics.
+  ///
+  /// In en, this message translates to:
+  /// **'Diagnostics'**
+  String get ccDiagnostics;
+
+  /// No description provided for @ccSettingsHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings history'**
+  String get ccSettingsHistory;
+
+  /// No description provided for @ccSecurityEvents.
+  ///
+  /// In en, this message translates to:
+  /// **'Security events'**
+  String get ccSecurityEvents;
+
+  /// No description provided for @ccOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ccOk;
+
+  /// No description provided for @ccWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Attention'**
+  String get ccWarning;
+
+  /// No description provided for @ccFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get ccFailed;
+
+  /// No description provided for @ccUntested.
+  ///
+  /// In en, this message translates to:
+  /// **'Untested'**
+  String get ccUntested;
+
+  /// No description provided for @ccDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get ccDisabled;
+
+  /// No description provided for @ccSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search settings: password, payment, notification…'**
+  String get ccSearchHint;
+
+  /// No description provided for @ccHealthTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Is Sidra healthy right now?'**
+  String get ccHealthTitle;
+
+  /// No description provided for @ccHealthHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Live status of each part. Tap one for details.'**
+  String get ccHealthHint;
+
+  /// No description provided for @ccHealthNoPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Your role can\'t see system health.'**
+  String get ccHealthNoPermission;
+
+  /// No description provided for @ccSections.
+  ///
+  /// In en, this message translates to:
+  /// **'Sections'**
+  String get ccSections;
+
+  /// No description provided for @ccMarzDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Switched off by an administrator'**
+  String get ccMarzDisabled;
+
+  /// No description provided for @ccMarzConnFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The last connection test failed'**
+  String get ccMarzConnFailed;
+
+  /// No description provided for @ccMarzServerDown.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments server offline: payments can\'t be sent'**
+  String get ccMarzServerDown;
+
+  /// No description provided for @ccMarzVerified.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified: money has been collected through Sidra'**
+  String get ccMarzVerified;
+
+  /// No description provided for @ccMarzAuthOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected and authenticated; a real collection not yet proven'**
+  String get ccMarzAuthOnly;
+
+  /// No description provided for @ccMarzUntested.
+  ///
+  /// In en, this message translates to:
+  /// **'Not tested yet'**
+  String get ccMarzUntested;
+
+  /// No description provided for @ccDbLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Schema {have} (this app expects {expected})'**
+  String ccDbLine(String have, String expected);
+
+  /// No description provided for @ccPaymentsServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments server'**
+  String get ccPaymentsServer;
+
+  /// No description provided for @ccServerOnline.
+  ///
+  /// In en, this message translates to:
+  /// **'Online (version {version})'**
+  String ccServerOnline(Object version);
+
+  /// No description provided for @ccServerNever.
+  ///
+  /// In en, this message translates to:
+  /// **'Never seen: it isn\'t running anywhere'**
+  String get ccServerNever;
+
+  /// No description provided for @ccServerLastSeen.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline, last seen {when}'**
+  String ccServerLastSeen(String when);
+
+  /// No description provided for @ccStorageLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} uploads today; last {when}'**
+  String ccStorageLine(Object n, String when);
+
+  /// No description provided for @ccStorageMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloudinary keys are missing: uploads will fail'**
+  String get ccStorageMissing;
+
+  /// No description provided for @ccNotifLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{sent} sent today · {phones} phones registered · {blocked} phones block notifications'**
+  String ccNotifLine(Object sent, Object phones, Object blocked);
+
+  /// No description provided for @ccSecurityLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{failed} failed sign-ins today · {locked} locked · {many} accounts on many phones'**
+  String ccSecurityLine(Object failed, Object locked, Object many);
+
+  /// No description provided for @ccLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning'**
+  String get ccLearning;
+
+  /// No description provided for @ccLearningLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{active} active this week · {reports} problem reports · {late} late · {review} waiting review 2+ days'**
+  String ccLearningLine(
+    Object active,
+    Object reports,
+    Object late,
+    Object review,
+  );
+
+  /// No description provided for @ccPaymentsLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{manual} manual payments to verify · {stuck} mobile-money payments stuck'**
+  String ccPaymentsLine(Object manual, Object stuck);
+
+  /// No description provided for @ccAppLine.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone {version} ({build}) · newest build {latest}'**
+  String ccAppLine(String version, String build, Object latest);
+
+  /// No description provided for @ccDiagLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} failed checks in the last day'**
+  String ccDiagLine(Object n);
+
+  /// No description provided for @ccCheckedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Checked {when}'**
+  String ccCheckedAt(String when);
+
+  /// No description provided for @ccSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 setting saved} other{{n} settings saved}}'**
+  String ccSaved(int n);
+
+  /// No description provided for @ccSavedSome.
+  ///
+  /// In en, this message translates to:
+  /// **'{ok} saved, {failed} refused: see the red messages'**
+  String ccSavedSome(int ok, int failed);
+
+  /// No description provided for @ccReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason for the change (recorded)'**
+  String get ccReason;
+
+  /// No description provided for @ccSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save {n}'**
+  String ccSaveChanges(int n);
+
+  /// No description provided for @ccRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Between {min} and {max}.'**
+  String ccRange(int min, int max);
+
+  /// No description provided for @ccLastChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Last changed by {name}, {when}'**
+  String ccLastChanged(String name, String when);
+
+  /// No description provided for @ccSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'the system'**
+  String get ccSystem;
+
+  /// No description provided for @ccYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get ccYes;
+
+  /// No description provided for @ccNo.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get ccNo;
+
+  /// No description provided for @ccDbConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected'**
+  String get ccDbConnected;
+
+  /// No description provided for @ccDbLatest.
+  ///
+  /// In en, this message translates to:
+  /// **'Newest applied change'**
+  String get ccDbLatest;
+
+  /// No description provided for @ccDbAppExpects.
+  ///
+  /// In en, this message translates to:
+  /// **'This app expects'**
+  String get ccDbAppExpects;
+
+  /// No description provided for @ccDbCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes applied'**
+  String get ccDbCount;
+
+  /// No description provided for @ccDbBackups.
+  ///
+  /// In en, this message translates to:
+  /// **'Backups'**
+  String get ccDbBackups;
+
+  /// No description provided for @ccDbBackupsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Kept by Neon (see its console; paid plans restore to any moment)'**
+  String get ccDbBackupsHint;
+
+  /// No description provided for @ccStorageProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider'**
+  String get ccStorageProvider;
+
+  /// No description provided for @ccConfigured.
+  ///
+  /// In en, this message translates to:
+  /// **'Configured'**
+  String get ccConfigured;
+
+  /// No description provided for @ccLastUpload.
+  ///
+  /// In en, this message translates to:
+  /// **'Last upload'**
+  String get ccLastUpload;
+
+  /// No description provided for @ccUploads24h.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploads today'**
+  String get ccUploads24h;
+
+  /// No description provided for @ccPurgeWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Files waiting to be deleted'**
+  String get ccPurgeWaiting;
+
+  /// No description provided for @ccPublicAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Public address for callbacks'**
+  String get ccPublicAddress;
+
+  /// No description provided for @ccNoPollingOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'No (payments are checked every 20 s)'**
+  String get ccNoPollingOnly;
+
+  /// No description provided for @ccVerifiedPayments.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified mobile-money payments'**
+  String get ccVerifiedPayments;
+
+  /// No description provided for @ccStuckPayments.
+  ///
+  /// In en, this message translates to:
+  /// **'Stuck over an hour'**
+  String get ccStuckPayments;
+
+  /// No description provided for @ccThisPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone'**
+  String get ccThisPhone;
+
+  /// No description provided for @ccBuildsInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Builds in use (build: phones)'**
+  String get ccBuildsInUse;
+
+  /// No description provided for @ccFailedSignIns.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed sign-ins (24 h)'**
+  String get ccFailedSignIns;
+
+  /// No description provided for @ccThrottled.
+  ///
+  /// In en, this message translates to:
+  /// **'Brake applied (24 h)'**
+  String get ccThrottled;
+
+  /// No description provided for @ccLockedNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Accounts locked now'**
+  String get ccLockedNow;
+
+  /// No description provided for @ccRevoked7d.
+  ///
+  /// In en, this message translates to:
+  /// **'Phones signed out by admins (7 days)'**
+  String get ccRevoked7d;
+
+  /// No description provided for @ccManyDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'Accounts signed in on more than 3 phones'**
+  String get ccManyDevices;
+
+  /// No description provided for @ccSyncThisPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'On this phone'**
+  String get ccSyncThisPhone;
+
+  /// No description provided for @ccSyncLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{pending} progress changes waiting · {rejected} refused · {queued} submissions queued'**
+  String ccSyncLine(int pending, int rejected, int queued);
+
+  /// No description provided for @ccSyncNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Send now'**
+  String get ccSyncNow;
+
+  /// No description provided for @ccHistoryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Every change to a setting: old value, new value, who, when and why. Tap one to see only that setting.'**
+  String get ccHistoryHint;
+
+  /// No description provided for @ccNoSecurityEvents.
+  ///
+  /// In en, this message translates to:
+  /// **'No security events'**
+  String get ccNoSecurityEvents;
+
+  /// No description provided for @ccUnknownAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'unknown number (no account)'**
+  String get ccUnknownAccount;
+
+  /// No description provided for @ccTraceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by learner name or phone, Sidra payment id, MarzPay id or reference. Each result follows the payment from request to MarzPay to Sidra\'s record.'**
+  String get ccTraceHint;
+
+  /// No description provided for @ccTraceSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Name, phone, id or reference'**
+  String get ccTraceSearch;
+
+  /// No description provided for @ccTraceNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No payment matches'**
+  String get ccTraceNone;
+
+  /// No description provided for @ccTraceStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'1 · The request in Sidra'**
+  String get ccTraceStep1;
+
+  /// No description provided for @ccTraceStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'2 · At MarzPay'**
+  String get ccTraceStep2;
+
+  /// No description provided for @ccTraceStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'3 · Callbacks received'**
+  String get ccTraceStep3;
+
+  /// No description provided for @ccTraceStep4.
+  ///
+  /// In en, this message translates to:
+  /// **'4 · Sidra\'s record and access'**
+  String get ccTraceStep4;
+
+  /// No description provided for @ccTraceMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Method'**
+  String get ccTraceMethod;
+
+  /// No description provided for @ccTraceCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Created'**
+  String get ccTraceCreated;
+
+  /// No description provided for @ccTraceSidraId.
+  ///
+  /// In en, this message translates to:
+  /// **'Sidra id'**
+  String get ccTraceSidraId;
+
+  /// No description provided for @ccTraceReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference'**
+  String get ccTraceReference;
+
+  /// No description provided for @ccTraceProviderId.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay id'**
+  String get ccTraceProviderId;
+
+  /// No description provided for @ccTraceProviderStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay\'s last answer'**
+  String get ccTraceProviderStatus;
+
+  /// No description provided for @ccTraceAttempts.
+  ///
+  /// In en, this message translates to:
+  /// **'Send attempts'**
+  String get ccTraceAttempts;
+
+  /// No description provided for @ccTraceCallbacks.
+  ///
+  /// In en, this message translates to:
+  /// **'Callbacks'**
+  String get ccTraceCallbacks;
+
+  /// No description provided for @ccTraceNoCallbacks.
+  ///
+  /// In en, this message translates to:
+  /// **'None (checked by polling)'**
+  String get ccTraceNoCallbacks;
+
+  /// No description provided for @ccTraceSidraStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Sidra status'**
+  String get ccTraceSidraStatus;
+
+  /// No description provided for @ccTraceVerifiedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get ccTraceVerifiedAt;
+
+  /// No description provided for @ccTraceBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Still owed'**
+  String get ccTraceBalance;
+
+  /// No description provided for @ccTraceOutstanding.
+  ///
+  /// In en, this message translates to:
+  /// **'outstanding'**
+  String get ccTraceOutstanding;
+
+  /// No description provided for @ccTraceEnrolment.
+  ///
+  /// In en, this message translates to:
+  /// **'Course access'**
+  String get ccTraceEnrolment;
+
+  /// No description provided for @ccTraceHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes'**
+  String get ccTraceHistory;
+
+  /// No description provided for @ccTraceAskMarzPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask MarzPay now'**
+  String get ccTraceAskMarzPay;
+
+  /// No description provided for @ccDiagnosticsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Each check says what it tested, what should happen, what happened and what to do next. Results are kept.'**
+  String get ccDiagnosticsHint;
+
+  /// No description provided for @ccRunAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Run all checks'**
+  String get ccRunAll;
+
+  /// No description provided for @ccRunCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Run the check'**
+  String get ccRunCheck;
+
+  /// No description provided for @ccTested.
+  ///
+  /// In en, this message translates to:
+  /// **'Tested'**
+  String get ccTested;
+
+  /// No description provided for @ccExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected'**
+  String get ccExpected;
+
+  /// No description provided for @ccHappened.
+  ///
+  /// In en, this message translates to:
+  /// **'Happened'**
+  String get ccHappened;
+
+  /// No description provided for @ccNextAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get ccNextAction;
+
+  /// No description provided for @ccDiagHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Earlier results'**
+  String get ccDiagHistory;
+
+  /// No description provided for @ccSafetySettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety settings'**
+  String get ccSafetySettings;
+
+  /// No description provided for @diagDbTested.
+  ///
+  /// In en, this message translates to:
+  /// **'A round trip to the database from this phone'**
+  String get diagDbTested;
+
+  /// No description provided for @diagDbExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'An answer within a few seconds'**
+  String get diagDbExpected;
+
+  /// No description provided for @diagDbHappened.
+  ///
+  /// In en, this message translates to:
+  /// **'Answered in {ms} ms'**
+  String diagDbHappened(int ms);
+
+  /// No description provided for @diagSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign-in session'**
+  String get diagSession;
+
+  /// No description provided for @diagSessionTested.
+  ///
+  /// In en, this message translates to:
+  /// **'Renewing this phone\'s session'**
+  String get diagSessionTested;
+
+  /// No description provided for @diagSessionExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'A fresh session'**
+  String get diagSessionExpected;
+
+  /// No description provided for @diagSessionOk.
+  ///
+  /// In en, this message translates to:
+  /// **'Session renewed'**
+  String get diagSessionOk;
+
+  /// No description provided for @diagSessionNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No session: this phone is signed out'**
+  String get diagSessionNone;
+
+  /// No description provided for @diagDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone'**
+  String get diagDevice;
+
+  /// No description provided for @diagDeviceTested.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration, permissions and app version'**
+  String get diagDeviceTested;
+
+  /// No description provided for @diagDeviceExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'Registered, with notifications and microphone allowed'**
+  String get diagDeviceExpected;
+
+  /// No description provided for @diagDeviceLinked.
+  ///
+  /// In en, this message translates to:
+  /// **'Registered as {model}, Sidra {version}'**
+  String diagDeviceLinked(String model, String version);
+
+  /// No description provided for @diagDeviceNotLinked.
+  ///
+  /// In en, this message translates to:
+  /// **'Not linked to this session yet (sign out and in once)'**
+  String get diagDeviceNotLinked;
+
+  /// No description provided for @diagStorageTested.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading a tiny file to Cloudinary, then downloading it'**
+  String get diagStorageTested;
+
+  /// No description provided for @diagStorageExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'The same content comes back'**
+  String get diagStorageExpected;
+
+  /// No description provided for @diagStorageOk.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploaded, signed and downloaded intact'**
+  String get diagStorageOk;
+
+  /// No description provided for @diagStorageMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'The downloaded file differs from what was uploaded'**
+  String get diagStorageMismatch;
+
+  /// No description provided for @diagNotifTested.
+  ///
+  /// In en, this message translates to:
+  /// **'Creating a notification for you'**
+  String get diagNotifTested;
+
+  /// No description provided for @diagNotifExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'It appears in the app and on the notification bar'**
+  String get diagNotifExpected;
+
+  /// No description provided for @diagNotifSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Created'**
+  String get diagNotifSent;
+
+  /// No description provided for @diagNotifNext.
+  ///
+  /// In en, this message translates to:
+  /// **'It should appear on the notification bar within a minute while Sidra is open (15 minutes when closed). If not, check this phone\'s notification permission.'**
+  String get diagNotifNext;
+
+  /// No description provided for @diagSyncTested.
+  ///
+  /// In en, this message translates to:
+  /// **'Work waiting on this phone'**
+  String get diagSyncTested;
+
+  /// No description provided for @diagSyncExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing stuck'**
+  String get diagSyncExpected;
+
+  /// No description provided for @diagServerTested.
+  ///
+  /// In en, this message translates to:
+  /// **'The payments server\'s heartbeat'**
+  String get diagServerTested;
+
+  /// No description provided for @diagServerExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'Seen in the last 90 seconds'**
+  String get diagServerExpected;
+
+  /// No description provided for @diagMarzTested.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay\'s status from the latest tests'**
+  String get diagMarzTested;
+
+  /// No description provided for @diagMarzExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected, and a real collection proven'**
+  String get diagMarzExpected;
+
+  /// No description provided for @diagAppTested.
+  ///
+  /// In en, this message translates to:
+  /// **'This app\'s build against the newest published'**
+  String get diagAppTested;
+
+  /// No description provided for @diagAppExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'The newest build'**
+  String get diagAppExpected;
+
+  /// No description provided for @diagAppCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to date: {version} ({build})'**
+  String diagAppCurrent(String version, String build);
+
+  /// No description provided for @diagAppOld.
+  ///
+  /// In en, this message translates to:
+  /// **'Build {build}, newest is {latest}'**
+  String diagAppOld(String build, int latest);
+
+  /// No description provided for @diagNextCheckNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Check this phone\'s internet, then run again.'**
+  String get diagNextCheckNetwork;
+
+  /// No description provided for @diagNextSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again.'**
+  String get diagNextSignIn;
+
+  /// No description provided for @diagNextPermissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow them in the phone\'s settings → Apps → Sidra.'**
+  String get diagNextPermissions;
+
+  /// No description provided for @diagNextStorage.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Cloudinary\'s status and plan limits; ask the developer if it continues.'**
+  String get diagNextStorage;
+
+  /// No description provided for @diagNextSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Offline and sync and retry the failed items.'**
+  String get diagNextSync;
+
+  /// No description provided for @diagNextServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Start the payments server on its host (see docs/OPERATIONS.md). Until then, mobile-money payments wait.'**
+  String get diagNextServer;
+
+  /// No description provided for @diagNextMarz.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the MarzPay test centre and run the connection test.'**
+  String get diagNextMarz;
+
+  /// No description provided for @diagNextUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Install the newest APK.'**
+  String get diagNextUpdate;
+
+  /// No description provided for @mcConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection'**
+  String get mcConnection;
+
+  /// No description provided for @mcConnectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Network, TLS, credentials, account, environment, latency.'**
+  String get mcConnectionHint;
+
+  /// No description provided for @mcCapabilities.
+  ///
+  /// In en, this message translates to:
+  /// **'What MarzPay offers this account'**
+  String get mcCapabilities;
+
+  /// No description provided for @mcCapabilitiesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Reads the collection and disbursement services, balance access and webhooks.'**
+  String get mcCapabilitiesHint;
+
+  /// No description provided for @mcBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance'**
+  String get mcBalance;
+
+  /// No description provided for @mcBalanceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The MarzPay wallet balance.'**
+  String get mcBalanceHint;
+
+  /// No description provided for @mcCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'Collection (receive money)'**
+  String get mcCollection;
+
+  /// No description provided for @mcCollectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A real prompt on a phone; proven from MarzPay\'s own ledger.'**
+  String get mcCollectionHint;
+
+  /// No description provided for @mcDisbursement.
+  ///
+  /// In en, this message translates to:
+  /// **'Disbursement (send money)'**
+  String get mcDisbursement;
+
+  /// No description provided for @mcDisbursementHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Money leaves the wallet to a phone. Off until switched on.'**
+  String get mcDisbursementHint;
+
+  /// No description provided for @mcLookup.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction lookup'**
+  String get mcLookup;
+
+  /// No description provided for @mcLookupHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare Sidra\'s record with MarzPay\'s for one payment.'**
+  String get mcLookupHint;
+
+  /// No description provided for @mcLookupField.
+  ///
+  /// In en, this message translates to:
+  /// **'Sidra id, MarzPay id or reference'**
+  String get mcLookupField;
+
+  /// No description provided for @mcCallbacks.
+  ///
+  /// In en, this message translates to:
+  /// **'Callbacks'**
+  String get mcCallbacks;
+
+  /// No description provided for @mcCallbacksHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Can MarzPay notify Sidra? Lists what was received.'**
+  String get mcCallbacksHint;
+
+  /// No description provided for @mcReconciliation.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconciliation'**
+  String get mcReconciliation;
+
+  /// No description provided for @mcReconciliationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Every Sidra mobile-money payment (30 days) against MarzPay\'s ledger.'**
+  String get mcReconciliationHint;
+
+  /// No description provided for @mcAuthentication.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication'**
+  String get mcAuthentication;
+
+  /// No description provided for @mcCollectionMm.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile money collection (MTN, Airtel)'**
+  String get mcCollectionMm;
+
+  /// No description provided for @mcCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Card payments'**
+  String get mcCard;
+
+  /// No description provided for @mcDisbursementMm.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile money disbursement'**
+  String get mcDisbursementMm;
+
+  /// No description provided for @mcBank.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank transfer'**
+  String get mcBank;
+
+  /// No description provided for @mcWallet.
+  ///
+  /// In en, this message translates to:
+  /// **'Account-to-account (wallet transfer)'**
+  String get mcWallet;
+
+  /// No description provided for @mcRefund.
+  ///
+  /// In en, this message translates to:
+  /// **'Refund / reversal'**
+  String get mcRefund;
+
+  /// No description provided for @mcMatrix.
+  ///
+  /// In en, this message translates to:
+  /// **'Capabilities'**
+  String get mcMatrix;
+
+  /// No description provided for @mcMatrixHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Provider: offered by MarzPay for this account. Sidra: built in Sidra. The badge shows the latest evidence.'**
+  String get mcMatrixHint;
+
+  /// No description provided for @mcProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay'**
+  String get mcProvider;
+
+  /// No description provided for @mcSidra.
+  ///
+  /// In en, this message translates to:
+  /// **'Sidra'**
+  String get mcSidra;
+
+  /// No description provided for @mcUnsupportedByProvider.
+  ///
+  /// In en, this message translates to:
+  /// **'Not offered by MarzPay'**
+  String get mcUnsupportedByProvider;
+
+  /// No description provided for @mcRunCapabilities.
+  ///
+  /// In en, this message translates to:
+  /// **'Run the capabilities test'**
+  String get mcRunCapabilities;
+
+  /// No description provided for @mcSidraMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay offers it; Sidra doesn\'t use it yet'**
+  String get mcSidraMissing;
+
+  /// No description provided for @mcImplementedUntested.
+  ///
+  /// In en, this message translates to:
+  /// **'Built, not tested yet'**
+  String get mcImplementedUntested;
+
+  /// No description provided for @mcImplementedBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Built; verification blocked'**
+  String get mcImplementedBlocked;
+
+  /// No description provided for @mcVerified.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get mcVerified;
+
+  /// No description provided for @mcAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Accepted, not proven'**
+  String get mcAccepted;
+
+  /// No description provided for @mcFailedR.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get mcFailedR;
+
+  /// No description provided for @mcCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get mcCancelled;
+
+  /// No description provided for @mcPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get mcPending;
+
+  /// No description provided for @mcUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get mcUnknown;
+
+  /// No description provided for @mcBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked'**
+  String get mcBlocked;
+
+  /// No description provided for @mcUnsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported'**
+  String get mcUnsupported;
+
+  /// No description provided for @mcRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'Running…'**
+  String get mcRunning;
+
+  /// No description provided for @mcRealMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'REAL MONEY'**
+  String get mcRealMoney;
+
+  /// No description provided for @mcLast.
+  ///
+  /// In en, this message translates to:
+  /// **'Last'**
+  String get mcLast;
+
+  /// No description provided for @mcIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Tests run on the payments server (the only place with MarzPay\'s keys). Each ends with proof or an honest reason why not. Opening this page never starts a test.'**
+  String get mcIntro;
+
+  /// No description provided for @mcWhatTesting.
+  ///
+  /// In en, this message translates to:
+  /// **'What are you testing?'**
+  String get mcWhatTesting;
+
+  /// No description provided for @mcTestTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Test'**
+  String get mcTestTab;
+
+  /// No description provided for @mcHistoryTab.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get mcHistoryTab;
+
+  /// No description provided for @mcCallbacksList.
+  ///
+  /// In en, this message translates to:
+  /// **'Every call MarzPay made to Sidra, and what Sidra did with it.'**
+  String get mcCallbacksList;
+
+  /// No description provided for @mcNoCallbacks.
+  ///
+  /// In en, this message translates to:
+  /// **'No callbacks received yet'**
+  String get mcNoCallbacks;
+
+  /// No description provided for @mcDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'duplicate'**
+  String get mcDuplicate;
+
+  /// No description provided for @mcNoTests.
+  ///
+  /// In en, this message translates to:
+  /// **'No tests yet'**
+  String get mcNoTests;
+
+  /// No description provided for @mcRunTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Run test'**
+  String get mcRunTest;
+
+  /// No description provided for @mcFormInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an MTN or Airtel Uganda number and an amount.'**
+  String get mcFormInvalid;
+
+  /// No description provided for @mcRealTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This moves real money'**
+  String get mcRealTitle;
+
+  /// No description provided for @mcRealCollect.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} UGX will be requested from {phone}. The phone owner must enter their PIN. The money goes into the MarzPay wallet.'**
+  String mcRealCollect(int amount, String phone);
+
+  /// No description provided for @mcRealSend.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} UGX will be sent from the MarzPay wallet to {phone}. This can\'t be undone by Sidra.'**
+  String mcRealSend(int amount, String phone);
+
+  /// No description provided for @mcContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get mcContinue;
+
+  /// No description provided for @mcTypeToConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Type exactly this to confirm'**
+  String get mcTypeToConfirm;
+
+  /// No description provided for @mcCollectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'A real payment prompt will appear on the phone you enter. Use your own phone and the smallest amount.'**
+  String get mcCollectWarning;
+
+  /// No description provided for @mcSendWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Real money will leave the MarzPay wallet. The recipient should confirm receipt.'**
+  String get mcSendWarning;
+
+  /// No description provided for @mcPayerPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Payer\'s phone (MTN or Airtel)'**
+  String get mcPayerPhone;
+
+  /// No description provided for @mcRecipientPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipient\'s phone (MTN or Airtel)'**
+  String get mcRecipientPhone;
+
+  /// No description provided for @mcAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount (UGX)'**
+  String get mcAmount;
+
+  /// No description provided for @mcAmountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'At least 500; at most the limit in Safety settings.'**
+  String get mcAmountHint;
+
+  /// No description provided for @mcDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get mcDescription;
+
+  /// No description provided for @mcStartCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'Request the payment'**
+  String get mcStartCollection;
+
+  /// No description provided for @mcStartDisbursement.
+  ///
+  /// In en, this message translates to:
+  /// **'Send the money'**
+  String get mcStartDisbursement;
+
+  /// No description provided for @mcQueuedLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Still waiting: the payments server may be offline. The test starts as soon as it is running.'**
+  String get mcQueuedLong;
+
+  /// No description provided for @mcEvidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Evidence'**
+  String get mcEvidence;
+
+  /// No description provided for @mcEnvironment.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment'**
+  String get mcEnvironment;
+
+  /// No description provided for @ccMarzSelfChecks.
+  ///
+  /// In en, this message translates to:
+  /// **'Integration self-checks (duplicates, timeouts, validation)'**
+  String get ccMarzSelfChecks;
 }
 
 class _AppLocalizationsDelegate

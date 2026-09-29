@@ -20,7 +20,8 @@ void main() {
       'courses_draft': 0,
       'courses_in_review': 0,
     };
-    api.rpcHandlers['dashboard_list'] = (p) => p['p_kind'] == 'active_learners_7d'
+    api.rpcHandlers['dashboard_list'] = (p) =>
+        p['p_kind'] == 'active_learners_7d'
         ? [
             {'title': 'Aisha', 'user_id': 'a', 'at': '2026-09-29T08:00:00Z'},
             {'title': 'Bilal', 'user_id': 'b', 'at': '2026-09-28T08:00:00Z'},

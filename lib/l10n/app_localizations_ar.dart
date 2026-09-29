@@ -4248,4 +4248,855 @@ class AppLocalizationsAr extends AppLocalizations {
   String dashOpenReports(int n) {
     return '$n بلاغ مشكلة';
   }
+
+  @override
+  String get ccGeneral => 'عام';
+
+  @override
+  String get ccGeneralHint =>
+      'اسم المؤسسة والمنطقة الزمنية ووسائل الاتصال والمراسلة.';
+
+  @override
+  String get ccAccess => 'المستخدمون والدخول';
+
+  @override
+  String get ccAccessHint =>
+      'من يمكنه التسجيل، قواعد كلمة المرور، القفل وحماية تسجيل الدخول.';
+
+  @override
+  String get ccTeaching => 'التدريس';
+
+  @override
+  String get ccSecurity => 'الأجهزة والأمان';
+
+  @override
+  String get ccSecurityHint =>
+      'الهواتف المسجلة والجلسات ومحاولات الدخول الفاشلة وتسجيلات الخروج.';
+
+  @override
+  String get ccPaymentsHint => 'طرق الدفع وتعليمات الدفع اليدوي وتتبّع دفعة.';
+
+  @override
+  String get ccMarzpayHint =>
+      'المال عبر الهاتف من خلال MarzPay: حالته الحقيقية ومركز الاختبار وحدود الأمان.';
+
+  @override
+  String get ccStorage => 'التخزين والوسائط';
+
+  @override
+  String get ccStorageHint =>
+      'مكان حفظ الملفات (Cloudinary) وحد الرفع وفحوص التخزين.';
+
+  @override
+  String get ccDatabase => 'قاعدة البيانات';
+
+  @override
+  String get ccDatabaseHint =>
+      'الاتصال وإصدار المخطط. تغييرات البنية تتم عبر عملية الإصدار، لا هنا.';
+
+  @override
+  String get ccSync => 'العمل دون اتصال والمزامنة';
+
+  @override
+  String get ccSyncHint => 'العمل المحفوظ على هذا الهاتف والذي ينتظر الإرسال.';
+
+  @override
+  String get ccAudit => 'السجل والتدقيق';
+
+  @override
+  String get ccAuditHint => 'من غيّر أي إعداد ومتى ولماذا؛ تصدير البيانات.';
+
+  @override
+  String get ccApplication => 'التطبيق';
+
+  @override
+  String get ccAdvanced => 'التشخيص';
+
+  @override
+  String get ccAdvancedHint => 'شغّل الفحوص عند حدوث عطل، مع سجل للنتائج.';
+
+  @override
+  String get ccTimeZone => 'المنطقة الزمنية (مثل Africa/Kampala)';
+
+  @override
+  String get ccTimeZoneHint => 'تُستخدم للمواعيد وعطلات نهاية الأسبوع والعطل.';
+
+  @override
+  String get ccMessagingOn => 'المراسلة للموظفين';
+
+  @override
+  String get ccMessagingLearners => 'يمكن للمتعلمين استخدام المراسلة أيضًا';
+
+  @override
+  String get ccSigninBrake => 'مكبح عام: محاولات دخول فاشلة في الدقيقة';
+
+  @override
+  String get ccSigninBrakeHint =>
+      'فوق هذا الحد يجيب تسجيل الدخول «حاول لاحقًا» لمدة دقيقة (يوقف تخمين حسابات كثيرة).';
+
+  @override
+  String get ccPresenceMinutes => '«متصل» يعني ظهر خلال (دقائق)';
+
+  @override
+  String get ccAuthKeepDays => 'الاحتفاظ بسجل الدخول لمدة (أيام)';
+
+  @override
+  String get ccDefaultPassMark => 'درجة النجاح للدورات الجديدة (%)';
+
+  @override
+  String get ccMarzTestsOn => 'اختبارات MarzPay مسموحة (إيقاف طارئ)';
+
+  @override
+  String get ccMarzTestsOnHint =>
+      'الإيقاف يوقف كل الاختبارات فورًا، ومنها المنتظرة.';
+
+  @override
+  String get ccMarzTestMax => 'أكبر مبلغ للاختبار (شلن)';
+
+  @override
+  String get ccMarzDisbursementOn => 'السماح باختبارات إرسال المال';
+
+  @override
+  String get ccMarzDisbursementOnHint =>
+      'يخرج المال من محفظة MarzPay. مُعطّل افتراضيًا.';
+
+  @override
+  String get ccUploadMax => 'أكبر ملف للرفع (ميغابايت)';
+
+  @override
+  String get ccUploadMaxHint =>
+      'ترفض الهواتف الملفات الأكبر قبل الإرسال. ويُطبّق أيضًا حد خطة Cloudinary.';
+
+  @override
+  String get ccSendTestNotification => 'أرسل لي إشعارًا تجريبيًا';
+
+  @override
+  String get ccPaymentTrace => 'تتبّع دفعة';
+
+  @override
+  String get ccMarzCenter => 'مركز اختبار MarzPay';
+
+  @override
+  String get ccDiagnostics => 'التشخيص';
+
+  @override
+  String get ccSettingsHistory => 'سجل الإعدادات';
+
+  @override
+  String get ccSecurityEvents => 'أحداث الأمان';
+
+  @override
+  String get ccOk => 'سليم';
+
+  @override
+  String get ccWarning => 'انتباه';
+
+  @override
+  String get ccFailed => 'فشل';
+
+  @override
+  String get ccUntested => 'لم يُختبر';
+
+  @override
+  String get ccDisabled => 'متوقف';
+
+  @override
+  String get ccSearchHint =>
+      'ابحث في الإعدادات: كلمة المرور، الدفع، الإشعارات…';
+
+  @override
+  String get ccHealthTitle => 'هل سدرة سليمة الآن؟';
+
+  @override
+  String get ccHealthHint => 'الحالة الحية لكل جزء. اضغط أحدها للتفاصيل.';
+
+  @override
+  String get ccHealthNoPermission => 'لا يمكن لدورك رؤية حالة النظام.';
+
+  @override
+  String get ccSections => 'الأقسام';
+
+  @override
+  String get ccMarzDisabled => 'أوقفه مسؤول';
+
+  @override
+  String get ccMarzConnFailed => 'فشل آخر اختبار اتصال';
+
+  @override
+  String get ccMarzServerDown =>
+      'خادم المدفوعات متوقف: لا يمكن إرسال المدفوعات';
+
+  @override
+  String get ccMarzVerified => 'مُتحقَّق: جُمع مال فعلًا عبر سدرة';
+
+  @override
+  String get ccMarzAuthOnly => 'متصل ومعتمد؛ لم يُثبت تحصيل حقيقي بعد';
+
+  @override
+  String get ccMarzUntested => 'لم يُختبر بعد';
+
+  @override
+  String ccDbLine(String have, String expected) {
+    return 'المخطط $have (يتوقع هذا التطبيق $expected)';
+  }
+
+  @override
+  String get ccPaymentsServer => 'خادم المدفوعات';
+
+  @override
+  String ccServerOnline(Object version) {
+    return 'متصل (الإصدار $version)';
+  }
+
+  @override
+  String get ccServerNever => 'لم يظهر أبدًا: لا يعمل في أي مكان';
+
+  @override
+  String ccServerLastSeen(String when) {
+    return 'متوقف، آخر ظهور $when';
+  }
+
+  @override
+  String ccStorageLine(Object n, String when) {
+    return '$n عمليات رفع اليوم؛ آخرها $when';
+  }
+
+  @override
+  String get ccStorageMissing => 'مفاتيح Cloudinary غير موجودة: سيفشل الرفع';
+
+  @override
+  String ccNotifLine(Object sent, Object phones, Object blocked) {
+    return '$sent أُرسلت اليوم · $phones هواتف مسجلة · $blocked هواتف تحظر الإشعارات';
+  }
+
+  @override
+  String ccSecurityLine(Object failed, Object locked, Object many) {
+    return '$failed محاولات دخول فاشلة اليوم · $locked مقفل · $many حسابات على هواتف كثيرة';
+  }
+
+  @override
+  String get ccLearning => 'التعلم';
+
+  @override
+  String ccLearningLine(
+    Object active,
+    Object reports,
+    Object late,
+    Object review,
+  ) {
+    return '$active نشط هذا الأسبوع · $reports بلاغات · $late متأخر · $review تنتظر المراجعة منذ يومين+';
+  }
+
+  @override
+  String ccPaymentsLine(Object manual, Object stuck) {
+    return '$manual مدفوعات يدوية للتحقق · $stuck مدفوعات هاتف عالقة';
+  }
+
+  @override
+  String ccAppLine(String version, String build, Object latest) {
+    return 'هذا الهاتف $version ($build) · أحدث بناء $latest';
+  }
+
+  @override
+  String ccDiagLine(Object n) {
+    return '$n فحوص فاشلة في آخر يوم';
+  }
+
+  @override
+  String ccCheckedAt(String when) {
+    return 'فُحص $when';
+  }
+
+  @override
+  String ccSaved(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'حُفظت $n إعدادات',
+      one: 'حُفظ إعداد واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ccSavedSome(int ok, int failed) {
+    return '$ok حُفظ، $failed رُفض: انظر الرسائل الحمراء';
+  }
+
+  @override
+  String get ccReason => 'سبب التغيير (يُسجَّل)';
+
+  @override
+  String ccSaveChanges(int n) {
+    return 'حفظ $n';
+  }
+
+  @override
+  String ccRange(int min, int max) {
+    return 'بين $min و$max.';
+  }
+
+  @override
+  String ccLastChanged(String name, String when) {
+    return 'آخر تغيير بواسطة $name، $when';
+  }
+
+  @override
+  String get ccSystem => 'النظام';
+
+  @override
+  String get ccYes => 'نعم';
+
+  @override
+  String get ccNo => 'لا';
+
+  @override
+  String get ccDbConnected => 'متصل';
+
+  @override
+  String get ccDbLatest => 'أحدث تغيير مطبّق';
+
+  @override
+  String get ccDbAppExpects => 'يتوقع هذا التطبيق';
+
+  @override
+  String get ccDbCount => 'التغييرات المطبقة';
+
+  @override
+  String get ccDbBackups => 'النسخ الاحتياطية';
+
+  @override
+  String get ccDbBackupsHint =>
+      'تحفظها Neon (راجع لوحتها؛ الخطط المدفوعة تستعيد لأي لحظة)';
+
+  @override
+  String get ccStorageProvider => 'المزوّد';
+
+  @override
+  String get ccConfigured => 'مُهيّأ';
+
+  @override
+  String get ccLastUpload => 'آخر رفع';
+
+  @override
+  String get ccUploads24h => 'عمليات الرفع اليوم';
+
+  @override
+  String get ccPurgeWaiting => 'ملفات تنتظر الحذف';
+
+  @override
+  String get ccPublicAddress => 'عنوان عام للردود';
+
+  @override
+  String get ccNoPollingOnly => 'لا (تُفحص المدفوعات كل 20 ثانية)';
+
+  @override
+  String get ccVerifiedPayments => 'مدفوعات هاتف مُتحقّقة';
+
+  @override
+  String get ccStuckPayments => 'عالقة لأكثر من ساعة';
+
+  @override
+  String get ccThisPhone => 'هذا الهاتف';
+
+  @override
+  String get ccBuildsInUse => 'الإصدارات المستخدمة (البناء: الهواتف)';
+
+  @override
+  String get ccFailedSignIns => 'محاولات دخول فاشلة (24 ساعة)';
+
+  @override
+  String get ccThrottled => 'تفعيل المكبح (24 ساعة)';
+
+  @override
+  String get ccLockedNow => 'حسابات مقفلة الآن';
+
+  @override
+  String get ccRevoked7d => 'هواتف أخرجها المسؤولون (7 أيام)';
+
+  @override
+  String get ccManyDevices => 'حسابات مسجلة على أكثر من 3 هواتف';
+
+  @override
+  String get ccSyncThisPhone => 'على هذا الهاتف';
+
+  @override
+  String ccSyncLine(int pending, int rejected, int queued) {
+    return '$pending تغييرات تقدم تنتظر · $rejected مرفوضة · $queued تسليمات في الطابور';
+  }
+
+  @override
+  String get ccSyncNow => 'أرسل الآن';
+
+  @override
+  String get ccHistoryHint =>
+      'كل تغيير في إعداد: القيمة القديمة والجديدة ومن ومتى ولماذا. اضغط أحدها لرؤيته وحده.';
+
+  @override
+  String get ccNoSecurityEvents => 'لا توجد أحداث أمان';
+
+  @override
+  String get ccUnknownAccount => 'رقم غير معروف (بلا حساب)';
+
+  @override
+  String get ccTraceHint =>
+      'ابحث باسم المتعلم أو هاتفه أو معرّف الدفعة في سدرة أو معرّف MarzPay أو المرجع. كل نتيجة تتبّع الدفعة من الطلب إلى MarzPay إلى سجل سدرة.';
+
+  @override
+  String get ccTraceSearch => 'الاسم أو الهاتف أو المعرّف أو المرجع';
+
+  @override
+  String get ccTraceNone => 'لا توجد دفعة مطابقة';
+
+  @override
+  String get ccTraceStep1 => '1 · الطلب في سدرة';
+
+  @override
+  String get ccTraceStep2 => '2 · لدى MarzPay';
+
+  @override
+  String get ccTraceStep3 => '3 · الردود المستلمة';
+
+  @override
+  String get ccTraceStep4 => '4 · سجل سدرة والوصول';
+
+  @override
+  String get ccTraceMethod => 'الطريقة';
+
+  @override
+  String get ccTraceCreated => 'أُنشئت';
+
+  @override
+  String get ccTraceSidraId => 'معرّف سدرة';
+
+  @override
+  String get ccTraceReference => 'المرجع';
+
+  @override
+  String get ccTraceProviderId => 'معرّف MarzPay';
+
+  @override
+  String get ccTraceProviderStatus => 'آخر رد من MarzPay';
+
+  @override
+  String get ccTraceAttempts => 'محاولات الإرسال';
+
+  @override
+  String get ccTraceCallbacks => 'الردود';
+
+  @override
+  String get ccTraceNoCallbacks => 'لا شيء (يُفحص بالاستعلام الدوري)';
+
+  @override
+  String get ccTraceSidraStatus => 'حالة سدرة';
+
+  @override
+  String get ccTraceVerifiedAt => 'تم التحقق';
+
+  @override
+  String get ccTraceBalance => 'المتبقي';
+
+  @override
+  String get ccTraceOutstanding => 'مستحق';
+
+  @override
+  String get ccTraceEnrolment => 'الوصول إلى الدورة';
+
+  @override
+  String get ccTraceHistory => 'التغييرات';
+
+  @override
+  String get ccTraceAskMarzPay => 'اسأل MarzPay الآن';
+
+  @override
+  String get ccDiagnosticsHint =>
+      'كل فحص يبيّن ما اختبره وما ينبغي أن يحدث وما حدث وما العمل التالي. تُحفظ النتائج.';
+
+  @override
+  String get ccRunAll => 'شغّل كل الفحوص';
+
+  @override
+  String get ccRunCheck => 'شغّل الفحص';
+
+  @override
+  String get ccTested => 'ما اختُبر';
+
+  @override
+  String get ccExpected => 'المتوقع';
+
+  @override
+  String get ccHappened => 'ما حدث';
+
+  @override
+  String get ccNextAction => 'التالي';
+
+  @override
+  String get ccDiagHistory => 'نتائج سابقة';
+
+  @override
+  String get ccSafetySettings => 'إعدادات الأمان';
+
+  @override
+  String get diagDbTested => 'رحلة ذهاب وإياب إلى قاعدة البيانات من هذا الهاتف';
+
+  @override
+  String get diagDbExpected => 'إجابة خلال ثوانٍ';
+
+  @override
+  String diagDbHappened(int ms) {
+    return 'أجابت خلال $ms مللي ثانية';
+  }
+
+  @override
+  String get diagSession => 'جلسة الدخول';
+
+  @override
+  String get diagSessionTested => 'تجديد جلسة هذا الهاتف';
+
+  @override
+  String get diagSessionExpected => 'جلسة جديدة';
+
+  @override
+  String get diagSessionOk => 'جُددت الجلسة';
+
+  @override
+  String get diagSessionNone => 'لا جلسة: هذا الهاتف غير مسجّل';
+
+  @override
+  String get diagDevice => 'هذا الهاتف';
+
+  @override
+  String get diagDeviceTested => 'التسجيل والأذونات وإصدار التطبيق';
+
+  @override
+  String get diagDeviceExpected => 'مسجّل مع السماح بالإشعارات والميكروفون';
+
+  @override
+  String diagDeviceLinked(String model, String version) {
+    return 'مسجّل باسم $model، سدرة $version';
+  }
+
+  @override
+  String get diagDeviceNotLinked =>
+      'غير مرتبط بهذه الجلسة بعد (اخرج وادخل مرة)';
+
+  @override
+  String get diagStorageTested => 'رفع ملف صغير إلى Cloudinary ثم تنزيله';
+
+  @override
+  String get diagStorageExpected => 'يعود المحتوى نفسه';
+
+  @override
+  String get diagStorageOk => 'رُفع ووُقّع ونُزّل سليمًا';
+
+  @override
+  String get diagStorageMismatch => 'الملف المنزّل يختلف عن المرفوع';
+
+  @override
+  String get diagNotifTested => 'إنشاء إشعار لك';
+
+  @override
+  String get diagNotifExpected => 'يظهر في التطبيق وفي شريط الإشعارات';
+
+  @override
+  String get diagNotifSent => 'أُنشئ';
+
+  @override
+  String get diagNotifNext =>
+      'يجب أن يظهر في شريط الإشعارات خلال دقيقة وسدرة مفتوحة (15 دقيقة إن كانت مغلقة). وإلا فتحقق من إذن الإشعارات.';
+
+  @override
+  String get diagSyncTested => 'العمل المنتظر على هذا الهاتف';
+
+  @override
+  String get diagSyncExpected => 'لا شيء عالق';
+
+  @override
+  String get diagServerTested => 'نبض خادم المدفوعات';
+
+  @override
+  String get diagServerExpected => 'ظهر خلال آخر 90 ثانية';
+
+  @override
+  String get diagMarzTested => 'حالة MarzPay من أحدث الاختبارات';
+
+  @override
+  String get diagMarzExpected => 'متصل مع تحصيل حقيقي مُثبت';
+
+  @override
+  String get diagAppTested => 'بناء هذا التطبيق مقابل أحدث منشور';
+
+  @override
+  String get diagAppExpected => 'أحدث بناء';
+
+  @override
+  String diagAppCurrent(String version, String build) {
+    return 'محدّث: $version ($build)';
+  }
+
+  @override
+  String diagAppOld(String build, int latest) {
+    return 'البناء $build، الأحدث $latest';
+  }
+
+  @override
+  String get diagNextCheckNetwork =>
+      'تحقق من إنترنت هذا الهاتف ثم أعد التشغيل.';
+
+  @override
+  String get diagNextSignIn => 'سجّل الدخول مجددًا.';
+
+  @override
+  String get diagNextPermissions =>
+      'اسمح بها من إعدادات الهاتف ← التطبيقات ← سدرة.';
+
+  @override
+  String get diagNextStorage =>
+      'تحقق من حالة Cloudinary وحدود الخطة؛ واسأل المطوّر إن استمر.';
+
+  @override
+  String get diagNextSync =>
+      'افتح «العمل دون اتصال والمزامنة» وأعد محاولة العناصر الفاشلة.';
+
+  @override
+  String get diagNextServer =>
+      'شغّل خادم المدفوعات على مضيفه (انظر docs/OPERATIONS.md). وحتى ذلك تنتظر مدفوعات الهاتف.';
+
+  @override
+  String get diagNextMarz => 'افتح مركز اختبار MarzPay وشغّل اختبار الاتصال.';
+
+  @override
+  String get diagNextUpdate => 'ثبّت أحدث نسخة.';
+
+  @override
+  String get mcConnection => 'الاتصال';
+
+  @override
+  String get mcConnectionHint =>
+      'الشبكة وTLS وبيانات الاعتماد والحساب والبيئة وزمن الاستجابة.';
+
+  @override
+  String get mcCapabilities => 'ما يقدمه MarzPay لهذا الحساب';
+
+  @override
+  String get mcCapabilitiesHint =>
+      'يقرأ خدمات التحصيل والصرف والوصول إلى الرصيد والردود.';
+
+  @override
+  String get mcBalance => 'الرصيد';
+
+  @override
+  String get mcBalanceHint => 'رصيد محفظة MarzPay.';
+
+  @override
+  String get mcCollection => 'التحصيل (استلام مال)';
+
+  @override
+  String get mcCollectionHint =>
+      'طلب حقيقي على هاتف؛ يُثبت من دفتر MarzPay نفسه.';
+
+  @override
+  String get mcDisbursement => 'الصرف (إرسال مال)';
+
+  @override
+  String get mcDisbursementHint =>
+      'يخرج المال من المحفظة إلى هاتف. مُعطّل حتى يُفعّل.';
+
+  @override
+  String get mcLookup => 'البحث عن معاملة';
+
+  @override
+  String get mcLookupHint => 'قارن سجل سدرة مع سجل MarzPay لدفعة واحدة.';
+
+  @override
+  String get mcLookupField => 'معرّف سدرة أو MarzPay أو المرجع';
+
+  @override
+  String get mcCallbacks => 'الردود';
+
+  @override
+  String get mcCallbacksHint => 'هل يستطيع MarzPay إبلاغ سدرة؟ يعرض ما وصل.';
+
+  @override
+  String get mcReconciliation => 'المطابقة';
+
+  @override
+  String get mcReconciliationHint =>
+      'كل مدفوعات الهاتف في سدرة (30 يومًا) مقابل دفتر MarzPay.';
+
+  @override
+  String get mcAuthentication => 'الاعتماد';
+
+  @override
+  String get mcCollectionMm => 'تحصيل عبر الهاتف (MTN وAirtel)';
+
+  @override
+  String get mcCard => 'الدفع بالبطاقة';
+
+  @override
+  String get mcDisbursementMm => 'صرف عبر الهاتف';
+
+  @override
+  String get mcBank => 'تحويل بنكي';
+
+  @override
+  String get mcWallet => 'من حساب إلى حساب (تحويل محفظة)';
+
+  @override
+  String get mcRefund => 'استرداد / عكس';
+
+  @override
+  String get mcMatrix => 'القدرات';
+
+  @override
+  String get mcMatrixHint =>
+      'المزوّد: يقدمه MarzPay لهذا الحساب. سدرة: مبني في سدرة. تُظهر الشارة أحدث دليل.';
+
+  @override
+  String get mcProvider => 'MarzPay';
+
+  @override
+  String get mcSidra => 'سدرة';
+
+  @override
+  String get mcUnsupportedByProvider => 'لا يقدمه MarzPay';
+
+  @override
+  String get mcRunCapabilities => 'شغّل اختبار القدرات';
+
+  @override
+  String get mcSidraMissing => 'يقدمه MarzPay؛ لم تستخدمه سدرة بعد';
+
+  @override
+  String get mcImplementedUntested => 'مبني، لم يُختبر بعد';
+
+  @override
+  String get mcImplementedBlocked => 'مبني؛ التحقق محجوب';
+
+  @override
+  String get mcVerified => 'مُتحقّق';
+
+  @override
+  String get mcAccepted => 'مقبول، غير مُثبت';
+
+  @override
+  String get mcFailedR => 'فشل';
+
+  @override
+  String get mcCancelled => 'أُلغي';
+
+  @override
+  String get mcPending => 'قيد الانتظار';
+
+  @override
+  String get mcUnknown => 'غير معروف';
+
+  @override
+  String get mcBlocked => 'محجوب';
+
+  @override
+  String get mcUnsupported => 'غير مدعوم';
+
+  @override
+  String get mcRunning => 'قيد التشغيل…';
+
+  @override
+  String get mcRealMoney => 'مال حقيقي';
+
+  @override
+  String get mcLast => 'الأخير';
+
+  @override
+  String get mcIntro =>
+      'تعمل الاختبارات على خادم المدفوعات (المكان الوحيد الذي يحمل مفاتيح MarzPay). ينتهي كل منها بدليل أو بسبب صادق. فتح هذه الصفحة لا يبدأ أي اختبار.';
+
+  @override
+  String get mcWhatTesting => 'ماذا تختبر؟';
+
+  @override
+  String get mcTestTab => 'اختبار';
+
+  @override
+  String get mcHistoryTab => 'السجل';
+
+  @override
+  String get mcCallbacksList =>
+      'كل اتصال أجراه MarzPay بسدرة وما فعلته سدرة به.';
+
+  @override
+  String get mcNoCallbacks => 'لم تصل ردود بعد';
+
+  @override
+  String get mcDuplicate => 'مكرر';
+
+  @override
+  String get mcNoTests => 'لا توجد اختبارات بعد';
+
+  @override
+  String get mcRunTest => 'شغّل الاختبار';
+
+  @override
+  String get mcFormInvalid => 'أدخل رقم MTN أو Airtel أوغندي ومبلغًا.';
+
+  @override
+  String get mcRealTitle => 'هذا ينقل مالًا حقيقيًا';
+
+  @override
+  String mcRealCollect(int amount, String phone) {
+    return 'سيُطلب $amount شلن من $phone. يجب أن يُدخل صاحب الهاتف رقمه السري. يذهب المال إلى محفظة MarzPay.';
+  }
+
+  @override
+  String mcRealSend(int amount, String phone) {
+    return 'سيُرسل $amount شلن من محفظة MarzPay إلى $phone. لا يمكن لسدرة التراجع عنه.';
+  }
+
+  @override
+  String get mcContinue => 'متابعة';
+
+  @override
+  String get mcTypeToConfirm => 'اكتب هذا تمامًا للتأكيد';
+
+  @override
+  String get mcCollectWarning =>
+      'سيظهر طلب دفع حقيقي على الهاتف الذي تُدخله. استخدم هاتفك وأصغر مبلغ.';
+
+  @override
+  String get mcSendWarning =>
+      'سيخرج مال حقيقي من محفظة MarzPay. ينبغي أن يؤكد المستلم الاستلام.';
+
+  @override
+  String get mcPayerPhone => 'هاتف الدافع (MTN أو Airtel)';
+
+  @override
+  String get mcRecipientPhone => 'هاتف المستلم (MTN أو Airtel)';
+
+  @override
+  String get mcAmount => 'المبلغ (شلن)';
+
+  @override
+  String get mcAmountHint => '500 على الأقل؛ وبحد أقصى ما في إعدادات الأمان.';
+
+  @override
+  String get mcDescription => 'ملاحظة (اختياري)';
+
+  @override
+  String get mcStartCollection => 'اطلب الدفعة';
+
+  @override
+  String get mcStartDisbursement => 'أرسل المال';
+
+  @override
+  String get mcQueuedLong =>
+      'ما زال ينتظر: قد يكون خادم المدفوعات متوقفًا. يبدأ الاختبار فور تشغيله.';
+
+  @override
+  String get mcEvidence => 'الدليل';
+
+  @override
+  String get mcEnvironment => 'البيئة';
+
+  @override
+  String get ccMarzSelfChecks =>
+      'فحوص ذاتية للتكامل (التكرار، المهلات، التحقق)';
 }

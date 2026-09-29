@@ -35,6 +35,8 @@ class PublicSettings {
   bool get allowSignup => values['allow_self_signup'] != 'false';
   int get minPasswordLength =>
       (int.tryParse(values['min_password_length'] ?? '') ?? 8).clamp(6, 64);
+  int get uploadMaxMb =>
+      (int.tryParse(values['upload_max_mb'] ?? '') ?? 100).clamp(1, 500);
   int? get latestBuild => int.tryParse(values['latest_app_build'] ?? '');
   String? get latestVersion => values['latest_app_version'];
   String? get downloadUrl => values['app_download_url'];
@@ -89,11 +91,19 @@ abstract final class AuthRules {
   static int minPasswordLength = 8;
 }
 
-/// Copies the latest public settings into [OrgName] and [AuthRules].
+/// Upload limit set by administrators (Settings → Storage), checked on the
+/// phone before sending so nobody waits for a file that would be refused.
+abstract final class UploadRules {
+  static int maxMb = 100;
+}
+
+/// Copies the latest public settings into [OrgName], [AuthRules] and
+/// [UploadRules].
 void applyPublicSettings(PublicSettings s) {
   OrgName.english = s.orgName;
   OrgName.arabic = s.orgNameAr;
   AuthRules.minPasswordLength = s.minPasswordLength;
+  UploadRules.maxMb = s.uploadMaxMb;
 }
 
 /// The organisation's name in the language of [l10n].

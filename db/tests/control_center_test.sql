@@ -95,3 +95,13 @@ select payments_api.log_webhook('wh-1', 'collection.completed', true, 'verified'
 select payments_api.log_webhook('wh-1', 'collection.completed', true, 'verified');
 select pg_temp.check((select count(*) filter (where duplicate) = 1 from payment_webhooks where provider_uuid = 'wh-1'),
   'a repeated webhook is flagged as duplicate');
+
+-- Every control-centre setting is validated (0040).
+select pg_temp.login_as('admin_1');
+set local role authenticated;
+select pg_temp.expect_error($q$select public.set_org_setting('messaging_enabled', 'maybe')$q$, 'on or off');
+select pg_temp.expect_error($q$select public.set_org_setting('signin_failures_per_minute', '2')$q$, 'between 5 and 1000');
+select pg_temp.expect_error($q$select public.set_org_setting('presence_online_minutes', '600')$q$, '1 to 60');
+select pg_temp.expect_error($q$select public.set_org_setting('auth_events_keep_days', '1')$q$, '7 to 3650');
+select pg_temp.expect_error($q$select public.set_org_setting('org_name', '  ')$q$, 'needs a name');
+reset role;

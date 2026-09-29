@@ -101,3 +101,22 @@ out as soon as it is back. No payment is lost or sent twice.
 
 More detail: `docs/DEPLOYMENT.md` (builds, database, signing),
 `docs/BACKEND.md` (the database design), `server/README.md` (payments).
+
+## 7. MarzPay: making it fully operational
+
+The control centre (Admin → Settings → MarzPay) shows MarzPay's real
+state and has a test centre. To get it from "connected" to "verified":
+
+1. Host the payments server (section 4) and give it a public address
+   (`PUBLIC_URL`) so MarzPay can call back.
+2. In the MarzPay dashboard → **IP Whitelist**, add the server's public IP.
+   Without it, balance, account details and sending money are refused
+   (`IP_WHITELIST_REQUIRED`).
+3. In the test centre, run **Connection**, then **Collection** with your
+   own phone and 500 UGX. The result is VERIFIED only when MarzPay's own
+   ledger shows the money arrived.
+4. Leave **sending-money tests** off unless you need them. They move money
+   out of the wallet.
+
+The MarzPay account is shared with DRAIS. Reconciliation only compares
+Sidra's own payments.

@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 import '../../../core/errors/app_failure.dart';
 import '../../../core/network/postgres_api.dart';
+import '../../../core/settings/public_settings.dart' show UploadRules;
 import '../../../shared/models/json.dart';
 import '../../curriculum/domain/curriculum_models.dart';
 import '../../profile/data/profile_repository.dart';
@@ -699,6 +702,13 @@ class AdminRepository {
     String? title,
     void Function(int sent, int total)? onProgress,
   }) async {
+    final size = await File(filePath).length();
+    if (size > UploadRules.maxMb * 1024 * 1024) {
+      throw StorageFailure(
+        'This file is ${(size / 1048576).toStringAsFixed(1)} MB; '
+        'the limit is ${UploadRules.maxMb} MB (Settings → Storage).',
+      );
+    }
     final sig = Json.from(
       await api.rpc('sign_media_upload', params: {'p_folder': folder}) as Map,
     );
