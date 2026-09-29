@@ -39,6 +39,13 @@ android {
         versionName = flutter.versionName
     }
 
+    // The release lint pass fails inside the Android Gradle plugin
+    // ("getProperty(...) must not be null"); it is a store pre-check, not
+    // part of building the app.
+    lint {
+        checkReleaseBuilds = false
+    }
+
     signingConfigs {
         if (keyProperties.containsKey("storeFile")) {
             create("release") {

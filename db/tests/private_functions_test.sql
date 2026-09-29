@@ -46,7 +46,7 @@ from (select
                 'is_enrolled', 'lesson_is_live', 'teaches', 'teaches_group',
                 'teaches_portion', 'lesson_unit', 'lesson_teachers', 'lesson_needs_work',
                 'int_setting', 'notification_allowed', 'valid_block', 'completed_course',
-                'link_course', 'can_handle_issue')),
+                'link_course', 'can_handle_issue', 'is_member')),
            '{}') as x) s;
 
 -- auth_api: the app login may run exactly the five sign-in entry points.

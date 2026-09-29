@@ -27,6 +27,7 @@ import '../../features/teaching/presentation/lesson_work_widgets.dart';
 import '../../features/teaching/presentation/library_screens.dart';
 import '../../features/teaching/presentation/teacher_screens.dart';
 import '../../features/teaching/presentation/work_issue_widgets.dart';
+import '../../features/chat/chat_screens.dart';
 import '../../features/auth/domain/auth_session.dart';
 import '../../features/auth/presentation/auth_providers.dart';
 import '../../features/auth/presentation/change_password_screen.dart';
@@ -284,6 +285,12 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/teach/inbox',
         builder: (_, _) => const TeacherInboxScreen(),
+      ),
+      GoRoute(path: '/chats', builder: (_, _) => const ChatsScreen()),
+      GoRoute(
+        path: '/chats/:conversationId',
+        builder: (_, state) =>
+            ChatScreen(conversationId: state.pathParameters['conversationId']!),
       ),
       GoRoute(
         path: '/teach/issues',

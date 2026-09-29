@@ -2102,5 +2102,50 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatsTitle": "Messages",
+  "chatsEmpty": "No conversations yet",
+  "chatsEmptyHint": "Start a chat with a colleague, or create a group for your team.",
+  "chatNew": "New chat",
+  "chatNewGroup": "New group",
+  "chatGroupName": "Group name",
+  "chatGroupNameNeeded": "Give the group a name",
+  "chatCreateGroup": "Create group",
+  "chatAddPeople": "Add people",
+  "chatMembers": "{n, plural, =1{1 member} other{{n} members}}",
+  "@chatMembers": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "chatGroupAdmin": "Group admin",
+  "chatRemove": "Remove",
+  "chatLeave": "Leave group",
+  "chatMute": "Mute notifications",
+  "chatMessageHint": "Message",
+  "chatSend": "Send",
+  "chatAttach": "Attach",
+  "chatAttachment": "Attachment",
+  "chatPhoto": "Photo",
+  "chatVideo": "Video",
+  "chatAudio": "Audio",
+  "chatFile": "File",
+  "chatVoiceNote": "Voice note",
+  "chatRecording": "Recording",
+  "chatMicNeeded": "Allow the microphone for Sidra to send voice notes.",
+  "chatReply": "Reply",
+  "chatCopy": "Copy",
+  "chatDeleteForAll": "Delete for everyone",
+  "chatDeleted": "This message was deleted",
+  "chatNotSent": "Not sent. Tap to retry",
+  "chatToday": "Today",
+  "chatYesterday": "Yesterday",
+  "photoEditTitle": "Adjust photo",
+  "photoEditHint": "Pinch to zoom and drag to place your face in the circle.",
+  "photoRotate": "Rotate",
+  "photoReset": "Reset",
+  "photoUse": "Use photo",
+  "photoView": "View photo"
 }

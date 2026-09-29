@@ -7170,6 +7170,234 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{name} is no longer on this phone. Remove it and add it again.'**
   String uploadFileMissing(String name);
+
+  /// No description provided for @chatsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Messages'**
+  String get chatsTitle;
+
+  /// No description provided for @chatsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No conversations yet'**
+  String get chatsEmpty;
+
+  /// No description provided for @chatsEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a chat with a colleague, or create a group for your team.'**
+  String get chatsEmptyHint;
+
+  /// No description provided for @chatNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New chat'**
+  String get chatNew;
+
+  /// No description provided for @chatNewGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'New group'**
+  String get chatNewGroup;
+
+  /// No description provided for @chatGroupName.
+  ///
+  /// In en, this message translates to:
+  /// **'Group name'**
+  String get chatGroupName;
+
+  /// No description provided for @chatGroupNameNeeded.
+  ///
+  /// In en, this message translates to:
+  /// **'Give the group a name'**
+  String get chatGroupNameNeeded;
+
+  /// No description provided for @chatCreateGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Create group'**
+  String get chatCreateGroup;
+
+  /// No description provided for @chatAddPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'Add people'**
+  String get chatAddPeople;
+
+  /// No description provided for @chatMembers.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 member} other{{n} members}}'**
+  String chatMembers(int n);
+
+  /// No description provided for @chatGroupAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Group admin'**
+  String get chatGroupAdmin;
+
+  /// No description provided for @chatRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get chatRemove;
+
+  /// No description provided for @chatLeave.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave group'**
+  String get chatLeave;
+
+  /// No description provided for @chatMute.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute notifications'**
+  String get chatMute;
+
+  /// No description provided for @chatMessageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get chatMessageHint;
+
+  /// No description provided for @chatSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get chatSend;
+
+  /// No description provided for @chatAttach.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach'**
+  String get chatAttach;
+
+  /// No description provided for @chatAttachment.
+  ///
+  /// In en, this message translates to:
+  /// **'Attachment'**
+  String get chatAttachment;
+
+  /// No description provided for @chatPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo'**
+  String get chatPhoto;
+
+  /// No description provided for @chatVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Video'**
+  String get chatVideo;
+
+  /// No description provided for @chatAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio'**
+  String get chatAudio;
+
+  /// No description provided for @chatFile.
+  ///
+  /// In en, this message translates to:
+  /// **'File'**
+  String get chatFile;
+
+  /// No description provided for @chatVoiceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice note'**
+  String get chatVoiceNote;
+
+  /// No description provided for @chatRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording'**
+  String get chatRecording;
+
+  /// No description provided for @chatMicNeeded.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow the microphone for Sidra to send voice notes.'**
+  String get chatMicNeeded;
+
+  /// No description provided for @chatReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply'**
+  String get chatReply;
+
+  /// No description provided for @chatCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get chatCopy;
+
+  /// No description provided for @chatDeleteForAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete for everyone'**
+  String get chatDeleteForAll;
+
+  /// No description provided for @chatDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'This message was deleted'**
+  String get chatDeleted;
+
+  /// No description provided for @chatNotSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Not sent. Tap to retry'**
+  String get chatNotSent;
+
+  /// No description provided for @chatToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get chatToday;
+
+  /// No description provided for @chatYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get chatYesterday;
+
+  /// No description provided for @photoEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjust photo'**
+  String get photoEditTitle;
+
+  /// No description provided for @photoEditHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pinch to zoom and drag to place your face in the circle.'**
+  String get photoEditHint;
+
+  /// No description provided for @photoRotate.
+  ///
+  /// In en, this message translates to:
+  /// **'Rotate'**
+  String get photoRotate;
+
+  /// No description provided for @photoReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get photoReset;
+
+  /// No description provided for @photoUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Use photo'**
+  String get photoUse;
+
+  /// No description provided for @photoView.
+  ///
+  /// In en, this message translates to:
+  /// **'View photo'**
+  String get photoView;
 }
 
 class _AppLocalizationsDelegate

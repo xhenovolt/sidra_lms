@@ -12,6 +12,7 @@ import '../data/admin_repository.dart';
 import 'admin_common.dart';
 import 'people_tab.dart';
 import 'sessions_screens.dart';
+import '../../profile/presentation/photo_editor.dart' show PhotoViewScreen;
 import '../../../shared/widgets/user_avatar.dart';
 
 final personProfileProvider = FutureProvider.autoDispose
@@ -92,10 +93,17 @@ class _Profile extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    UserAvatar(
-                      avatarUrl: profile.avatarUrl,
-                      name: user.name,
-                      radius: 28,
+                    GestureDetector(
+                      onTap: () => PhotoViewScreen.open(
+                        context,
+                        profile.avatarUrl,
+                        user.name,
+                      ),
+                      child: UserAvatar(
+                        avatarUrl: profile.avatarUrl,
+                        name: user.name,
+                        radius: 28,
+                      ),
                     ),
                     const SizedBox(width: Space.md),
                     Expanded(

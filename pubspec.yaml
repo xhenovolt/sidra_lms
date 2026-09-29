@@ -1,4 +1,4 @@
-name: sidra_lms
+﻿name: sidra_lms
 description: "Sidra — Almuntahha Islamic Learning Management System."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 2.29.0+48
+version: 2.30.0+49
 
 environment:
   sdk: ^3.13.0
@@ -63,6 +63,7 @@ dependencies:
   pdfrx: ^2.6.5
   open_filex: ^4.7.0
   google_mlkit_document_scanner: ^0.6.1
+  image: ^4.10.1
   device_info_plus: 13.2.0
 
 dev_dependencies:
@@ -77,7 +78,6 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   mocktail: ^1.0.5
   sqflite_common_ffi: ^2.4.3
-  image: ^4.10.1
   flutter_launcher_icons: ^0.14.4
   flutter_native_splash: ^2.4.8
 flutter:

@@ -13,6 +13,7 @@ import '../../auth/presentation/auth_providers.dart';
 import '../../profile/data/profile_repository.dart';
 import 'people_tab.dart';
 import 'sessions_screens.dart';
+import '../../chat/chat_repository.dart' show unreadChatsProvider;
 import '../../profile/presentation/avatar_editor.dart';
 import '../../../app/router/learner_preview.dart';
 
@@ -73,6 +74,16 @@ class StaffMoreScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: Space.md),
+          ListTile(
+            leading: Badge(
+              isLabelVisible: ref.watch(unreadChatsProvider) > 0,
+              label: Text('${ref.watch(unreadChatsProvider)}'),
+              child: const Icon(Icons.forum_outlined),
+            ),
+            title: Text(l10n.chatsTitle),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.push('/chats'),
+          ),
           if (role == UserRole.teacher)
             ListTile(
               leading: const Icon(Icons.inbox_outlined),

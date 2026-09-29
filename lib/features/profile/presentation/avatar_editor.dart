@@ -7,6 +7,7 @@ import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/user_avatar.dart';
 import '../../admin/presentation/admin_common.dart';
+import 'photo_editor.dart';
 
 /// Your own picture, with a camera badge: tap to change it.
 class MyAvatar extends ConsumerWidget {
@@ -93,11 +94,15 @@ class _AvatarEditorState extends ConsumerState<_AvatarEditor> {
     final x = await ImagePicker().pickImage(
       source: source,
       preferredCameraDevice: CameraDevice.front,
-      imageQuality: 85,
-      maxWidth: 800,
-      maxHeight: 800,
+      imageQuality: 95,
+      maxWidth: 2000,
+      maxHeight: 2000,
     );
     if (x == null || !mounted) return;
+    // Crop (zoom, move into the circle) and rotate before uploading.
+    final edited = await PhotoEditScreen.edit(context, x.path);
+    if (edited == null || !mounted) return;
+    final name = 'profile_${DateTime.now().millisecondsSinceEpoch}.jpg';
     setState(() => _saving = true);
     String? assetId;
     final ok = await runAdminAction(context, () async {
@@ -105,8 +110,8 @@ class _AvatarEditorState extends ConsumerState<_AvatarEditor> {
       assetId = await ref
           .read(adminRepositoryProvider)
           .uploadMedia(
-            filePath: x.path,
-            fileName: x.name,
+            filePath: edited,
+            fileName: name,
             kind: 'image',
             uploaderId: profile.id,
             folder: 'avatars',
@@ -134,6 +139,16 @@ class _AvatarEditorState extends ConsumerState<_AvatarEditor> {
               Text(l10n.avatarTitle, style: theme.textTheme.titleLarge),
               if (_saving) const LinearProgressIndicator(),
               const SizedBox(height: Space.sm),
+              if (current?.avatarUrl != null)
+                ListTile(
+                  leading: const Icon(Icons.zoom_out_map),
+                  title: Text(l10n.photoView),
+                  onTap: () => PhotoViewScreen.open(
+                    context,
+                    current!.avatarUrl,
+                    current.displayName,
+                  ),
+                ),
               ListTile(
                 leading: const Icon(Icons.photo_camera_outlined),
                 title: Text(l10n.avatarTakePhoto),

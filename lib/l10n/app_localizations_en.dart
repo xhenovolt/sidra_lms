@@ -4085,4 +4085,129 @@ class AppLocalizationsEn extends AppLocalizations {
   String uploadFileMissing(String name) {
     return '$name is no longer on this phone. Remove it and add it again.';
   }
+
+  @override
+  String get chatsTitle => 'Messages';
+
+  @override
+  String get chatsEmpty => 'No conversations yet';
+
+  @override
+  String get chatsEmptyHint =>
+      'Start a chat with a colleague, or create a group for your team.';
+
+  @override
+  String get chatNew => 'New chat';
+
+  @override
+  String get chatNewGroup => 'New group';
+
+  @override
+  String get chatGroupName => 'Group name';
+
+  @override
+  String get chatGroupNameNeeded => 'Give the group a name';
+
+  @override
+  String get chatCreateGroup => 'Create group';
+
+  @override
+  String get chatAddPeople => 'Add people';
+
+  @override
+  String chatMembers(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n members',
+      one: '1 member',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatGroupAdmin => 'Group admin';
+
+  @override
+  String get chatRemove => 'Remove';
+
+  @override
+  String get chatLeave => 'Leave group';
+
+  @override
+  String get chatMute => 'Mute notifications';
+
+  @override
+  String get chatMessageHint => 'Message';
+
+  @override
+  String get chatSend => 'Send';
+
+  @override
+  String get chatAttach => 'Attach';
+
+  @override
+  String get chatAttachment => 'Attachment';
+
+  @override
+  String get chatPhoto => 'Photo';
+
+  @override
+  String get chatVideo => 'Video';
+
+  @override
+  String get chatAudio => 'Audio';
+
+  @override
+  String get chatFile => 'File';
+
+  @override
+  String get chatVoiceNote => 'Voice note';
+
+  @override
+  String get chatRecording => 'Recording';
+
+  @override
+  String get chatMicNeeded =>
+      'Allow the microphone for Sidra to send voice notes.';
+
+  @override
+  String get chatReply => 'Reply';
+
+  @override
+  String get chatCopy => 'Copy';
+
+  @override
+  String get chatDeleteForAll => 'Delete for everyone';
+
+  @override
+  String get chatDeleted => 'This message was deleted';
+
+  @override
+  String get chatNotSent => 'Not sent. Tap to retry';
+
+  @override
+  String get chatToday => 'Today';
+
+  @override
+  String get chatYesterday => 'Yesterday';
+
+  @override
+  String get photoEditTitle => 'Adjust photo';
+
+  @override
+  String get photoEditHint =>
+      'Pinch to zoom and drag to place your face in the circle.';
+
+  @override
+  String get photoRotate => 'Rotate';
+
+  @override
+  String get photoReset => 'Reset';
+
+  @override
+  String get photoUse => 'Use photo';
+
+  @override
+  String get photoView => 'View photo';
 }

@@ -4050,4 +4050,127 @@ class AppLocalizationsAr extends AppLocalizations {
   String uploadFileMissing(String name) {
     return '$name لم يعد على هذا الهاتف. احذفه وأضفه مجددًا.';
   }
+
+  @override
+  String get chatsTitle => 'الرسائل';
+
+  @override
+  String get chatsEmpty => 'لا توجد محادثات بعد';
+
+  @override
+  String get chatsEmptyHint => 'ابدأ محادثة مع زميل، أو أنشئ مجموعة لفريقك.';
+
+  @override
+  String get chatNew => 'محادثة جديدة';
+
+  @override
+  String get chatNewGroup => 'مجموعة جديدة';
+
+  @override
+  String get chatGroupName => 'اسم المجموعة';
+
+  @override
+  String get chatGroupNameNeeded => 'أعط المجموعة اسمًا';
+
+  @override
+  String get chatCreateGroup => 'إنشاء المجموعة';
+
+  @override
+  String get chatAddPeople => 'إضافة أشخاص';
+
+  @override
+  String chatMembers(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n أعضاء',
+      one: 'عضو واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get chatGroupAdmin => 'مشرف المجموعة';
+
+  @override
+  String get chatRemove => 'إزالة';
+
+  @override
+  String get chatLeave => 'مغادرة المجموعة';
+
+  @override
+  String get chatMute => 'كتم الإشعارات';
+
+  @override
+  String get chatMessageHint => 'رسالة';
+
+  @override
+  String get chatSend => 'إرسال';
+
+  @override
+  String get chatAttach => 'إرفاق';
+
+  @override
+  String get chatAttachment => 'مرفق';
+
+  @override
+  String get chatPhoto => 'صورة';
+
+  @override
+  String get chatVideo => 'فيديو';
+
+  @override
+  String get chatAudio => 'صوت';
+
+  @override
+  String get chatFile => 'ملف';
+
+  @override
+  String get chatVoiceNote => 'رسالة صوتية';
+
+  @override
+  String get chatRecording => 'جارٍ التسجيل';
+
+  @override
+  String get chatMicNeeded =>
+      'اسمح لسدرة باستخدام الميكروفون لإرسال الرسائل الصوتية.';
+
+  @override
+  String get chatReply => 'رد';
+
+  @override
+  String get chatCopy => 'نسخ';
+
+  @override
+  String get chatDeleteForAll => 'حذف لدى الجميع';
+
+  @override
+  String get chatDeleted => 'تم حذف هذه الرسالة';
+
+  @override
+  String get chatNotSent => 'لم تُرسل. اضغط لإعادة المحاولة';
+
+  @override
+  String get chatToday => 'اليوم';
+
+  @override
+  String get chatYesterday => 'أمس';
+
+  @override
+  String get photoEditTitle => 'ضبط الصورة';
+
+  @override
+  String get photoEditHint => 'قرّب بإصبعين واسحب لوضع وجهك داخل الدائرة.';
+
+  @override
+  String get photoRotate => 'تدوير';
+
+  @override
+  String get photoReset => 'إعادة الضبط';
+
+  @override
+  String get photoUse => 'استخدام الصورة';
+
+  @override
+  String get photoView => 'عرض الصورة';
 }

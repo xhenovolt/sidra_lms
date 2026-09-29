@@ -308,15 +308,20 @@ void main() {
     await tester.tap(inDrawer('My account'));
     await tester.pumpAndSettle();
     expect(find.textContaining('Administrator'), findsOneWidget);
-    expect(find.text('Browse the catalogue'), findsOneWidget);
-    expect(find.text('Change password'), findsOneWidget);
-    await tester.scrollUntilVisible(
-      find.text('Sign out'),
-      200,
-      scrollable: find.byType(Scrollable).last,
-    );
-    expect(find.text('Your devices'), findsOneWidget);
-    expect(find.text('Sign out'), findsOneWidget);
+    expect(find.text('Messages'), findsOneWidget);
+    for (final item in [
+      'Browse the catalogue',
+      'Change password',
+      'Your devices',
+      'Sign out',
+    ]) {
+      await tester.scrollUntilVisible(
+        find.text(item),
+        200,
+        scrollable: find.byType(Scrollable).last,
+      );
+      expect(find.text(item), findsOneWidget);
+    }
   });
 
   testWidgets('teacher reviews a learner and opens the next lesson', (
