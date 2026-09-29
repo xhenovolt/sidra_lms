@@ -18,6 +18,7 @@ import '../data/lesson_work.dart';
 import '../data/teaching_repository.dart';
 import 'learner_portion_screen.dart' show resultLabel;
 import 'teacher_screens.dart' show showCorrectionPicker;
+import 'work_issue_widgets.dart';
 
 Color _markColor(WordMark m, ColorScheme scheme) => switch (m) {
   WordMark.ok => Colors.green.shade700,
@@ -194,6 +195,8 @@ class LessonWorkPanel extends ConsumerWidget {
                 ),
               ),
             ],
+            if (latest == null || !latest.approved)
+              WorkIssueSection(target: (kind: 'lesson', id: lessonId)),
           ],
         ),
       ),

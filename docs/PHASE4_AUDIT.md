@@ -235,11 +235,32 @@ crash reporting.
 
 ## M. Performance
 
-**UNVERIFIED.** No load test has been run. From this PC, every database
-round trip crosses to us-east-1 (Neon region). With 50 learners the
-connection limit (300) and Neon's pooler are far from limits on paper. A
-50-session concurrency script is part of the plan (Q, step 7); results will
-be recorded here, not assumed.
+**MEASURED 2026-09-29** with `tool/load_test.dart`. 50 temporary learners,
+each on its own app-login connection, signed in at the same moment and ran
+10 home-screen rounds each (6 queries in one transaction). The accounts
+were deleted afterwards. The run went from this PC through the WebSocket
+bridge to Neon us-east-1.
+
+| | 1 learner | 50 at once |
+|---|---|---|
+| Sign-in | 0.4–0.6 s | median 3.8 s, worst 4.8 s |
+| Home-screen round | median 4.3 s | median 5.4 s, 95% 9.6 s, worst 10.9 s |
+| Errors | 0 | **0** (500 rounds) |
+
+Per query, one learner: every query ≈ 620 ms, the same for all six. That is
+the network (Kampala → us-east-1, about two round trips per query), not
+database work.
+
+Findings:
+- The database copes with 50 at once: no errors, no connection exhaustion,
+  and about +25% time under load.
+- Sign-in slows when many arrive together, because bcrypt is deliberately
+  CPU-heavy and Neon's compute is small. This is acceptable for a class
+  starting at the same time; a larger compute size fixes it.
+- **Latency is distance.** Moving the Neon project to eu-central-1
+  (Frankfurt, the closest Neon region to East Africa) and combining the
+  home screen's queries into one call would each cut the waiting a lot.
+  Both are P2.
 
 ## N. Release and Android
 
@@ -286,6 +307,24 @@ domain layer (the API calls them; nothing is rewritten):
 After step 4 the database login leaves the APK. The payments server is
 the natural host. Multi-tenancy: **not needed**. Sidra is one organisation
 (Almuntahha) serving many learners, and that decision is recorded here.
+
+## Status after this phase (2026-09-29)
+
+| Item | Status |
+|---|---|
+| S0 internal functions callable by the app login | FIXED (0034, 0035 lock-down on every migration) |
+| Devices, sessions, revoke one or all, presence | VERIFIED in the database (sessions_test); app screens built |
+| Sign-in protection (progressive lock, no enumeration, system brake) | VERIFIED (sessions_test) |
+| Problem reports with answers and extensions | VERIFIED in the database (tier2_test); app screens built |
+| Late work: not opened / not submitted / overdue / escalated / inactive | VERIFIED (tier2_test) |
+| Automatic suspension with safeguards, reinstatement | VERIFIED (tier2_test); off by default |
+| Weekends, holidays, grace, pause | VERIFIED (tier2_test) |
+| MarzPay: unanswered payments rechecked for 7 days | VERIFIED (tier2_test) |
+| Upload: stuck states, duplicates, progress notification | Built; needs a phone check |
+| 50 learners at once | MEASURED (section M) |
+| Release key, backup off | Done |
+| Real MarzPay payment | BLOCKED (needs a person and 500 UGX) |
+| Port 5432 on MTN and Airtel | BLOCKED (needs phones on those networks) |
 
 ## Q. Remediation plan
 

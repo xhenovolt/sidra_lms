@@ -225,6 +225,12 @@ String notificationRoute(String? kind, Map<String, dynamic> data) {
   if (kind == 'lesson_work' && submission != null) {
     return '/teach/work/$submission';
   }
+  // Staff: problem reports and late work open their lists.
+  if (kind == 'work_issue') return '/teach/issues';
+  if (kind == 'work_overdue' || kind == 'work_escalated') return '/teach/late';
+  if (kind == 'learner_suspended' && data['learner_id'] != null) {
+    return '/teach/late';
+  }
   if ((kind == 'submission' || kind == 'resubmission') && portion != null) {
     return '/teach/portions/$portion';
   }

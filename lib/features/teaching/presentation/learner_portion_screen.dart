@@ -15,6 +15,7 @@ import '../../content/data/submission_queue.dart';
 import '../../content/presentation/resource_widgets.dart';
 import '../data/teaching_repository.dart';
 import '../../media/presentation/capture_sheet.dart';
+import 'work_issue_widgets.dart';
 
 final learnerPortionProvider = FutureProvider.autoDispose
     .family<LearnerPortion, String>(
@@ -220,6 +221,8 @@ class _PortionBody extends ConsumerWidget {
 
         // ------------------------------------------------------- hand in
         if (p.canSubmit && queued.isEmpty) _SubmitPanel(portion: p),
+        if (p.status != Participation.completed)
+          WorkIssueSection(target: (kind: 'portion', id: p.id)),
 
         // --------------------------------------------------------- history
         if (p.attempts.isNotEmpty) ...[

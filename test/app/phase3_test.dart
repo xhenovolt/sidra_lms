@@ -262,7 +262,13 @@ void main() {
     await tester.scrollUntilVisible(
       find.text('MarzPay (mobile money)'),
       300,
-      scrollable: find.byType(Scrollable).last,
+      // the settings list itself (text boxes inside it scroll too)
+      scrollable: find
+          .descendant(
+            of: find.byType(ListView).first,
+            matching: find.byType(Scrollable),
+          )
+          .first,
     );
     await tester.tap(find.text('MarzPay (mobile money)'));
     await tester.pumpAndSettle();

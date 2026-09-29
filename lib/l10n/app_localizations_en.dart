@@ -3795,4 +3795,294 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get authEventPasswordChanged => 'Changed the password';
+
+  @override
+  String get issueReport => 'I have a problem with this work';
+
+  @override
+  String get issueReportHint =>
+      'Tell your teacher what is stopping you. The deadline waits while your report is open.';
+
+  @override
+  String get issueDontUnderstand => 'I don\'t understand the work';
+
+  @override
+  String get issueClarification => 'I need clarification';
+
+  @override
+  String get issueMoreTime => 'I need more time';
+
+  @override
+  String get issueUnavailable => 'I am sick or unavailable';
+
+  @override
+  String get issueTechnical => 'Technical problem';
+
+  @override
+  String get issueCannotAccess => 'I can\'t open the material';
+
+  @override
+  String get issueCannotRecord => 'I can\'t record audio';
+
+  @override
+  String get issueCannotUpload => 'I can\'t upload';
+
+  @override
+  String get issueOther => 'Something else';
+
+  @override
+  String get issueMessage => 'Explain (optional)';
+
+  @override
+  String get issueAttach => 'Attach';
+
+  @override
+  String get issueAttachHint => 'Add a photo, recording or file if it helps';
+
+  @override
+  String get issueSend => 'Send to my teacher';
+
+  @override
+  String get issueSent => 'Sent. Your teacher will answer here.';
+
+  @override
+  String get issueSentTitle => 'Problem reported: waiting for your teacher';
+
+  @override
+  String get issueAnsweredTitle => 'Your teacher answered';
+
+  @override
+  String issueNewDue(String when) {
+    return 'New due time: $when';
+  }
+
+  @override
+  String get issuesTitle => 'Problem reports';
+
+  @override
+  String get issuesOpen => 'Open';
+
+  @override
+  String get issuesResolved => 'Resolved';
+
+  @override
+  String get issuesNone => 'No problem reports';
+
+  @override
+  String issuesWaiting(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n learners reported problems',
+      one: '1 learner reported a problem',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get issueOpenAttachment => 'Open attachment';
+
+  @override
+  String get issueRespond => 'Answer';
+
+  @override
+  String get issueYourAnswer => 'Your answer';
+
+  @override
+  String get issueGiveMoreTime => 'Give more time (optional)';
+
+  @override
+  String get issueMarkResolved => 'Mark as resolved';
+
+  @override
+  String get issueSendAnswer => 'Send answer';
+
+  @override
+  String get lateWorkTitle => 'Late work';
+
+  @override
+  String get lateWorkHint =>
+      'Created automatically by the learner policies in Settings. Handing in the work closes them.';
+
+  @override
+  String get lateWorkNone => 'Nobody is late';
+
+  @override
+  String lateWorkCount(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n late-work alerts',
+      one: '1 late-work alert',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String lateWorkHours(int n) {
+    return '$n h late';
+  }
+
+  @override
+  String get lateWorkReinstate => 'Reinstate';
+
+  @override
+  String get lateWorkRunNow => 'Check now';
+
+  @override
+  String get policyNotOpened => 'Hasn\'t opened the work';
+
+  @override
+  String get policyNotSubmitted => 'Opened, not handed in';
+
+  @override
+  String get policyOverdue => 'Overdue';
+
+  @override
+  String get policyEscalated => 'Escalated to administrators';
+
+  @override
+  String get policySuspended => 'Suspended from the course';
+
+  @override
+  String get policyInactive => 'Not using Sidra';
+
+  @override
+  String get policyReinstated => 'Reinstated';
+
+  @override
+  String get policyTitle => 'Learner policies';
+
+  @override
+  String get policyHint =>
+      'Reminders and late-work rules. Times count from the due time; a problem report pauses them and a teacher\'s extension moves them.';
+
+  @override
+  String get policyEnabled => 'Send reminders and late-work alerts';
+
+  @override
+  String get policyWarnHours => 'Remind the learner after (hours late)';
+
+  @override
+  String get policyWarnHoursHint =>
+      'Tells them whether they haven\'t opened the work or haven\'t handed it in.';
+
+  @override
+  String get policyOverdueHours => 'Tell the teacher after (hours late)';
+
+  @override
+  String get policyEscalateDays => 'Tell administrators after (days late)';
+
+  @override
+  String get policyGraceHours => 'Grace period (hours)';
+
+  @override
+  String get policyReminderHours => 'Repeat reminders every (hours)';
+
+  @override
+  String get policyCountWeekends => 'Weekends count';
+
+  @override
+  String get policyCountWeekendsHint =>
+      'When off, Saturdays and Sundays don\'t count. Holidays never count.';
+
+  @override
+  String get policyInactiveDays => 'Inactive after (days without using Sidra)';
+
+  @override
+  String get policyInactiveDaysHint =>
+      'Separate from late work: the learner gets a gentle reminder.';
+
+  @override
+  String get policyAutoSuspend => 'Suspend automatically';
+
+  @override
+  String get policyAutoSuspendHint =>
+      'Off by default. Only after a warning at least a day earlier, never with an open problem report or extension, and only if the learner has used Sidra since the work was given. Work and progress are kept.';
+
+  @override
+  String get policySuspendDays => 'Suspend after (days late)';
+
+  @override
+  String get policyPaymentDays =>
+      'Keep checking unanswered mobile-money payments for (days)';
+
+  @override
+  String get policyPaymentDaysHint =>
+      'After this, a payment MarzPay never answered counts as failed.';
+
+  @override
+  String get policyRunning => 'Policies are running.';
+
+  @override
+  String policyPausedUntil(String when) {
+    return 'Paused until $when';
+  }
+
+  @override
+  String policyLastRun(String when) {
+    return 'Last checked $when';
+  }
+
+  @override
+  String get policyResume => 'Resume now';
+
+  @override
+  String policyPauseDays(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Pause for $n days',
+      one: 'Pause for a day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holidaysTitle => 'Holidays';
+
+  @override
+  String get holidaysHint => 'Days that don\'t count towards deadlines';
+
+  @override
+  String get holidaysAdd => 'Add a holiday';
+
+  @override
+  String get holidaysName => 'Name (e.g. Eid al-Fitr)';
+
+  @override
+  String get holidaysNone => 'No holidays added';
+
+  @override
+  String get transferChannel => 'Uploads and downloads';
+
+  @override
+  String get transferChannelHint => 'Progress of your uploads and downloads';
+
+  @override
+  String get uploadingWork => 'Uploading your work';
+
+  @override
+  String get uploadDoneTitle => 'Work sent';
+
+  @override
+  String get uploadDoneBody => 'Your teacher has received it.';
+
+  @override
+  String get uploadWaitingTitle => 'Work saved: waiting for internet';
+
+  @override
+  String get uploadWaitingBody => 'It will be sent when you\'re back online.';
+
+  @override
+  String get uploadFailedTitle => 'Upload failed';
+
+  @override
+  String get uploadFailedBody =>
+      'Your work is kept on the phone. Open Sidra to try again.';
+
+  @override
+  String uploadFileMissing(String name) {
+    return '$name is no longer on this phone. Remove it and add it again.';
+  }
 }

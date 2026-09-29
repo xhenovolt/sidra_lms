@@ -1964,5 +1964,143 @@
   "authEventRefreshRejected": "An ended sign-in was used again (refused)",
   "authEventDeviceRevoked": "A phone was signed out",
   "authEventSessionsEnded": "Signed out everywhere",
-  "authEventPasswordChanged": "Changed the password"
+  "authEventPasswordChanged": "Changed the password",
+  "issueReport": "I have a problem with this work",
+  "issueReportHint": "Tell your teacher what is stopping you. The deadline waits while your report is open.",
+  "issueDontUnderstand": "I don't understand the work",
+  "issueClarification": "I need clarification",
+  "issueMoreTime": "I need more time",
+  "issueUnavailable": "I am sick or unavailable",
+  "issueTechnical": "Technical problem",
+  "issueCannotAccess": "I can't open the material",
+  "issueCannotRecord": "I can't record audio",
+  "issueCannotUpload": "I can't upload",
+  "issueOther": "Something else",
+  "issueMessage": "Explain (optional)",
+  "issueAttach": "Attach",
+  "issueAttachHint": "Add a photo, recording or file if it helps",
+  "issueSend": "Send to my teacher",
+  "issueSent": "Sent. Your teacher will answer here.",
+  "issueSentTitle": "Problem reported: waiting for your teacher",
+  "issueAnsweredTitle": "Your teacher answered",
+  "issueNewDue": "New due time: {when}",
+  "@issueNewDue": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "issuesTitle": "Problem reports",
+  "issuesOpen": "Open",
+  "issuesResolved": "Resolved",
+  "issuesNone": "No problem reports",
+  "issuesWaiting": "{n, plural, =1{1 learner reported a problem} other{{n} learners reported problems}}",
+  "@issuesWaiting": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "issueOpenAttachment": "Open attachment",
+  "issueRespond": "Answer",
+  "issueYourAnswer": "Your answer",
+  "issueGiveMoreTime": "Give more time (optional)",
+  "issueMarkResolved": "Mark as resolved",
+  "issueSendAnswer": "Send answer",
+  "lateWorkTitle": "Late work",
+  "lateWorkHint": "Created automatically by the learner policies in Settings. Handing in the work closes them.",
+  "lateWorkNone": "Nobody is late",
+  "lateWorkCount": "{n, plural, =1{1 late-work alert} other{{n} late-work alerts}}",
+  "@lateWorkCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "lateWorkHours": "{n} h late",
+  "@lateWorkHours": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "lateWorkReinstate": "Reinstate",
+  "lateWorkRunNow": "Check now",
+  "policyNotOpened": "Hasn't opened the work",
+  "policyNotSubmitted": "Opened, not handed in",
+  "policyOverdue": "Overdue",
+  "policyEscalated": "Escalated to administrators",
+  "policySuspended": "Suspended from the course",
+  "policyInactive": "Not using Sidra",
+  "policyReinstated": "Reinstated",
+  "policyTitle": "Learner policies",
+  "policyHint": "Reminders and late-work rules. Times count from the due time; a problem report pauses them and a teacher's extension moves them.",
+  "policyEnabled": "Send reminders and late-work alerts",
+  "policyWarnHours": "Remind the learner after (hours late)",
+  "policyWarnHoursHint": "Tells them whether they haven't opened the work or haven't handed it in.",
+  "policyOverdueHours": "Tell the teacher after (hours late)",
+  "policyEscalateDays": "Tell administrators after (days late)",
+  "policyGraceHours": "Grace period (hours)",
+  "policyReminderHours": "Repeat reminders every (hours)",
+  "policyCountWeekends": "Weekends count",
+  "policyCountWeekendsHint": "When off, Saturdays and Sundays don't count. Holidays never count.",
+  "policyInactiveDays": "Inactive after (days without using Sidra)",
+  "policyInactiveDaysHint": "Separate from late work: the learner gets a gentle reminder.",
+  "policyAutoSuspend": "Suspend automatically",
+  "policyAutoSuspendHint": "Off by default. Only after a warning at least a day earlier, never with an open problem report or extension, and only if the learner has used Sidra since the work was given. Work and progress are kept.",
+  "policySuspendDays": "Suspend after (days late)",
+  "policyPaymentDays": "Keep checking unanswered mobile-money payments for (days)",
+  "policyPaymentDaysHint": "After this, a payment MarzPay never answered counts as failed.",
+  "policyRunning": "Policies are running.",
+  "policyPausedUntil": "Paused until {when}",
+  "@policyPausedUntil": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "policyLastRun": "Last checked {when}",
+  "@policyLastRun": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "policyResume": "Resume now",
+  "policyPauseDays": "{n, plural, =1{Pause for a day} other{Pause for {n} days}}",
+  "@policyPauseDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "holidaysTitle": "Holidays",
+  "holidaysHint": "Days that don't count towards deadlines",
+  "holidaysAdd": "Add a holiday",
+  "holidaysName": "Name (e.g. Eid al-Fitr)",
+  "holidaysNone": "No holidays added",
+  "transferChannel": "Uploads and downloads",
+  "transferChannelHint": "Progress of your uploads and downloads",
+  "uploadingWork": "Uploading your work",
+  "uploadDoneTitle": "Work sent",
+  "uploadDoneBody": "Your teacher has received it.",
+  "uploadWaitingTitle": "Work saved: waiting for internet",
+  "uploadWaitingBody": "It will be sent when you're back online.",
+  "uploadFailedTitle": "Upload failed",
+  "uploadFailedBody": "Your work is kept on the phone. Open Sidra to try again.",
+  "uploadFileMissing": "{name} is no longer on this phone. Remove it and add it again.",
+  "@uploadFileMissing": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }

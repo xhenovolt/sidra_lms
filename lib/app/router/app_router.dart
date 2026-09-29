@@ -26,6 +26,7 @@ import '../../features/teaching/presentation/inbox_screen.dart';
 import '../../features/teaching/presentation/lesson_work_widgets.dart';
 import '../../features/teaching/presentation/library_screens.dart';
 import '../../features/teaching/presentation/teacher_screens.dart';
+import '../../features/teaching/presentation/work_issue_widgets.dart';
 import '../../features/auth/domain/auth_session.dart';
 import '../../features/auth/presentation/auth_providers.dart';
 import '../../features/auth/presentation/change_password_screen.dart';
@@ -283,6 +284,21 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/teach/inbox',
         builder: (_, _) => const TeacherInboxScreen(),
+      ),
+      GoRoute(
+        path: '/teach/issues',
+        builder: (_, _) => const TeacherIssuesScreen(),
+      ),
+      GoRoute(
+        path: '/teach/late',
+        builder: (context, _) => LateWorkScreen(
+          canRunNow:
+              ProviderScope.containerOf(context)
+                  .read(authSessionProvider)
+                  .user
+                  ?.role ==
+              'admin',
+        ),
       ),
       GoRoute(
         path: '/teach/submissions/:submissionId',

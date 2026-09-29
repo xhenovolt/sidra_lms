@@ -6678,6 +6678,498 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Changed the password'**
   String get authEventPasswordChanged;
+
+  /// No description provided for @issueReport.
+  ///
+  /// In en, this message translates to:
+  /// **'I have a problem with this work'**
+  String get issueReport;
+
+  /// No description provided for @issueReportHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell your teacher what is stopping you. The deadline waits while your report is open.'**
+  String get issueReportHint;
+
+  /// No description provided for @issueDontUnderstand.
+  ///
+  /// In en, this message translates to:
+  /// **'I don\'t understand the work'**
+  String get issueDontUnderstand;
+
+  /// No description provided for @issueClarification.
+  ///
+  /// In en, this message translates to:
+  /// **'I need clarification'**
+  String get issueClarification;
+
+  /// No description provided for @issueMoreTime.
+  ///
+  /// In en, this message translates to:
+  /// **'I need more time'**
+  String get issueMoreTime;
+
+  /// No description provided for @issueUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'I am sick or unavailable'**
+  String get issueUnavailable;
+
+  /// No description provided for @issueTechnical.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical problem'**
+  String get issueTechnical;
+
+  /// No description provided for @issueCannotAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'I can\'t open the material'**
+  String get issueCannotAccess;
+
+  /// No description provided for @issueCannotRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'I can\'t record audio'**
+  String get issueCannotRecord;
+
+  /// No description provided for @issueCannotUpload.
+  ///
+  /// In en, this message translates to:
+  /// **'I can\'t upload'**
+  String get issueCannotUpload;
+
+  /// No description provided for @issueOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Something else'**
+  String get issueOther;
+
+  /// No description provided for @issueMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Explain (optional)'**
+  String get issueMessage;
+
+  /// No description provided for @issueAttach.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach'**
+  String get issueAttach;
+
+  /// No description provided for @issueAttachHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a photo, recording or file if it helps'**
+  String get issueAttachHint;
+
+  /// No description provided for @issueSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send to my teacher'**
+  String get issueSend;
+
+  /// No description provided for @issueSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent. Your teacher will answer here.'**
+  String get issueSent;
+
+  /// No description provided for @issueSentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Problem reported: waiting for your teacher'**
+  String get issueSentTitle;
+
+  /// No description provided for @issueAnsweredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your teacher answered'**
+  String get issueAnsweredTitle;
+
+  /// No description provided for @issueNewDue.
+  ///
+  /// In en, this message translates to:
+  /// **'New due time: {when}'**
+  String issueNewDue(String when);
+
+  /// No description provided for @issuesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Problem reports'**
+  String get issuesTitle;
+
+  /// No description provided for @issuesOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get issuesOpen;
+
+  /// No description provided for @issuesResolved.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved'**
+  String get issuesResolved;
+
+  /// No description provided for @issuesNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No problem reports'**
+  String get issuesNone;
+
+  /// No description provided for @issuesWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 learner reported a problem} other{{n} learners reported problems}}'**
+  String issuesWaiting(int n);
+
+  /// No description provided for @issueOpenAttachment.
+  ///
+  /// In en, this message translates to:
+  /// **'Open attachment'**
+  String get issueOpenAttachment;
+
+  /// No description provided for @issueRespond.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer'**
+  String get issueRespond;
+
+  /// No description provided for @issueYourAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answer'**
+  String get issueYourAnswer;
+
+  /// No description provided for @issueGiveMoreTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Give more time (optional)'**
+  String get issueGiveMoreTime;
+
+  /// No description provided for @issueMarkResolved.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as resolved'**
+  String get issueMarkResolved;
+
+  /// No description provided for @issueSendAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Send answer'**
+  String get issueSendAnswer;
+
+  /// No description provided for @lateWorkTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Late work'**
+  String get lateWorkTitle;
+
+  /// No description provided for @lateWorkHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Created automatically by the learner policies in Settings. Handing in the work closes them.'**
+  String get lateWorkHint;
+
+  /// No description provided for @lateWorkNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Nobody is late'**
+  String get lateWorkNone;
+
+  /// No description provided for @lateWorkCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 late-work alert} other{{n} late-work alerts}}'**
+  String lateWorkCount(int n);
+
+  /// No description provided for @lateWorkHours.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} h late'**
+  String lateWorkHours(int n);
+
+  /// No description provided for @lateWorkReinstate.
+  ///
+  /// In en, this message translates to:
+  /// **'Reinstate'**
+  String get lateWorkReinstate;
+
+  /// No description provided for @lateWorkRunNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Check now'**
+  String get lateWorkRunNow;
+
+  /// No description provided for @policyNotOpened.
+  ///
+  /// In en, this message translates to:
+  /// **'Hasn\'t opened the work'**
+  String get policyNotOpened;
+
+  /// No description provided for @policyNotSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Opened, not handed in'**
+  String get policyNotSubmitted;
+
+  /// No description provided for @policyOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue'**
+  String get policyOverdue;
+
+  /// No description provided for @policyEscalated.
+  ///
+  /// In en, this message translates to:
+  /// **'Escalated to administrators'**
+  String get policyEscalated;
+
+  /// No description provided for @policySuspended.
+  ///
+  /// In en, this message translates to:
+  /// **'Suspended from the course'**
+  String get policySuspended;
+
+  /// No description provided for @policyInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Not using Sidra'**
+  String get policyInactive;
+
+  /// No description provided for @policyReinstated.
+  ///
+  /// In en, this message translates to:
+  /// **'Reinstated'**
+  String get policyReinstated;
+
+  /// No description provided for @policyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Learner policies'**
+  String get policyTitle;
+
+  /// No description provided for @policyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders and late-work rules. Times count from the due time; a problem report pauses them and a teacher\'s extension moves them.'**
+  String get policyHint;
+
+  /// No description provided for @policyEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Send reminders and late-work alerts'**
+  String get policyEnabled;
+
+  /// No description provided for @policyWarnHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Remind the learner after (hours late)'**
+  String get policyWarnHours;
+
+  /// No description provided for @policyWarnHoursHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tells them whether they haven\'t opened the work or haven\'t handed it in.'**
+  String get policyWarnHoursHint;
+
+  /// No description provided for @policyOverdueHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell the teacher after (hours late)'**
+  String get policyOverdueHours;
+
+  /// No description provided for @policyEscalateDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell administrators after (days late)'**
+  String get policyEscalateDays;
+
+  /// No description provided for @policyGraceHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Grace period (hours)'**
+  String get policyGraceHours;
+
+  /// No description provided for @policyReminderHours.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat reminders every (hours)'**
+  String get policyReminderHours;
+
+  /// No description provided for @policyCountWeekends.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekends count'**
+  String get policyCountWeekends;
+
+  /// No description provided for @policyCountWeekendsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'When off, Saturdays and Sundays don\'t count. Holidays never count.'**
+  String get policyCountWeekendsHint;
+
+  /// No description provided for @policyInactiveDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive after (days without using Sidra)'**
+  String get policyInactiveDays;
+
+  /// No description provided for @policyInactiveDaysHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Separate from late work: the learner gets a gentle reminder.'**
+  String get policyInactiveDaysHint;
+
+  /// No description provided for @policyAutoSuspend.
+  ///
+  /// In en, this message translates to:
+  /// **'Suspend automatically'**
+  String get policyAutoSuspend;
+
+  /// No description provided for @policyAutoSuspendHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Off by default. Only after a warning at least a day earlier, never with an open problem report or extension, and only if the learner has used Sidra since the work was given. Work and progress are kept.'**
+  String get policyAutoSuspendHint;
+
+  /// No description provided for @policySuspendDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Suspend after (days late)'**
+  String get policySuspendDays;
+
+  /// No description provided for @policyPaymentDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep checking unanswered mobile-money payments for (days)'**
+  String get policyPaymentDays;
+
+  /// No description provided for @policyPaymentDaysHint.
+  ///
+  /// In en, this message translates to:
+  /// **'After this, a payment MarzPay never answered counts as failed.'**
+  String get policyPaymentDaysHint;
+
+  /// No description provided for @policyRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'Policies are running.'**
+  String get policyRunning;
+
+  /// No description provided for @policyPausedUntil.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused until {when}'**
+  String policyPausedUntil(String when);
+
+  /// No description provided for @policyLastRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Last checked {when}'**
+  String policyLastRun(String when);
+
+  /// No description provided for @policyResume.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume now'**
+  String get policyResume;
+
+  /// No description provided for @policyPauseDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{Pause for a day} other{Pause for {n} days}}'**
+  String policyPauseDays(int n);
+
+  /// No description provided for @holidaysTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Holidays'**
+  String get holidaysTitle;
+
+  /// No description provided for @holidaysHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Days that don\'t count towards deadlines'**
+  String get holidaysHint;
+
+  /// No description provided for @holidaysAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a holiday'**
+  String get holidaysAdd;
+
+  /// No description provided for @holidaysName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name (e.g. Eid al-Fitr)'**
+  String get holidaysName;
+
+  /// No description provided for @holidaysNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No holidays added'**
+  String get holidaysNone;
+
+  /// No description provided for @transferChannel.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploads and downloads'**
+  String get transferChannel;
+
+  /// No description provided for @transferChannelHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress of your uploads and downloads'**
+  String get transferChannelHint;
+
+  /// No description provided for @uploadingWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading your work'**
+  String get uploadingWork;
+
+  /// No description provided for @uploadDoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Work sent'**
+  String get uploadDoneTitle;
+
+  /// No description provided for @uploadDoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your teacher has received it.'**
+  String get uploadDoneBody;
+
+  /// No description provided for @uploadWaitingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Work saved: waiting for internet'**
+  String get uploadWaitingTitle;
+
+  /// No description provided for @uploadWaitingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It will be sent when you\'re back online.'**
+  String get uploadWaitingBody;
+
+  /// No description provided for @uploadFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload failed'**
+  String get uploadFailedTitle;
+
+  /// No description provided for @uploadFailedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your work is kept on the phone. Open Sidra to try again.'**
+  String get uploadFailedBody;
+
+  /// No description provided for @uploadFileMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is no longer on this phone. Remove it and add it again.'**
+  String uploadFileMissing(String name);
 }
 
 class _AppLocalizationsDelegate

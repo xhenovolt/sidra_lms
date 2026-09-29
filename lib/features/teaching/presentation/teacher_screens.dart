@@ -23,6 +23,7 @@ import '../data/teaching_repository.dart';
 import 'learner_portion_screen.dart' show participationLabel, resultLabel;
 import '../../../shared/widgets/user_avatar.dart';
 import '../../media/presentation/capture_sheet.dart';
+import 'work_issue_widgets.dart';
 
 /// Upload a local file once and register it as a shared resource.
 Future<String> uploadAsResource(
@@ -70,10 +71,16 @@ class TeachingHomeScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     final groups = ref.watch(myGroupsProvider);
     final attention = ref.watch(attentionProvider);
+    // Late-work rules run when staff open Sidra (the server does it too).
+    ref.watch(policyTickProvider);
+    final issues = ref.watch(teacherIssuesProvider('open')).value ?? const [];
+    final late = ref.watch(policyEventsProvider).value ?? const [];
 
     Future<void> refresh() async {
       ref.invalidate(attentionProvider);
       ref.invalidate(myGroupsProvider);
+      ref.invalidate(teacherIssuesProvider('open'));
+      ref.invalidate(policyEventsProvider);
     }
 
     return Scaffold(
@@ -93,6 +100,31 @@ class TeachingHomeScreen extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(Space.md, Space.md, Space.md, 96),
           children: [
             const InboxCard(),
+            if (issues.isNotEmpty)
+              Card(
+                color: theme.colorScheme.secondaryContainer,
+                child: ListTile(
+                  leading: const Icon(Icons.report_problem_outlined),
+                  title: Text(l10n.issuesWaiting(issues.length)),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () async {
+                    await context.push('/teach/issues');
+                    ref.invalidate(teacherIssuesProvider('open'));
+                  },
+                ),
+              ),
+            if (late.isNotEmpty)
+              Card(
+                child: ListTile(
+                  leading: const Icon(Icons.schedule),
+                  title: Text(l10n.lateWorkCount(late.length)),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () async {
+                    await context.push('/teach/late');
+                    ref.invalidate(policyEventsProvider);
+                  },
+                ),
+              ),
             const SizedBox(height: Space.md),
             Text(l10n.needsAttention, style: theme.textTheme.titleLarge),
             const SizedBox(height: Space.xs),
@@ -126,6 +158,16 @@ class TeachingHomeScreen extends ConsumerWidget {
                   avatar: const Icon(Icons.insights_outlined, size: 18),
                   label: Text(l10n.analyticsTitle),
                   onPressed: () => context.push('/teach/analytics'),
+                ),
+                ActionChip(
+                  avatar: const Icon(Icons.report_problem_outlined, size: 18),
+                  label: Text(l10n.issuesTitle),
+                  onPressed: () => context.push('/teach/issues'),
+                ),
+                ActionChip(
+                  avatar: const Icon(Icons.schedule, size: 18),
+                  label: Text(l10n.lateWorkTitle),
+                  onPressed: () => context.push('/teach/late'),
                 ),
               ],
             ),

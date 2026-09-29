@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 
@@ -9,6 +10,7 @@ import 'package:uuid/uuid.dart';
 import '../../../core/data/data_providers.dart';
 import '../../../core/data/repository_providers.dart';
 import '../../../core/errors/app_failure.dart';
+import '../../../core/notifications/transfer_notifications.dart';
 import '../../admin/data/admin_repository.dart';
 import '../../admin/presentation/admin_common.dart';
 import '../../teaching/data/lesson_work.dart';
@@ -168,22 +170,59 @@ class SubmissionQueue extends AsyncNotifier<List<QueuedSubmission>> {
     }
   }
 
+  /// Submissions being sent right now (a second flush skips them, so a file
+  /// is never uploaded twice at the same time).
+  final _sending = <String>{};
+
   Future<bool> _send(QueuedSubmission entry) async {
+    if (!_sending.add(entry.id)) return false;
+    try {
+      return await _sendOnce(entry);
+    } finally {
+      _sending.remove(entry.id);
+    }
+  }
+
+  Future<bool> _sendOnce(QueuedSubmission entry) async {
     final list = [...(await future)];
+    final current = list.where((e) => e.id == entry.id).firstOrNull;
+    if (current == null) return false; // already sent or discarded
+    entry = current;
     entry.state = 'uploading';
     entry.error = null;
     await _save(list);
+    final l10n = TransferNotifications.l10n;
     try {
       final profile = await ref.read(profileProvider.future);
       final admin = ref.read(adminRepositoryProvider);
-      for (final f in entry.files.where((f) => !f.uploaded)) {
+      final pending = entry.files.where((f) => !f.uploaded).toList();
+      // A file deleted from the phone can never be sent: say so plainly
+      // instead of retrying forever.
+      for (final f in pending) {
+        if (!File(f.path).existsSync()) {
+          throw StorageFailure(l10n.uploadFileMissing(f.name));
+        }
+      }
+      final total = pending.fold<int>(
+        0,
+        (s, f) => s + (f.bytes ?? File(f.path).lengthSync()),
+      );
+      var before = 0;
+      for (final f in pending) {
         f.mediaAssetId = await admin.uploadMedia(
           filePath: f.path,
           fileName: f.name,
           kind: f.kind,
           uploaderId: profile.id,
           folder: 'submissions',
+          onProgress: (sent, _) => TransferNotifications.progress(
+            entry.id,
+            l10n.uploadingWork,
+            before + sent,
+            total,
+          ),
         );
+        before += f.bytes ?? File(f.path).lengthSync();
         await _save(list); // remember each finished upload
       }
       final files = [
@@ -233,13 +272,38 @@ class SubmissionQueue extends AsyncNotifier<List<QueuedSubmission>> {
       }
       list.removeWhere((e) => e.id == entry.id);
       await _save(list);
+      if (entry.files.isNotEmpty) {
+        await TransferNotifications.finished(
+          entry.id,
+          l10n.uploadDoneTitle,
+          l10n.uploadDoneBody,
+        );
+      }
       return true;
     } on AppFailure catch (e) {
-      entry.state = e is OfflineFailure || e is TimeoutFailure
-          ? 'pending'
-          : 'failed';
+      final offline = e is OfflineFailure || e is TimeoutFailure;
+      entry.state = offline ? 'pending' : 'failed';
       entry.error = e.message;
       await _save(list);
+      if (entry.files.isNotEmpty) {
+        await TransferNotifications.finished(
+          entry.id,
+          offline ? l10n.uploadWaitingTitle : l10n.uploadFailedTitle,
+          offline ? l10n.uploadWaitingBody : e.message,
+        );
+      }
+      return false;
+    } catch (e) {
+      // Anything unexpected (unreadable file, full storage…): never leave the
+      // work stuck at "uploading"; it stays saved and can be retried.
+      entry.state = 'failed';
+      entry.error = '$e';
+      await _save(list);
+      await TransferNotifications.finished(
+        entry.id,
+        l10n.uploadFailedTitle,
+        l10n.uploadFailedBody,
+      );
       return false;
     }
   }

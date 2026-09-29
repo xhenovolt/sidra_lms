@@ -14,6 +14,8 @@ import '../data/content_repository.dart';
 import '../data/submission_queue.dart';
 import 'resource_widgets.dart';
 import '../../media/presentation/capture_sheet.dart';
+import '../../teaching/presentation/work_issue_widgets.dart'
+    show WorkIssueSection;
 
 final lessonAssignmentsProvider = FutureProvider.autoDispose
     .family<List<Assignment>, String>(
@@ -161,6 +163,8 @@ class _AssignmentCard extends ConsumerWidget {
                 ),
               ),
             ],
+            if (latest == null || latest.canResubmit)
+              WorkIssueSection(target: (kind: 'assignment', id: a.id)),
           ],
         ),
       ),

@@ -3761,4 +3761,293 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get authEventPasswordChanged => 'تغيير كلمة المرور';
+
+  @override
+  String get issueReport => 'لدي مشكلة في هذا العمل';
+
+  @override
+  String get issueReportHint =>
+      'أخبر معلمك بما يمنعك. ينتظر الموعد النهائي ما دام بلاغك مفتوحًا.';
+
+  @override
+  String get issueDontUnderstand => 'لا أفهم العمل';
+
+  @override
+  String get issueClarification => 'أحتاج توضيحًا';
+
+  @override
+  String get issueMoreTime => 'أحتاج وقتًا إضافيًا';
+
+  @override
+  String get issueUnavailable => 'أنا مريض أو غير متاح';
+
+  @override
+  String get issueTechnical => 'مشكلة تقنية';
+
+  @override
+  String get issueCannotAccess => 'لا أستطيع فتح المادة';
+
+  @override
+  String get issueCannotRecord => 'لا أستطيع تسجيل الصوت';
+
+  @override
+  String get issueCannotUpload => 'لا أستطيع الرفع';
+
+  @override
+  String get issueOther => 'شيء آخر';
+
+  @override
+  String get issueMessage => 'اشرح (اختياري)';
+
+  @override
+  String get issueAttach => 'إرفاق';
+
+  @override
+  String get issueAttachHint => 'أضف صورة أو تسجيلًا أو ملفًا إن كان مفيدًا';
+
+  @override
+  String get issueSend => 'أرسل إلى معلمي';
+
+  @override
+  String get issueSent => 'تم الإرسال. سيجيب معلمك هنا.';
+
+  @override
+  String get issueSentTitle => 'تم الإبلاغ عن المشكلة: بانتظار معلمك';
+
+  @override
+  String get issueAnsweredTitle => 'أجاب معلمك';
+
+  @override
+  String issueNewDue(String when) {
+    return 'الموعد الجديد: $when';
+  }
+
+  @override
+  String get issuesTitle => 'بلاغات المشكلات';
+
+  @override
+  String get issuesOpen => 'مفتوحة';
+
+  @override
+  String get issuesResolved => 'محلولة';
+
+  @override
+  String get issuesNone => 'لا توجد بلاغات';
+
+  @override
+  String issuesWaiting(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n متعلمين أبلغوا عن مشكلات',
+      one: 'متعلم واحد أبلغ عن مشكلة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get issueOpenAttachment => 'فتح المرفق';
+
+  @override
+  String get issueRespond => 'الرد';
+
+  @override
+  String get issueYourAnswer => 'ردك';
+
+  @override
+  String get issueGiveMoreTime => 'امنح وقتًا إضافيًا (اختياري)';
+
+  @override
+  String get issueMarkResolved => 'وضع علامة محلول';
+
+  @override
+  String get issueSendAnswer => 'إرسال الرد';
+
+  @override
+  String get lateWorkTitle => 'الأعمال المتأخرة';
+
+  @override
+  String get lateWorkHint =>
+      'تُنشأ تلقائيًا وفق سياسات المتعلمين في الإعدادات. تسليم العمل يغلقها.';
+
+  @override
+  String get lateWorkNone => 'لا أحد متأخر';
+
+  @override
+  String lateWorkCount(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n تنبيهات تأخير',
+      one: 'تنبيه تأخير واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String lateWorkHours(int n) {
+    return 'متأخر $n ساعة';
+  }
+
+  @override
+  String get lateWorkReinstate => 'إعادة التفعيل';
+
+  @override
+  String get lateWorkRunNow => 'افحص الآن';
+
+  @override
+  String get policyNotOpened => 'لم يفتح العمل';
+
+  @override
+  String get policyNotSubmitted => 'فتحه ولم يسلّمه';
+
+  @override
+  String get policyOverdue => 'متأخر';
+
+  @override
+  String get policyEscalated => 'رُفع إلى الإدارة';
+
+  @override
+  String get policySuspended => 'موقوف عن الدورة';
+
+  @override
+  String get policyInactive => 'لا يستخدم سدرة';
+
+  @override
+  String get policyReinstated => 'أعيد تفعيله';
+
+  @override
+  String get policyTitle => 'سياسات المتعلمين';
+
+  @override
+  String get policyHint =>
+      'التذكيرات وقواعد التأخير. تُحسب الأوقات من الموعد؛ ويوقفها البلاغ ويؤجلها تمديد المعلم.';
+
+  @override
+  String get policyEnabled => 'إرسال التذكيرات وتنبيهات التأخير';
+
+  @override
+  String get policyWarnHours => 'ذكّر المتعلم بعد (ساعات تأخير)';
+
+  @override
+  String get policyWarnHoursHint => 'يخبره إن لم يفتح العمل أو لم يسلّمه.';
+
+  @override
+  String get policyOverdueHours => 'أخبر المعلم بعد (ساعات تأخير)';
+
+  @override
+  String get policyEscalateDays => 'أخبر الإدارة بعد (أيام تأخير)';
+
+  @override
+  String get policyGraceHours => 'مهلة سماح (ساعات)';
+
+  @override
+  String get policyReminderHours => 'كرر التذكير كل (ساعات)';
+
+  @override
+  String get policyCountWeekends => 'احتساب عطلة نهاية الأسبوع';
+
+  @override
+  String get policyCountWeekendsHint =>
+      'عند الإيقاف لا يُحتسب السبت والأحد. العطل لا تُحتسب أبدًا.';
+
+  @override
+  String get policyInactiveDays => 'غير نشط بعد (أيام دون استخدام سدرة)';
+
+  @override
+  String get policyInactiveDaysHint =>
+      'منفصل عن التأخير: يتلقى المتعلم تذكيرًا لطيفًا.';
+
+  @override
+  String get policyAutoSuspend => 'إيقاف تلقائي';
+
+  @override
+  String get policyAutoSuspendHint =>
+      'مُعطّل افتراضيًا. فقط بعد تحذير قبل يوم على الأقل، ولا يحدث مع بلاغ مفتوح أو تمديد، وفقط إن استخدم المتعلم سدرة بعد إعطاء العمل. يُحفظ العمل والتقدم.';
+
+  @override
+  String get policySuspendDays => 'الإيقاف بعد (أيام تأخير)';
+
+  @override
+  String get policyPaymentDays =>
+      'متابعة مدفوعات المحمول غير المُجابة لمدة (أيام)';
+
+  @override
+  String get policyPaymentDaysHint =>
+      'بعدها تُعدّ الدفعة التي لم تُجب عنها MarzPay فاشلة.';
+
+  @override
+  String get policyRunning => 'السياسات تعمل.';
+
+  @override
+  String policyPausedUntil(String when) {
+    return 'متوقفة حتى $when';
+  }
+
+  @override
+  String policyLastRun(String when) {
+    return 'آخر فحص $when';
+  }
+
+  @override
+  String get policyResume => 'استئناف الآن';
+
+  @override
+  String policyPauseDays(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'إيقاف $n أيام',
+      one: 'إيقاف ليوم',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get holidaysTitle => 'العطل';
+
+  @override
+  String get holidaysHint => 'أيام لا تُحتسب في المواعيد';
+
+  @override
+  String get holidaysAdd => 'إضافة عطلة';
+
+  @override
+  String get holidaysName => 'الاسم (مثل عيد الفطر)';
+
+  @override
+  String get holidaysNone => 'لا توجد عطل';
+
+  @override
+  String get transferChannel => 'الرفع والتنزيل';
+
+  @override
+  String get transferChannelHint => 'تقدم الرفع والتنزيل';
+
+  @override
+  String get uploadingWork => 'جارٍ رفع عملك';
+
+  @override
+  String get uploadDoneTitle => 'تم إرسال العمل';
+
+  @override
+  String get uploadDoneBody => 'استلمه معلمك.';
+
+  @override
+  String get uploadWaitingTitle => 'تم حفظ العمل: بانتظار الإنترنت';
+
+  @override
+  String get uploadWaitingBody => 'سيُرسل عند عودة الاتصال.';
+
+  @override
+  String get uploadFailedTitle => 'فشل الرفع';
+
+  @override
+  String get uploadFailedBody =>
+      'عملك محفوظ على الهاتف. افتح سدرة لتحاول مجددًا.';
+
+  @override
+  String uploadFileMissing(String name) {
+    return '$name لم يعد على هذا الهاتف. احذفه وأضفه مجددًا.';
+  }
 }

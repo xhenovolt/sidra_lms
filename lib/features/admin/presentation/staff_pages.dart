@@ -89,6 +89,20 @@ class StaffMoreScreen extends ConsumerWidget {
               trailing: const Icon(Icons.chevron_right),
               onTap: () => ref.read(learnerPreviewProvider).on = true,
             ),
+          if (role == UserRole.admin) ...[
+            ListTile(
+              leading: const Icon(Icons.report_problem_outlined),
+              title: Text(l10n.issuesTitle),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => context.push('/teach/issues'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.schedule),
+              title: Text(l10n.lateWorkTitle),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => context.push('/teach/late'),
+            ),
+          ],
           if (role == UserRole.admin)
             ListTile(
               leading: const Icon(Icons.sensors),
