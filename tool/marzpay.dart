@@ -63,6 +63,10 @@ Future<void> main(List<String> args) async {
             '${text.length > 900 ? '${text.substring(0, 900)}…' : text}',
           );
         }
+      // One read-only GET, e.g.  get /transactions/<uuid>
+      case ['get', final path] when path.startsWith('/'):
+        final p = await client.probe('GET', path);
+        stdout.writeln('${p.status ?? p.error} ${jsonEncode(p.body)}');
       case ['status', final uuid]:
         final c = await client.status(uuid);
         stdout.writeln(

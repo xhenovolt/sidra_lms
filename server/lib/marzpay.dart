@@ -192,6 +192,60 @@ class MarzPayClient {
     ].where((t) => t.reference == reference).toList();
   }
 
+  /// Disbursement (money OUT of the MarzPay wallet). Needs the server's IP
+  /// on MarzPay's whitelist and money in the wallet. MarzPay's documentation
+  /// doesn't give this request's body; it mirrors collect-money.
+  Future<MarzCollection> sendMoney({
+    required int amount,
+    required String phone,
+    required String reference,
+    String? description,
+    String? callbackUrl,
+  }) async => MarzCollection.fromJson(
+    await _send('POST', '/send-money', {
+      'amount': amount,
+      'phone_number': phone,
+      'country': country,
+      'reference': reference,
+      'description': ?description,
+      'callback_url': ?callbackUrl,
+    }),
+  );
+
+  Future<MarzCollection> sendStatus(String uuid) async =>
+      MarzCollection.fromJson(await _send('GET', '/send-money/$uuid'));
+
+  /// Any transaction (collection, disbursement, fee…) by MarzPay's id.
+  Future<MarzTransaction?> transaction(String uuid) async {
+    final body = await _send('GET', '/transactions/$uuid');
+    // Answered without the usual "data" wrapper, with "event_type"
+    // (collection.failed…) instead of "type".
+    final data = (body['data'] as Map?)?.cast<String, dynamic>() ?? body;
+    final tx = (data['transaction'] as Map?)?.cast<String, dynamic>() ?? data;
+    if (tx['uuid'] == null) return null;
+    final event = '${body['event_type'] ?? data['event_type'] ?? ''}';
+    return MarzTransaction.fromJson({
+      ...tx,
+      'type':
+          tx['type'] ??
+          (event.startsWith('collection')
+              ? 'credit'
+              : event.isNotEmpty
+              ? 'debit'
+              : 'unknown'),
+    });
+  }
+
+  /// The wallet balance as the transaction list reports it (works without
+  /// the IP whitelist, unlike /balance).
+  Future<num?> balanceFromTransactions() async {
+    final body = await _send('GET', '/transactions?per_page=1');
+    final raw =
+        (((body['data'] as Map?)?['account'] as Map?)?['current_balance']
+            as Map?)?['raw'];
+    return raw is num ? raw : num.tryParse('${raw ?? ''}');
+  }
+
   Future<Map<String, dynamic>> _send(
     String method,
     String path, [

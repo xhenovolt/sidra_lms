@@ -25,6 +25,7 @@ import 'package:postgres/postgres.dart';
 
 import 'package:sidra_payments_server/diagnostics.dart';
 import 'package:sidra_payments_server/marzpay.dart';
+import 'package:sidra_payments_server/payment_tests.dart';
 
 Future<void> main() async {
   final env = _environment();
@@ -60,6 +61,8 @@ class PaymentsServer {
     Timer.periodic(const Duration(minutes: 5), (_) => purgeMedia());
     unawaited(purgeMedia());
     Timer.periodic(const Duration(seconds: 10), (_) => runDiagnosticsQueue());
+    Timer.periodic(const Duration(seconds: 10), (_) => runTests());
+    unawaited(runTests());
     unawaited(runQueue());
     unawaited(reconcile());
     unawaited(heartbeat());
@@ -81,6 +84,8 @@ class PaymentsServer {
       db.channels['sidra_payments'].listen((payload) {
         if (payload == 'diagnostics') {
           runDiagnosticsQueue();
+        } else if (payload == 'tests') {
+          runTests();
         } else {
           runQueue();
         }
@@ -144,6 +149,37 @@ class PaymentsServer {
       _log('diagnostics: $e');
     } finally {
       _diagBusy = false;
+    }
+  }
+
+  bool _testsBusy = false;
+
+  /// Runs MarzPay test-centre tests, one at a time, each exactly once.
+  Future<void> runTests() async {
+    if (_testsBusy) return;
+    _testsBusy = true;
+    try {
+      while (true) {
+        final r = await _db(
+          (c) => c.execute('select payments_api.claim_test()'),
+        );
+        final v = r.first.first;
+        if (v == null) break;
+        final test = v is Map
+            ? v.cast<String, dynamic>()
+            : (jsonDecode('$v') as Map).cast<String, dynamic>();
+        _log('running payment test ${test['id']} (${test['kind']})');
+        await PaymentTestRunner(
+          marz: marz,
+          db: _PgTestDb(this),
+          publicUrl: publicUrl,
+          fetch: _getUrl,
+        ).run(test);
+      }
+    } catch (e) {
+      _log('payment tests: $e');
+    } finally {
+      _testsBusy = false;
     }
   }
 
@@ -394,12 +430,26 @@ class PaymentsServer {
         // Acknowledge first; the payload itself is never trusted.
         res.statusCode = HttpStatus.ok;
         res.write('{"received":true}');
+        final event = _webhookEvent(body);
         if (uuid != null) {
           unawaited(
-            settleFromMarzPay(uuid).catchError((Object e) {
-              _log('webhook $uuid: $e');
-              return 'error';
-            }),
+            settleFromMarzPay(uuid)
+                .then((outcome) => _logWebhook(uuid, event, true, outcome))
+                .catchError((Object e) {
+                  _log('webhook $uuid: $e');
+                  _logWebhook(uuid, event, true, 'error', '$e');
+                  return null;
+                }),
+          );
+        } else {
+          unawaited(
+            _logWebhook(
+              null,
+              event,
+              false,
+              'ignored',
+              'no transaction id in the body',
+            ),
           );
         }
       } else {
@@ -410,6 +460,41 @@ class PaymentsServer {
       _log('http: $e');
     } finally {
       await res.close();
+    }
+  }
+
+  /// Every callback is recorded (for Settings → MarzPay → Callbacks).
+  Future<void> _logWebhook(
+    String? uuid,
+    String? event,
+    bool valid,
+    String outcome, [
+    String? error,
+  ]) async {
+    try {
+      await _db(
+        (c) => c.execute(
+          Sql.named('select payments_api.log_webhook(@u, @e, @v, @o, @err)'),
+          parameters: {
+            'u': uuid,
+            'e': event,
+            'v': valid,
+            'o': outcome,
+            'err': error,
+          },
+        ),
+      );
+    } catch (e) {
+      _log('webhook log: $e');
+    }
+  }
+
+  static String? _webhookEvent(String body) {
+    try {
+      final j = (jsonDecode(body) as Map).cast<String, dynamic>();
+      return (j['event_type'] ?? j['event'] ?? j['type'])?.toString();
+    } catch (_) {
+      return null;
     }
   }
 
@@ -447,6 +532,22 @@ class PaymentsServer {
 Future<Connection> _connect(String url) {
   final uri = Uri.parse(url);
   final user = uri.userInfo.split(':');
+  // Networks that block port 5432: SIDRA_DB_BRIDGE=host:port (see
+  // tool/pg_ws_bridge.mjs, which carries the connection over HTTPS).
+  final bridge = _environment()['SIDRA_DB_BRIDGE'];
+  if (bridge != null && bridge.isNotEmpty) {
+    final parts = bridge.split(':');
+    return Connection.open(
+      Endpoint(
+        host: parts.first,
+        port: int.parse(parts.last),
+        database: uri.pathSegments.first,
+        username: Uri.decodeComponent(user[0]),
+        password: Uri.decodeComponent(user.sublist(1).join(':')),
+      ),
+      settings: const ConnectionSettings(sslMode: SslMode.disable),
+    );
+  }
   return Connection.open(
     Endpoint(
       host: uri.host,
@@ -502,4 +603,68 @@ class _PgDiagnosticsDb implements DiagnosticsDb {
   @override
   Future<Map<String, dynamic>> reconciliationReport() =>
       _json('select payments_api.reconciliation_report()');
+}
+
+class _PgTestDb implements TestDb {
+  _PgTestDb(this.server);
+  final PaymentsServer server;
+
+  @override
+  Future<void> step(String id, Map<String, Object?> step) => server._db(
+    (c) => c.execute(
+      Sql.named('select payments_api.test_step(@id::uuid, @s::jsonb)'),
+      parameters: {'id': id, 's': jsonEncode(step)},
+    ),
+  );
+
+  @override
+  Future<void> finish(
+    String id, {
+    required String result,
+    String? providerUuid,
+    String? providerStatus,
+    String? errorCode,
+    String? message,
+    Map<String, Object?> evidence = const {},
+    String? environment,
+  }) => server._db(
+    (c) => c.execute(
+      Sql.named(
+        'select payments_api.finish_test(@id::uuid, @r, @pu, @ps, @ec, @m, @ev::jsonb, @env)',
+      ),
+      parameters: {
+        'id': id,
+        'r': result,
+        'pu': providerUuid,
+        'ps': providerStatus,
+        'ec': errorCode,
+        'm': message,
+        'ev': jsonEncode(evidence),
+        'env': environment,
+      },
+    ),
+  );
+
+  Future<Object?> _one(String sql, Map<String, Object?> p) async {
+    final r = await server._db((c) => c.execute(Sql.named(sql), parameters: p));
+    final v = r.first.first;
+    return v is String ? jsonDecode(v) : v;
+  }
+
+  @override
+  Future<Map<String, dynamic>?> sidraPayment(String query) async =>
+      ((await _one('select payments_api.sidra_payment(@q)', {'q': query}))
+              as Map?)
+          ?.cast<String, dynamic>();
+
+  @override
+  Future<List<Map<String, dynamic>>> sidraMarzPayPayments(int days) async => [
+    for (final p
+        in ((await _one('select payments_api.sidra_marzpay_payments(@d)', {
+                  'd': days,
+                }))
+                as List? ??
+            const []))
+      (p as Map).cast<String, dynamic>(),
+  ];
 }
