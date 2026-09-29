@@ -36,6 +36,33 @@ Future<void> main(List<String> args) async {
           'provider=${c.provider}',
         );
         if (rest.contains('--wait')) await _wait(client, c.uuid);
+      // Read-only capability probe (moves no money). The send-money check
+      // uses a request MarzPay must refuse (1 UGX to an invalid number) to
+      // learn whether disbursement exists and which fields it wants.
+      case ['probe']:
+        for (final (method, path, body) in <(String, String, Map<String, Object?>?)>[
+          ('GET', '/collect-money/services', null),
+          ('GET', '/send-money/services', null),
+          ('GET', '/services', null),
+          ('GET', '/balance', null),
+          ('GET', '/account', null),
+          ('GET', '/webhooks', null),
+          ('GET', '/transactions?per_page=1', null),
+          ('POST', '/send-money', {
+            'amount': 1,
+            'phone_number': '+2560000',
+            'country': 'UG',
+            'reference': uuidV4(),
+            'description': 'Sidra capability probe (invalid on purpose)',
+          }),
+        ]) {
+          final p = await client.probe(method, path, json: body);
+          final text = jsonEncode(p.body ?? {'error': p.error});
+          stdout.writeln(
+            '$method $path -> ${p.status ?? p.error} (${p.elapsed.inMilliseconds} ms) '
+            '${text.length > 900 ? '${text.substring(0, 900)}…' : text}',
+          );
+        }
       case ['status', final uuid]:
         final c = await client.status(uuid);
         stdout.writeln(
