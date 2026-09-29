@@ -11,6 +11,7 @@ import '../../content/data/content_repository.dart';
 import '../data/admin_repository.dart';
 import 'admin_common.dart';
 import 'people_tab.dart';
+import 'sessions_screens.dart';
 import '../../../shared/widgets/user_avatar.dart';
 
 final personProfileProvider = FutureProvider.autoDispose
@@ -142,6 +143,19 @@ class _Profile extends StatelessWidget {
                       : l10n.personLastSignIn(when(profile.lastSignIn)),
                 ),
               ],
+            ),
+          ),
+        ),
+        Card(
+          child: ListTile(
+            leading: const Icon(Icons.devices_outlined),
+            title: Text(l10n.devicesTitle),
+            subtitle: Text(l10n.devicesPersonHint),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => DevicesScreen(userId: user.id, name: user.name),
+              ),
             ),
           ),
         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../core/device/presence.dart';
 import '../core/notifications/phone_notifications.dart';
 import '../core/settings/public_settings.dart';
 import '../core/settings/update_gate.dart';
@@ -21,6 +22,7 @@ class SidraApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     ref.watch(phoneNotificationsProvider);
+    ref.watch(presenceProvider);
     // Organisation name, password rule and the like, as set by admins.
     final settings = ref.watch(publicSettingsProvider).value;
     if (settings != null) applyPublicSettings(settings);
@@ -42,8 +44,11 @@ class SidraApp extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       routerConfig: router,
-      builder: (context, child) =>
-          UpdateGate(child: child ?? const SizedBox.shrink()),
+      builder: (context, child) => Listener(
+        // "Active" for presence = someone touched the screen.
+        onPointerDown: (_) => DeviceActivity.touched = true,
+        child: UpdateGate(child: child ?? const SizedBox.shrink()),
+      ),
     );
   }
 }

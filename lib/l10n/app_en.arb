@@ -1812,5 +1812,157 @@
   "updateRequiredTitle": "Please update Sidra",
   "updateRequiredBody": "This version is no longer supported. Download the new one to continue.",
   "updateNow": "Update",
-  "updateLater": "Later"
+  "updateLater": "Later",
+  "authErrorTryLater": "Too many sign-in attempts right now. Please wait a minute and try again.",
+  "timeJustNow": "just now",
+  "timeMinutesAgo": "{n} min ago",
+  "@timeMinutesAgo": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "timeHoursAgo": "{n} h ago",
+  "@timeHoursAgo": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "timeDaysAgo": "{n, plural, =1{yesterday} other{{n} days ago}}",
+  "@timeDaysAgo": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "presenceTitle": "Who's online",
+  "presenceMenuHint": "Signed-in phones, last seen and last used",
+  "presenceHint": "Signed in, online and using the app are different: a phone can be signed in but offline, or online with nobody using it.",
+  "presenceSearch": "Search by name",
+  "presenceSignedIn": "{n, plural, =1{Signed in on 1 phone} other{Signed in on {n} phones}}",
+  "@presenceSignedIn": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "presenceSignedOut": "Signed out",
+  "presenceOnline": "Online",
+  "presenceActiveNow": "Using Sidra now",
+  "presenceLastSeen": "Last seen {when}",
+  "@presenceLastSeen": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "presenceLastActive": "Last used {when}",
+  "@presenceLastActive": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "presenceNeverSeen": "Not seen yet",
+  "devicesTitle": "Devices and sign-ins",
+  "devicesMine": "Your devices",
+  "devicesPersonHint": "Phones, who is online, sign-in history; sign out a lost phone",
+  "devicesHint": "Every phone that signed in to this account. Signing out a phone ends it at once; the password is needed to use it again.",
+  "devicesEmpty": "No devices yet. Phones appear after they sign in with Sidra 2.28 or newer.",
+  "devicesEndAll": "Sign out everywhere",
+  "devicesEndAllBody": "Every phone signed in to this account is signed out at once. The password is needed to sign in again.",
+  "devicesEndAllDone": "{n, plural, =0{No phone was signed in} =1{Signed out 1 phone} other{Signed out {n} phones}}",
+  "@devicesEndAllDone": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "deviceThis": "This phone",
+  "deviceUnknown": "Unknown phone",
+  "deviceApp": "Sidra {version} (build {build})",
+  "@deviceApp": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "build": {
+        "type": "String"
+      }
+    }
+  },
+  "deviceAndroid": "Android {version} (API {sdk})",
+  "@deviceAndroid": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "sdk": {
+        "type": "String"
+      }
+    }
+  },
+  "deviceNetwork": "Network: {network}",
+  "@deviceNetwork": {
+    "placeholders": {
+      "network": {
+        "type": "String"
+      }
+    }
+  },
+  "deviceNotificationsOff": "Notifications blocked",
+  "deviceMicOff": "Microphone not allowed",
+  "deviceLastSync": "Last synced {when}",
+  "@deviceLastSync": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "deviceFirstSeen": "First seen {when}",
+  "@deviceFirstSeen": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "deviceRevoke": "Sign out this phone",
+  "deviceRevokeTitle": "Sign out this phone?",
+  "deviceRevokeBody": "It stops working at once and needs the password to sign in again. Use this for a lost or stolen phone.",
+  "deviceRevokeReason": "Reason (optional)",
+  "deviceRevokedBy": "Signed out by {name} {when}. {reason}",
+  "@deviceRevokedBy": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      },
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "authHistoryTitle": "Sign-in history",
+  "authEventSignIn": "Signed in",
+  "authEventSignedUp": "Created the account",
+  "authEventFailed": "Wrong password",
+  "authEventLocked": "Tried while locked",
+  "authEventDisabled": "Tried while the account was disabled",
+  "authEventSignOut": "Signed out",
+  "authEventRefreshRejected": "An ended sign-in was used again (refused)",
+  "authEventDeviceRevoked": "A phone was signed out",
+  "authEventSessionsEnded": "Signed out everywhere",
+  "authEventPasswordChanged": "Changed the password"
 }

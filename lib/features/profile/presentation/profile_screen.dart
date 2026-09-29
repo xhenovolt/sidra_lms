@@ -10,6 +10,7 @@ import '../../../core/data/data_providers.dart';
 import '../../../core/data/repository_providers.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../admin/presentation/sessions_screens.dart' show DevicesScreen;
 import '../../auth/presentation/auth_providers.dart';
 import '../data/profile_repository.dart';
 import 'avatar_editor.dart';
@@ -87,6 +88,14 @@ class ProfileScreen extends ConsumerWidget {
             leading: const Icon(Icons.key_outlined),
             title: Text(l10n.authChangePassword),
             onTap: () => context.push(Routes.changePassword),
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.devices_outlined),
+            title: Text(l10n.devicesMine),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const DevicesScreen()),
+            ),
           ),
           ListTile(
             contentPadding: EdgeInsets.zero,

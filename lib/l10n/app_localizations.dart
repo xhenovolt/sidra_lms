@@ -6384,6 +6384,300 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Later'**
   String get updateLater;
+
+  /// No description provided for @authErrorTryLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many sign-in attempts right now. Please wait a minute and try again.'**
+  String get authErrorTryLater;
+
+  /// No description provided for @timeJustNow.
+  ///
+  /// In en, this message translates to:
+  /// **'just now'**
+  String get timeJustNow;
+
+  /// No description provided for @timeMinutesAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} min ago'**
+  String timeMinutesAgo(int n);
+
+  /// No description provided for @timeHoursAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} h ago'**
+  String timeHoursAgo(int n);
+
+  /// No description provided for @timeDaysAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{yesterday} other{{n} days ago}}'**
+  String timeDaysAgo(int n);
+
+  /// No description provided for @presenceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Who\'s online'**
+  String get presenceTitle;
+
+  /// No description provided for @presenceMenuHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed-in phones, last seen and last used'**
+  String get presenceMenuHint;
+
+  /// No description provided for @presenceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed in, online and using the app are different: a phone can be signed in but offline, or online with nobody using it.'**
+  String get presenceHint;
+
+  /// No description provided for @presenceSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by name'**
+  String get presenceSearch;
+
+  /// No description provided for @presenceSignedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{Signed in on 1 phone} other{Signed in on {n} phones}}'**
+  String presenceSignedIn(int n);
+
+  /// No description provided for @presenceSignedOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed out'**
+  String get presenceSignedOut;
+
+  /// No description provided for @presenceOnline.
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get presenceOnline;
+
+  /// No description provided for @presenceActiveNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Using Sidra now'**
+  String get presenceActiveNow;
+
+  /// No description provided for @presenceLastSeen.
+  ///
+  /// In en, this message translates to:
+  /// **'Last seen {when}'**
+  String presenceLastSeen(String when);
+
+  /// No description provided for @presenceLastActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Last used {when}'**
+  String presenceLastActive(String when);
+
+  /// No description provided for @presenceNeverSeen.
+  ///
+  /// In en, this message translates to:
+  /// **'Not seen yet'**
+  String get presenceNeverSeen;
+
+  /// No description provided for @devicesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Devices and sign-ins'**
+  String get devicesTitle;
+
+  /// No description provided for @devicesMine.
+  ///
+  /// In en, this message translates to:
+  /// **'Your devices'**
+  String get devicesMine;
+
+  /// No description provided for @devicesPersonHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Phones, who is online, sign-in history; sign out a lost phone'**
+  String get devicesPersonHint;
+
+  /// No description provided for @devicesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Every phone that signed in to this account. Signing out a phone ends it at once; the password is needed to use it again.'**
+  String get devicesHint;
+
+  /// No description provided for @devicesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No devices yet. Phones appear after they sign in with Sidra 2.28 or newer.'**
+  String get devicesEmpty;
+
+  /// No description provided for @devicesEndAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out everywhere'**
+  String get devicesEndAll;
+
+  /// No description provided for @devicesEndAllBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Every phone signed in to this account is signed out at once. The password is needed to sign in again.'**
+  String get devicesEndAllBody;
+
+  /// No description provided for @devicesEndAllDone.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =0{No phone was signed in} =1{Signed out 1 phone} other{Signed out {n} phones}}'**
+  String devicesEndAllDone(int n);
+
+  /// No description provided for @deviceThis.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone'**
+  String get deviceThis;
+
+  /// No description provided for @deviceUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown phone'**
+  String get deviceUnknown;
+
+  /// No description provided for @deviceApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sidra {version} (build {build})'**
+  String deviceApp(String version, String build);
+
+  /// No description provided for @deviceAndroid.
+  ///
+  /// In en, this message translates to:
+  /// **'Android {version} (API {sdk})'**
+  String deviceAndroid(String version, String sdk);
+
+  /// No description provided for @deviceNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Network: {network}'**
+  String deviceNetwork(String network);
+
+  /// No description provided for @deviceNotificationsOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications blocked'**
+  String get deviceNotificationsOff;
+
+  /// No description provided for @deviceMicOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone not allowed'**
+  String get deviceMicOff;
+
+  /// No description provided for @deviceLastSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Last synced {when}'**
+  String deviceLastSync(String when);
+
+  /// No description provided for @deviceFirstSeen.
+  ///
+  /// In en, this message translates to:
+  /// **'First seen {when}'**
+  String deviceFirstSeen(String when);
+
+  /// No description provided for @deviceRevoke.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out this phone'**
+  String get deviceRevoke;
+
+  /// No description provided for @deviceRevokeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out this phone?'**
+  String get deviceRevokeTitle;
+
+  /// No description provided for @deviceRevokeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It stops working at once and needs the password to sign in again. Use this for a lost or stolen phone.'**
+  String get deviceRevokeBody;
+
+  /// No description provided for @deviceRevokeReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason (optional)'**
+  String get deviceRevokeReason;
+
+  /// No description provided for @deviceRevokedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed out by {name} {when}. {reason}'**
+  String deviceRevokedBy(String name, String when, String reason);
+
+  /// No description provided for @authHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign-in history'**
+  String get authHistoryTitle;
+
+  /// No description provided for @authEventSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed in'**
+  String get authEventSignIn;
+
+  /// No description provided for @authEventSignedUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Created the account'**
+  String get authEventSignedUp;
+
+  /// No description provided for @authEventFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong password'**
+  String get authEventFailed;
+
+  /// No description provided for @authEventLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Tried while locked'**
+  String get authEventLocked;
+
+  /// No description provided for @authEventDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Tried while the account was disabled'**
+  String get authEventDisabled;
+
+  /// No description provided for @authEventSignOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed out'**
+  String get authEventSignOut;
+
+  /// No description provided for @authEventRefreshRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'An ended sign-in was used again (refused)'**
+  String get authEventRefreshRejected;
+
+  /// No description provided for @authEventDeviceRevoked.
+  ///
+  /// In en, this message translates to:
+  /// **'A phone was signed out'**
+  String get authEventDeviceRevoked;
+
+  /// No description provided for @authEventSessionsEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed out everywhere'**
+  String get authEventSessionsEnded;
+
+  /// No description provided for @authEventPasswordChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Changed the password'**
+  String get authEventPasswordChanged;
 }
 
 class _AppLocalizationsDelegate

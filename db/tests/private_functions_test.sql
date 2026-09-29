@@ -48,3 +48,10 @@ from (select
                 'int_setting', 'notification_allowed', 'valid_block', 'completed_course',
                 'link_course')),
            '{}') as x) s;
+
+-- auth_api: the app login may run exactly the five sign-in entry points.
+select pg_temp.check(x = array['app_change_password', 'app_login', 'app_logout', 'app_refresh', 'app_register'],
+                     'auth_api functions callable by the app login: ' || x::text)
+from (select array_agg(p.proname::text order by p.proname) x
+      from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+      where n.nspname = 'auth_api' and has_function_privilege('sidra_app', p.oid, 'execute')) s;

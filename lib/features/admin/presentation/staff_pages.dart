@@ -12,6 +12,7 @@ import '../../../l10n/app_localizations.dart';
 import '../../auth/presentation/auth_providers.dart';
 import '../../profile/data/profile_repository.dart';
 import 'people_tab.dart';
+import 'sessions_screens.dart';
 import '../../profile/presentation/avatar_editor.dart';
 import '../../../app/router/learner_preview.dart';
 
@@ -88,6 +89,16 @@ class StaffMoreScreen extends ConsumerWidget {
               trailing: const Icon(Icons.chevron_right),
               onTap: () => ref.read(learnerPreviewProvider).on = true,
             ),
+          if (role == UserRole.admin)
+            ListTile(
+              leading: const Icon(Icons.sensors),
+              title: Text(l10n.presenceTitle),
+              subtitle: Text(l10n.presenceMenuHint),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(builder: (_) => const PresenceScreen()),
+              ),
+            ),
           ListTile(
             leading: const Icon(Icons.visibility_outlined),
             title: Text(l10n.moreBrowseCatalogue),
@@ -109,6 +120,13 @@ class StaffMoreScreen extends ConsumerWidget {
             leading: const Icon(Icons.key_outlined),
             title: Text(l10n.authChangePassword),
             onTap: () => context.push(Routes.changePassword),
+          ),
+          ListTile(
+            leading: const Icon(Icons.devices_outlined),
+            title: Text(l10n.devicesMine),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const DevicesScreen()),
+            ),
           ),
           ListTile(
             leading: const Icon(Icons.notifications_outlined),

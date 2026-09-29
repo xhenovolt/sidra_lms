@@ -3561,4 +3561,204 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get updateLater => 'لاحقًا';
+
+  @override
+  String get authErrorTryLater =>
+      'محاولات تسجيل دخول كثيرة الآن. انتظر دقيقة ثم حاول مجددًا.';
+
+  @override
+  String get timeJustNow => 'الآن';
+
+  @override
+  String timeMinutesAgo(int n) {
+    return 'قبل $n دقيقة';
+  }
+
+  @override
+  String timeHoursAgo(int n) {
+    return 'قبل $n ساعة';
+  }
+
+  @override
+  String timeDaysAgo(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'قبل $n أيام',
+      one: 'أمس',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get presenceTitle => 'من المتصل الآن';
+
+  @override
+  String get presenceMenuHint => 'الهواتف المسجلة وآخر ظهور وآخر استخدام';
+
+  @override
+  String get presenceHint =>
+      'تسجيل الدخول والاتصال والاستخدام أمور مختلفة: قد يكون الهاتف مسجلًا لكنه غير متصل، أو متصلًا دون أن يستخدمه أحد.';
+
+  @override
+  String get presenceSearch => 'ابحث بالاسم';
+
+  @override
+  String presenceSignedIn(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'مسجل على $n هواتف',
+      one: 'مسجل على هاتف واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get presenceSignedOut => 'غير مسجل';
+
+  @override
+  String get presenceOnline => 'متصل';
+
+  @override
+  String get presenceActiveNow => 'يستخدم سدرة الآن';
+
+  @override
+  String presenceLastSeen(String when) {
+    return 'آخر ظهور $when';
+  }
+
+  @override
+  String presenceLastActive(String when) {
+    return 'آخر استخدام $when';
+  }
+
+  @override
+  String get presenceNeverSeen => 'لم يظهر بعد';
+
+  @override
+  String get devicesTitle => 'الأجهزة وتسجيلات الدخول';
+
+  @override
+  String get devicesMine => 'أجهزتك';
+
+  @override
+  String get devicesPersonHint =>
+      'الهواتف، الاتصال، سجل الدخول؛ تسجيل خروج هاتف مفقود';
+
+  @override
+  String get devicesHint =>
+      'كل هاتف سجّل الدخول إلى هذا الحساب. تسجيل خروج هاتف ينهيه فورًا، ويلزم كلمة المرور لاستخدامه مجددًا.';
+
+  @override
+  String get devicesEmpty =>
+      'لا توجد أجهزة بعد. تظهر الهواتف بعد تسجيل الدخول بسدرة 2.28 أو أحدث.';
+
+  @override
+  String get devicesEndAll => 'خروج من كل الأجهزة';
+
+  @override
+  String get devicesEndAllBody =>
+      'يُسجَّل خروج كل هاتف في هذا الحساب فورًا. تلزم كلمة المرور لتسجيل الدخول مجددًا.';
+
+  @override
+  String devicesEndAllDone(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'تم تسجيل خروج $n هواتف',
+      one: 'تم تسجيل خروج هاتف واحد',
+      zero: 'لم يكن أي هاتف مسجلًا',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deviceThis => 'هذا الهاتف';
+
+  @override
+  String get deviceUnknown => 'هاتف غير معروف';
+
+  @override
+  String deviceApp(String version, String build) {
+    return 'سدرة $version (بناء $build)';
+  }
+
+  @override
+  String deviceAndroid(String version, String sdk) {
+    return 'أندرويد $version (API $sdk)';
+  }
+
+  @override
+  String deviceNetwork(String network) {
+    return 'الشبكة: $network';
+  }
+
+  @override
+  String get deviceNotificationsOff => 'الإشعارات محظورة';
+
+  @override
+  String get deviceMicOff => 'الميكروفون غير مسموح';
+
+  @override
+  String deviceLastSync(String when) {
+    return 'آخر مزامنة $when';
+  }
+
+  @override
+  String deviceFirstSeen(String when) {
+    return 'أول ظهور $when';
+  }
+
+  @override
+  String get deviceRevoke => 'تسجيل خروج هذا الهاتف';
+
+  @override
+  String get deviceRevokeTitle => 'تسجيل خروج هذا الهاتف؟';
+
+  @override
+  String get deviceRevokeBody =>
+      'يتوقف فورًا ويحتاج كلمة المرور لتسجيل الدخول مجددًا. استخدم هذا لهاتف مفقود أو مسروق.';
+
+  @override
+  String get deviceRevokeReason => 'السبب (اختياري)';
+
+  @override
+  String deviceRevokedBy(String name, String when, String reason) {
+    return 'سجّل خروجه $name $when. $reason';
+  }
+
+  @override
+  String get authHistoryTitle => 'سجل تسجيل الدخول';
+
+  @override
+  String get authEventSignIn => 'تسجيل دخول';
+
+  @override
+  String get authEventSignedUp => 'إنشاء الحساب';
+
+  @override
+  String get authEventFailed => 'كلمة مرور خاطئة';
+
+  @override
+  String get authEventLocked => 'محاولة أثناء القفل';
+
+  @override
+  String get authEventDisabled => 'محاولة والحساب معطّل';
+
+  @override
+  String get authEventSignOut => 'تسجيل خروج';
+
+  @override
+  String get authEventRefreshRejected =>
+      'استُخدم تسجيل دخول منتهٍ مجددًا (مرفوض)';
+
+  @override
+  String get authEventDeviceRevoked => 'تم تسجيل خروج هاتف';
+
+  @override
+  String get authEventSessionsEnded => 'خروج من كل الأجهزة';
+
+  @override
+  String get authEventPasswordChanged => 'تغيير كلمة المرور';
 }

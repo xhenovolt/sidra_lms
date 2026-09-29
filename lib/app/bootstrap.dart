@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../core/device/device_profile.dart';
 import '../core/notifications/phone_notifications.dart';
 import '../core/config/app_config.dart';
 import '../core/logging/app_logger.dart';
@@ -36,7 +37,7 @@ Future<void> bootstrap() async {
   final AuthService auth;
   if (db != null) {
     final sidra = SidraAuthService(
-      backend: PgAuthBackend(db),
+      backend: PgAuthBackend(db, device: DeviceProfile.collect),
       store: const FlutterSecureStore(),
     );
     await sidra.restore();

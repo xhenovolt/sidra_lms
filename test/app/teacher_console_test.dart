@@ -310,6 +310,12 @@ void main() {
     expect(find.textContaining('Administrator'), findsOneWidget);
     expect(find.text('Browse the catalogue'), findsOneWidget);
     expect(find.text('Change password'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text('Sign out'),
+      200,
+      scrollable: find.byType(Scrollable).last,
+    );
+    expect(find.text('Your devices'), findsOneWidget);
     expect(find.text('Sign out'), findsOneWidget);
   });
 

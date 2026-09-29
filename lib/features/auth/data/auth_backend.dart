@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:postgres/postgres.dart';
 
 import '../../../core/errors/app_failure.dart';
@@ -26,9 +28,25 @@ abstract interface class AuthBackend {
 /// app's own low-privilege connection. Passwords are checked with bcrypt
 /// inside the database; the app never sees a hash.
 class PgAuthBackend implements AuthBackend {
-  PgAuthBackend(this._client);
+  PgAuthBackend(this._client, {this.device});
 
   final PgClient _client;
+
+  /// This phone's facts (install id, model, app version…), sent with each
+  /// sign-in and refresh so sessions belong to a device the administrators
+  /// can see and sign out. Null in tools and tests: sessions without a
+  /// device, as before.
+  final Future<Map<String, Object?>> Function()? device;
+
+  Future<String?> _device() async {
+    final d = device;
+    if (d == null) return null;
+    try {
+      return jsonEncode(await d());
+    } catch (_) {
+      return null; // never block sign-in on device facts
+    }
+  }
 
   Future<Map<String, dynamic>> _call(String fn, List<Object?> args) async {
     final placeholders = [for (var i = 1; i <= args.length; i++) '\$$i'];
@@ -46,26 +64,38 @@ class PgAuthBackend implements AuthBackend {
   }
 
   @override
-  Future<Map<String, dynamic>> login(String identifier, String password) =>
-      _call('app_login', [identifier, password]);
+  Future<Map<String, dynamic>> login(
+    String identifier,
+    String password,
+  ) async => _call('app_login', [identifier, password, await _device()]);
 
   @override
   Future<Map<String, dynamic>> register(
     String identifier,
     String password,
     String displayName,
-  ) => _call('app_register', [identifier, password, displayName]);
+  ) async => _call('app_register', [
+    identifier,
+    password,
+    displayName,
+    await _device(),
+  ]);
 
   @override
-  Future<Map<String, dynamic>> refresh(String refreshToken) =>
-      _call('app_refresh', [refreshToken]);
+  Future<Map<String, dynamic>> refresh(String refreshToken) async =>
+      _call('app_refresh', [refreshToken, await _device()]);
 
   @override
   Future<Map<String, dynamic>> changePassword(
     String accessToken,
     String oldPassword,
     String newPassword,
-  ) => _call('app_change_password', [accessToken, oldPassword, newPassword]);
+  ) async => _call('app_change_password', [
+    accessToken,
+    oldPassword,
+    newPassword,
+    await _device(),
+  ]);
 
   @override
   Future<void> logout(String refreshToken, String? accessToken) =>

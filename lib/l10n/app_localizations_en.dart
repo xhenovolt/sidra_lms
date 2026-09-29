@@ -3595,4 +3595,204 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get updateLater => 'Later';
+
+  @override
+  String get authErrorTryLater =>
+      'Too many sign-in attempts right now. Please wait a minute and try again.';
+
+  @override
+  String get timeJustNow => 'just now';
+
+  @override
+  String timeMinutesAgo(int n) {
+    return '$n min ago';
+  }
+
+  @override
+  String timeHoursAgo(int n) {
+    return '$n h ago';
+  }
+
+  @override
+  String timeDaysAgo(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n days ago',
+      one: 'yesterday',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get presenceTitle => 'Who\'s online';
+
+  @override
+  String get presenceMenuHint => 'Signed-in phones, last seen and last used';
+
+  @override
+  String get presenceHint =>
+      'Signed in, online and using the app are different: a phone can be signed in but offline, or online with nobody using it.';
+
+  @override
+  String get presenceSearch => 'Search by name';
+
+  @override
+  String presenceSignedIn(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Signed in on $n phones',
+      one: 'Signed in on 1 phone',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get presenceSignedOut => 'Signed out';
+
+  @override
+  String get presenceOnline => 'Online';
+
+  @override
+  String get presenceActiveNow => 'Using Sidra now';
+
+  @override
+  String presenceLastSeen(String when) {
+    return 'Last seen $when';
+  }
+
+  @override
+  String presenceLastActive(String when) {
+    return 'Last used $when';
+  }
+
+  @override
+  String get presenceNeverSeen => 'Not seen yet';
+
+  @override
+  String get devicesTitle => 'Devices and sign-ins';
+
+  @override
+  String get devicesMine => 'Your devices';
+
+  @override
+  String get devicesPersonHint =>
+      'Phones, who is online, sign-in history; sign out a lost phone';
+
+  @override
+  String get devicesHint =>
+      'Every phone that signed in to this account. Signing out a phone ends it at once; the password is needed to use it again.';
+
+  @override
+  String get devicesEmpty =>
+      'No devices yet. Phones appear after they sign in with Sidra 2.28 or newer.';
+
+  @override
+  String get devicesEndAll => 'Sign out everywhere';
+
+  @override
+  String get devicesEndAllBody =>
+      'Every phone signed in to this account is signed out at once. The password is needed to sign in again.';
+
+  @override
+  String devicesEndAllDone(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Signed out $n phones',
+      one: 'Signed out 1 phone',
+      zero: 'No phone was signed in',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deviceThis => 'This phone';
+
+  @override
+  String get deviceUnknown => 'Unknown phone';
+
+  @override
+  String deviceApp(String version, String build) {
+    return 'Sidra $version (build $build)';
+  }
+
+  @override
+  String deviceAndroid(String version, String sdk) {
+    return 'Android $version (API $sdk)';
+  }
+
+  @override
+  String deviceNetwork(String network) {
+    return 'Network: $network';
+  }
+
+  @override
+  String get deviceNotificationsOff => 'Notifications blocked';
+
+  @override
+  String get deviceMicOff => 'Microphone not allowed';
+
+  @override
+  String deviceLastSync(String when) {
+    return 'Last synced $when';
+  }
+
+  @override
+  String deviceFirstSeen(String when) {
+    return 'First seen $when';
+  }
+
+  @override
+  String get deviceRevoke => 'Sign out this phone';
+
+  @override
+  String get deviceRevokeTitle => 'Sign out this phone?';
+
+  @override
+  String get deviceRevokeBody =>
+      'It stops working at once and needs the password to sign in again. Use this for a lost or stolen phone.';
+
+  @override
+  String get deviceRevokeReason => 'Reason (optional)';
+
+  @override
+  String deviceRevokedBy(String name, String when, String reason) {
+    return 'Signed out by $name $when. $reason';
+  }
+
+  @override
+  String get authHistoryTitle => 'Sign-in history';
+
+  @override
+  String get authEventSignIn => 'Signed in';
+
+  @override
+  String get authEventSignedUp => 'Created the account';
+
+  @override
+  String get authEventFailed => 'Wrong password';
+
+  @override
+  String get authEventLocked => 'Tried while locked';
+
+  @override
+  String get authEventDisabled => 'Tried while the account was disabled';
+
+  @override
+  String get authEventSignOut => 'Signed out';
+
+  @override
+  String get authEventRefreshRejected =>
+      'An ended sign-in was used again (refused)';
+
+  @override
+  String get authEventDeviceRevoked => 'A phone was signed out';
+
+  @override
+  String get authEventSessionsEnded => 'Signed out everywhere';
+
+  @override
+  String get authEventPasswordChanged => 'Changed the password';
 }

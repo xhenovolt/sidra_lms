@@ -20,6 +20,7 @@ String authErrorText(AppLocalizations l10n, Object error) => switch (error) {
     'disabled' => l10n.authErrorDisabled(orgFor(l10n)),
     'signup_closed' => l10n.authErrorSignupClosed(orgFor(l10n)),
     'same_password' => l10n.authErrorSamePassword,
+    'try_later' => l10n.authErrorTryLater,
     _ => l10n.genericError,
   },
   OfflineFailure() || TimeoutFailure() => l10n.authErrorOffline,
