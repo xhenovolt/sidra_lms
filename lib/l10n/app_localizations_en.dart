@@ -4210,4 +4210,79 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get photoView => 'View photo';
+
+  @override
+  String dashSignedInAs(String name, String role) {
+    return 'Signed in as $name · $role';
+  }
+
+  @override
+  String dashOrgTitle(String org) {
+    return '$org at a glance';
+  }
+
+  @override
+  String get dashOrgHint =>
+      'Numbers for the whole organisation, not for you. Tap any number to see exactly who or what it counts.';
+
+  @override
+  String get dashThisWeek => 'This week';
+
+  @override
+  String get dashPeople => 'People';
+
+  @override
+  String get dashCourses => 'Courses';
+
+  @override
+  String get dashLearnersInCourses => 'Learners in courses';
+
+  @override
+  String get dashCoursePlaces => 'Course places (a learner in 3 courses = 3)';
+
+  @override
+  String get dashListEmpty => 'Nothing here';
+
+  @override
+  String dashListCount(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n in this list',
+      one: '1 in this list',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dashLearnersGlance => 'Learners at a glance';
+
+  @override
+  String dashSeeAll(int n) {
+    return 'See all $n';
+  }
+
+  @override
+  String get dashGlanceUnavailable => 'You can\'t see learners with your role.';
+
+  @override
+  String get dashNoCourses => 'Not in any course';
+
+  @override
+  String get dashNeverUsed => 'Hasn\'t used Sidra yet';
+
+  @override
+  String dashLastUsed(String when) {
+    return 'Last used Sidra $when';
+  }
+
+  @override
+  String dashLateWork(int n) {
+    return '$n late';
+  }
+
+  @override
+  String dashOpenReports(int n) {
+    return '$n problem reported';
+  }
 }

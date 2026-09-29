@@ -27,7 +27,9 @@ Map<String, dynamic> _msg(
 };
 
 void main() {
-  testWidgets('messages: list with unread, open a chat, see replies', (tester) async {
+  testWidgets('messages: list with unread, open a chat, see replies', (
+    tester,
+  ) async {
     final api = staffServer('admin');
     api.rpcHandlers['my_chats'] = (_) => [
       {
@@ -38,7 +40,11 @@ void main() {
         'muted': false,
         'members': 2,
         'last_message_at': '2026-09-29T08:01:00Z',
-        'last_message': _msg('m2', body: 'See you after Asr', at: '2026-09-29T08:01:00Z'),
+        'last_message': _msg(
+          'm2',
+          body: 'See you after Asr',
+          at: '2026-09-29T08:01:00Z',
+        ),
       },
     ];
     api.rpcHandlers['chat_messages'] = (_) => [
@@ -46,7 +52,11 @@ void main() {
         'm2',
         body: 'See you after Asr',
         at: '2026-09-29T08:01:00Z',
-        replyTo: {'id': 'm1', 'sender_name': 'Hamuza Ibrahim', 'body': 'Meeting today?'},
+        replyTo: {
+          'id': 'm1',
+          'sender_name': 'Hamuza Ibrahim',
+          'body': 'Meeting today?',
+        },
       ),
       _msg('m1', body: 'Meeting today?', mine: true),
     ];
@@ -61,7 +71,10 @@ void main() {
 
     await tester.tap(find.text('Ustadh Musa'));
     await tester.pumpAndSettle();
-    expect(find.text('Meeting today?'), findsWidgets); // the message and its quote
+    expect(
+      find.text('Meeting today?'),
+      findsWidgets,
+    ); // the message and its quote
     expect(find.text('See you after Asr'), findsOneWidget);
     expect(api.rpcCalls.any((c) => c.$1 == 'mark_chat_read'), isTrue);
 

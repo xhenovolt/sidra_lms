@@ -4173,4 +4173,79 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get photoView => 'عرض الصورة';
+
+  @override
+  String dashSignedInAs(String name, String role) {
+    return 'مسجّل الدخول باسم $name · $role';
+  }
+
+  @override
+  String dashOrgTitle(String org) {
+    return '$org في لمحة';
+  }
+
+  @override
+  String get dashOrgHint =>
+      'أرقام المؤسسة كلها، لا أرقامك أنت. اضغط أي رقم لترى بالضبط من أو ماذا يعدّ.';
+
+  @override
+  String get dashThisWeek => 'هذا الأسبوع';
+
+  @override
+  String get dashPeople => 'الأشخاص';
+
+  @override
+  String get dashCourses => 'الدورات';
+
+  @override
+  String get dashLearnersInCourses => 'متعلمون في دورات';
+
+  @override
+  String get dashCoursePlaces => 'مقاعد الدورات (متعلم في 3 دورات = 3)';
+
+  @override
+  String get dashListEmpty => 'لا شيء هنا';
+
+  @override
+  String dashListCount(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n في هذه القائمة',
+      one: 'واحد في هذه القائمة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dashLearnersGlance => 'المتعلمون في لمحة';
+
+  @override
+  String dashSeeAll(int n) {
+    return 'عرض الكل ($n)';
+  }
+
+  @override
+  String get dashGlanceUnavailable => 'لا يمكنك رؤية المتعلمين بدورك الحالي.';
+
+  @override
+  String get dashNoCourses => 'ليس في أي دورة';
+
+  @override
+  String get dashNeverUsed => 'لم يستخدم سدرة بعد';
+
+  @override
+  String dashLastUsed(String when) {
+    return 'آخر استخدام لسدرة $when';
+  }
+
+  @override
+  String dashLateWork(int n) {
+    return '$n متأخر';
+  }
+
+  @override
+  String dashOpenReports(int n) {
+    return '$n بلاغ مشكلة';
+  }
 }

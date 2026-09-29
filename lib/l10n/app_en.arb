@@ -2147,5 +2147,75 @@
   "photoRotate": "Rotate",
   "photoReset": "Reset",
   "photoUse": "Use photo",
-  "photoView": "View photo"
+  "photoView": "View photo",
+  "dashSignedInAs": "Signed in as {name} · {role}",
+  "@dashSignedInAs": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "role": {
+        "type": "String"
+      }
+    }
+  },
+  "dashOrgTitle": "{org} at a glance",
+  "@dashOrgTitle": {
+    "placeholders": {
+      "org": {
+        "type": "String"
+      }
+    }
+  },
+  "dashOrgHint": "Numbers for the whole organisation, not for you. Tap any number to see exactly who or what it counts.",
+  "dashThisWeek": "This week",
+  "dashPeople": "People",
+  "dashCourses": "Courses",
+  "dashLearnersInCourses": "Learners in courses",
+  "dashCoursePlaces": "Course places (a learner in 3 courses = 3)",
+  "dashListEmpty": "Nothing here",
+  "dashListCount": "{n, plural, =1{1 in this list} other{{n} in this list}}",
+  "@dashListCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "dashLearnersGlance": "Learners at a glance",
+  "dashSeeAll": "See all {n}",
+  "@dashSeeAll": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "dashGlanceUnavailable": "You can't see learners with your role.",
+  "dashNoCourses": "Not in any course",
+  "dashNeverUsed": "Hasn't used Sidra yet",
+  "dashLastUsed": "Last used Sidra {when}",
+  "@dashLastUsed": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "dashLateWork": "{n} late",
+  "@dashLateWork": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "dashOpenReports": "{n} problem reported",
+  "@dashOpenReports": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  }
 }

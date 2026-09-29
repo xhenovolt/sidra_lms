@@ -7,8 +7,11 @@ import '../../../core/data/cache_first.dart';
 
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart' show DateFormat;
 
 import '../../../core/data/repository_providers.dart';
+import '../../../core/settings/public_settings.dart';
+import '../../../shared/widgets/user_avatar.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/state_views.dart';
@@ -19,6 +22,7 @@ import 'admin_common.dart';
 import 'admin_shell.dart' show myPermissionsProvider;
 import 'courses_tab.dart';
 import 'roles_audit_screens.dart';
+import 'sessions_screens.dart' show sinceLabel;
 
 final peopleSearchProvider = StateProvider.autoDispose<String>((_) => '');
 
@@ -51,78 +55,126 @@ final overviewProvider = StreamProvider.autoDispose<Map<String, dynamic>>(
   ),
 );
 
-/// Admin home: live numbers and the most common actions.
+/// Admin home: the organisation's numbers (each opens the people or items
+/// behind it), then every learner at a glance, then common actions.
 class OverviewTab extends ConsumerWidget {
   const OverviewTab({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
     final data = ref.watch(overviewProvider);
     final me = ref.watch(profileProvider).value;
+    Widget stat(
+      Map<String, dynamic> v,
+      String kind,
+      String label,
+      IconData icon,
+    ) => _Stat(
+      label,
+      v[kind] ?? (kind == 'course_places' ? v['active_enrolments'] : null),
+      icon,
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (_) => DashboardListScreen(kind: kind, title: label),
+        ),
+      ),
+    );
     return RefreshIndicator(
-      onRefresh: () => ref.refresh(overviewProvider.future),
+      onRefresh: () async {
+        ref.invalidate(learnersGlanceProvider(''));
+        ref.invalidate(overviewProvider);
+        await ref.read(overviewProvider.future);
+      },
       child: ListView(
         padding: const EdgeInsets.all(Space.md),
         children: [
           if (me != null)
-            Padding(
-              padding: const EdgeInsets.only(bottom: Space.md),
-              child: Text(
-                '${me.displayName ?? ''} · ${roleLabel(l10n, me.role, superadmin: me.isSuperadmin)}',
-                style: Theme.of(context).textTheme.titleMedium,
+            Text(
+              l10n.dashSignedInAs(
+                me.displayName ?? '',
+                roleLabel(l10n, me.role, superadmin: me.isSuperadmin),
               ),
+              style: theme.textTheme.bodySmall,
             ),
+          const SizedBox(height: Space.sm),
+          Text(
+            l10n.dashOrgTitle(orgFor(l10n)),
+            style: theme.textTheme.titleLarge,
+          ),
+          Text(l10n.dashOrgHint, style: theme.textTheme.bodySmall),
+          const SizedBox(height: Space.sm),
           switch (data) {
-            AsyncData(:final value) => Wrap(
-              spacing: Space.sm,
-              runSpacing: Space.sm,
+            AsyncData(:final value) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _Stat(
-                  l10n.adminStatLearners,
-                  value['learners'],
-                  Icons.school_outlined,
-                ),
-                _Stat(
-                  l10n.adminStatTeachers,
-                  value['teachers'],
-                  Icons.co_present_outlined,
-                ),
-                _Stat(
-                  l10n.adminStatAdmins,
-                  value['admins'],
-                  Icons.admin_panel_settings_outlined,
-                ),
-                _Stat(
-                  l10n.adminStatPublished,
-                  value['courses_published'],
-                  Icons.public,
-                ),
-                _Stat(
-                  l10n.adminStatDrafts,
-                  value['courses_draft'],
-                  Icons.edit_note,
-                ),
-                _Stat(
-                  l10n.adminStatInReview,
-                  value['courses_in_review'],
-                  Icons.rate_review_outlined,
-                ),
-                _Stat(
-                  l10n.adminStatEnrolments,
-                  value['active_enrolments'],
-                  Icons.how_to_reg_outlined,
-                ),
-                _Stat(
-                  l10n.adminStatActive7d,
-                  value['active_learners_7d'],
-                  Icons.trending_up,
-                ),
-                _Stat(
-                  l10n.adminStatCompleted7d,
-                  value['lessons_completed_7d'],
-                  Icons.task_alt,
-                ),
+                _StatGroup(l10n.dashThisWeek, [
+                  stat(
+                    value,
+                    'active_learners_7d',
+                    l10n.adminStatActive7d,
+                    Icons.trending_up,
+                  ),
+                  stat(
+                    value,
+                    'lessons_completed_7d',
+                    l10n.adminStatCompleted7d,
+                    Icons.task_alt,
+                  ),
+                ]),
+                _StatGroup(l10n.dashPeople, [
+                  stat(
+                    value,
+                    'learners',
+                    l10n.adminStatLearners,
+                    Icons.school_outlined,
+                  ),
+                  stat(
+                    value,
+                    'learners_in_courses',
+                    l10n.dashLearnersInCourses,
+                    Icons.how_to_reg_outlined,
+                  ),
+                  stat(
+                    value,
+                    'course_places',
+                    l10n.dashCoursePlaces,
+                    Icons.event_seat_outlined,
+                  ),
+                  stat(
+                    value,
+                    'teachers',
+                    l10n.adminStatTeachers,
+                    Icons.co_present_outlined,
+                  ),
+                  stat(
+                    value,
+                    'admins',
+                    l10n.adminStatAdmins,
+                    Icons.admin_panel_settings_outlined,
+                  ),
+                ]),
+                _StatGroup(l10n.dashCourses, [
+                  stat(
+                    value,
+                    'courses_published',
+                    l10n.adminStatPublished,
+                    Icons.public,
+                  ),
+                  stat(
+                    value,
+                    'courses_in_review',
+                    l10n.adminStatInReview,
+                    Icons.rate_review_outlined,
+                  ),
+                  stat(
+                    value,
+                    'courses_draft',
+                    l10n.adminStatDrafts,
+                    Icons.edit_note,
+                  ),
+                ]),
               ],
             ),
             AsyncError(:final error) => ErrorView(
@@ -134,6 +186,8 @@ class OverviewTab extends ConsumerWidget {
               child: LoadingView(),
             ),
           },
+          const SizedBox(height: Space.lg),
+          const LearnersGlance(limit: 15),
           const SizedBox(height: Space.lg),
           Text(
             l10n.adminQuickActions,
@@ -162,11 +216,32 @@ class OverviewTab extends ConsumerWidget {
   }
 }
 
+class _StatGroup extends StatelessWidget {
+  const _StatGroup(this.title, this.stats);
+  final String title;
+  final List<Widget> stats;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.only(bottom: Space.sm),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: Theme.of(context).textTheme.labelLarge),
+        const SizedBox(height: Space.xxs),
+        Wrap(spacing: Space.sm, runSpacing: Space.sm, children: stats),
+      ],
+    ),
+  );
+}
+
+/// A number that opens the list behind it.
 class _Stat extends StatelessWidget {
-  const _Stat(this.label, this.value, this.icon);
+  const _Stat(this.label, this.value, this.icon, {this.onTap});
   final String label;
   final Object? value;
   final IconData icon;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -174,18 +249,323 @@ class _Stat extends StatelessWidget {
     return SizedBox(
       width: 160,
       child: Card(
+        child: InkWell(
+          borderRadius: BorderRadius.circular(Radii.md),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(Space.md),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(icon, color: theme.colorScheme.primary),
+                    const Spacer(),
+                    if (onTap != null)
+                      Icon(
+                        Icons.chevron_right,
+                        size: 18,
+                        color: theme.colorScheme.outline,
+                      ),
+                  ],
+                ),
+                const SizedBox(height: Space.xs),
+                Text('${value ?? 0}', style: theme.textTheme.headlineSmall),
+                Text(label, style: theme.textTheme.bodySmall),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// The people or items behind one dashboard number.
+class DashboardListScreen extends ConsumerWidget {
+  const DashboardListScreen({
+    super.key,
+    required this.kind,
+    required this.title,
+  });
+  final String kind;
+  final String title;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final rows = ref.watch(_dashboardListProvider(kind));
+    final date = DateFormat.yMMMd(l10n.localeName).add_jm();
+    return Scaffold(
+      appBar: AppBar(title: Text(title)),
+      body: switch (rows) {
+        AsyncData(:final value) when value.isEmpty => EmptyView(
+          icon: Icons.inbox_outlined,
+          title: l10n.dashListEmpty,
+        ),
+        AsyncData(:final value) => ListView.separated(
+          itemCount: value.length + 1,
+          separatorBuilder: (_, _) => const Divider(height: 1),
+          itemBuilder: (_, i) {
+            if (i == 0) {
+              return Padding(
+                padding: const EdgeInsets.all(Space.md),
+                child: Text(l10n.dashListCount(value.length)),
+              );
+            }
+            final r = value[i - 1];
+            final at = r['at'] == null ? null : DateTime.tryParse('${r['at']}');
+            final userId = r['user_id'] as String?;
+            final courseId = r['course_id'] as String?;
+            return ListTile(
+              leading: CircleAvatar(child: Text('$i')),
+              title: Text('${r['title'] ?? ''}'),
+              subtitle: Text(
+                [
+                  if (r['subtitle'] != null) '${r['subtitle']}',
+                  if (at != null) date.format(at.toLocal()),
+                ].join(' · '),
+              ),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: userId != null
+                  ? () => context.push('/teach/people/$userId')
+                  : courseId != null
+                  ? () => context.push('/teach/courses/$courseId')
+                  : null,
+            );
+          },
+        ),
+        AsyncError(:final error) => ErrorView(
+          error: error,
+          onRetry: () => ref.invalidate(_dashboardListProvider(kind)),
+        ),
+        _ => const LoadingView(),
+      },
+    );
+  }
+}
+
+final _dashboardListProvider = FutureProvider.autoDispose
+    .family<List<Map<String, dynamic>>, String>(
+      (ref, kind) => ref
+          .watch(adminRepositoryProvider)
+          .api
+          .rpcRows('dashboard_list', params: {'p_kind': kind}),
+    );
+
+final learnersGlanceProvider = FutureProvider.autoDispose
+    .family<List<Map<String, dynamic>>, String>(
+      (ref, search) => ref
+          .watch(adminRepositoryProvider)
+          .api
+          .rpcRows(
+            'learners_at_a_glance',
+            params: {
+              'p_search': search.isEmpty ? null : search,
+              'p_limit': 300,
+            },
+          ),
+    );
+
+/// Every learner, one line each: courses and progress, last use of Sidra,
+/// late work, open problem reports. Tap for the full profile.
+class LearnersGlance extends ConsumerWidget {
+  const LearnersGlance({super.key, this.limit, this.search = ''});
+
+  /// Shows at most this many with a "See all" link (dashboard); null = all.
+  final int? limit;
+  final String search;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final rows = ref.watch(learnersGlanceProvider(search));
+    final list = rows.value ?? const [];
+    final shown = limit == null ? list : list.take(limit!).toList();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (limit != null)
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  l10n.dashLearnersGlance,
+                  style: theme.textTheme.titleLarge,
+                ),
+              ),
+              if (list.length > limit!)
+                TextButton(
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (_) => const LearnersGlanceScreen(),
+                    ),
+                  ),
+                  child: Text(l10n.dashSeeAll(list.length)),
+                ),
+            ],
+          ),
+        if (rows is AsyncError)
+          Text(l10n.dashGlanceUnavailable, style: theme.textTheme.bodySmall)
+        else if (rows.isLoading && list.isEmpty)
+          const LinearProgressIndicator()
+        else if (list.isEmpty)
+          Text(l10n.dashListEmpty, style: theme.textTheme.bodySmall),
+        for (final r in shown) _GlanceRow(r: r),
+      ],
+    );
+  }
+}
+
+class _GlanceRow extends StatelessWidget {
+  const _GlanceRow({required this.r});
+  final Map<String, dynamic> r;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final courses = [
+      for (final c in (r['courses'] as List? ?? const []))
+        Map<String, dynamic>.from(c as Map),
+    ];
+    final done = courses.fold<int>(
+      0,
+      (s, c) => s + ((c['done'] as num?)?.toInt() ?? 0),
+    );
+    final total = courses.fold<int>(
+      0,
+      (s, c) => s + ((c['total'] as num?)?.toInt() ?? 0),
+    );
+    final last = r['last_used'] == null
+        ? null
+        : DateTime.tryParse('${r['last_used']}');
+    final late = (r['late_work'] as num?)?.toInt() ?? 0;
+    final reports = (r['open_reports'] as num?)?.toInt() ?? 0;
+    return Card(
+      child: InkWell(
+        onTap: () => context.push('/teach/people/${r['user_id']}'),
         child: Padding(
-          padding: const EdgeInsets.all(Space.md),
-          child: Column(
+          padding: const EdgeInsets.all(Space.sm),
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(icon, color: theme.colorScheme.primary),
-              const SizedBox(height: Space.xs),
-              Text('${value ?? 0}', style: theme.textTheme.headlineSmall),
-              Text(label, style: theme.textTheme.bodySmall),
+              UserAvatar(
+                avatarUrl: r['avatar_url'] as String?,
+                name: r['display_name'] as String?,
+              ),
+              const SizedBox(width: Space.sm),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${r['display_name']}',
+                      style: theme.textTheme.titleSmall,
+                    ),
+                    Text(
+                      courses.isEmpty
+                          ? l10n.dashNoCourses
+                          : courses
+                                .map(
+                                  (c) =>
+                                      '${c['title']} ${c['done']}/${c['total']}',
+                                )
+                                .join(' · '),
+                      style: theme.textTheme.bodySmall,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    if (total > 0)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: LinearProgressIndicator(value: done / total),
+                      ),
+                    Wrap(
+                      spacing: Space.xs,
+                      runSpacing: 2,
+                      children: [
+                        Text(
+                          last == null
+                              ? l10n.dashNeverUsed
+                              : l10n.dashLastUsed(sinceLabel(l10n, last)),
+                          style: theme.textTheme.labelSmall,
+                        ),
+                        if (late > 0)
+                          _Flag(
+                            l10n.dashLateWork(late),
+                            theme.colorScheme.error,
+                          ),
+                        if (reports > 0)
+                          _Flag(
+                            l10n.dashOpenReports(reports),
+                            theme.colorScheme.tertiary,
+                          ),
+                        if (r['suspended'] == true)
+                          _Flag(l10n.policySuspended, theme.colorScheme.error),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _Flag extends StatelessWidget {
+  const _Flag(this.text, this.color);
+  final String text;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+    decoration: BoxDecoration(
+      color: color.withValues(alpha: 0.12),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: Text(
+      text,
+      style: Theme.of(context).textTheme.labelSmall?.copyWith(color: color),
+    ),
+  );
+}
+
+/// All learners at a glance, searchable.
+class LearnersGlanceScreen extends StatefulWidget {
+  const LearnersGlanceScreen({super.key});
+
+  @override
+  State<LearnersGlanceScreen> createState() => _LearnersGlanceScreenState();
+}
+
+class _LearnersGlanceScreenState extends State<LearnersGlanceScreen> {
+  String _search = '';
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Scaffold(
+      appBar: AppBar(title: Text(l10n.dashLearnersGlance)),
+      body: ListView(
+        padding: const EdgeInsets.all(Space.md),
+        children: [
+          TextField(
+            decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.search),
+              hintText: l10n.presenceSearch,
+            ),
+            onSubmitted: (v) => setState(() => _search = v.trim()),
+          ),
+          const SizedBox(height: Space.sm),
+          LearnersGlance(search: _search),
+        ],
       ),
     );
   }

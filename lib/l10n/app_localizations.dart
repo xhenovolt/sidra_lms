@@ -7398,6 +7398,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View photo'**
   String get photoView;
+
+  /// No description provided for @dashSignedInAs.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed in as {name} · {role}'**
+  String dashSignedInAs(String name, String role);
+
+  /// No description provided for @dashOrgTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{org} at a glance'**
+  String dashOrgTitle(String org);
+
+  /// No description provided for @dashOrgHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Numbers for the whole organisation, not for you. Tap any number to see exactly who or what it counts.'**
+  String get dashOrgHint;
+
+  /// No description provided for @dashThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get dashThisWeek;
+
+  /// No description provided for @dashPeople.
+  ///
+  /// In en, this message translates to:
+  /// **'People'**
+  String get dashPeople;
+
+  /// No description provided for @dashCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses'**
+  String get dashCourses;
+
+  /// No description provided for @dashLearnersInCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners in courses'**
+  String get dashLearnersInCourses;
+
+  /// No description provided for @dashCoursePlaces.
+  ///
+  /// In en, this message translates to:
+  /// **'Course places (a learner in 3 courses = 3)'**
+  String get dashCoursePlaces;
+
+  /// No description provided for @dashListEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here'**
+  String get dashListEmpty;
+
+  /// No description provided for @dashListCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 in this list} other{{n} in this list}}'**
+  String dashListCount(int n);
+
+  /// No description provided for @dashLearnersGlance.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners at a glance'**
+  String get dashLearnersGlance;
+
+  /// No description provided for @dashSeeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See all {n}'**
+  String dashSeeAll(int n);
+
+  /// No description provided for @dashGlanceUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t see learners with your role.'**
+  String get dashGlanceUnavailable;
+
+  /// No description provided for @dashNoCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'Not in any course'**
+  String get dashNoCourses;
+
+  /// No description provided for @dashNeverUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Hasn\'t used Sidra yet'**
+  String get dashNeverUsed;
+
+  /// No description provided for @dashLastUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Last used Sidra {when}'**
+  String dashLastUsed(String when);
+
+  /// No description provided for @dashLateWork.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} late'**
+  String dashLateWork(int n);
+
+  /// No description provided for @dashOpenReports.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} problem reported'**
+  String dashOpenReports(int n);
 }
 
 class _AppLocalizationsDelegate
