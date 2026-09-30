@@ -45,6 +45,9 @@ class Course {
     this.access = CourseAccess.free,
     this.priceAmount,
     this.priceCurrency,
+    this.billingPeriod = 'once',
+    this.billingIntervalDays,
+    this.billingPeriods,
     this.progression = Progression.teacherGated,
     this.status = PublishStatus.draft,
     this.estimatedHours,
@@ -88,6 +91,9 @@ class Course {
     ),
     priceAmount: j.numOrNull('price_amount'),
     priceCurrency: j.strOrNull('price_currency'),
+    billingPeriod: j.strOrNull('billing_period') ?? 'once',
+    billingIntervalDays: j.numOrNull('billing_interval_days')?.toInt(),
+    billingPeriods: j.numOrNull('billing_periods')?.toInt(),
     progression: enumByName(
       Progression.values,
       j.strOrNull('progression'),
@@ -130,6 +136,13 @@ class Course {
   final CourseAccess access;
   final double? priceAmount;
   final String? priceCurrency;
+
+  /// once | weekly | monthly | termly | custom (every [billingIntervalDays]).
+  final String billingPeriod;
+  final int? billingIntervalDays;
+
+  /// How many periods in all; null = while enrolled.
+  final int? billingPeriods;
   final Progression progression;
   final PublishStatus status;
   final double? estimatedHours;
@@ -191,6 +204,9 @@ class Course {
     'access': enumToDb(access),
     'price_amount': priceAmount,
     'price_currency': priceCurrency,
+    'billing_period': billingPeriod,
+    'billing_interval_days': billingIntervalDays,
+    'billing_periods': billingPeriods,
     'progression': enumToDb(progression),
     'status': enumToDb(status),
     'estimated_hours': estimatedHours,

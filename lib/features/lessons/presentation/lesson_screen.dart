@@ -14,7 +14,9 @@ import '../../auth/presentation/auth_providers.dart';
 import '../../content/data/content_repository.dart';
 import '../../content/presentation/assignment_widgets.dart';
 import '../../content/presentation/resource_widgets.dart';
+import '../../teaching/data/lesson_work.dart' show myLessonWorkProvider;
 import '../../teaching/presentation/lesson_work_widgets.dart';
+import '../../teaching/presentation/work_thread_view.dart';
 import '../../courses/data/course_repository.dart';
 import '../../curriculum/domain/curriculum_models.dart';
 import '../../curriculum/domain/curriculum_tree.dart';
@@ -212,10 +214,14 @@ class _LessonBodyState extends ConsumerState<_LessonBody> {
                               : lesson.needsWork(widget.outline.course)
                               ? FilledButton.icon(
                                   onPressed: () async {
-                                    await showSubmitLessonWork(
+                                    await openWorkThread(
                                       context,
-                                      ref,
-                                      lesson.id,
+                                      kind: 'lesson',
+                                      targetId: lesson.id,
+                                      blocks: _targetable(),
+                                    );
+                                    ref.invalidate(
+                                      myLessonWorkProvider(lesson.id),
                                     );
                                     ref.invalidate(
                                       courseProgressProvider(courseId),
@@ -263,6 +269,20 @@ class _LessonBodyState extends ConsumerState<_LessonBody> {
               ),
             ),
     );
+  }
+
+  /// The lesson's passages a learner can point their work at.
+  List<TargetableBlock> _targetable() {
+    final lesson = widget.lesson;
+    final blocks = ref
+        .read(
+          lessonContentProvider(
+            LessonKey(courseId, lesson.id, lesson.contentVersion),
+          ),
+        )
+        .value
+        ?.blocks;
+    return blocks == null ? const [] : targetableBlocks(blocks);
   }
 
   Widget _content(BuildContext context) {
@@ -323,7 +343,10 @@ class _LessonBodyState extends ConsumerState<_LessonBody> {
                 if (lesson.needsWork(widget.outline.course) &&
                     (ref.read(authSessionProvider).user?.role ?? 'learner') ==
                         'learner') ...[
-                  LessonWorkPanel(lessonId: lesson.id),
+                  LessonWorkPanel(
+                    lessonId: lesson.id,
+                    blocks: targetableBlocks(value.blocks),
+                  ),
                   const SizedBox(height: Space.md),
                 ],
                 ResourceListView(target: ResourceTarget.lesson, id: lesson.id),

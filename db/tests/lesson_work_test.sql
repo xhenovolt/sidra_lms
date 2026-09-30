@@ -45,8 +45,7 @@ select pg_temp.check((select status::text from learner_progress
 select pg_temp.check(not app_private.can_read_lesson('00000000-0000-0000-0000-0000000cca02'), 'still locked');
 select public.submit_lesson_work('00000000-0000-0000-0000-0000000cc501', '00000000-0000-0000-0000-0000000cca01',
   null, '[{"media_asset_id": "00000000-0000-0000-0000-0000000ccf01", "file_name": "w1.m4a"}]');
-select pg_temp.expect_error($q$select public.submit_lesson_work('00000000-0000-0000-0000-0000000cc502',
-  '00000000-0000-0000-0000-0000000cca01', 'again', '[]')$q$, 'wait for your teacher');
+-- (Since 0043 a newer attempt may follow a waiting one: work_threads_test.sql.)
 reset role;
 
 select pg_temp.login_as_id(current_setting('t.lt')::uuid);

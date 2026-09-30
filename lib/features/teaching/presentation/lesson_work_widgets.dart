@@ -19,6 +19,7 @@ import '../data/teaching_repository.dart';
 import 'learner_portion_screen.dart' show resultLabel;
 import 'teacher_screens.dart' show showCorrectionPicker;
 import 'work_issue_widgets.dart';
+import 'work_thread_view.dart';
 
 Color _markColor(WordMark m, ColorScheme scheme) => switch (m) {
   WordMark.ok => Colors.green.shade700,
@@ -71,8 +72,15 @@ class MarkedWords extends StatelessWidget {
 /// "Your work" in a lesson that needs handed-in work: what to do, the
 /// teacher's verdict and marks, and the button to hand in (again).
 class LessonWorkPanel extends ConsumerWidget {
-  const LessonWorkPanel({super.key, required this.lessonId});
+  const LessonWorkPanel({
+    super.key,
+    required this.lessonId,
+    this.blocks = const [],
+  });
   final String lessonId;
+
+  /// The lesson's passages, so work can point at the exact words.
+  final List<TargetableBlock> blocks;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -185,16 +193,28 @@ class LessonWorkPanel extends ConsumerWidget {
                   ),
               ],
             ],
-            if (queued.isEmpty && (latest == null || latest.tryAgain)) ...[
-              const SizedBox(height: Space.sm),
-              FilledButton.icon(
-                onPressed: () => showSubmitLessonWork(context, ref, lessonId),
-                icon: const Icon(Icons.upload),
-                label: Text(
-                  latest == null ? l10n.workSubmit : l10n.workSubmitAgain,
-                ),
+            // Every attempt, the teacher's replies, and sending more —
+            // also while an attempt waits (a newer one replaces it).
+            const SizedBox(height: Space.sm),
+            FilledButton.icon(
+              onPressed: () async {
+                await openWorkThread(
+                  context,
+                  kind: 'lesson',
+                  targetId: lessonId,
+                  blocks: blocks,
+                );
+                ref.invalidate(myLessonWorkProvider(lessonId));
+              },
+              icon: Icon(latest == null ? Icons.upload : Icons.forum_outlined),
+              label: Text(
+                latest == null
+                    ? l10n.workSubmit
+                    : latest.approved
+                    ? l10n.wtSeeHistory
+                    : l10n.wtOpenWork(work.length),
               ),
-            ],
+            ),
             if (latest == null || !latest.approved)
               WorkIssueSection(target: (kind: 'lesson', id: lessonId)),
           ],
@@ -554,7 +574,23 @@ class _ReviewState extends ConsumerState<_Review> {
     final theme = Theme.of(context);
     final passes = _effectiveScore >= w.passMark;
     return Scaffold(
-      appBar: AppBar(title: Text(w.learner ?? l10n.workQueueTitle)),
+      appBar: AppBar(
+        title: Text(w.learner ?? l10n.workQueueTitle),
+        actions: [
+          // Every attempt and reply, and answering by voice / text / file.
+          TextButton.icon(
+            onPressed: () => openWorkThread(
+              context,
+              kind: 'lesson',
+              targetId: w.lessonId,
+              learnerId: w.userId,
+              title: w.learner,
+            ),
+            icon: const Icon(Icons.forum_outlined),
+            label: Text(l10n.wtHistory),
+          ),
+        ],
+      ),
       body: AbsorbPointer(
         absorbing: _sending,
         child: ListView(

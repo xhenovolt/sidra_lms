@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart' show ScrollDirection;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,7 +6,9 @@ import '../../../app/router/routes.dart';
 import '../../../core/data/cache_first.dart';
 import '../../../core/data/data_providers.dart';
 import '../../../core/notifications/phone_notifications.dart' show signOutEverywhere;
+import '../../../core/data/repository_providers.dart' show profileProvider;
 import '../../../core/payments/direct_payments.dart' show marzPayConfirmLoopProvider;
+import '../../../shared/widgets/user_avatar.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/sidra_mark.dart';
@@ -251,19 +252,37 @@ class _AdminShellState extends ConsumerState<AdminShell> {
     if (old.location != widget.location) _barsVisible = true;
   }
 
+  /// How far the finger has moved one way since the bars last changed.
+  double _drag = 0;
+
+  void _showBars(bool show) {
+    _drag = 0;
+    if (show != _barsVisible) setState(() => _barsVisible = show);
+  }
+
+  /// Hides the bars while reading down a long page, shows them on the way
+  /// back up. Showing / hiding them resizes the page, so:
+  ///  * only the page's own list counts (not lists inside it);
+  ///  * it takes a deliberate drag (48 px), not the wobble of a tap;
+  ///  * near the END of the page nothing changes — otherwise the page
+  ///    shifts under the finger and the last items (Sign out!) can't be
+  ///    tapped: the bug this replaces.
   bool _onScroll(ScrollNotification n) {
-    if (n.metrics.axis != Axis.vertical) return false;
-    if (n is UserScrollNotification) {
-      final show = switch (n.direction) {
-        ScrollDirection.reverse => false,
-        ScrollDirection.forward => true,
-        ScrollDirection.idle => _barsVisible,
-      };
-      if (show != _barsVisible) setState(() => _barsVisible = show);
-    } else if (n is ScrollUpdateNotification &&
-        n.metrics.pixels <= n.metrics.minScrollExtent &&
-        !_barsVisible) {
-      setState(() => _barsVisible = true); // back at the top
+    if (n.metrics.axis != Axis.vertical || n.depth != 0) return false;
+    if (n is ScrollUpdateNotification && n.dragDetails != null) {
+      final m = n.metrics;
+      if (m.pixels <= m.minScrollExtent + 8) {
+        _showBars(true); // back at the top
+      } else if (m.extentAfter > 160) {
+        _drag += n.scrollDelta ?? 0;
+        if (_drag > 48) {
+          _showBars(false);
+        } else if (_drag < -48) {
+          _showBars(true);
+        }
+      }
+    } else if (n is ScrollEndNotification) {
+      _drag = 0;
     }
     return false;
   }
@@ -311,6 +330,7 @@ class _AdminShellState extends ConsumerState<AdminShell> {
                 appBar: AppBar(
                   title: Text(current?.label(l10n) ?? l10n.appName),
                   automaticallyImplyLeading: false,
+                  actions: const [_AccountMenu(), SizedBox(width: Space.sm)],
                 ),
                 body: page,
               ),
@@ -336,6 +356,7 @@ class _AdminShellState extends ConsumerState<AdminShell> {
       appBar: _HidingTopBar(
         visible: _barsVisible,
         title: _BrandTitle(subtitle: subtitle),
+        actions: const [_AccountMenu(), SizedBox(width: Space.xs)],
         leading: tabs.isEmpty
             ? IconButton(
                 tooltip: l10n.navMore,
@@ -425,10 +446,12 @@ class _HidingTopBar extends StatelessWidget implements PreferredSizeWidget {
     required this.visible,
     required this.title,
     this.leading,
+    this.actions,
   });
   final bool visible;
   final Widget title;
   final Widget? leading;
+  final List<Widget>? actions;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -451,10 +474,72 @@ class _HidingTopBar extends StatelessWidget implements PreferredSizeWidget {
               titleSpacing: Space.md,
               title: title,
               leading: leading,
+              actions: actions,
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+/// The account menu in the top bar: sign out is always one tap away, on
+/// every page, never at the bottom of a long list.
+class _AccountMenu extends ConsumerWidget {
+  const _AccountMenu();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final user = ref.watch(authSessionProvider).user;
+    return PopupMenuButton<String>(
+      tooltip: l10n.accountMenu,
+      // (not MyAvatar: that one opens the photo editor on tap)
+      icon: UserAvatar(
+        avatarUrl: ref.watch(profileProvider).value?.avatarUrl,
+        name: user?.displayName,
+        radius: 15,
+      ),
+      onSelected: (v) async {
+        switch (v) {
+          case 'password':
+            await context.push(Routes.changePassword);
+          case 'signout':
+            await signOutEverywhere(ref);
+        }
+      },
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          enabled: false,
+          child: Text(
+            user?.displayName ?? '',
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+        ),
+        const PopupMenuDivider(),
+        PopupMenuItem(
+          value: 'password',
+          child: ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.key_outlined),
+            title: Text(l10n.authChangePassword),
+          ),
+        ),
+        PopupMenuItem(
+          value: 'signout',
+          child: ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: Icon(
+              Icons.logout,
+              color: Theme.of(context).colorScheme.error,
+            ),
+            title: Text(
+              l10n.signOut,
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

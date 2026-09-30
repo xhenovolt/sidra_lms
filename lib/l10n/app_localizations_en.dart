@@ -5228,4 +5228,336 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contactsCopied => 'Copied. Send each learner their password.';
+
+  @override
+  String get targetWhole => 'The whole work';
+
+  @override
+  String get targetOther => 'Something else';
+
+  @override
+  String targetAyah(int surah, int ayah) {
+    return 'Surah $surah, ayah $ayah';
+  }
+
+  @override
+  String targetAyahRange(int surah, int from, int to) {
+    return 'Surah $surah, ayat $from–$to';
+  }
+
+  @override
+  String targetPage(int page) {
+    return 'Page $page';
+  }
+
+  @override
+  String targetPageLine(int page, int line) {
+    return 'Page $page, line $line';
+  }
+
+  @override
+  String targetPageLines(int page, int line, int lineEnd) {
+    return 'Page $page, lines $line–$lineEnd';
+  }
+
+  @override
+  String get wtWaiting => 'Waiting for teacher';
+
+  @override
+  String get wtUnderReview => 'Teacher is reviewing';
+
+  @override
+  String get wtSuperseded => 'Replaced by a newer attempt';
+
+  @override
+  String get wtTryAgain => 'Try again';
+
+  @override
+  String get wtAccepted => 'Accepted';
+
+  @override
+  String wtLearnerTitle(String name) {
+    return '$name\'s work';
+  }
+
+  @override
+  String get wtMyWork => 'My work';
+
+  @override
+  String get wtNothingYet =>
+      'Nothing sent yet. Record, photograph or write your work below.';
+
+  @override
+  String get wtCompleted => 'Accepted by your teacher. Well done!';
+
+  @override
+  String get wtYou => 'You';
+
+  @override
+  String get wtTeacher => 'Teacher';
+
+  @override
+  String get wtLearner => 'Learner';
+
+  @override
+  String wtFor(String what) {
+    return 'For: $what';
+  }
+
+  @override
+  String get wtAttachment => 'Attachment';
+
+  @override
+  String get wtUploadingPlain => 'Uploading…';
+
+  @override
+  String wtUploading(int percent) {
+    return 'Uploading… $percent%';
+  }
+
+  @override
+  String get wtSubmitting => 'Uploaded ✓ Sending to your teacher…';
+
+  @override
+  String get wtFailed => 'Not sent';
+
+  @override
+  String get wtQueued => 'Waiting for a connection';
+
+  @override
+  String get wtDiscard => 'Remove';
+
+  @override
+  String get wtDiscardBody =>
+      'Remove this from the phone? It has not been sent.';
+
+  @override
+  String get wtUploadedFile => 'Uploaded';
+
+  @override
+  String get wtFileQueued => 'Queued';
+
+  @override
+  String get wtCorrectionDefaultTitle => 'Correction';
+
+  @override
+  String get wtReplySent => 'Reply sent.';
+
+  @override
+  String get wtNewAttempt => 'New attempt';
+
+  @override
+  String get wtReply => 'Reply';
+
+  @override
+  String wtMarkLatest(int number) {
+    return 'Mark attempt $number:';
+  }
+
+  @override
+  String get wtTryAgainAction => 'Try again';
+
+  @override
+  String get wtTeacherReplyHint =>
+      'Voice, text, a file or a saved correction. Send as many as you need.';
+
+  @override
+  String get wtLearnerReplyHint => 'Answer your teacher about this attempt.';
+
+  @override
+  String get wtNewAttemptHint =>
+      'Send your work: a recording, photos, files or text.';
+
+  @override
+  String get wtChooseTargetShort => 'What is it for?';
+
+  @override
+  String get wtRecord => 'Record';
+
+  @override
+  String get wtTeacherTextHint => 'Write a correction or note';
+
+  @override
+  String get wtTextHint => 'Write something (optional)';
+
+  @override
+  String get wtSendReply => 'Send reply';
+
+  @override
+  String get wtAyahInvalid => 'Enter a surah (1–114) and ayah numbers.';
+
+  @override
+  String get wtPageInvalid => 'Enter a page number (and lines, from – to).';
+
+  @override
+  String get wtExerciseInvalid => 'Name the exercise or question.';
+
+  @override
+  String get wtChooseTarget => 'What is this for?';
+
+  @override
+  String get wtTargetAyah => 'An ayah or ayat';
+
+  @override
+  String get wtSurah => 'Surah';
+
+  @override
+  String get wtAyahFrom => 'From ayah';
+
+  @override
+  String get wtAyahTo => 'To ayah';
+
+  @override
+  String get wtTargetPageLine => 'A page or line';
+
+  @override
+  String get wtPage => 'Page';
+
+  @override
+  String get wtLine => 'Line';
+
+  @override
+  String get wtLineTo => 'To line';
+
+  @override
+  String get wtTargetExercise => 'An exercise or question';
+
+  @override
+  String get wtExerciseName => 'Exercise or question';
+
+  @override
+  String get wtExerciseHint => 'e.g. Question 4';
+
+  @override
+  String get wtTargetText => 'Highlight part of the lesson';
+
+  @override
+  String get wtUseTarget => 'Use';
+
+  @override
+  String get wtSelectHint =>
+      'Press and hold on the words, drag to highlight them, then tap Use.';
+
+  @override
+  String get wtSelected => 'Highlighted';
+
+  @override
+  String wtUseWholePassage(String what) {
+    return 'Use the whole passage ($what)';
+  }
+
+  @override
+  String get wtUseSelection => 'Use the highlighted words';
+
+  @override
+  String get accountMenu => 'Account';
+
+  @override
+  String get wtSendAgainHint =>
+      'Sent. Noticed a mistake? Send a new attempt below; it replaces this one.';
+
+  @override
+  String get wtSeeHistory => 'See my work and feedback';
+
+  @override
+  String wtOpenWork(int count) {
+    return 'My work ($count attempts): send, reply, see feedback';
+  }
+
+  @override
+  String get wtHistory => 'History';
+
+  @override
+  String billPerWeek(String price) {
+    return '$price / week';
+  }
+
+  @override
+  String billPerMonth(String price) {
+    return '$price / month';
+  }
+
+  @override
+  String billPerTerm(String price) {
+    return '$price / term';
+  }
+
+  @override
+  String billPerDays(String price, int days) {
+    return '$price every $days days';
+  }
+
+  @override
+  String billPeriodsTotal(int count) {
+    return '$count payments in all';
+  }
+
+  @override
+  String get billPaused =>
+      'Paused: a fee is overdue. Pay below to continue learning.';
+
+  @override
+  String billCovered(int covered, int due) {
+    return 'Paid $covered of $due so far';
+  }
+
+  @override
+  String billNextDue(String date) {
+    return 'next due $date';
+  }
+
+  @override
+  String get billPeriodLabel => 'How often is it paid?';
+
+  @override
+  String get billOnce => 'Once (one payment)';
+
+  @override
+  String get billWeekly => 'Every week';
+
+  @override
+  String get billMonthly => 'Every month';
+
+  @override
+  String get billTermly => 'Every term';
+
+  @override
+  String get billCustom => 'Every … days';
+
+  @override
+  String get billEveryDaysLabel => 'Every how many days?';
+
+  @override
+  String get billDaysInvalid => 'Enter 1 to 730 days.';
+
+  @override
+  String get billPeriodsLabel => 'Number of payments (optional)';
+
+  @override
+  String get billPeriodsHint => 'e.g. 3 terms; empty = for as long as enrolled';
+
+  @override
+  String get billPeriodsInvalid => 'Enter 1 to 520, or leave empty.';
+
+  @override
+  String get billHowItWorks =>
+      'The price above is charged each period from the day a learner first pays. Learners are reminded when a period starts; one left unpaid past the grace days (Settings) pauses the course for them until they pay. Term length is in Settings.';
+
+  @override
+  String get billTermDaysSetting => 'Length of a term (days)';
+
+  @override
+  String get billTermDaysSettingHint => 'For courses paid every term.';
+
+  @override
+  String get billGraceSetting => 'Days to pay a repeating fee';
+
+  @override
+  String get billGraceSettingHint =>
+      'After a new week, month or term begins, learners have this many days to pay before the course pauses for them.';
+
+  @override
+  String wtAttemptN(int n) {
+    return 'Attempt $n';
+  }
 }

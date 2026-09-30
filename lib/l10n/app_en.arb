@@ -2759,5 +2759,257 @@
   },
   "contactsImportConfirmBody": "Each gets an account with their phone number and a temporary password, shown here after import. Copy the list and send each person theirs; they choose a new password at first sign-in.",
   "contactsCopyPasswords": "Copy names and passwords",
-  "contactsCopied": "Copied. Send each learner their password."
+  "contactsCopied": "Copied. Send each learner their password.",
+  "targetWhole": "The whole work",
+  "targetOther": "Something else",
+  "targetAyah": "Surah {surah}, ayah {ayah}",
+  "@targetAyah": {
+    "placeholders": {
+      "surah": {
+        "type": "int"
+      },
+      "ayah": {
+        "type": "int"
+      }
+    }
+  },
+  "targetAyahRange": "Surah {surah}, ayat {from}–{to}",
+  "@targetAyahRange": {
+    "placeholders": {
+      "surah": {
+        "type": "int"
+      },
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "targetPage": "Page {page}",
+  "@targetPage": {
+    "placeholders": {
+      "page": {
+        "type": "int"
+      }
+    }
+  },
+  "targetPageLine": "Page {page}, line {line}",
+  "@targetPageLine": {
+    "placeholders": {
+      "page": {
+        "type": "int"
+      },
+      "line": {
+        "type": "int"
+      }
+    }
+  },
+  "targetPageLines": "Page {page}, lines {line}–{lineEnd}",
+  "@targetPageLines": {
+    "placeholders": {
+      "page": {
+        "type": "int"
+      },
+      "line": {
+        "type": "int"
+      },
+      "lineEnd": {
+        "type": "int"
+      }
+    }
+  },
+  "wtWaiting": "Waiting for teacher",
+  "wtUnderReview": "Teacher is reviewing",
+  "wtSuperseded": "Replaced by a newer attempt",
+  "wtTryAgain": "Try again",
+  "wtAccepted": "Accepted",
+  "wtLearnerTitle": "{name}'s work",
+  "@wtLearnerTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "wtMyWork": "My work",
+  "wtNothingYet": "Nothing sent yet. Record, photograph or write your work below.",
+  "wtCompleted": "Accepted by your teacher. Well done!",
+  "wtYou": "You",
+  "wtTeacher": "Teacher",
+  "wtLearner": "Learner",
+  "wtFor": "For: {what}",
+  "@wtFor": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "wtAttachment": "Attachment",
+  "wtUploadingPlain": "Uploading…",
+  "wtUploading": "Uploading… {percent}%",
+  "@wtUploading": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "wtSubmitting": "Uploaded ✓ Sending to your teacher…",
+  "wtFailed": "Not sent",
+  "wtQueued": "Waiting for a connection",
+  "wtDiscard": "Remove",
+  "wtDiscardBody": "Remove this from the phone? It has not been sent.",
+  "wtUploadedFile": "Uploaded",
+  "wtFileQueued": "Queued",
+  "wtCorrectionDefaultTitle": "Correction",
+  "wtReplySent": "Reply sent.",
+  "wtNewAttempt": "New attempt",
+  "wtReply": "Reply",
+  "wtMarkLatest": "Mark attempt {number}:",
+  "@wtMarkLatest": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "wtTryAgainAction": "Try again",
+  "wtTeacherReplyHint": "Voice, text, a file or a saved correction. Send as many as you need.",
+  "wtLearnerReplyHint": "Answer your teacher about this attempt.",
+  "wtNewAttemptHint": "Send your work: a recording, photos, files or text.",
+  "wtChooseTargetShort": "What is it for?",
+  "wtRecord": "Record",
+  "wtTeacherTextHint": "Write a correction or note",
+  "wtTextHint": "Write something (optional)",
+  "wtSendReply": "Send reply",
+  "wtAyahInvalid": "Enter a surah (1–114) and ayah numbers.",
+  "wtPageInvalid": "Enter a page number (and lines, from – to).",
+  "wtExerciseInvalid": "Name the exercise or question.",
+  "wtChooseTarget": "What is this for?",
+  "wtTargetAyah": "An ayah or ayat",
+  "wtSurah": "Surah",
+  "wtAyahFrom": "From ayah",
+  "wtAyahTo": "To ayah",
+  "wtTargetPageLine": "A page or line",
+  "wtPage": "Page",
+  "wtLine": "Line",
+  "wtLineTo": "To line",
+  "wtTargetExercise": "An exercise or question",
+  "wtExerciseName": "Exercise or question",
+  "wtExerciseHint": "e.g. Question 4",
+  "wtTargetText": "Highlight part of the lesson",
+  "wtUseTarget": "Use",
+  "wtSelectHint": "Press and hold on the words, drag to highlight them, then tap Use.",
+  "wtSelected": "Highlighted",
+  "wtUseWholePassage": "Use the whole passage ({what})",
+  "@wtUseWholePassage": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "wtUseSelection": "Use the highlighted words",
+  "accountMenu": "Account",
+  "wtSendAgainHint": "Sent. Noticed a mistake? Send a new attempt below; it replaces this one.",
+  "wtSeeHistory": "See my work and feedback",
+  "wtOpenWork": "My work ({count} attempts): send, reply, see feedback",
+  "@wtOpenWork": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "wtHistory": "History",
+  "billPerWeek": "{price} / week",
+  "@billPerWeek": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "billPerMonth": "{price} / month",
+  "@billPerMonth": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "billPerTerm": "{price} / term",
+  "@billPerTerm": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "billPerDays": "{price} every {days} days",
+  "@billPerDays": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "billPeriodsTotal": "{count} payments in all",
+  "@billPeriodsTotal": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "billPaused": "Paused: a fee is overdue. Pay below to continue learning.",
+  "billCovered": "Paid {covered} of {due} so far",
+  "@billCovered": {
+    "placeholders": {
+      "covered": {
+        "type": "int"
+      },
+      "due": {
+        "type": "int"
+      }
+    }
+  },
+  "billNextDue": "next due {date}",
+  "@billNextDue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "billPeriodLabel": "How often is it paid?",
+  "billOnce": "Once (one payment)",
+  "billWeekly": "Every week",
+  "billMonthly": "Every month",
+  "billTermly": "Every term",
+  "billCustom": "Every … days",
+  "billEveryDaysLabel": "Every how many days?",
+  "billDaysInvalid": "Enter 1 to 730 days.",
+  "billPeriodsLabel": "Number of payments (optional)",
+  "billPeriodsHint": "e.g. 3 terms; empty = for as long as enrolled",
+  "billPeriodsInvalid": "Enter 1 to 520, or leave empty.",
+  "billHowItWorks": "The price above is charged each period from the day a learner first pays. Learners are reminded when a period starts; one left unpaid past the grace days (Settings) pauses the course for them until they pay. Term length is in Settings.",
+  "billTermDaysSetting": "Length of a term (days)",
+  "billTermDaysSettingHint": "For courses paid every term.",
+  "billGraceSetting": "Days to pay a repeating fee",
+  "billGraceSettingHint": "After a new week, month or term begins, learners have this many days to pay before the course pauses for them.",
+  "wtAttemptN": "Attempt {n}",
+  "@wtAttemptN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  }
 }

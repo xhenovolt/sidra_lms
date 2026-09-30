@@ -24,6 +24,7 @@ import 'learner_portion_screen.dart' show participationLabel, resultLabel;
 import '../../../shared/widgets/user_avatar.dart';
 import '../../media/presentation/capture_sheet.dart';
 import 'work_issue_widgets.dart';
+import 'work_thread_view.dart' show openWorkThread;
 
 /// Upload a local file once and register it as a shared resource.
 Future<String> uploadAsResource(
@@ -1182,7 +1183,15 @@ class _BoardTile extends ConsumerWidget {
         onTap: row.latestSubmissionId == null
             ? null
             : () async {
-                await showReviewSheet(context, ref, row: row, board: board);
+                // The learner's whole thread: every attempt, reply and
+                // verdict, answered by voice / text / file / library.
+                await openWorkThread(
+                  context,
+                  kind: 'portion',
+                  targetId: portionId,
+                  learnerId: row.userId,
+                  title: '${row.name} · ${board.title}',
+                );
                 ref.invalidate(portionBoardProvider(portionId));
                 ref.invalidate(attentionProvider);
               },

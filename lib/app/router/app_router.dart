@@ -27,6 +27,7 @@ import '../../features/teaching/presentation/lesson_work_widgets.dart';
 import '../../features/teaching/presentation/library_screens.dart';
 import '../../features/teaching/presentation/teacher_screens.dart';
 import '../../features/teaching/presentation/work_issue_widgets.dart';
+import '../../features/teaching/presentation/work_thread_view.dart';
 import '../../features/chat/chat_screens.dart';
 import '../../features/auth/domain/auth_session.dart';
 import '../../features/auth/presentation/auth_providers.dart';
@@ -254,6 +255,15 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.notifications,
         builder: (_, _) => const NotificationsScreen(),
+      ),
+      GoRoute(
+        // A learner's work thread (?learner=… for teachers).
+        path: '/work/:kind/:targetId',
+        builder: (_, state) => WorkThreadScreen(
+          kind: state.pathParameters['kind']!,
+          targetId: state.pathParameters['targetId']!,
+          learnerId: state.uri.queryParameters['learner'],
+        ),
       ),
       GoRoute(
         path: '/learn/issues',

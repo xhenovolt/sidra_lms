@@ -98,8 +98,7 @@ select pg_temp.check(exists (select 1 from notifications where kind = 'portion_a
 select public.open_portion(current_setting('t.p')::uuid);
 select public.submit_portion('00000000-0000-0000-0000-0000000aa501', current_setting('t.p')::uuid, null,
   '[{"media_asset_id": "00000000-0000-0000-0000-0000000aaf11", "file_name": "r1.m4a"}]');
-select pg_temp.expect_error($q$select public.submit_portion('00000000-0000-0000-0000-0000000aa599',
-  current_setting('t.p')::uuid, 'again', '[]')$q$, 'wait for your teacher');
+-- (Since 0043 a newer attempt may follow a waiting one: work_threads_test.sql.)
 select pg_temp.check((select x->'participation'->>'status' from public.learner_today() x) = 'submitted',
   'waiting for teacher review');
 reset role;

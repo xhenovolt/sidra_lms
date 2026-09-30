@@ -14,6 +14,7 @@ import '../../curriculum/domain/curriculum_tree.dart';
 import '../../content/data/content_repository.dart';
 import '../../content/presentation/resource_widgets.dart';
 import '../../downloads/presentation/download_button.dart';
+import '../../payments/data/payments_repository.dart' show courseBalanceProvider;
 import '../../payments/presentation/course_payment_card.dart';
 import '../../progress/domain/progress_models.dart';
 import '../data/course_repository.dart';
@@ -176,6 +177,24 @@ class _CourseBodyState extends ConsumerState<_CourseBody> {
                   ),
                   const SizedBox(height: Space.sm),
                   DownloadCourseButton(courseId: course.id),
+                  // Repeating fees: the next period, when it is due.
+                  if (course.access == CourseAccess.paid &&
+                      course.billingPeriod != 'once' &&
+                      (ref
+                                  .watch(courseBalanceProvider(course.id))
+                                  .value
+                                  ?.outstanding ??
+                              0) >
+                          0) ...[
+                    const SizedBox(height: Space.md),
+                    CoursePaymentCard(
+                      course: course,
+                      onPaid: () {
+                        ref.invalidate(courseBalanceProvider(course.id));
+                        ref.invalidate(myCoursesProvider);
+                      },
+                    ),
+                  ],
                 ] else if (course.access == CourseAccess.paid)
                   CoursePaymentCard(
                     course: course,

@@ -230,6 +230,16 @@ String notificationRoute(String? kind, Map<String, dynamic> data) {
   }
   // Staff: problem reports and late work open their lists.
   if (kind == 'work_issue') return '/teach/issues';
+  // A repeating fee is due / overdue: the course page has the pay card.
+  if ((kind == 'fee_due' || kind == 'fee_overdue') && course != null) {
+    return '/courses/$course';
+  }
+  // A learner answered a teacher: open that learner's thread.
+  if (kind == 'work_reply' && data['learner_id'] != null) {
+    final who = '?learner=${data['learner_id']}';
+    if (portion != null) return '/work/portion/$portion$who';
+    if (lesson != null) return '/work/lesson/$lesson$who';
+  }
   if (kind == 'work_overdue' || kind == 'work_escalated') return '/teach/late';
   if (kind == 'learner_suspended' && data['learner_id'] != null) {
     return '/teach/late';

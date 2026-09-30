@@ -13,9 +13,7 @@ import '../../../core/errors/app_failure.dart';
 import '../../../core/notifications/transfer_notifications.dart';
 import '../../admin/data/admin_repository.dart';
 import '../../admin/presentation/admin_common.dart';
-import '../../teaching/data/lesson_work.dart';
-import '../../teaching/data/teaching_repository.dart';
-import 'content_repository.dart';
+import '../../teaching/data/work_thread.dart';
 
 /// A file chosen for a submission, and where its upload stands.
 class QueuedFile {
@@ -54,9 +52,14 @@ class QueuedFile {
   };
 }
 
-/// Work waiting to reach the server. States shown to the learner:
-/// pending (queued), uploading, failed (with retry). It is only "handed in"
-/// once the server has accepted it.
+/// Work waiting to reach the server: a new attempt, or a reply on an
+/// attempt ([replyTo]). States shown on screen:
+///   pending     queued (offline: waiting for a connection)
+///   uploading   files going up, with real byte progress (uploadProgressProvider)
+///   submitting  files are up; recording it in Sidra
+///   failed      stopped with a reason; Retry keeps finished files
+/// It is only "sent" once the server has accepted it, and is sent once: the
+/// ids are made here, so a retry after a timeout never duplicates it.
 class QueuedSubmission {
   QueuedSubmission({
     required this.id,
@@ -65,9 +68,14 @@ class QueuedSubmission {
     this.lessonId,
     required this.files,
     this.text,
+    this.target,
+    this.replyTo,
+    this.correctionId,
+    this.saveAs,
+    List<String>? messageIds,
     this.state = 'pending',
     this.error,
-  });
+  }) : messageIds = messageIds ?? const [];
 
   factory QueuedSubmission.fromJson(Map<String, dynamic> j) => QueuedSubmission(
     id: j['id'] as String,
@@ -75,11 +83,20 @@ class QueuedSubmission {
     portionId: j['portion_id'] as String?,
     lessonId: j['lesson_id'] as String?,
     text: j['text'] as String?,
+    target: (j['target'] as Map?)?.cast<String, dynamic>(),
+    replyTo: j['reply_to'] as String?,
+    correctionId: j['correction_id'] as String?,
+    saveAs: (j['save_as'] as Map?)?.cast<String, dynamic>(),
+    messageIds: [for (final m in (j['message_ids'] as List? ?? const [])) '$m'],
     files: [
       for (final f in (j['files'] as List? ?? const []))
         QueuedFile.fromJson(Map<String, dynamic>.from(f as Map)),
     ],
-    state: j['state'] as String? ?? 'pending',
+    // An app killed mid-upload restarts the entry from "queued".
+    state: switch (j['state'] as String?) {
+      'failed' => 'failed',
+      _ => 'pending',
+    },
     error: j['error'] as String?,
   );
 
@@ -93,8 +110,32 @@ class QueuedSubmission {
   final String? lessonId;
   final String? text;
   final List<QueuedFile> files;
+
+  /// What the attempt / reply is about (a line, an ayah…); see 0044.
+  final Map<String, dynamic>? target;
+
+  /// Set for a reply on this attempt (submission id) instead of a new attempt.
+  final String? replyTo;
+
+  /// Teacher reply: a library correction to send.
+  final String? correctionId;
+
+  /// Teacher reply: keep the (first) voice note in the correction library.
+  final Map<String, dynamic>? saveAs;
+
+  /// Reply parts' ids (one per file, then the text, then the correction).
+  final List<String> messageIds;
   String state;
   String? error;
+
+  bool get isReply => replyTo != null;
+
+  /// portion | lesson | assignment, and its id.
+  (String, String) get work => portionId != null
+      ? ('portion', portionId!)
+      : lessonId != null
+      ? ('lesson', lessonId!)
+      : ('assignment', assignmentId!);
 
   Map<String, Object?> toJson() => {
     'id': id,
@@ -102,11 +143,53 @@ class QueuedSubmission {
     'portion_id': portionId,
     'lesson_id': lessonId,
     'text': text,
+    'target': target,
+    'reply_to': replyTo,
+    'correction_id': correctionId,
+    'save_as': saveAs,
+    'message_ids': messageIds,
     'files': [for (final f in files) f.toJson()],
     'state': state,
     'error': error,
   };
 }
+
+/// Live byte progress of one file of a queued entry.
+class FileProgress {
+  const FileProgress(this.sent, this.total);
+  final int sent;
+  final int total;
+  double get fraction => total <= 0 ? 0 : (sent / total).clamp(0, 1);
+}
+
+/// Upload progress by "entryId#fileIndex", straight from the upload's own
+/// byte counts. In memory only (a restarted upload starts over).
+class UploadProgress extends Notifier<Map<String, FileProgress>> {
+  @override
+  Map<String, FileProgress> build() => const {};
+
+  void set(String key, int sent, int total) {
+    final old = state[key];
+    // Repaint at most once per whole percent.
+    if (old != null &&
+        total > 0 &&
+        (old.sent * 100 ~/ total) == (sent * 100 ~/ total) &&
+        sent != total) {
+      return;
+    }
+    state = {...state, key: FileProgress(sent, total)};
+  }
+
+  void clear(String entryId) => state = {
+    for (final e in state.entries)
+      if (!e.key.startsWith('$entryId#')) e.key: e.value,
+  };
+}
+
+final uploadProgressProvider =
+    NotifierProvider<UploadProgress, Map<String, FileProgress>>(
+      UploadProgress.new,
+    );
 
 /// Learner submissions queued on the device (per-user local database).
 class SubmissionQueue extends AsyncNotifier<List<QueuedSubmission>> {
@@ -136,6 +219,7 @@ class SubmissionQueue extends AsyncNotifier<List<QueuedSubmission>> {
     String? portionId,
     String? lessonId,
     String? text,
+    Map<String, dynamic>? target,
     required List<QueuedFile> files,
   }) async {
     assert(
@@ -148,6 +232,44 @@ class SubmissionQueue extends AsyncNotifier<List<QueuedSubmission>> {
       portionId: portionId,
       lessonId: lessonId,
       text: text,
+      target: target,
+      files: files,
+    );
+    list.add(entry);
+    await _save(list);
+    return _send(entry);
+  }
+
+  /// A reply on attempt [submissionId] (learner or teacher): files (voice
+  /// notes, photos…), text and/or a library correction, sent in that order.
+  Future<bool> reply({
+    required String submissionId,
+    required String workKind,
+    required String workId,
+    String? text,
+    String? correctionId,
+    Map<String, dynamic>? target,
+    Map<String, dynamic>? saveAs,
+    required List<QueuedFile> files,
+  }) async {
+    final list = [...(await future)];
+    final hasText = text != null && text.trim().isNotEmpty;
+    final entry = QueuedSubmission(
+      id: const Uuid().v4(),
+      portionId: workKind == 'portion' ? workId : null,
+      lessonId: workKind == 'lesson' ? workId : null,
+      assignmentId: workKind == 'assignment' ? workId : null,
+      text: hasText ? text.trim() : null,
+      target: target,
+      replyTo: submissionId,
+      correctionId: correctionId,
+      saveAs: saveAs,
+      messageIds: [
+        for (var i = 0;
+            i < files.length + (hasText ? 1 : 0) + (correctionId != null ? 1 : 0);
+            i++)
+          const Uuid().v4(),
+      ],
       files: files,
     );
     list.add(entry);
@@ -207,71 +329,105 @@ class SubmissionQueue extends AsyncNotifier<List<QueuedSubmission>> {
         0,
         (s, f) => s + (f.bytes ?? File(f.path).lengthSync()),
       );
+      final progress = ref.read(uploadProgressProvider.notifier);
+      // Finished files show as done straight away.
+      for (final (i, f) in entry.files.indexed) {
+        if (f.uploaded) progress.set('${entry.id}#$i', 1, 1);
+      }
       var before = 0;
-      for (final f in pending) {
+      for (final (i, f) in entry.files.indexed) {
+        if (f.uploaded) continue;
+        final size = f.bytes ?? File(f.path).lengthSync();
         f.mediaAssetId = await admin.uploadMedia(
           filePath: f.path,
           fileName: f.name,
           kind: f.kind,
           uploaderId: profile.id,
-          folder: 'submissions',
-          onProgress: (sent, _) => TransferNotifications.progress(
-            entry.id,
-            l10n.uploadingWork,
-            before + sent,
-            total,
-          ),
+          folder: entry.isReply ? 'replies' : 'submissions',
+          onProgress: (sent, fileTotal) {
+            progress.set('${entry.id}#$i', sent, fileTotal > 0 ? fileTotal : size);
+            TransferNotifications.progress(
+              entry.id,
+              l10n.uploadingWork,
+              before + sent,
+              total,
+            );
+          },
         );
-        before += f.bytes ?? File(f.path).lengthSync();
+        progress.set('${entry.id}#$i', size, size);
+        before += size;
         await _save(list); // remember each finished upload
       }
-      final files = [
-        for (final f in entry.files)
-          {
-            'media_asset_id': f.mediaAssetId,
-            'file_name': f.name,
-            'mime_type': mimeTypeFor(f.name),
-            'bytes': f.bytes,
-          },
-      ];
-      if (entry.lessonId != null) {
-        await ref
-            .read(lessonWorkRepositoryProvider)
-            .submit(
-              submissionId: entry.id,
-              lessonId: entry.lessonId!,
-              text: entry.text,
-              files: files,
-            );
-      } else if (entry.portionId != null) {
-        await ref
-            .read(teachingRepositoryProvider)
-            .submit(
-              submissionId: entry.id,
-              portionId: entry.portionId!,
-              text: entry.text,
-              files: files,
-            );
+      // Files are up; now record it in Sidra.
+      entry.state = 'submitting';
+      await _save(list);
+      final api = ref.read(postgresApiProvider);
+      final (workKind, workId) = entry.work;
+      if (entry.isReply) {
+        var m = 0;
+        for (final f in entry.files) {
+          await api.rpc(
+            'work_reply',
+            params: {
+              'p_id': entry.messageIds[m++],
+              'p_submission_id': entry.replyTo,
+              'p_kind': f.kind == 'audio' ? 'voice' : 'file',
+              'p_body': null,
+              'p_media_asset_id': f.mediaAssetId,
+              'p_target': entry.target,
+              'p_save_as': f.kind == 'audio' && m == 1 ? entry.saveAs : null,
+            },
+          );
+        }
+        if (entry.text != null) {
+          await api.rpc(
+            'work_reply',
+            params: {
+              'p_id': entry.messageIds[m++],
+              'p_submission_id': entry.replyTo,
+              'p_kind': 'text',
+              'p_body': entry.text,
+              'p_target': entry.target,
+            },
+          );
+        }
+        if (entry.correctionId != null) {
+          await api.rpc(
+            'work_reply',
+            params: {
+              'p_id': entry.messageIds[m++],
+              'p_submission_id': entry.replyTo,
+              'p_kind': 'correction',
+              'p_correction_id': entry.correctionId,
+              'p_target': entry.target,
+            },
+          );
+        }
       } else {
-        await ref
-            .read(contentRepositoryProvider)
-            .submitWork(
-              submissionId: entry.id,
-              assignmentId: entry.assignmentId!,
-              text: entry.text,
-              files: [
-                for (final f in entry.files)
-                  {
-                    'media_asset_id': f.mediaAssetId,
-                    'file_name': f.name,
-                    'mime_type': mimeTypeFor(f.name),
-                    'bytes': f.bytes,
-                  },
-              ],
-            );
+        await api.rpc(
+          'send_work',
+          params: {
+            'p_submission_id': entry.id,
+            'p_kind': workKind,
+            'p_target_id': workId,
+            'p_text': entry.text,
+            'p_files': [
+              for (final f in entry.files)
+                {
+                  'media_asset_id': f.mediaAssetId,
+                  'file_name': f.name,
+                  'mime_type': mimeTypeFor(f.name),
+                  'bytes': f.bytes,
+                },
+            ],
+            'p_target': entry.target,
+          },
+        );
       }
+      progress.clear(entry.id);
       list.removeWhere((e) => e.id == entry.id);
       await _save(list);
+      ref.invalidate(workThreadProvider((workKind, workId, null)));
       if (entry.files.isNotEmpty) {
         await TransferNotifications.finished(
           entry.id,

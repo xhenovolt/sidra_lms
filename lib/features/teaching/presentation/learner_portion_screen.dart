@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +9,11 @@ import '../../../l10n/app_localizations.dart';
 import '../../../shared/widgets/state_views.dart';
 import '../../audio/presentation/audio_widgets.dart';
 import '../../content/data/content_repository.dart';
-import '../../content/data/submission_queue.dart';
 import '../../content/presentation/resource_widgets.dart';
 import '../data/teaching_repository.dart';
-import '../../media/presentation/capture_sheet.dart';
+import '../data/work_thread.dart';
 import 'work_issue_widgets.dart';
+import 'work_thread_view.dart';
 
 final learnerPortionProvider = FutureProvider.autoDispose
     .family<LearnerPortion, String>(
@@ -99,13 +97,41 @@ class LearnerPortionScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final portion = ref.watch(learnerPortionProvider(portionId));
+    final key = ('portion', portionId, null) as WorkKey;
+    final thread = ref.watch(workThreadProvider(key)).value;
+    void refresh() {
+      ref.invalidate(learnerPortionProvider(portionId));
+      ref.invalidate(workThreadProvider(key));
+      ref.invalidate(learnerTodayProvider);
+    }
+
     return Scaffold(
       appBar: AppBar(title: Text(portion.value?.title ?? l10n.todayLearning)),
       body: switch (portion) {
-        AsyncData(:final value) => RefreshIndicator(
-          onRefresh: () =>
-              ref.refresh(learnerPortionProvider(portionId).future),
-          child: _PortionBody(portion: value),
+        AsyncData(:final value) => Column(
+          children: [
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  refresh();
+                  await ref.read(learnerPortionProvider(portionId).future);
+                },
+                child: _PortionBody(portion: value, thread: thread),
+              ),
+            ),
+            // Send (again) at any time until the teacher accepts it.
+            if (thread != null && !thread.completed)
+              SafeArea(
+                top: false,
+                child: WorkComposer(
+                  thread: thread,
+                  kind: 'portion',
+                  targetId: portionId,
+                  submissionTypes: value.submissionTypes,
+                  onSent: refresh,
+                ),
+              ),
+          ],
         ),
         AsyncError(:final error) => ErrorView(
           error: error,
@@ -118,8 +144,9 @@ class LearnerPortionScreen extends ConsumerWidget {
 }
 
 class _PortionBody extends ConsumerWidget {
-  const _PortionBody({required this.portion});
+  const _PortionBody({required this.portion, this.thread});
   final LearnerPortion portion;
+  final WorkThread? thread;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -127,10 +154,6 @@ class _PortionBody extends ConsumerWidget {
     final theme = Theme.of(context);
     final p = portion;
     final langs = ref.watch(languagesProvider).value;
-    final queued = (ref.watch(submissionQueueProvider).value ?? const [])
-        .where((q) => q.portionId == p.id)
-        .toList();
-    final review = p.latestReview;
     final explainedIn = p.instructionLanguage ?? p.courseLanguage;
 
     return ListView(
@@ -182,81 +205,25 @@ class _PortionBody extends ConsumerWidget {
         ],
         const SizedBox(height: Space.md),
 
-        // ------------------------------------------------ where things are
+        // ------------- the whole conversation: attempts, verdicts, replies
         if (p.status == Participation.submitted ||
             p.status == Participation.underReview)
-          _StatusCard(
-            icon: Icons.hourglass_top,
-            title: l10n.sentWaiting,
-            body: l10n.sentWaitingBody,
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.hourglass_top),
+              title: Text(l10n.sentWaiting),
+              subtitle: Text(l10n.wtSendAgainHint),
+            ),
           ),
-        if (review != null &&
-            p.status != Participation.submitted &&
-            p.status != Participation.underReview)
-          _FeedbackCard(review: review),
-        for (final q in queued)
-          _StatusCard(
-            icon: q.state == 'failed'
-                ? Icons.error_outline
-                : Icons.cloud_upload_outlined,
-            title: switch (q.state) {
-              'uploading' => l10n.uploadUploading,
-              'failed' => l10n.subUploadFailed,
-              _ => l10n.subWaitingToUpload,
-            },
-            body: l10n.notSentYet,
-            action: q.state == 'uploading'
-                ? null
-                : TextButton(
-                    onPressed: () async {
-                      if (await ref
-                          .read(submissionQueueProvider.notifier)
-                          .retry(q.id)) {
-                        ref.invalidate(learnerPortionProvider(p.id));
-                      }
-                    },
-                    child: Text(l10n.retry),
-                  ),
+        if (thread != null)
+          WorkTimeline(thread: thread!)
+        else
+          const Padding(
+            padding: EdgeInsets.all(Space.md),
+            child: Center(child: CircularProgressIndicator()),
           ),
-
-        // ------------------------------------------------------- hand in
-        if (p.canSubmit && queued.isEmpty) _SubmitPanel(portion: p),
         if (p.status != Participation.completed)
           WorkIssueSection(target: (kind: 'portion', id: p.id)),
-
-        // --------------------------------------------------------- history
-        if (p.attempts.isNotEmpty) ...[
-          const SizedBox(height: Space.md),
-          ExpansionTile(
-            tilePadding: EdgeInsets.zero,
-            title: Text(l10n.yourAttempts(p.attempts.length)),
-            children: [
-              for (final a in p.attempts)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: Space.sm),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        [
-                          l10n.subAttempt(a.number),
-                          if (a.latestReview != null)
-                            resultLabel(l10n, a.latestReview!.result),
-                        ].join(' · '),
-                        style: theme.textTheme.labelLarge,
-                      ),
-                      for (final f in a.files)
-                        if (f['kind'] == 'audio')
-                          VoicePlayer(
-                            mediaAssetId: f['media_asset_id'] as String,
-                            compact: true,
-                          ),
-                    ],
-                  ),
-                ),
-            ],
-          ),
-        ],
       ],
     );
   }
@@ -316,232 +283,6 @@ class _PageView extends ConsumerWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class _StatusCard extends StatelessWidget {
-  const _StatusCard({
-    required this.icon,
-    required this.title,
-    required this.body,
-    this.action,
-  });
-  final IconData icon;
-  final String title;
-  final String body;
-  final Widget? action;
-
-  @override
-  Widget build(BuildContext context) => Card(
-    child: ListTile(
-      leading: Icon(icon),
-      title: Text(title),
-      subtitle: Text(body),
-      trailing: action,
-    ),
-  );
-}
-
-/// The teacher's verdict, what to do next, and the correction to listen to.
-class _FeedbackCard extends StatelessWidget {
-  const _FeedbackCard({required this.review});
-  final Review review;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-    final passed = review.result.passed;
-    final correction = review.correction;
-    return Card(
-      color: passed
-          ? theme.colorScheme.primaryContainer
-          : theme.colorScheme.tertiaryContainer,
-      child: Padding(
-        padding: const EdgeInsets.all(Space.md),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  review.result == ReviewResult.excellent
-                      ? Icons.star
-                      : passed
-                      ? Icons.check_circle
-                      : Icons.replay,
-                ),
-                const SizedBox(width: Space.sm),
-                Expanded(
-                  child: Text(
-                    resultLabel(l10n, review.result),
-                    style: theme.textTheme.titleMedium,
-                  ),
-                ),
-              ],
-            ),
-            if (review.feedback != null) ...[
-              const SizedBox(height: Space.xs),
-              Text(l10n.teacherSays(review.feedback!)),
-            ],
-            if (correction != null) ...[
-              const SizedBox(height: Space.xs),
-              if (correction['media_asset_id'] != null)
-                VoicePlayer(
-                  mediaAssetId: correction['media_asset_id'] as String,
-                  title: correction['title'] as String?,
-                  subtitle: correction['explanation'] as String?,
-                  icon: Icons.school_outlined,
-                )
-              else
-                Text(
-                  '${correction['title']}: ${correction['explanation'] ?? ''}',
-                ),
-            ],
-            if (review.correctionAssetId != null)
-              VoicePlayer(
-                mediaAssetId: review.correctionAssetId,
-                title: l10n.correctionForYou,
-                icon: Icons.school_outlined,
-              ),
-            if (!passed) ...[
-              const SizedBox(height: Space.xs),
-              Text(l10n.recordAgainBelow, style: theme.textTheme.labelLarge),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Record (and / or photograph, attach) and send to the teacher.
-class _SubmitPanel extends ConsumerStatefulWidget {
-  const _SubmitPanel({required this.portion});
-  final LearnerPortion portion;
-
-  @override
-  ConsumerState<_SubmitPanel> createState() => _SubmitPanelState();
-}
-
-class _SubmitPanelState extends ConsumerState<_SubmitPanel> {
-  RecordedAudio? _audio;
-  final _files = <QueuedFile>[];
-  bool _sending = false;
-  int _recorderKey = 0;
-
-  LearnerPortion get p => widget.portion;
-
-  /// Photo, multi-page scan (PDF), gallery or file, with its size shown.
-  Future<void> _capture() async {
-    final f = await captureContent(
-      context,
-      allow: const {
-        CaptureSource.photo,
-        CaptureSource.scan,
-        CaptureSource.gallery,
-        CaptureSource.file,
-      },
-    );
-    if (f == null) return;
-    setState(
-      () => _files.add(
-        QueuedFile(path: f.path, name: f.name, kind: f.kind, bytes: f.bytes),
-      ),
-    );
-  }
-
-  Future<void> _send() async {
-    final l10n = AppLocalizations.of(context);
-    final messenger = ScaffoldMessenger.of(context);
-    setState(() => _sending = true);
-    final files = [
-      if (_audio != null)
-        QueuedFile(
-          path: _audio!.path,
-          name: _audio!.fileName,
-          kind: 'audio',
-          bytes: File(_audio!.path).lengthSync(),
-        ),
-      ..._files,
-    ];
-    final ok = await ref
-        .read(submissionQueueProvider.notifier)
-        .submit(portionId: p.id, files: files);
-    if (!mounted) return;
-    messenger.showSnackBar(
-      SnackBar(content: Text(ok ? l10n.sentToTeacher : l10n.subSavedForLater)),
-    );
-    setState(() {
-      _sending = false;
-      _audio = null;
-      _files.clear();
-      _recorderKey++;
-    });
-    ref.invalidate(learnerPortionProvider(p.id));
-    ref.invalidate(learnerTodayProvider);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-    final types = p.submissionTypes;
-    final hasSomething = _audio != null || _files.isNotEmpty;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        if (types.contains('audio'))
-          VoiceRecorder(
-            key: ValueKey(_recorderKey),
-            hint: l10n.recordHint,
-            onChanged: (a) => setState(() => _audio = a),
-          ),
-        if (types.contains('image') || types.contains('document'))
-          OutlinedButton.icon(
-            onPressed: _capture,
-            icon: const Icon(Icons.add_a_photo_outlined),
-            label: Text(l10n.capAddWork),
-          ),
-        for (final (i, f) in _files.indexed)
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: f.kind == 'image'
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(Radii.sm),
-                    child: Image.file(
-                      File(f.path),
-                      width: 48,
-                      height: 48,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                : Icon(resourceIcon(f.kind)),
-            title: Text(f.name, maxLines: 1, overflow: TextOverflow.ellipsis),
-            subtitle: Text(formatFileSize(f.bytes ?? 0)),
-            trailing: IconButton(
-              tooltip: l10n.audioDiscard,
-              icon: const Icon(Icons.close),
-              onPressed: () => setState(() => _files.removeAt(i)),
-            ),
-          ),
-        const SizedBox(height: Space.sm),
-        FilledButton.icon(
-          onPressed: hasSomething && !_sending ? _send : null,
-          icon: _sending
-              ? const SizedBox.square(
-                  dimension: 18,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                )
-              : const Icon(Icons.send),
-          label: Text(l10n.sendToTeacher),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: Space.xs),
-          child: Text(l10n.subPrivacyNote, style: theme.textTheme.bodySmall),
-        ),
-      ],
     );
   }
 }

@@ -61,6 +61,7 @@ class LessonWork {
   final Json j;
   String get id => j.str('id');
   String get lessonId => j.str('lesson_id');
+  String get userId => j.str('user_id');
   String get courseId => j.str('course_id');
   String get status => j.strOrNull('status') ?? 'submitted';
   int get attempt => j.integer('attempt', fallback: 1);

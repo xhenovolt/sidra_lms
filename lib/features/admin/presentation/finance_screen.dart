@@ -9,7 +9,8 @@ import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/json.dart';
 import '../../../shared/widgets/state_views.dart';
 import '../../curriculum/domain/curriculum_models.dart';
-import '../../payments/data/payments_repository.dart' show formatMoney;
+import '../../payments/data/payments_repository.dart'
+    show formatMoney, priceWithPeriod;
 import '../../profile/data/profile_repository.dart';
 import '../data/admin_repository.dart';
 import '../data/finance_repository.dart';
@@ -1123,7 +1124,7 @@ Future<Course?> _pickPaidCourse(BuildContext context, WidgetRef ref) async {
           SimpleDialogOption(
             onPressed: () => Navigator.pop(context, c),
             child: Text(
-              '${c.title} · ${formatMoney(c.priceAmount ?? 0, c.priceCurrency ?? 'UGX')}',
+              '${c.title} · ${priceWithPeriod(l10n, c.priceAmount ?? 0, c.priceCurrency ?? 'UGX', c.billingPeriod, c.billingIntervalDays)}',
             ),
           ),
       ],

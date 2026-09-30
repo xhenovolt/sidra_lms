@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart' show DateFormat;
 
 import '../../../core/errors/app_failure.dart';
 import '../../../core/payments/direct_payments.dart';
@@ -199,7 +200,39 @@ class _CoursePaymentCardState extends ConsumerState<CoursePaymentCard> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              if (b.paid > 0 || b.waived > 0)
+              if (b.recurring && b.pricePerPeriod != null)
+                Text(
+                  priceWithPeriod(
+                    l10n,
+                    b.pricePerPeriod!,
+                    b.currency,
+                    b.billingPeriod,
+                    b.intervalDays,
+                  ) +
+                      (b.periodsTotal == null
+                          ? ''
+                          : ' · ${l10n.billPeriodsTotal(b.periodsTotal!)}'),
+                  style: theme.textTheme.bodyMedium,
+                ),
+              if (b.pausedForFees)
+                Text(
+                  l10n.billPaused,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.error,
+                  ),
+                ),
+              if (b.recurring && b.periodsCovered != null)
+                Text(
+                  [
+                    l10n.billCovered(b.periodsCovered!, b.periodsDue),
+                    if (b.nextDueOn != null)
+                      l10n.billNextDue(
+                        DateFormat.yMMMd(l10n.localeName).format(b.nextDueOn!),
+                      ),
+                  ].join(' · '),
+                  style: theme.textTheme.bodySmall,
+                )
+              else if (b.paid > 0 || b.waived > 0)
                 Text(
                   l10n.payAlreadyCovered(
                     formatMoney(b.paid + b.waived, b.currency),

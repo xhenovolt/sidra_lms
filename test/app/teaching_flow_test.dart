@@ -31,6 +31,13 @@ void main() {
     final api = emptyServer();
     api.rpcHandlers['learner_today'] = (_) => [_portion()];
     api.rpcHandlers['open_portion'] = (_) => _portion();
+    api.rpcHandlers['work_thread'] = (_) => {
+      'kind': 'portion',
+      'target_id': 'p1',
+      'role': 'learner',
+      'participation': {'status': 'opened'},
+      'events': <Object>[],
+    };
     api.selectHandlers['languages'] = (_) => [
       {'code': 'en', 'name': 'English'},
     ];
@@ -51,12 +58,12 @@ void main() {
       findsOneWidget,
     );
     expect(find.text('Taught in English'), findsOneWidget);
-    expect(find.text('Record'), findsOneWidget);
-    // Nothing to send until something is recorded.
-    final send = tester.widget<FilledButton>(
+    expect(find.byTooltip('Record'), findsOneWidget);
+    // Nothing to send until something is recorded, attached or written.
+    final send = tester.widget<IconButton>(
       find.ancestor(
-        of: find.text('Send to teacher'),
-        matching: find.byType(FilledButton),
+        of: find.byTooltip('Send to teacher'),
+        matching: find.byType(IconButton),
       ),
     );
     expect(send.onPressed, isNull);
@@ -90,6 +97,35 @@ void main() {
     );
     api.rpcHandlers['learner_today'] = (_) => [p];
     api.rpcHandlers['open_portion'] = (_) => p;
+    api.rpcHandlers['work_thread'] = (_) => {
+      'kind': 'portion',
+      'target_id': 'p1',
+      'role': 'learner',
+      'participation': {'status': 'correction_required'},
+      'events': [
+        {
+          'type': 'attempt',
+          'at': '2026-09-29T08:00:00Z',
+          'submission_id': 's1',
+          'attempt': 1,
+          'status': 'resubmission_requested',
+          'files': <Object>[],
+        },
+        {
+          'type': 'review',
+          'at': '2026-09-29T09:00:00Z',
+          'submission_id': 's1',
+          'result': 'correction_required',
+          'feedback': 'Repeat the second line.',
+          'author': 'Ustadh Musa',
+          'correction': {
+            'id': 'c1',
+            'title': 'Shaddah pronunciation',
+            'explanation': 'Hold the letter.',
+          },
+        },
+      ],
+    };
     await tester.pumpWidget(
       await buildTestApp(
         FakeAuthService(const AuthSession.signedIn(testUser)),
@@ -101,14 +137,10 @@ void main() {
     await tester.tap(find.text('Page 12'));
     await tester.pumpAndSettle();
     expect(find.text('Correction required'), findsOneWidget);
-    expect(find.text('Your teacher: Repeat the second line.'), findsOneWidget);
+    expect(find.text('Repeat the second line.'), findsOneWidget);
     expect(find.textContaining('Shaddah pronunciation'), findsOneWidget);
-    await tester.scrollUntilVisible(
-      find.text('Record'),
-      200,
-      scrollable: find.byType(Scrollable).first,
-    );
-    expect(find.text('Record'), findsOneWidget);
+    // Try again: the composer stays open under the thread.
+    expect(find.byTooltip('Record'), findsOneWidget);
   });
 
   testWidgets('teacher: needs my attention and the review board', (

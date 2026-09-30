@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/data/data_providers.dart';
 import '../../../core/network/postgres_api.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/json.dart';
 
 enum PaymentStatus {
@@ -78,6 +79,14 @@ class CourseBalance {
     required this.waived,
     required this.outstanding,
     required this.currency,
+    this.billingPeriod = 'once',
+    this.intervalDays,
+    this.periodsTotal,
+    this.pricePerPeriod,
+    this.periodsDue = 1,
+    this.periodsCovered,
+    this.nextDueOn,
+    this.pausedForFees = false,
   });
 
   factory CourseBalance.fromJson(Json j) => CourseBalance(
@@ -86,13 +95,54 @@ class CourseBalance {
     waived: j.numOrNull('waived') ?? 0,
     outstanding: j.numOrNull('outstanding') ?? 0,
     currency: j.strOrNull('currency') ?? 'UGX',
+    billingPeriod: j.strOrNull('billing_period') ?? 'once',
+    intervalDays: j.numOrNull('billing_interval_days')?.toInt(),
+    periodsTotal: j.numOrNull('billing_periods')?.toInt(),
+    pricePerPeriod: j.numOrNull('price_per_period'),
+    periodsDue: j.numOrNull('periods_due')?.toInt() ?? 1,
+    periodsCovered: j.numOrNull('periods_covered')?.toInt(),
+    nextDueOn: j.dateOrNull('next_due_on'),
+    pausedForFees: j['paused_for_fees'] == true,
   );
 
+  /// What is due so far (the price per period × the periods begun).
   final double fee;
   final double paid;
   final double waived;
   final double outstanding;
   final String currency;
+
+  /// once | weekly | monthly | termly | custom (every [intervalDays]).
+  final String billingPeriod;
+  final int? intervalDays;
+  final int? periodsTotal;
+  final double? pricePerPeriod;
+  final int periodsDue;
+  final int? periodsCovered;
+  final DateTime? nextDueOn;
+
+  /// The course is paused because a period went unpaid.
+  final bool pausedForFees;
+
+  bool get recurring => billingPeriod != 'once';
+}
+
+/// "UGX 30,000 / month", or just "UGX 50,000" for a one-time fee.
+String priceWithPeriod(
+  AppLocalizations l10n,
+  num amount,
+  String currency,
+  String period, [
+  int? days,
+]) {
+  final money = formatMoney(amount, currency);
+  return switch (period) {
+    'weekly' => l10n.billPerWeek(money),
+    'monthly' => l10n.billPerMonth(money),
+    'termly' => l10n.billPerTerm(money),
+    'custom' => l10n.billPerDays(money, days ?? 30),
+    _ => money,
+  };
 }
 
 class PaymentsRepository {

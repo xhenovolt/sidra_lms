@@ -290,6 +290,13 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
   late final _currency = TextEditingController(
     text: widget.course?.priceCurrency ?? 'UGX',
   );
+  late String _billing = widget.course?.billingPeriod ?? 'once';
+  late final _billingDays = TextEditingController(
+    text: widget.course?.billingIntervalDays?.toString() ?? '',
+  );
+  late final _billingPeriods = TextEditingController(
+    text: widget.course?.billingPeriods?.toString() ?? '',
+  );
   late Difficulty _difficulty =
       widget.course?.difficulty ?? Difficulty.beginner;
   late CourseAccess _access = widget.course?.access ?? CourseAccess.free;
@@ -321,6 +328,8 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
       _prereq,
       _price,
       _currency,
+      _billingDays,
+      _billingPeriods,
     ]) {
       c.dispose();
     }
@@ -393,6 +402,14 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
           : null,
       'price_currency': _access == CourseAccess.paid
           ? _currency.text.trim().toUpperCase()
+          : null,
+      'billing_period': _access == CourseAccess.paid ? _billing : 'once',
+      'billing_interval_days': _access == CourseAccess.paid &&
+              _billing == 'custom'
+          ? int.tryParse(_billingDays.text.trim())
+          : null,
+      'billing_periods': _access == CourseAccess.paid && _billing != 'once'
+          ? int.tryParse(_billingPeriods.text.trim())
           : null,
       if (widget.course == null) 'slug': slugify(_title.text),
     };
@@ -584,6 +601,59 @@ class _CourseFormScreenState extends ConsumerState<CourseFormScreen> {
                   ),
                 ],
               ),
+              const SizedBox(height: Space.sm),
+              // One payment, or the same price every week / month / term…
+              DropdownButtonFormField<String>(
+                initialValue: _billing,
+                isExpanded: true,
+                decoration: InputDecoration(labelText: l10n.billPeriodLabel),
+                items: [
+                  DropdownMenuItem(value: 'once', child: Text(l10n.billOnce)),
+                  DropdownMenuItem(value: 'weekly', child: Text(l10n.billWeekly)),
+                  DropdownMenuItem(
+                    value: 'monthly',
+                    child: Text(l10n.billMonthly),
+                  ),
+                  DropdownMenuItem(value: 'termly', child: Text(l10n.billTermly)),
+                  DropdownMenuItem(value: 'custom', child: Text(l10n.billCustom)),
+                ],
+                onChanged: (v) => setState(() => _billing = v ?? 'once'),
+              ),
+              if (_billing == 'custom')
+                AdminField(
+                  controller: _billingDays,
+                  label: l10n.billEveryDaysLabel,
+                  keyboardType: TextInputType.number,
+                  required: true,
+                  validator: (v) {
+                    final n = int.tryParse(v?.trim() ?? '');
+                    return n == null || n < 1 || n > 730
+                        ? l10n.billDaysInvalid
+                        : null;
+                  },
+                ),
+              if (_billing != 'once')
+                AdminField(
+                  controller: _billingPeriods,
+                  label: l10n.billPeriodsLabel,
+                  hint: l10n.billPeriodsHint,
+                  keyboardType: TextInputType.number,
+                  validator: (v) {
+                    if (v == null || v.trim().isEmpty) return null;
+                    final n = int.tryParse(v.trim());
+                    return n == null || n < 1 || n > 520
+                        ? l10n.billPeriodsInvalid
+                        : null;
+                  },
+                ),
+              if (_billing != 'once')
+                Padding(
+                  padding: const EdgeInsets.only(top: Space.xs),
+                  child: Text(
+                    l10n.billHowItWorks,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ),
             ],
             const SizedBox(height: Space.md),
             AdminField(

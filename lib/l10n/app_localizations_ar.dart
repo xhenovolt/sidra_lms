@@ -5175,4 +5175,335 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get contactsCopied => 'تم النسخ. أرسل لكل متعلم كلمة مروره.';
+
+  @override
+  String get targetWhole => 'العمل كله';
+
+  @override
+  String get targetOther => 'شيء آخر';
+
+  @override
+  String targetAyah(int surah, int ayah) {
+    return 'سورة $surah، آية $ayah';
+  }
+
+  @override
+  String targetAyahRange(int surah, int from, int to) {
+    return 'سورة $surah، الآيات $from–$to';
+  }
+
+  @override
+  String targetPage(int page) {
+    return 'صفحة $page';
+  }
+
+  @override
+  String targetPageLine(int page, int line) {
+    return 'صفحة $page، سطر $line';
+  }
+
+  @override
+  String targetPageLines(int page, int line, int lineEnd) {
+    return 'صفحة $page، الأسطر $line–$lineEnd';
+  }
+
+  @override
+  String get wtWaiting => 'بانتظار المعلم';
+
+  @override
+  String get wtUnderReview => 'المعلم يراجع';
+
+  @override
+  String get wtSuperseded => 'استُبدلت بمحاولة أحدث';
+
+  @override
+  String get wtTryAgain => 'حاول مرة أخرى';
+
+  @override
+  String get wtAccepted => 'مقبول';
+
+  @override
+  String wtLearnerTitle(String name) {
+    return 'عمل $name';
+  }
+
+  @override
+  String get wtMyWork => 'عملي';
+
+  @override
+  String get wtNothingYet =>
+      'لم يُرسل شيء بعد. سجّل أو صوّر أو اكتب عملك في الأسفل.';
+
+  @override
+  String get wtCompleted => 'قبله معلمك. أحسنت!';
+
+  @override
+  String get wtYou => 'أنت';
+
+  @override
+  String get wtTeacher => 'المعلم';
+
+  @override
+  String get wtLearner => 'المتعلم';
+
+  @override
+  String wtFor(String what) {
+    return 'بخصوص: $what';
+  }
+
+  @override
+  String get wtAttachment => 'مرفق';
+
+  @override
+  String get wtUploadingPlain => 'جارٍ الرفع…';
+
+  @override
+  String wtUploading(int percent) {
+    return 'جارٍ الرفع… $percent%';
+  }
+
+  @override
+  String get wtSubmitting => 'تم الرفع ✓ جارٍ الإرسال إلى معلمك…';
+
+  @override
+  String get wtFailed => 'لم يُرسل';
+
+  @override
+  String get wtQueued => 'بانتظار الاتصال';
+
+  @override
+  String get wtDiscard => 'إزالة';
+
+  @override
+  String get wtDiscardBody => 'إزالة هذا من الهاتف؟ لم يُرسل بعد.';
+
+  @override
+  String get wtUploadedFile => 'تم الرفع';
+
+  @override
+  String get wtFileQueued => 'في الانتظار';
+
+  @override
+  String get wtCorrectionDefaultTitle => 'تصحيح';
+
+  @override
+  String get wtReplySent => 'أُرسل الرد.';
+
+  @override
+  String get wtNewAttempt => 'محاولة جديدة';
+
+  @override
+  String get wtReply => 'رد';
+
+  @override
+  String wtMarkLatest(int number) {
+    return 'تقييم المحاولة $number:';
+  }
+
+  @override
+  String get wtTryAgainAction => 'أعد المحاولة';
+
+  @override
+  String get wtTeacherReplyHint =>
+      'صوت أو نص أو ملف أو تصحيح محفوظ. أرسل ما تحتاج.';
+
+  @override
+  String get wtLearnerReplyHint => 'أجب معلمك عن هذه المحاولة.';
+
+  @override
+  String get wtNewAttemptHint =>
+      'أرسل عملك: تسجيلاً أو صوراً أو ملفات أو نصاً.';
+
+  @override
+  String get wtChooseTargetShort => 'بخصوص ماذا؟';
+
+  @override
+  String get wtRecord => 'تسجيل';
+
+  @override
+  String get wtTeacherTextHint => 'اكتب تصحيحاً أو ملاحظة';
+
+  @override
+  String get wtTextHint => 'اكتب شيئاً (اختياري)';
+
+  @override
+  String get wtSendReply => 'إرسال الرد';
+
+  @override
+  String get wtAyahInvalid => 'أدخل رقم السورة (1–114) وأرقام الآيات.';
+
+  @override
+  String get wtPageInvalid => 'أدخل رقم الصفحة (والأسطر من – إلى).';
+
+  @override
+  String get wtExerciseInvalid => 'اكتب اسم التمرين أو السؤال.';
+
+  @override
+  String get wtChooseTarget => 'بخصوص ماذا هذا؟';
+
+  @override
+  String get wtTargetAyah => 'آية أو آيات';
+
+  @override
+  String get wtSurah => 'السورة';
+
+  @override
+  String get wtAyahFrom => 'من آية';
+
+  @override
+  String get wtAyahTo => 'إلى آية';
+
+  @override
+  String get wtTargetPageLine => 'صفحة أو سطر';
+
+  @override
+  String get wtPage => 'الصفحة';
+
+  @override
+  String get wtLine => 'السطر';
+
+  @override
+  String get wtLineTo => 'إلى السطر';
+
+  @override
+  String get wtTargetExercise => 'تمرين أو سؤال';
+
+  @override
+  String get wtExerciseName => 'التمرين أو السؤال';
+
+  @override
+  String get wtExerciseHint => 'مثال: السؤال 4';
+
+  @override
+  String get wtTargetText => 'حدد جزءاً من الدرس';
+
+  @override
+  String get wtUseTarget => 'استخدام';
+
+  @override
+  String get wtSelectHint =>
+      'اضغط مطولاً على الكلمات واسحب لتحديدها، ثم اضغط استخدام.';
+
+  @override
+  String get wtSelected => 'المحدد';
+
+  @override
+  String wtUseWholePassage(String what) {
+    return 'استخدم المقطع كله ($what)';
+  }
+
+  @override
+  String get wtUseSelection => 'استخدم الكلمات المحددة';
+
+  @override
+  String get accountMenu => 'الحساب';
+
+  @override
+  String get wtSendAgainHint =>
+      'أُرسل. لاحظت خطأ؟ أرسل محاولة جديدة في الأسفل لتحل محل هذه.';
+
+  @override
+  String get wtSeeHistory => 'عرض عملي والملاحظات';
+
+  @override
+  String wtOpenWork(int count) {
+    return 'عملي ($count محاولات): أرسل، رد، اطلع على الملاحظات';
+  }
+
+  @override
+  String get wtHistory => 'السجل';
+
+  @override
+  String billPerWeek(String price) {
+    return '$price / أسبوع';
+  }
+
+  @override
+  String billPerMonth(String price) {
+    return '$price / شهر';
+  }
+
+  @override
+  String billPerTerm(String price) {
+    return '$price / فصل دراسي';
+  }
+
+  @override
+  String billPerDays(String price, int days) {
+    return '$price كل $days يوماً';
+  }
+
+  @override
+  String billPeriodsTotal(int count) {
+    return '$count دفعات إجمالاً';
+  }
+
+  @override
+  String get billPaused =>
+      'متوقف: هناك رسوم متأخرة. ادفع أدناه لمتابعة التعلم.';
+
+  @override
+  String billCovered(int covered, int due) {
+    return 'مدفوع $covered من $due حتى الآن';
+  }
+
+  @override
+  String billNextDue(String date) {
+    return 'الاستحقاق التالي $date';
+  }
+
+  @override
+  String get billPeriodLabel => 'كم مرة تُدفع الرسوم؟';
+
+  @override
+  String get billOnce => 'مرة واحدة (دفعة واحدة)';
+
+  @override
+  String get billWeekly => 'كل أسبوع';
+
+  @override
+  String get billMonthly => 'كل شهر';
+
+  @override
+  String get billTermly => 'كل فصل دراسي';
+
+  @override
+  String get billCustom => 'كل … يوماً';
+
+  @override
+  String get billEveryDaysLabel => 'كل كم يوماً؟';
+
+  @override
+  String get billDaysInvalid => 'أدخل من 1 إلى 730 يوماً.';
+
+  @override
+  String get billPeriodsLabel => 'عدد الدفعات (اختياري)';
+
+  @override
+  String get billPeriodsHint => 'مثال: 3 فصول؛ فارغ = طوال مدة التسجيل';
+
+  @override
+  String get billPeriodsInvalid => 'أدخل من 1 إلى 520، أو اتركه فارغاً.';
+
+  @override
+  String get billHowItWorks =>
+      'يُحتسب السعر أعلاه في كل فترة من يوم أول دفعة للمتعلم. يُذكَّر المتعلمون عند بدء الفترة؛ والفترة غير المدفوعة بعد أيام السماح (الإعدادات) توقف الدورة لهم حتى يدفعوا. طول الفصل في الإعدادات.';
+
+  @override
+  String get billTermDaysSetting => 'طول الفصل الدراسي (بالأيام)';
+
+  @override
+  String get billTermDaysSettingHint => 'للدورات التي تُدفع كل فصل دراسي.';
+
+  @override
+  String get billGraceSetting => 'أيام دفع الرسوم المتكررة';
+
+  @override
+  String get billGraceSettingHint =>
+      'بعد بدء أسبوع أو شهر أو فصل جديد، لدى المتعلمين هذا العدد من الأيام للدفع قبل أن تتوقف الدورة لهم.';
+
+  @override
+  String wtAttemptN(int n) {
+    return 'المحاولة $n';
+  }
 }

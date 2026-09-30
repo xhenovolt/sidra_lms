@@ -9155,6 +9155,576 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Copied. Send each learner their password.'**
   String get contactsCopied;
+
+  /// No description provided for @targetWhole.
+  ///
+  /// In en, this message translates to:
+  /// **'The whole work'**
+  String get targetWhole;
+
+  /// No description provided for @targetOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Something else'**
+  String get targetOther;
+
+  /// No description provided for @targetAyah.
+  ///
+  /// In en, this message translates to:
+  /// **'Surah {surah}, ayah {ayah}'**
+  String targetAyah(int surah, int ayah);
+
+  /// No description provided for @targetAyahRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Surah {surah}, ayat {from}–{to}'**
+  String targetAyahRange(int surah, int from, int to);
+
+  /// No description provided for @targetPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Page {page}'**
+  String targetPage(int page);
+
+  /// No description provided for @targetPageLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Page {page}, line {line}'**
+  String targetPageLine(int page, int line);
+
+  /// No description provided for @targetPageLines.
+  ///
+  /// In en, this message translates to:
+  /// **'Page {page}, lines {line}–{lineEnd}'**
+  String targetPageLines(int page, int line, int lineEnd);
+
+  /// No description provided for @wtWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for teacher'**
+  String get wtWaiting;
+
+  /// No description provided for @wtUnderReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher is reviewing'**
+  String get wtUnderReview;
+
+  /// No description provided for @wtSuperseded.
+  ///
+  /// In en, this message translates to:
+  /// **'Replaced by a newer attempt'**
+  String get wtSuperseded;
+
+  /// No description provided for @wtTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get wtTryAgain;
+
+  /// No description provided for @wtAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Accepted'**
+  String get wtAccepted;
+
+  /// No description provided for @wtLearnerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}\'s work'**
+  String wtLearnerTitle(String name);
+
+  /// No description provided for @wtMyWork.
+  ///
+  /// In en, this message translates to:
+  /// **'My work'**
+  String get wtMyWork;
+
+  /// No description provided for @wtNothingYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing sent yet. Record, photograph or write your work below.'**
+  String get wtNothingYet;
+
+  /// No description provided for @wtCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Accepted by your teacher. Well done!'**
+  String get wtCompleted;
+
+  /// No description provided for @wtYou.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get wtYou;
+
+  /// No description provided for @wtTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher'**
+  String get wtTeacher;
+
+  /// No description provided for @wtLearner.
+  ///
+  /// In en, this message translates to:
+  /// **'Learner'**
+  String get wtLearner;
+
+  /// No description provided for @wtFor.
+  ///
+  /// In en, this message translates to:
+  /// **'For: {what}'**
+  String wtFor(String what);
+
+  /// No description provided for @wtAttachment.
+  ///
+  /// In en, this message translates to:
+  /// **'Attachment'**
+  String get wtAttachment;
+
+  /// No description provided for @wtUploadingPlain.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading…'**
+  String get wtUploadingPlain;
+
+  /// No description provided for @wtUploading.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading… {percent}%'**
+  String wtUploading(int percent);
+
+  /// No description provided for @wtSubmitting.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploaded ✓ Sending to your teacher…'**
+  String get wtSubmitting;
+
+  /// No description provided for @wtFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not sent'**
+  String get wtFailed;
+
+  /// No description provided for @wtQueued.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for a connection'**
+  String get wtQueued;
+
+  /// No description provided for @wtDiscard.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get wtDiscard;
+
+  /// No description provided for @wtDiscardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this from the phone? It has not been sent.'**
+  String get wtDiscardBody;
+
+  /// No description provided for @wtUploadedFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploaded'**
+  String get wtUploadedFile;
+
+  /// No description provided for @wtFileQueued.
+  ///
+  /// In en, this message translates to:
+  /// **'Queued'**
+  String get wtFileQueued;
+
+  /// No description provided for @wtCorrectionDefaultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Correction'**
+  String get wtCorrectionDefaultTitle;
+
+  /// No description provided for @wtReplySent.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply sent.'**
+  String get wtReplySent;
+
+  /// No description provided for @wtNewAttempt.
+  ///
+  /// In en, this message translates to:
+  /// **'New attempt'**
+  String get wtNewAttempt;
+
+  /// No description provided for @wtReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply'**
+  String get wtReply;
+
+  /// No description provided for @wtMarkLatest.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark attempt {number}:'**
+  String wtMarkLatest(int number);
+
+  /// No description provided for @wtTryAgainAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get wtTryAgainAction;
+
+  /// No description provided for @wtTeacherReplyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice, text, a file or a saved correction. Send as many as you need.'**
+  String get wtTeacherReplyHint;
+
+  /// No description provided for @wtLearnerReplyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer your teacher about this attempt.'**
+  String get wtLearnerReplyHint;
+
+  /// No description provided for @wtNewAttemptHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Send your work: a recording, photos, files or text.'**
+  String get wtNewAttemptHint;
+
+  /// No description provided for @wtChooseTargetShort.
+  ///
+  /// In en, this message translates to:
+  /// **'What is it for?'**
+  String get wtChooseTargetShort;
+
+  /// No description provided for @wtRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Record'**
+  String get wtRecord;
+
+  /// No description provided for @wtTeacherTextHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a correction or note'**
+  String get wtTeacherTextHint;
+
+  /// No description provided for @wtTextHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write something (optional)'**
+  String get wtTextHint;
+
+  /// No description provided for @wtSendReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Send reply'**
+  String get wtSendReply;
+
+  /// No description provided for @wtAyahInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a surah (1–114) and ayah numbers.'**
+  String get wtAyahInvalid;
+
+  /// No description provided for @wtPageInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a page number (and lines, from – to).'**
+  String get wtPageInvalid;
+
+  /// No description provided for @wtExerciseInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Name the exercise or question.'**
+  String get wtExerciseInvalid;
+
+  /// No description provided for @wtChooseTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'What is this for?'**
+  String get wtChooseTarget;
+
+  /// No description provided for @wtTargetAyah.
+  ///
+  /// In en, this message translates to:
+  /// **'An ayah or ayat'**
+  String get wtTargetAyah;
+
+  /// No description provided for @wtSurah.
+  ///
+  /// In en, this message translates to:
+  /// **'Surah'**
+  String get wtSurah;
+
+  /// No description provided for @wtAyahFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'From ayah'**
+  String get wtAyahFrom;
+
+  /// No description provided for @wtAyahTo.
+  ///
+  /// In en, this message translates to:
+  /// **'To ayah'**
+  String get wtAyahTo;
+
+  /// No description provided for @wtTargetPageLine.
+  ///
+  /// In en, this message translates to:
+  /// **'A page or line'**
+  String get wtTargetPageLine;
+
+  /// No description provided for @wtPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Page'**
+  String get wtPage;
+
+  /// No description provided for @wtLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Line'**
+  String get wtLine;
+
+  /// No description provided for @wtLineTo.
+  ///
+  /// In en, this message translates to:
+  /// **'To line'**
+  String get wtLineTo;
+
+  /// No description provided for @wtTargetExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'An exercise or question'**
+  String get wtTargetExercise;
+
+  /// No description provided for @wtExerciseName.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise or question'**
+  String get wtExerciseName;
+
+  /// No description provided for @wtExerciseHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Question 4'**
+  String get wtExerciseHint;
+
+  /// No description provided for @wtTargetText.
+  ///
+  /// In en, this message translates to:
+  /// **'Highlight part of the lesson'**
+  String get wtTargetText;
+
+  /// No description provided for @wtUseTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Use'**
+  String get wtUseTarget;
+
+  /// No description provided for @wtSelectHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Press and hold on the words, drag to highlight them, then tap Use.'**
+  String get wtSelectHint;
+
+  /// No description provided for @wtSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Highlighted'**
+  String get wtSelected;
+
+  /// No description provided for @wtUseWholePassage.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the whole passage ({what})'**
+  String wtUseWholePassage(String what);
+
+  /// No description provided for @wtUseSelection.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the highlighted words'**
+  String get wtUseSelection;
+
+  /// No description provided for @accountMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get accountMenu;
+
+  /// No description provided for @wtSendAgainHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent. Noticed a mistake? Send a new attempt below; it replaces this one.'**
+  String get wtSendAgainHint;
+
+  /// No description provided for @wtSeeHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'See my work and feedback'**
+  String get wtSeeHistory;
+
+  /// No description provided for @wtOpenWork.
+  ///
+  /// In en, this message translates to:
+  /// **'My work ({count} attempts): send, reply, see feedback'**
+  String wtOpenWork(int count);
+
+  /// No description provided for @wtHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get wtHistory;
+
+  /// No description provided for @billPerWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'{price} / week'**
+  String billPerWeek(String price);
+
+  /// No description provided for @billPerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'{price} / month'**
+  String billPerMonth(String price);
+
+  /// No description provided for @billPerTerm.
+  ///
+  /// In en, this message translates to:
+  /// **'{price} / term'**
+  String billPerTerm(String price);
+
+  /// No description provided for @billPerDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{price} every {days} days'**
+  String billPerDays(String price, int days);
+
+  /// No description provided for @billPeriodsTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} payments in all'**
+  String billPeriodsTotal(int count);
+
+  /// No description provided for @billPaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused: a fee is overdue. Pay below to continue learning.'**
+  String get billPaused;
+
+  /// No description provided for @billCovered.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid {covered} of {due} so far'**
+  String billCovered(int covered, int due);
+
+  /// No description provided for @billNextDue.
+  ///
+  /// In en, this message translates to:
+  /// **'next due {date}'**
+  String billNextDue(String date);
+
+  /// No description provided for @billPeriodLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'How often is it paid?'**
+  String get billPeriodLabel;
+
+  /// No description provided for @billOnce.
+  ///
+  /// In en, this message translates to:
+  /// **'Once (one payment)'**
+  String get billOnce;
+
+  /// No description provided for @billWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every week'**
+  String get billWeekly;
+
+  /// No description provided for @billMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every month'**
+  String get billMonthly;
+
+  /// No description provided for @billTermly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every term'**
+  String get billTermly;
+
+  /// No description provided for @billCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Every … days'**
+  String get billCustom;
+
+  /// No description provided for @billEveryDaysLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Every how many days?'**
+  String get billEveryDaysLabel;
+
+  /// No description provided for @billDaysInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 1 to 730 days.'**
+  String get billDaysInvalid;
+
+  /// No description provided for @billPeriodsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of payments (optional)'**
+  String get billPeriodsLabel;
+
+  /// No description provided for @billPeriodsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 3 terms; empty = for as long as enrolled'**
+  String get billPeriodsHint;
+
+  /// No description provided for @billPeriodsInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 1 to 520, or leave empty.'**
+  String get billPeriodsInvalid;
+
+  /// No description provided for @billHowItWorks.
+  ///
+  /// In en, this message translates to:
+  /// **'The price above is charged each period from the day a learner first pays. Learners are reminded when a period starts; one left unpaid past the grace days (Settings) pauses the course for them until they pay. Term length is in Settings.'**
+  String get billHowItWorks;
+
+  /// No description provided for @billTermDaysSetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Length of a term (days)'**
+  String get billTermDaysSetting;
+
+  /// No description provided for @billTermDaysSettingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'For courses paid every term.'**
+  String get billTermDaysSettingHint;
+
+  /// No description provided for @billGraceSetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Days to pay a repeating fee'**
+  String get billGraceSetting;
+
+  /// No description provided for @billGraceSettingHint.
+  ///
+  /// In en, this message translates to:
+  /// **'After a new week, month or term begins, learners have this many days to pay before the course pauses for them.'**
+  String get billGraceSettingHint;
+
+  /// No description provided for @wtAttemptN.
+  ///
+  /// In en, this message translates to:
+  /// **'Attempt {n}'**
+  String wtAttemptN(int n);
 }
 
 class _AppLocalizationsDelegate

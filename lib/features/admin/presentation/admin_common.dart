@@ -90,6 +90,7 @@ class AdminField extends StatelessWidget {
     this.keyboardType,
     this.required = false,
     this.textDirection,
+    this.validator,
   });
 
   final TextEditingController controller;
@@ -99,6 +100,9 @@ class AdminField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool required;
   final TextDirection? textDirection;
+
+  /// Extra check after "required".
+  final FormFieldValidator<String>? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -116,9 +120,12 @@ class AdminField extends StatelessWidget {
           hintText: hint,
           alignLabelWithHint: maxLines > 1,
         ),
-        validator: required
-            ? (v) => (v == null || v.trim().isEmpty) ? l10n.adminRequired : null
-            : null,
+        validator: (v) {
+          if (required && (v == null || v.trim().isEmpty)) {
+            return l10n.adminRequired;
+          }
+          return validator?.call(v);
+        },
       ),
     );
   }

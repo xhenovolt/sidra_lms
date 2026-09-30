@@ -110,8 +110,7 @@ select public.submit_work('00000000-0000-0000-0000-0000000e05b1',
 select pg_temp.check((public.submit_work('00000000-0000-0000-0000-0000000e05b1',
   '00000000-0000-0000-0000-0000000e0e01', 'Done again', '[]')->>'text_answer') = 'Done',
   'resending a queued submission changes nothing');
-select pg_temp.expect_error($q$select public.submit_work('00000000-0000-0000-0000-0000000e05b2',
-  '00000000-0000-0000-0000-0000000e0e01', 'again', '[]')$q$, 'wait for your teacher');
+-- (Since 0043 a newer attempt may follow a waiting one: work_threads_test.sql.)
 reset role;
 
 -- ------------------------------------------------------------ learner B --
