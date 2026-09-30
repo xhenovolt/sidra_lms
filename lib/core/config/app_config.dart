@@ -20,6 +20,7 @@ class AppConfig {
     this.marzpayAuth = '',
     this.marzpayBaseUrl = 'https://wallet.wearemarz.com/api/v1',
     this.marzpayCountry = 'UG',
+    this.pushWorkerUrl = '',
   });
 
   factory AppConfig.fromEnvironment() => const AppConfig(
@@ -32,6 +33,7 @@ class AppConfig {
       defaultValue: 'https://wallet.wearemarz.com/api/v1',
     ),
     marzpayCountry: String.fromEnvironment('MARZPAY_COUNTRY', defaultValue: 'UG'),
+    pushWorkerUrl: String.fromEnvironment('PUSH_WORKER_URL'),
   );
 
   final String environment;
@@ -47,6 +49,10 @@ class AppConfig {
   final String marzpayCountry;
 
   bool get isMarzPayConfigured => marzpayAuth.isNotEmpty;
+
+  /// The push Worker (https://sidra-push….workers.dev), woken after actions
+  /// that notify someone. Empty: pushes go out on the Worker's 1-minute cron.
+  final String pushWorkerUrl;
 
   bool get isProduction => environment == 'prod';
 

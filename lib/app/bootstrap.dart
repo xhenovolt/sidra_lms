@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/device/device_profile.dart';
 import '../core/notifications/phone_notifications.dart';
+import '../core/notifications/push.dart';
 import '../core/config/app_config.dart';
 import '../core/logging/app_logger.dart';
 import '../core/network/pg_client.dart';
@@ -53,11 +54,17 @@ Future<void> bootstrap() async {
   } catch (e) {
     debugPrint('notifications unavailable: $e');
   }
+  // Instant pushes (Firebase); off harmlessly if unavailable.
+  try {
+    await Push.start();
+  } catch (e) {
+    debugPrint('push unavailable: $e');
+  }
   unawaited(
-    Future<void>.delayed(
-      const Duration(seconds: 2),
-      PhoneNotifications.openLaunchNotification,
-    ),
+    Future<void>.delayed(const Duration(seconds: 2), () async {
+      await PhoneNotifications.openLaunchNotification();
+      await Push.openLaunchMessage();
+    }),
   );
   runApp(
     ProviderScope(

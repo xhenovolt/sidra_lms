@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "945130598055",
+    "project_id": "sidra-001",
+    "storage_bucket": "sidra-001.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945130598055:android:607da184ea112ebe85f582",
+        "android_client_info": {
+          "package_name": "com.almuntahha.sidra_lms"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZ8ctVV4C36a-djC3UzJukyCfS9OJIMZ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

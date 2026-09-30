@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sidra green, behind the white mark on notifications. -->
+    <color name="sidra_notification">#134E33</color>
+</resources>

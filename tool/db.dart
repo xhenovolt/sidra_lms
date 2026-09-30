@@ -6,6 +6,7 @@
 //   dart run tool/db.dart migrate            # apply pending migrations + sync settings
 //   dart run tool/db.dart promote <phone|email> <admin|teacher|learner>
 //   SIDRA_NEW_PASSWORD=… dart run tool/db.dart create-user --name "Full Name" \n//       [--phone +256…] [--email …] [--username …] --role superadmin|admin|teacher|learner
+//   dart run tool/db.dart push-role          # login for the push Worker → .env PUSH_DATABASE_URL
 //   dart run tool/db.dart app-role           # (re)create the app's own login → .env APP_DATABASE_URL
 import 'dart:convert';
 import 'dart:io';
@@ -52,6 +53,8 @@ Future<void> main(List<String> args) async {
         await _appRole(conn, url);
       case 'payments-role':
         await _paymentsRole(conn, url);
+      case 'push-role':
+        await _pushRole(conn, url);
       case 'query':
         // Read-only inspection: dart run tool/db.dart query "select …"
         await conn.execute('begin read only');
@@ -82,7 +85,7 @@ Future<void> main(List<String> args) async {
 
 void _usage() => stderr.writeln(
   'Usage: dart run tool/db.dart status | test | migrate | '
-  'promote <phone|email> <admin|teacher|learner> | app-role | payments-role | create-user',
+  'promote <phone|email> <admin|teacher|learner> | app-role | payments-role | push-role | create-user',
 );
 
 class _Abort implements Exception {
@@ -475,6 +478,38 @@ Future<void> _paymentsRole(Connection conn, String ownerUrl) async {
   stdout.writeln(
     'sidra_payments can log in; PAYMENTS_DATABASE_URL written to .env.',
   );
+}
+
+/// Gives the push Worker (sidra_push) a login and writes PUSH_DATABASE_URL
+/// to .env, to paste into the Cloudflare Worker's DATABASE_URL secret. The
+/// role can only call push_api.claim and push_api.drop_tokens.
+Future<void> _pushRole(Connection conn, String ownerUrl) async {
+  final rnd = Random.secure();
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
+  final password = List.generate(
+    40,
+    (_) => chars[rnd.nextInt(chars.length)],
+  ).join();
+  await conn.execute("alter role sidra_push with login password '$password'");
+  final owner = Uri.parse(ownerUrl);
+  final url = owner.replace(
+    host: owner.host.replaceFirst('-pooler.', '.'),
+    userInfo: 'sidra_push:${Uri.encodeComponent(password)}',
+    queryParameters: {'sslmode': 'require'},
+  );
+  final envFile = File('.env');
+  final lines = envFile.readAsLinesSync()
+    ..removeWhere(
+      (l) =>
+          l.startsWith('PUSH_DATABASE_URL=') ||
+          l.startsWith('# Push Worker login'),
+    )
+    ..addAll([
+      '# Push Worker login (sidra_push): Cloudflare secret DATABASE_URL, never in the app',
+      'PUSH_DATABASE_URL=$url',
+    ]);
+  envFile.writeAsStringSync('${lines.join('\n')}\n');
+  stdout.writeln('sidra_push can log in; PUSH_DATABASE_URL written to .env.');
 }
 
 /// Splits a SQL script into statements on top-level `;`, respecting

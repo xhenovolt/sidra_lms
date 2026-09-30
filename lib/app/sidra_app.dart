@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/device/presence.dart';
 import '../core/notifications/phone_notifications.dart';
+import '../core/notifications/push.dart';
 import '../core/settings/public_settings.dart';
 import '../core/settings/update_gate.dart';
 import '../core/theme/app_theme.dart';
@@ -30,6 +31,10 @@ class SidraApp extends ConsumerWidget {
     // learners their own page.
     PhoneNotifications.onOpen = (data) =>
         router.push(notificationRoute(data['kind'] as String?, data));
+    // Same for a tapped push; a push while Sidra is open is shown and the
+    // screens it concerns refresh at once.
+    Push.onOpen = PhoneNotifications.onOpen;
+    Push.onForeground = (m) => PhoneNotifications.showPush(m, ref);
     return MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context).appName,
       debugShowCheckedModeBanner: false,

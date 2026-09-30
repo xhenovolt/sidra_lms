@@ -21,6 +21,9 @@ const publicKeys = [
   'MARZPAY_AUTH_BASIC',
   'MARZPAY_BASE_URL',
   'MARZPAY_COUNTRY',
+  // The push Worker's address (not secret: calling it only delivers real
+  // notifications sooner). The Firebase SENDING key is never listed here.
+  'PUSH_WORKER_URL',
 ];
 
 void main(List<String> args) {

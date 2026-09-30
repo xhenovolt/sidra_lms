@@ -286,8 +286,15 @@ class PgWireApi implements PostgresApi {
         }
       }
       return text;
+    }).then((v) {
+      afterCall?.call(function);
+      return v;
     });
   }
+
+  /// Told the name of every database function that succeeded (e.g. so
+  /// push delivery can start right after an action that notifies someone).
+  static void Function(String function)? afterCall;
 
   @override
   Future<List<Map<String, dynamic>>> rpcRows(
@@ -308,6 +315,9 @@ class PgWireApi implements PostgresApi {
         for (final row in r)
           if (row.first is Map) _row(row.first) else {function: row.first},
       ];
+    }).then((v) {
+      afterCall?.call(function);
+      return v;
     });
   }
 

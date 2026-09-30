@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -115,8 +116,21 @@ class _WorkThreadScreenState extends ConsumerState<WorkThreadScreen> {
 
   WorkKey get _key => (widget.kind, widget.targetId, widget.learnerId);
 
+  /// New replies arrive by push at once; this catches any a push missed
+  /// (phone without Google services, push off). The list keeps its place.
+  Timer? _live;
+
+  @override
+  void initState() {
+    super.initState();
+    _live = Timer.periodic(const Duration(seconds: 8), (_) {
+      if (mounted) ref.invalidate(workThreadProvider(_key));
+    });
+  }
+
   @override
   void dispose() {
+    _live?.cancel();
     _scroll.dispose();
     super.dispose();
   }

@@ -11,12 +11,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 
 import '../../features/auth/presentation/auth_providers.dart';
+import '../../features/chat/chat_repository.dart' show chatsProvider;
 import '../../features/teaching/data/teaching_repository.dart';
+import '../../features/teaching/data/work_thread.dart' show workThreadProvider;
 import '../config/app_config.dart';
 import '../data/data_providers.dart';
 import '../network/pg_client.dart';
 import '../network/postgres_api.dart';
 import '../../app/router/learner_preview.dart';
+import 'package:firebase_messaging/firebase_messaging.dart' show RemoteMessage;
+import 'push.dart';
 
 /// Notifications on the phone's notification bar, without Firebase.
 ///
@@ -126,10 +130,16 @@ class PhoneNotifications {
       params: {'p_token': token, 'p_after': ?after},
     );
     var latest = after;
+    // Pushes already show them on this phone: only move the marker on.
+    final pushed = await Push.isActive();
     for (final r in rows) {
       final n = Map<String, dynamic>.from(
         (r['poll_notifications'] ?? r) as Map,
       );
+      if (pushed) {
+        latest = n['created_at'] as String? ?? latest;
+        continue;
+      }
       await _plugin.show(
         id: (n['id'] as String).hashCode & 0x7fffffff,
         title: n['title'] as String?,
@@ -155,6 +165,38 @@ class PhoneNotifications {
       await prefs.setString(_afterKey, latest);
     }
     return rows.length;
+  }
+
+  /// A push that arrived while Sidra is open: show it on the notification
+  /// bar (Android doesn't while the app is in front) and refresh what it is
+  /// about at once — the list, today's work, chats and open work threads.
+  static Future<void> showPush(RemoteMessage m, WidgetRef ref) async {
+    ref
+      ..invalidate(notificationsProvider)
+      ..invalidate(learnerTodayProvider)
+      ..invalidate(attentionProvider)
+      ..invalidate(chatsProvider)
+      ..invalidate(workThreadProvider);
+    if (!supported) return;
+    final n = m.notification;
+    if (n == null) return;
+    await _plugin.show(
+      id: (m.data['notification_id'] ?? m.messageId ?? '${DateTime.now()}')
+              .hashCode &
+          0x7fffffff,
+      title: n.title,
+      body: n.body,
+      notificationDetails: const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'sidra_learning',
+          'Learning and teaching',
+          channelDescription: 'New portions, feedback and learners\' work',
+          importance: Importance.high,
+          priority: Priority.high,
+        ),
+      ),
+      payload: jsonEncode(m.data),
+    );
   }
 }
 
@@ -198,6 +240,7 @@ final phoneNotificationsProvider = Provider<void>((ref) {
     try {
       await PhoneNotifications.askPermission();
       await PhoneNotifications.register(api);
+      await Push.register(api);
       await tick();
     } catch (_) {}
   }());
@@ -210,6 +253,9 @@ final phoneNotificationsProvider = Provider<void>((ref) {
 Future<void> signOutEverywhere(WidgetRef ref) async {
   try {
     await PhoneNotifications.unregister(ref.read(postgresApiProvider));
+  } catch (_) {}
+  try {
+    await Push.unregister(ref.read(postgresApiProvider));
   } catch (_) {}
   ref.read(learnerPreviewProvider).on = false;
   await ref.read(authServiceProvider).signOut();
