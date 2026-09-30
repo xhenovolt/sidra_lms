@@ -184,6 +184,11 @@ select pg_temp.expect_error($q$select public.media_url('00000000-0000-0000-0000-
   'media is locked');
 
 -- Progress: idempotent, completion is sticky, does NOT unlock in teacher-gated.
+-- (Teacher-gated lessons need work by default since 0042; this one is set to
+-- need none so the learner may mark it finished.)
+reset role;
+update lessons set work_required = false where id = '00000000-0000-0000-0000-000000001001';
+set local role authenticated;
 select public.record_progress('00000000-0000-0000-0000-00000000aa01',
   '00000000-0000-0000-0000-000000001001', 'completed', '{"block":1}');
 select public.record_progress('00000000-0000-0000-0000-00000000aa01',
