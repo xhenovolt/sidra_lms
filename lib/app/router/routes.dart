@@ -31,6 +31,9 @@ abstract final class Routes {
   static const adminRoles = '/admin/roles';
   static const adminAudit = '/admin/activity';
   static const adminFinance = '/admin/finance';
+
+  /// Real MarzPay test collections / disbursements (payments.test).
+  static const testTransactions = '/test-transactions';
   static const adminSettings = '/admin/settings';
   static const adminSubmissions = '/admin/submissions';
   static const teachSubmissions = '/teach/submissions';

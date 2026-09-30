@@ -16,6 +16,7 @@ import '../data/admin_repository.dart';
 import '../data/finance_repository.dart';
 import 'admin_common.dart';
 import 'admin_shell.dart';
+import 'control/test_transactions_screen.dart';
 import 'courses_tab.dart';
 
 /// A reporting period.
@@ -172,6 +173,25 @@ class _Overview extends ConsumerWidget {
       child: ListView(
         padding: const EdgeInsets.all(Space.md),
         children: [
+          // Real test collections / disbursements (admins, developers).
+          if (ref
+                  .watch(myPermissionsProvider)
+                  .value
+                  ?.contains('payments.test') ??
+              false)
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.science_outlined),
+                title: Text(l10n.ttTitle),
+                subtitle: Text(l10n.ttEntryHint),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const TestTransactionsScreen(),
+                  ),
+                ),
+              ),
+            ),
           const _PeriodChips(),
           const SizedBox(height: Space.sm),
           switch (summary) {

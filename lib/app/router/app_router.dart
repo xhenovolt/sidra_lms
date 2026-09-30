@@ -7,6 +7,7 @@ import '../../features/admin/presentation/assessment_editor_screen.dart';
 import '../../features/admin/presentation/books_people_tabs.dart';
 import '../../features/admin/presentation/course_builder_screen.dart';
 import '../../features/admin/presentation/courses_tab.dart';
+import '../../features/admin/presentation/control/test_transactions_screen.dart';
 import '../../features/admin/presentation/finance_screen.dart';
 import '../../features/admin/presentation/learners_tab.dart';
 import '../../features/admin/presentation/lesson_editor_screen.dart';
@@ -255,6 +256,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.notifications,
         builder: (_, _) => const NotificationsScreen(),
+      ),
+      GoRoute(
+        path: Routes.testTransactions,
+        builder: (_, _) => const TestTransactionsScreen(),
       ),
       GoRoute(
         // A learner's work thread (?learner=… for teachers).

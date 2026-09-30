@@ -153,6 +153,12 @@ final adminSections = <AdminSection>[
       (l) => l.drawerFinancePage,
       {'finance.view'},
     ),
+    AdminDestination(
+      Routes.testTransactions,
+      Icons.swap_vert,
+      (l) => l.ttTitle,
+      {'payments.test'},
+    ),
   ]),
   AdminSection((l) => l.drawerOversight, [
     AdminDestination(

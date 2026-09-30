@@ -16,6 +16,7 @@ import '../../../../shared/widgets/state_views.dart';
 import 'control_center.dart'
     show HealthChip, Health, SettingsSectionScreen, systemHealthProvider;
 import 'settings_registry.dart';
+import 'test_transactions_screen.dart';
 
 final _testsProvider = FutureProvider.autoDispose<List<Json>>(
   (ref) async =>
@@ -154,6 +155,21 @@ class MarzPayCenterScreen extends ConsumerWidget {
                 padding: const EdgeInsets.all(Space.md),
                 children: [
                   Text(l.mcIntro, style: theme.textTheme.bodySmall),
+                  const SizedBox(height: Space.sm),
+                  Card(
+                    color: theme.colorScheme.primaryContainer,
+                    child: ListTile(
+                      leading: const Icon(Icons.swap_vert),
+                      title: Text(l.ttTitle),
+                      subtitle: Text(l.ttEntryHint),
+                      trailing: const Icon(Icons.chevron_right),
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => const TestTransactionsScreen(),
+                        ),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: Space.sm),
                   _CapabilityMatrix(latest: latest),
                   const SizedBox(height: Space.md),

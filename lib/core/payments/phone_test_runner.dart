@@ -324,6 +324,14 @@ class PhoneTestRunner {
         message: blocked
             ? 'Blocked: MarzPay only sends money from a whitelisted IP address, which a phone does not have.'
             : 'MarzPay refused: ${e.message}',
+        evidence: {
+          'amount': amount,
+          'direction': collect ? 'collect' : 'disburse',
+          'http_status': e.statusCode,
+          'error_code': e.errorCode,
+          // exactly what MarzPay answered
+          'provider_response': e.body,
+        },
       );
     }
     await _step('MarzPay accepted the request', 'done', 'MarzPay id ${tx.uuid}, status ${tx.status}');
@@ -334,6 +342,7 @@ class PhoneTestRunner {
         providerStatus: tx.status,
         environment: 'sandbox',
         message: 'Sandbox service: MarzPay skipped the real provider. No money moved.',
+        evidence: {'provider_response': tx.raw},
       );
     }
     if (collect) {
@@ -379,11 +388,15 @@ class PhoneTestRunner {
           : 'Still waiting. Look it up later with MarzPay id ${tx.uuid}.',
       evidence: {
         'amount': amount,
+        'direction': collect ? 'collect' : 'disburse',
         'provider': end.provider,
         'provider_reference': end.providerReference,
         'ledger_entry': entry?.uuid,
         'balance_before': before,
         'balance_after': after,
+        // exactly what MarzPay answered: to the request, and at the end
+        'provider_response': tx.raw,
+        'final_response': end.raw,
       },
     );
   }

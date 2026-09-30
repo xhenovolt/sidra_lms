@@ -8,10 +8,13 @@ import '../providers.dart';
 /// MarzPay, called straight from the app.
 /// Docs: https://wallet.wearemarz.com/documentation/api
 class MarzPayException implements Exception {
-  MarzPayException(this.message, {this.statusCode, this.errorCode});
+  MarzPayException(this.message, {this.statusCode, this.errorCode, this.body});
   final String message;
   final int? statusCode;
   final String? errorCode;
+
+  /// MarzPay's answer as it came (null when it could not be reached).
+  final Map<String, dynamic>? body;
 
   bool get transient => statusCode == null || statusCode! >= 500 || statusCode == 429;
 
@@ -129,7 +132,7 @@ class MarzPayClient {
     if (body == null) throw MarzPayException('Unexpected answer from MarzPay (HTTP ${p.status}).', statusCode: p.status);
     if (p.status! >= 400 || body['status'] == 'error' || body['success'] == false) {
       throw MarzPayException('${body['message'] ?? 'MarzPay refused the request'}',
-          statusCode: p.status, errorCode: body['error_code']?.toString());
+          statusCode: p.status, errorCode: body['error_code']?.toString(), body: body);
     }
     return body;
   }

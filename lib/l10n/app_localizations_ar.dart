@@ -5506,4 +5506,129 @@ class AppLocalizationsAr extends AppLocalizations {
   String wtAttemptN(int n) {
     return 'المحاولة $n';
   }
+
+  @override
+  String get ttTitle => 'معاملات تجريبية';
+
+  @override
+  String get ttConfirmTitle => 'ستتحرك أموال حقيقية';
+
+  @override
+  String ttConfirmCollect(int amount, String phone, String network) {
+    return 'طلب $amount شلن من $phone ($network) إلى محفظة سدرة في MarzPay؟ سيظهر طلب رمز PIN على الهاتف.';
+  }
+
+  @override
+  String ttConfirmDisburse(int amount, String phone, String network) {
+    return 'إرسال $amount شلن من محفظة سدرة في MarzPay إلى $phone ($network)؟ لا يمكن التراجع.';
+  }
+
+  @override
+  String get ttCollectNow => 'اجمع الآن';
+
+  @override
+  String get ttDisburseNow => 'أرسل المال الآن';
+
+  @override
+  String get ttMtn => 'MTN MoMo';
+
+  @override
+  String get ttAirtel => 'Airtel Money';
+
+  @override
+  String get ttRealMoney =>
+      'للمشرفين والمطورين. هذه معاملات حقيقية عبر MarzPay وليست محاكاة. اجعل المبالغ صغيرة (الحد الأقصى في الإعدادات ← MarzPay).';
+
+  @override
+  String get ttNoKeys =>
+      'هذا الإصدار بلا مفاتيح MarzPay، لذا ينتظر الاختبار خادم المدفوعات.';
+
+  @override
+  String get ttCollect => 'تحصيل (دخول المال)';
+
+  @override
+  String get ttDisburse => 'صرف (خروج المال)';
+
+  @override
+  String get ttCollectHint =>
+      'يسحب المال من الهاتف إلى محفظة سدرة في MarzPay. يوافق الدافع برمز PIN.';
+
+  @override
+  String get ttDisburseHint =>
+      'يرسل المال من محفظة سدرة إلى الهاتف. يتطلب رصيداً في المحفظة، وتفعيل اختبارات الإرسال (الإعدادات ← MarzPay)، والقائمة البيضاء لعناوين IP لدى MarzPay التي لا يجتازها الهاتف عادة: سيظهر ذلك في الرد.';
+
+  @override
+  String get ttPayerPhone => 'رقم الدافع';
+
+  @override
+  String get ttRecipientPhone => 'رقم المستلم';
+
+  @override
+  String get ttPhoneHelp => 'MTN (076–079) أو Airtel (070، 074، 075)';
+
+  @override
+  String get ttPhoneInvalid =>
+      'أدخل رقم MTN MoMo أو Airtel Money، مثل 0772 123456';
+
+  @override
+  String get ttAmount => 'المبلغ';
+
+  @override
+  String get ttAmountHelp => '500 شلن على الأقل';
+
+  @override
+  String get ttAmountInvalid => 'أدخل مبلغاً صحيحاً لا يقل عن 500 شلن';
+
+  @override
+  String get ttHistory => 'المعاملات التجريبية السابقة';
+
+  @override
+  String get ttHistoryHint =>
+      'اضغط على واحدة لعرض ردها الكامل. تُحفظ الأرقام مخفية جزئياً.';
+
+  @override
+  String get ttResultSuccess => 'نجحت (مثبتة)';
+
+  @override
+  String get ttResultAccepted => 'مقبولة، غير مثبتة';
+
+  @override
+  String get ttResultFailed => 'فشلت';
+
+  @override
+  String get ttResultCancelled => 'أُلغيت';
+
+  @override
+  String get ttResultPending => 'معلقة';
+
+  @override
+  String get ttResultBlocked => 'محظورة';
+
+  @override
+  String get ttResponse => 'الرد';
+
+  @override
+  String get ttClose => 'إغلاق';
+
+  @override
+  String get ttProviderStatus => 'حالة MarzPay';
+
+  @override
+  String get ttErrorCode => 'رمز الخطأ';
+
+  @override
+  String get ttHttpStatus => 'HTTP';
+
+  @override
+  String get ttReference => 'المرجع';
+
+  @override
+  String get ttRawResponse => 'رد MarzPay على الطلب (خام)';
+
+  @override
+  String get ttRawFinal => 'رد MarzPay النهائي (خام)';
+
+  @override
+  String get ttEntryHint =>
+      'حصّل أو أرسل مبلغاً حقيقياً واطلع على رد MarzPay الدقيق';
 }

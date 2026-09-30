@@ -5560,4 +5560,129 @@ class AppLocalizationsEn extends AppLocalizations {
   String wtAttemptN(int n) {
     return 'Attempt $n';
   }
+
+  @override
+  String get ttTitle => 'Test transactions';
+
+  @override
+  String get ttConfirmTitle => 'Real money will move';
+
+  @override
+  String ttConfirmCollect(int amount, String phone, String network) {
+    return 'Ask $phone ($network) to pay $amount UGX into Sidra\'s MarzPay wallet? The phone will show a PIN prompt.';
+  }
+
+  @override
+  String ttConfirmDisburse(int amount, String phone, String network) {
+    return 'Send $amount UGX from Sidra\'s MarzPay wallet to $phone ($network)? This cannot be undone.';
+  }
+
+  @override
+  String get ttCollectNow => 'Collect now';
+
+  @override
+  String get ttDisburseNow => 'Send money now';
+
+  @override
+  String get ttMtn => 'MTN MoMo';
+
+  @override
+  String get ttAirtel => 'Airtel Money';
+
+  @override
+  String get ttRealMoney =>
+      'For admins and developers. These are REAL transactions through MarzPay, not a simulation. Keep amounts small (the maximum is set in Settings → MarzPay).';
+
+  @override
+  String get ttNoKeys =>
+      'This build has no MarzPay keys, so the test waits for the payments server.';
+
+  @override
+  String get ttCollect => 'Collect (money in)';
+
+  @override
+  String get ttDisburse => 'Disburse (money out)';
+
+  @override
+  String get ttCollectHint =>
+      'Pulls money from the phone into Sidra\'s MarzPay wallet. The payer approves with their PIN.';
+
+  @override
+  String get ttDisburseHint =>
+      'Sends money from Sidra\'s MarzPay wallet to the phone. Needs money in the wallet, sending tests switched on (Settings → MarzPay), and MarzPay\'s IP whitelist, which a phone usually does not pass: the response will show it.';
+
+  @override
+  String get ttPayerPhone => 'Payer\'s number';
+
+  @override
+  String get ttRecipientPhone => 'Recipient\'s number';
+
+  @override
+  String get ttPhoneHelp => 'MTN (076–079) or Airtel (070, 074, 075)';
+
+  @override
+  String get ttPhoneInvalid =>
+      'Enter an MTN MoMo or Airtel Money number, e.g. 0772 123456';
+
+  @override
+  String get ttAmount => 'Amount';
+
+  @override
+  String get ttAmountHelp => 'At least 500 UGX';
+
+  @override
+  String get ttAmountInvalid => 'Enter a whole amount of at least 500 UGX';
+
+  @override
+  String get ttHistory => 'Past test transactions';
+
+  @override
+  String get ttHistoryHint =>
+      'Tap one to see its full response. Numbers are stored masked.';
+
+  @override
+  String get ttResultSuccess => 'Succeeded (proven)';
+
+  @override
+  String get ttResultAccepted => 'Accepted, not proven';
+
+  @override
+  String get ttResultFailed => 'Failed';
+
+  @override
+  String get ttResultCancelled => 'Cancelled';
+
+  @override
+  String get ttResultPending => 'Pending';
+
+  @override
+  String get ttResultBlocked => 'Blocked';
+
+  @override
+  String get ttResponse => 'Response';
+
+  @override
+  String get ttClose => 'Close';
+
+  @override
+  String get ttProviderStatus => 'MarzPay status';
+
+  @override
+  String get ttErrorCode => 'Error code';
+
+  @override
+  String get ttHttpStatus => 'HTTP';
+
+  @override
+  String get ttReference => 'Reference';
+
+  @override
+  String get ttRawResponse => 'MarzPay\'s answer to the request (raw)';
+
+  @override
+  String get ttRawFinal => 'MarzPay\'s final answer (raw)';
+
+  @override
+  String get ttEntryHint =>
+      'Collect or send a real amount and see MarzPay\'s exact response';
 }

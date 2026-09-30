@@ -9725,6 +9725,234 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Attempt {n}'**
   String wtAttemptN(int n);
+
+  /// No description provided for @ttTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Test transactions'**
+  String get ttTitle;
+
+  /// No description provided for @ttConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Real money will move'**
+  String get ttConfirmTitle;
+
+  /// No description provided for @ttConfirmCollect.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask {phone} ({network}) to pay {amount} UGX into Sidra\'s MarzPay wallet? The phone will show a PIN prompt.'**
+  String ttConfirmCollect(int amount, String phone, String network);
+
+  /// No description provided for @ttConfirmDisburse.
+  ///
+  /// In en, this message translates to:
+  /// **'Send {amount} UGX from Sidra\'s MarzPay wallet to {phone} ({network})? This cannot be undone.'**
+  String ttConfirmDisburse(int amount, String phone, String network);
+
+  /// No description provided for @ttCollectNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Collect now'**
+  String get ttCollectNow;
+
+  /// No description provided for @ttDisburseNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Send money now'**
+  String get ttDisburseNow;
+
+  /// No description provided for @ttMtn.
+  ///
+  /// In en, this message translates to:
+  /// **'MTN MoMo'**
+  String get ttMtn;
+
+  /// No description provided for @ttAirtel.
+  ///
+  /// In en, this message translates to:
+  /// **'Airtel Money'**
+  String get ttAirtel;
+
+  /// No description provided for @ttRealMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'For admins and developers. These are REAL transactions through MarzPay, not a simulation. Keep amounts small (the maximum is set in Settings → MarzPay).'**
+  String get ttRealMoney;
+
+  /// No description provided for @ttNoKeys.
+  ///
+  /// In en, this message translates to:
+  /// **'This build has no MarzPay keys, so the test waits for the payments server.'**
+  String get ttNoKeys;
+
+  /// No description provided for @ttCollect.
+  ///
+  /// In en, this message translates to:
+  /// **'Collect (money in)'**
+  String get ttCollect;
+
+  /// No description provided for @ttDisburse.
+  ///
+  /// In en, this message translates to:
+  /// **'Disburse (money out)'**
+  String get ttDisburse;
+
+  /// No description provided for @ttCollectHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pulls money from the phone into Sidra\'s MarzPay wallet. The payer approves with their PIN.'**
+  String get ttCollectHint;
+
+  /// No description provided for @ttDisburseHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Sends money from Sidra\'s MarzPay wallet to the phone. Needs money in the wallet, sending tests switched on (Settings → MarzPay), and MarzPay\'s IP whitelist, which a phone usually does not pass: the response will show it.'**
+  String get ttDisburseHint;
+
+  /// No description provided for @ttPayerPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Payer\'s number'**
+  String get ttPayerPhone;
+
+  /// No description provided for @ttRecipientPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipient\'s number'**
+  String get ttRecipientPhone;
+
+  /// No description provided for @ttPhoneHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'MTN (076–079) or Airtel (070, 074, 075)'**
+  String get ttPhoneHelp;
+
+  /// No description provided for @ttPhoneInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an MTN MoMo or Airtel Money number, e.g. 0772 123456'**
+  String get ttPhoneInvalid;
+
+  /// No description provided for @ttAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get ttAmount;
+
+  /// No description provided for @ttAmountHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'At least 500 UGX'**
+  String get ttAmountHelp;
+
+  /// No description provided for @ttAmountInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a whole amount of at least 500 UGX'**
+  String get ttAmountInvalid;
+
+  /// No description provided for @ttHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Past test transactions'**
+  String get ttHistory;
+
+  /// No description provided for @ttHistoryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap one to see its full response. Numbers are stored masked.'**
+  String get ttHistoryHint;
+
+  /// No description provided for @ttResultSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Succeeded (proven)'**
+  String get ttResultSuccess;
+
+  /// No description provided for @ttResultAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Accepted, not proven'**
+  String get ttResultAccepted;
+
+  /// No description provided for @ttResultFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get ttResultFailed;
+
+  /// No description provided for @ttResultCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get ttResultCancelled;
+
+  /// No description provided for @ttResultPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get ttResultPending;
+
+  /// No description provided for @ttResultBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked'**
+  String get ttResultBlocked;
+
+  /// No description provided for @ttResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'Response'**
+  String get ttResponse;
+
+  /// No description provided for @ttClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get ttClose;
+
+  /// No description provided for @ttProviderStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay status'**
+  String get ttProviderStatus;
+
+  /// No description provided for @ttErrorCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Error code'**
+  String get ttErrorCode;
+
+  /// No description provided for @ttHttpStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'HTTP'**
+  String get ttHttpStatus;
+
+  /// No description provided for @ttReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference'**
+  String get ttReference;
+
+  /// No description provided for @ttRawResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay\'s answer to the request (raw)'**
+  String get ttRawResponse;
+
+  /// No description provided for @ttRawFinal.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay\'s final answer (raw)'**
+  String get ttRawFinal;
+
+  /// No description provided for @ttEntryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Collect or send a real amount and see MarzPay\'s exact response'**
+  String get ttEntryHint;
 }
 
 class _AppLocalizationsDelegate

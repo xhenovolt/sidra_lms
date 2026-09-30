@@ -3011,5 +3011,69 @@
         "type": "int"
       }
     }
-  }
+  },
+  "ttTitle": "Test transactions",
+  "ttConfirmTitle": "Real money will move",
+  "ttConfirmCollect": "Ask {phone} ({network}) to pay {amount} UGX into Sidra's MarzPay wallet? The phone will show a PIN prompt.",
+  "@ttConfirmCollect": {
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      },
+      "phone": {
+        "type": "String"
+      },
+      "network": {
+        "type": "String"
+      }
+    }
+  },
+  "ttConfirmDisburse": "Send {amount} UGX from Sidra's MarzPay wallet to {phone} ({network})? This cannot be undone.",
+  "@ttConfirmDisburse": {
+    "placeholders": {
+      "amount": {
+        "type": "int"
+      },
+      "phone": {
+        "type": "String"
+      },
+      "network": {
+        "type": "String"
+      }
+    }
+  },
+  "ttCollectNow": "Collect now",
+  "ttDisburseNow": "Send money now",
+  "ttMtn": "MTN MoMo",
+  "ttAirtel": "Airtel Money",
+  "ttRealMoney": "For admins and developers. These are REAL transactions through MarzPay, not a simulation. Keep amounts small (the maximum is set in Settings → MarzPay).",
+  "ttNoKeys": "This build has no MarzPay keys, so the test waits for the payments server.",
+  "ttCollect": "Collect (money in)",
+  "ttDisburse": "Disburse (money out)",
+  "ttCollectHint": "Pulls money from the phone into Sidra's MarzPay wallet. The payer approves with their PIN.",
+  "ttDisburseHint": "Sends money from Sidra's MarzPay wallet to the phone. Needs money in the wallet, sending tests switched on (Settings → MarzPay), and MarzPay's IP whitelist, which a phone usually does not pass: the response will show it.",
+  "ttPayerPhone": "Payer's number",
+  "ttRecipientPhone": "Recipient's number",
+  "ttPhoneHelp": "MTN (076–079) or Airtel (070, 074, 075)",
+  "ttPhoneInvalid": "Enter an MTN MoMo or Airtel Money number, e.g. 0772 123456",
+  "ttAmount": "Amount",
+  "ttAmountHelp": "At least 500 UGX",
+  "ttAmountInvalid": "Enter a whole amount of at least 500 UGX",
+  "ttHistory": "Past test transactions",
+  "ttHistoryHint": "Tap one to see its full response. Numbers are stored masked.",
+  "ttResultSuccess": "Succeeded (proven)",
+  "ttResultAccepted": "Accepted, not proven",
+  "ttResultFailed": "Failed",
+  "ttResultCancelled": "Cancelled",
+  "ttResultPending": "Pending",
+  "ttResultBlocked": "Blocked",
+  "ttResponse": "Response",
+  "ttClose": "Close",
+  "ttProviderStatus": "MarzPay status",
+  "ttErrorCode": "Error code",
+  "ttHttpStatus": "HTTP",
+  "ttReference": "Reference",
+  "ttRawResponse": "MarzPay's answer to the request (raw)",
+  "ttRawFinal": "MarzPay's final answer (raw)",
+  "ttEntryHint": "Collect or send a real amount and see MarzPay's exact response"
 }
