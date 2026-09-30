@@ -20,7 +20,9 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.pathname === '/health') {
-      return json({ ok: true, configured: !!(env.FIREBASE_SERVICE_ACCOUNT && env.DATABASE_URL) });
+      // Which secrets are present (names only, never values).
+      const missing = ['FIREBASE_SERVICE_ACCOUNT', 'DATABASE_URL'].filter((k) => !env[k]);
+      return json({ ok: true, configured: missing.length === 0, missing });
     }
     if (url.pathname === '/ping' && (request.method === 'POST' || request.method === 'GET')) {
       // At most one flush a second per Worker instance; the database hands

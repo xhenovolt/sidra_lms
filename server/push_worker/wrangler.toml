@@ -1,0 +1,12 @@
+# Cloudflare deploy settings for the push Worker.
+#   cd server/push_worker && npx wrangler deploy
+# Secrets (FIREBASE_SERVICE_ACCOUNT, DATABASE_URL) are set in Cloudflare and
+# kept across deploys; they are never in this file.
+name = "sidra-push"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[triggers]
+# Safety net: deliver anything a ping missed, every minute.
+crons = ["* * * * *"]
