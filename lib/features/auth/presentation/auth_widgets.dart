@@ -8,12 +8,24 @@ import '../../../shared/widgets/sidra_mark.dart';
 
 enum IdentifierKind { phone, email, username }
 
+/// A Uganda mobile typed locally (0772 123456, 256772…) as +256772123456;
+/// anything else unchanged. Learners type numbers the local way.
+String toInternationalPhone(String input) {
+  final digits = input.trim().replaceAll(RegExp(r'[\s().-]'), '');
+  final m = RegExp(r'^(?:256|0)(7\d{8})$').firstMatch(digits);
+  return m == null ? input.trim() : '+256${m.group(1)}';
+}
+
 /// Friendly message for an auth error.
 String authErrorText(AppLocalizations l10n, Object error) => switch (error) {
   AuthFailure(:final code) => switch (code) {
     'invalid_credentials' ||
     'invalid_token' => l10n.authErrorInvalidCredentials,
     'identifier_taken' => l10n.authErrorTaken,
+    // The school added this learner: they use their invitation code.
+    'invited_account' => l10n.authErrorInvited,
+    'invalid_code' => l10n.authErrorInvalidCode,
+    'already_active' => l10n.authErrorAlreadyActive,
     'weak_password' => l10n.authErrorWeak,
     'invalid_identifier' || 'name_required' => l10n.authErrorIdentifier,
     'locked' => l10n.authErrorLocked,
@@ -171,7 +183,7 @@ class IdentifierField extends StatelessWidget {
             final t = (v ?? '').trim();
             if (t.isEmpty) return l10n.authRequired;
             if (phone) {
-              final digits = t.replaceAll(RegExp(r'[\s().-]'), '');
+              final digits = toInternationalPhone(t).replaceAll(RegExp(r'[\s().-]'), '');
               if (!RegExp(r'^(\+|00)[1-9][0-9]{7,14}$').hasMatch(digits)) {
                 return l10n.authPhoneInvalid;
               }

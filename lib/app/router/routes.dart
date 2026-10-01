@@ -4,6 +4,9 @@ abstract final class Routes {
   static const onboarding = '/welcome';
   static const signIn = '/sign-in';
   static const signUp = '/sign-up';
+
+  /// An imported learner's first sign-in with an invitation code.
+  static const activate = '/activate';
   static const changePassword = '/change-password';
 
   // Learner navigation.
@@ -59,7 +62,7 @@ abstract final class Routes {
       '/courses/$courseId/lessons/$lessonId';
 
   /// Routes reachable without a session.
-  static const public = {splash, onboarding, signIn, signUp};
+  static const public = {splash, onboarding, signIn, signUp, activate};
 
   /// Learner-only tabs (staff are not learners).
   static const learnerTabs = {home, myLearning, explore, downloads, profile};

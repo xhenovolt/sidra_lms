@@ -935,8 +935,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get authPhoneLabel => 'Phone number';
 
   @override
-  String get authPhoneHint =>
-      'Include your country code, e.g. +256 700 123 456';
+  String get authPhoneHint => 'e.g. 0772 123 456, or +256 772 123 456';
 
   @override
   String get authEmailLabel => 'Email address';
@@ -1017,7 +1016,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get authPasswordsDiffer => 'Passwords do not match';
 
   @override
-  String get authPhoneInvalid => 'Start with + and your country code';
+  String get authPhoneInvalid =>
+      'Enter a mobile number like 0772 123 456, or with the country code (+…)';
 
   @override
   String get authEmailInvalid => 'Enter a valid email address';
@@ -5685,4 +5685,567 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get ttEntryHint =>
       'Collect or send a real amount and see MarzPay\'s exact response';
+
+  @override
+  String get activateEntry => 'I have an invitation code';
+
+  @override
+  String get activateTitle => 'Join with your invitation';
+
+  @override
+  String get activateSubtitle =>
+      'Your teacher added you to Sidra. Enter your number, the code they sent you, and choose your own password.';
+
+  @override
+  String get activateCode => 'Invitation code';
+
+  @override
+  String get activateCodeInvalid =>
+      'The code has 8 letters and numbers, like ABCD-2345';
+
+  @override
+  String get activateNewPassword => 'Choose a password';
+
+  @override
+  String get activateRepeat => 'Repeat the password';
+
+  @override
+  String get activateMismatch => 'The two passwords are not the same';
+
+  @override
+  String get activateButton => 'Join Sidra';
+
+  @override
+  String get authErrorInvited =>
+      'Your school already added this number. Tap \"I have an invitation code\" and use the code from your teacher.';
+
+  @override
+  String get authErrorInvalidCode =>
+      'That code is not right, or it has expired. Ask your teacher for a new one.';
+
+  @override
+  String get authErrorAlreadyActive =>
+      'This account is already active. Sign in with your password.';
+
+  @override
+  String get obCenterTitle => 'Import & onboard learners';
+
+  @override
+  String get obCenterEntryHint =>
+      'From WhatsApp, contacts, Excel/CSV or a list — keep where each learner is';
+
+  @override
+  String get obCenterIntro =>
+      'Bring a whole class into Sidra in one go. Sidra checks everyone against existing learners first, then places them in a course and group with their teacher, keeps where each one stopped, and gives each an invitation code. Nothing is saved until the last step.';
+
+  @override
+  String get obFromWhatsApp => 'From a WhatsApp group';
+
+  @override
+  String get obFromWhatsAppHint =>
+      'In WhatsApp: open the group → ⋮ → More → Export chat → Without media. Save or share the file, then choose it here.';
+
+  @override
+  String get obFromContacts => 'From this phone\'s contacts';
+
+  @override
+  String get obFromContactsHint =>
+      'Choose exactly who to bring; nothing else is read or sent.';
+
+  @override
+  String get obFromFile => 'From an Excel or CSV file';
+
+  @override
+  String get obFromFileHint =>
+      'Columns like Name, Phone, Email, Learner ID, Page, Line, Status, Notes.';
+
+  @override
+  String get obFromPaste => 'Paste a list';
+
+  @override
+  String get obFromPasteHint =>
+      'One learner per line: name and number in any order.';
+
+  @override
+  String get obFromOne => 'One learner';
+
+  @override
+  String get obFromOneHint =>
+      'Add one learner with their course, group and current position.';
+
+  @override
+  String get obWhatsAppTruth =>
+      'About WhatsApp: WhatsApp does not let any app read your groups, members or messages, and Sidra never tries to. The exported chat is a file YOU create and choose; Sidra reads only the names and numbers of the people who wrote in it, and keeps the file with each learner as history.';
+
+  @override
+  String get obNothingFound => 'No learners were found in that.';
+
+  @override
+  String get obNotAnExport => 'That doesn\'t look like a WhatsApp chat export.';
+
+  @override
+  String get obFileTypes => 'Choose an .xlsx, .csv or .txt file.';
+
+  @override
+  String get obFileUnreadable => 'That file could not be read.';
+
+  @override
+  String get obPasteTitle => 'Paste learners';
+
+  @override
+  String get obPasteHint => 'Ahmed Musa, 0772 123 456\nFatuma Ali 0701 234 567';
+
+  @override
+  String get obContactsWhy =>
+      'To bring learners from this phone\'s contacts, Sidra needs to read your contacts. You then choose exactly who to bring in; Sidra keeps only the people you choose, and only their name and number.';
+
+  @override
+  String get obContactsAllow => 'Allow access to contacts';
+
+  @override
+  String obContactsCount(int total, int picked) {
+    return '$total contacts · $picked chosen';
+  }
+
+  @override
+  String obContinueWithN(int count) {
+    return 'Continue with $count';
+  }
+
+  @override
+  String get obStepChoose => 'Who to bring';
+
+  @override
+  String get obStepMatch => 'Check against Sidra';
+
+  @override
+  String get obStepPlace => 'Course, group, teacher';
+
+  @override
+  String get obStepPositions => 'Where each learner is';
+
+  @override
+  String get obStepDone => 'Done';
+
+  @override
+  String get obBack => 'Back';
+
+  @override
+  String get obNext => 'Next';
+
+  @override
+  String obCheck(int count) {
+    return 'Check $count against Sidra';
+  }
+
+  @override
+  String obImportN(int count) {
+    return 'Import $count';
+  }
+
+  @override
+  String get obWarnColumns =>
+      'This file has no clear Name or Phone column. Check the rows below and fix them.';
+
+  @override
+  String get obWarnSeveralCourses =>
+      'This file lists several courses. Import one course at a time (choose the course in the next steps).';
+
+  @override
+  String obWarnNoNumbers(int count) {
+    return '$count have no phone number or email (in a WhatsApp export, people saved in your phone show by name only). Tap ✎ to add their number, or untick them.';
+  }
+
+  @override
+  String obSelected(int selected, int total) {
+    return '$selected of $total chosen';
+  }
+
+  @override
+  String get obNoName => '(no name)';
+
+  @override
+  String get obNoNumber => 'no number';
+
+  @override
+  String obLastWrote(String date) {
+    return 'last wrote $date';
+  }
+
+  @override
+  String get obEdit => 'Edit';
+
+  @override
+  String get obFix => 'Fix and check again';
+
+  @override
+  String get obInclude => 'Include';
+
+  @override
+  String get obSkip => 'Skip';
+
+  @override
+  String obPreviewTitle(int count) {
+    return '$count checked';
+  }
+
+  @override
+  String get obCountNew => 'New';
+
+  @override
+  String get obCountExisting => 'Already in Sidra';
+
+  @override
+  String get obCountDuplicate => 'Possible duplicate';
+
+  @override
+  String get obCountRepeated => 'Twice in the list';
+
+  @override
+  String get obCountInvalid => 'Needs fixing';
+
+  @override
+  String get obDecideDuplicates =>
+      'Some look like learners already in Sidra. Choose for each: use the existing learner, create a separate one, or skip.';
+
+  @override
+  String obMatch(String name, String contact, String why) {
+    return 'Matches $name · $contact ($why)';
+  }
+
+  @override
+  String get obWhyPhone => 'same number';
+
+  @override
+  String get obWhyEmail => 'same email';
+
+  @override
+  String get obWhyName => 'same name';
+
+  @override
+  String obUseExisting(String name) {
+    return 'Use $name';
+  }
+
+  @override
+  String get obCreateSeparate => 'A different person: create';
+
+  @override
+  String get obReasonName => 'missing name';
+
+  @override
+  String get obReasonPhone => 'not a valid phone number';
+
+  @override
+  String get obReasonEmail => 'not a valid email';
+
+  @override
+  String get obReasonNoContact => 'needs a phone number or email';
+
+  @override
+  String get obReasonRepeated => 'already earlier in this list';
+
+  @override
+  String get obCourse => 'Course';
+
+  @override
+  String get obNoCourseYet => 'No course yet';
+
+  @override
+  String get obNoCourseHint =>
+      'Without a course, learners are only added (and invited); you can enrol them and set their positions later.';
+
+  @override
+  String get obGroup => 'Teaching group';
+
+  @override
+  String get obNewGroup => 'A new group';
+
+  @override
+  String get obGroupName => 'Group name';
+
+  @override
+  String get obExistingGroup => 'An existing group';
+
+  @override
+  String get obTeacher => 'Teacher';
+
+  @override
+  String get obTeacherLater => 'Choose later';
+
+  @override
+  String get obWhereFrom => 'Where they came from';
+
+  @override
+  String get obPrevPlatform => 'Previous platform';
+
+  @override
+  String get obPrevGroup => 'Previous group';
+
+  @override
+  String get obLastKnownOn => 'Last known date';
+
+  @override
+  String get obNotSet => 'Not set';
+
+  @override
+  String get obInvite => 'Give each learner an invitation code';
+
+  @override
+  String get obInviteHint =>
+      'They use it once to join and choose their own password. No default passwords.';
+
+  @override
+  String get obPositionsNeedCourse =>
+      'Choose a course (previous step) to record where learners are.';
+
+  @override
+  String get obEveryone => 'For everyone';
+
+  @override
+  String get obEveryoneHint =>
+      'Where most of this group is. Change individual learners below. \"Unknown\" is fine: you can confirm later.';
+
+  @override
+  String get obEachLearner => 'Each learner (tap to change)';
+
+  @override
+  String obSameAsEveryone(String where) {
+    return 'as everyone ($where)';
+  }
+
+  @override
+  String get obUseEveryone => 'Same as everyone';
+
+  @override
+  String get obLastFeedback => 'Last teacher feedback';
+
+  @override
+  String obConfirm(int created, int linked, int skipped) {
+    return 'Ready: $created new learners, $linked existing linked, $skipped skipped.';
+  }
+
+  @override
+  String get obPositionUnknown => 'Unknown — needs confirming';
+
+  @override
+  String get obPositionUnknownShort => 'Unknown';
+
+  @override
+  String get obPositionUnknownHint =>
+      'Sidra will show \"needs confirming\" until you set it. Nothing is guessed.';
+
+  @override
+  String get obPositionNeedsConfirm => 'Position needs confirming';
+
+  @override
+  String get obPositionLesson => 'A lesson';
+
+  @override
+  String get obAyah => 'Ayah';
+
+  @override
+  String get obExercise => 'Exercise';
+
+  @override
+  String get obLineOptional => 'Line (optional)';
+
+  @override
+  String get obStatus => 'Status';
+
+  @override
+  String get obStatusUnknown => 'Status unknown';
+
+  @override
+  String get obStatusNotStarted => 'Not started';
+
+  @override
+  String get obStatusInProgress => 'In progress';
+
+  @override
+  String get obStatusCorrection => 'Correction required';
+
+  @override
+  String get obStatusCompleted => 'Completed';
+
+  @override
+  String get obDoneTitle => 'Learners imported';
+
+  @override
+  String obDoneCounts(int created, int matched, int skipped, int rejected) {
+    return '$created created · $matched linked · $skipped skipped · $rejected not imported';
+  }
+
+  @override
+  String get obRejectedTitle => 'Not imported, and why';
+
+  @override
+  String get obCopyErrors => 'Copy the list of problems';
+
+  @override
+  String get obInvitationsTitle => 'Invitations';
+
+  @override
+  String get obInvitationsHint =>
+      'Send each learner their code. Codes work once and expire in 30 days; you can make a new one any time.';
+
+  @override
+  String get obCopyAllInvites => 'Copy all invitations';
+
+  @override
+  String get obSendWhatsApp => 'Send on WhatsApp';
+
+  @override
+  String obInviteMessage(String name, String code, String phone) {
+    return 'Assalamu alaikum $name. Our class has moved to Sidra. Install the Sidra app, tap \"I have an invitation code\", enter your number $phone and the code $code, then choose your password.';
+  }
+
+  @override
+  String obInvitationFor(String name) {
+    return 'Invitation for $name';
+  }
+
+  @override
+  String get obInvitationHintOne =>
+      'Works once, for 30 days. Earlier codes for this learner no longer work.';
+
+  @override
+  String get obCopy => 'Copy';
+
+  @override
+  String get obNewCode => 'New invitation code';
+
+  @override
+  String get obHistoryTitle => 'Import history';
+
+  @override
+  String get obHistoryHint =>
+      'Every import: who, when, from where, what happened — and undo';
+
+  @override
+  String get obHistoryEmpty => 'Nothing imported yet';
+
+  @override
+  String obBatchCounts(int processed, int created, int matched, int rejected) {
+    return '$processed rows · $created new · $matched linked · $rejected not imported';
+  }
+
+  @override
+  String get obUndo => 'Undo';
+
+  @override
+  String get obUndone => 'Undone';
+
+  @override
+  String get obUndoTitle => 'Undo this import?';
+
+  @override
+  String get obUndoBody =>
+      'Removes the learners this import created who have not signed in or done anything yet, and the course and group places it added to existing learners. Learners who already joined, and every learner who existed before, stay.';
+
+  @override
+  String obUndoReport(int removed, int kept, int unlinked) {
+    return '$removed removed · $kept kept (already active) · $unlinked existing learners unlinked';
+  }
+
+  @override
+  String get obOutcomeCreated => 'created';
+
+  @override
+  String get obOutcomeMatched => 'linked to existing';
+
+  @override
+  String get obOutcomeSkipped => 'skipped';
+
+  @override
+  String get obOutcomeRejected => 'not imported';
+
+  @override
+  String get obStateImported => 'not invited';
+
+  @override
+  String get obStateInvited => 'invited';
+
+  @override
+  String get obStateActive => 'joined';
+
+  @override
+  String get obBoardTitle => 'Where learners are';
+
+  @override
+  String get obBoardHint =>
+      'Per course: each learner\'s position, who still needs setting up';
+
+  @override
+  String get obChooseCourse => 'Choose a course';
+
+  @override
+  String get obBoardEmpty => 'Everyone here is set up';
+
+  @override
+  String get obOnlyNeeds => 'Only those needing something';
+
+  @override
+  String obNeedsCount(int count) {
+    return '$count still need their position';
+  }
+
+  @override
+  String get obSetPosition => 'Set position';
+
+  @override
+  String obSetPositionFor(int count) {
+    return 'Set position for $count';
+  }
+
+  @override
+  String get obWhereStopped => 'Where did this learner stop?';
+
+  @override
+  String get obContinueTitle => 'Continue where you left off';
+
+  @override
+  String get obLastPortion => 'Last portion';
+
+  @override
+  String get obLastSubmission => 'Last work sent';
+
+  @override
+  String get obNextAction => 'Next step';
+
+  @override
+  String obNextRepeat(String where) {
+    return 'Repeat $where';
+  }
+
+  @override
+  String obNextContinue(String where) {
+    return 'Continue from $where';
+  }
+
+  @override
+  String get obNextConfirm => 'Confirm where this learner is';
+
+  @override
+  String get obMigrationSource => 'Came from';
+
+  @override
+  String get obImported => 'Imported';
+
+  @override
+  String get obNote => 'Note';
+
+  @override
+  String obHistoricalFrom(String source, String date) {
+    return 'Historical, from $source · imported $date';
+  }
+
+  @override
+  String get obSourceContacts => 'Contacts';
+
+  @override
+  String get obSourceManual => 'Entered by hand';
+
+  @override
+  String get obSourceOtherLms => 'Another system';
 }

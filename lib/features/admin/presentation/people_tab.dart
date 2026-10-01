@@ -19,7 +19,7 @@ import '../../curriculum/domain/curriculum_models.dart';
 import '../../profile/data/profile_repository.dart';
 import '../data/admin_repository.dart';
 import 'admin_common.dart';
-import 'contact_import_screen.dart';
+import '../../onboarding/presentation/onboarding_center.dart';
 import 'admin_shell.dart' show myPermissionsProvider;
 import 'courses_tab.dart';
 import 'roles_audit_screens.dart';
@@ -678,11 +678,10 @@ class _PeopleTabState extends ConsumerState<PeopleTab> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          // Learners can also come in bulk from the phone's contacts.
-          final offerContacts =
-              canImportContacts &&
+          // Learners can also come in bulk: WhatsApp, contacts, files…
+          final offerImport =
               (widget.persona ?? UserRole.learner) == UserRole.learner;
-          final fromContacts = !offerContacts
+          final bulk = !offerImport
               ? false
               : await showModalBottomSheet<bool>(
                     context: context,
@@ -697,20 +696,20 @@ class _PeopleTabState extends ConsumerState<PeopleTab> {
                             onTap: () => Navigator.pop(sheet, false),
                           ),
                           ListTile(
-                            leading: const Icon(Icons.contacts_outlined),
-                            title: Text(l10n.contactsImportTitle),
-                            subtitle: Text(l10n.contactsImportHint),
+                            leading: const Icon(Icons.group_add_outlined),
+                            title: Text(l10n.obCenterTitle),
+                            subtitle: Text(l10n.obCenterEntryHint),
                             onTap: () => Navigator.pop(sheet, true),
                           ),
                         ],
                       ),
                     ),
                 );
-          if (fromContacts == null || !context.mounted) return;
-          if (fromContacts) {
+          if (bulk == null || !context.mounted) return;
+          if (bulk) {
             await Navigator.of(context).push(
               MaterialPageRoute<void>(
-                builder: (_) => const ContactImportScreen(),
+                builder: (_) => const OnboardingCenterScreen(),
               ),
             );
           } else {

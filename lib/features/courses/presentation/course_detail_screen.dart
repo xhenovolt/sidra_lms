@@ -16,6 +16,7 @@ import '../../content/presentation/resource_widgets.dart';
 import '../../downloads/presentation/download_button.dart';
 import '../../payments/data/payments_repository.dart' show courseBalanceProvider;
 import '../../payments/presentation/course_payment_card.dart';
+import '../../onboarding/presentation/continuity_widgets.dart';
 import '../../progress/domain/progress_models.dart';
 import '../data/course_repository.dart';
 import 'course_widgets.dart';
@@ -170,6 +171,8 @@ class _CourseBodyState extends ConsumerState<_CourseBody> {
                     label: l10n.percentComplete(enrolment.progressPercent),
                   ),
                   const SizedBox(height: Space.md),
+                  // Continue where you left off (e.g. from WhatsApp).
+                  ContinueWhereLeftOffCard(courseId: course.id),
                   _ContinueAction(
                     tree: tree,
                     summary: enrolment,

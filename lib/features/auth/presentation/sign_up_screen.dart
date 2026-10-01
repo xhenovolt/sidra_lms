@@ -44,7 +44,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           .read(authServiceProvider)
           .signUp(
             displayName: _name.text.trim(),
-            identifier: _identifier.text.trim(),
+            identifier: toInternationalPhone(_identifier.text),
             password: _password.text,
           );
       // Signed in: the router guard moves on; drop this pushed page.

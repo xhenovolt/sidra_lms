@@ -22,6 +22,14 @@ abstract interface class AuthBackend {
     String newPassword,
   );
   Future<void> logout(String refreshToken, String? accessToken);
+
+  /// An imported learner accepts their invitation: phone / email, the code
+  /// from the school and their own new password.
+  Future<Map<String, dynamic>> activate(
+    String identifier,
+    String code,
+    String password,
+  );
 }
 
 /// Sign-in handled entirely by PostgreSQL (`auth_api.app_*`), over the
@@ -80,6 +88,13 @@ class PgAuthBackend implements AuthBackend {
     displayName,
     await _device(),
   ]);
+
+  @override
+  Future<Map<String, dynamic>> activate(
+    String identifier,
+    String code,
+    String password,
+  ) async => _call('app_activate', [identifier, code, password, await _device()]);
 
   @override
   Future<Map<String, dynamic>> refresh(String refreshToken) async =>

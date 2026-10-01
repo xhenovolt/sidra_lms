@@ -49,8 +49,9 @@ from (select
                 'link_course', 'can_handle_issue', 'is_member')),
            '{}') as x) s;
 
--- auth_api: the app login may run exactly the five sign-in entry points.
-select pg_temp.check(x = array['app_change_password', 'app_login', 'app_logout', 'app_refresh', 'app_register'],
+-- auth_api: the app login may run exactly these sign-in entry points
+-- (app_activate: an imported learner accepts their invitation, 0047).
+select pg_temp.check(x = array['app_activate', 'app_change_password', 'app_login', 'app_logout', 'app_refresh', 'app_register'],
                      'auth_api functions callable by the app login: ' || x::text)
 from (select array_agg(p.proname::text order by p.proname) x
       from pg_proc p join pg_namespace n on n.oid = p.pronamespace

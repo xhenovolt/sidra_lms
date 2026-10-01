@@ -28,6 +28,13 @@ class UnconfiguredAuthService extends ChangeNotifier implements AuthService {
   }) => Future.error(_failure);
 
   @override
+  Future<void> activate({
+    required String identifier,
+    required String code,
+    required String password,
+  }) => Future.error(_failure);
+
+  @override
   Future<void> changePassword({
     required String oldPassword,
     required String newPassword,

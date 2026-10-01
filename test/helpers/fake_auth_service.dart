@@ -52,6 +52,26 @@ class FakeAuthService extends ChangeNotifier implements AuthService {
     session = AuthSession.signedIn(AppUser(id: 'u-$key', phone: key));
   }
 
+  /// Invitation codes the fake accepts, by identifier.
+  final invitations = <String, String>{};
+
+  @override
+  Future<void> activate({
+    required String identifier,
+    required String code,
+    required String password,
+  }) async {
+    calls.add('activate:$identifier');
+    _maybeFail();
+    final key = identifier.replaceAll(RegExp(r'[\s-]'), '');
+    // Like the database: case and dashes / spaces do not matter.
+    if (invitations[key] != code.toUpperCase().replaceAll(RegExp(r'[\s-]'), '')) {
+      throw const AuthFailure('invalid_code');
+    }
+    accounts[key] = password;
+    session = AuthSession.signedIn(AppUser(id: 'u-$key', phone: key));
+  }
+
   @override
   Future<void> signUp({
     required String displayName,

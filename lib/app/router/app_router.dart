@@ -8,6 +8,7 @@ import '../../features/admin/presentation/books_people_tabs.dart';
 import '../../features/admin/presentation/course_builder_screen.dart';
 import '../../features/admin/presentation/courses_tab.dart';
 import '../../features/admin/presentation/control/test_transactions_screen.dart';
+import '../../features/auth/presentation/activate_screen.dart';
 import '../../features/admin/presentation/finance_screen.dart';
 import '../../features/admin/presentation/learners_tab.dart';
 import '../../features/admin/presentation/lesson_editor_screen.dart';
@@ -88,6 +89,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(path: Routes.signIn, builder: (_, _) => const SignInScreen()),
       GoRoute(path: Routes.signUp, builder: (_, _) => const SignUpScreen()),
+      GoRoute(path: Routes.activate, builder: (_, _) => const ActivateScreen()),
       GoRoute(
         path: Routes.changePassword,
         builder: (_, _) => ChangePasswordScreen(
@@ -406,7 +408,9 @@ String? authRedirect(
     AuthStatus.signedOut =>
       !onboarded
           ? to(Routes.onboarding)
-          : (location == Routes.signIn || location == Routes.signUp)
+          : (location == Routes.signIn ||
+                location == Routes.signUp ||
+                location == Routes.activate)
           ? null
           : Routes.signIn,
     AuthStatus.signedIn =>

@@ -366,7 +366,7 @@
   "authPhone": "Phone",
   "authEmail": "Email",
   "authPhoneLabel": "Phone number",
-  "authPhoneHint": "Include your country code, e.g. +256 700 123 456",
+  "authPhoneHint": "e.g. 0772 123 456, or +256 772 123 456",
   "authEmailLabel": "Email address",
   "authPassword": "Password",
   "authConfirmPassword": "Confirm password",
@@ -398,7 +398,7 @@
     }
   },
   "authPasswordsDiffer": "Passwords do not match",
-  "authPhoneInvalid": "Start with + and your country code",
+  "authPhoneInvalid": "Enter a mobile number like 0772 123 456, or with the country code (+…)",
   "authEmailInvalid": "Enter a valid email address",
   "authErrorInvalidCredentials": "Those sign-in details and password don't match.",
   "authErrorTaken": "An account already exists with this phone/email. Try signing in.",
@@ -3075,5 +3075,374 @@
   "ttReference": "Reference",
   "ttRawResponse": "MarzPay's answer to the request (raw)",
   "ttRawFinal": "MarzPay's final answer (raw)",
-  "ttEntryHint": "Collect or send a real amount and see MarzPay's exact response"
+  "ttEntryHint": "Collect or send a real amount and see MarzPay's exact response",
+  "activateEntry": "I have an invitation code",
+  "activateTitle": "Join with your invitation",
+  "activateSubtitle": "Your teacher added you to Sidra. Enter your number, the code they sent you, and choose your own password.",
+  "activateCode": "Invitation code",
+  "activateCodeInvalid": "The code has 8 letters and numbers, like ABCD-2345",
+  "activateNewPassword": "Choose a password",
+  "activateRepeat": "Repeat the password",
+  "activateMismatch": "The two passwords are not the same",
+  "activateButton": "Join Sidra",
+  "authErrorInvited": "Your school already added this number. Tap \"I have an invitation code\" and use the code from your teacher.",
+  "authErrorInvalidCode": "That code is not right, or it has expired. Ask your teacher for a new one.",
+  "authErrorAlreadyActive": "This account is already active. Sign in with your password.",
+  "obCenterTitle": "Import & onboard learners",
+  "obCenterEntryHint": "From WhatsApp, contacts, Excel/CSV or a list — keep where each learner is",
+  "obCenterIntro": "Bring a whole class into Sidra in one go. Sidra checks everyone against existing learners first, then places them in a course and group with their teacher, keeps where each one stopped, and gives each an invitation code. Nothing is saved until the last step.",
+  "obFromWhatsApp": "From a WhatsApp group",
+  "obFromWhatsAppHint": "In WhatsApp: open the group → ⋮ → More → Export chat → Without media. Save or share the file, then choose it here.",
+  "obFromContacts": "From this phone's contacts",
+  "obFromContactsHint": "Choose exactly who to bring; nothing else is read or sent.",
+  "obFromFile": "From an Excel or CSV file",
+  "obFromFileHint": "Columns like Name, Phone, Email, Learner ID, Page, Line, Status, Notes.",
+  "obFromPaste": "Paste a list",
+  "obFromPasteHint": "One learner per line: name and number in any order.",
+  "obFromOne": "One learner",
+  "obFromOneHint": "Add one learner with their course, group and current position.",
+  "obWhatsAppTruth": "About WhatsApp: WhatsApp does not let any app read your groups, members or messages, and Sidra never tries to. The exported chat is a file YOU create and choose; Sidra reads only the names and numbers of the people who wrote in it, and keeps the file with each learner as history.",
+  "obNothingFound": "No learners were found in that.",
+  "obNotAnExport": "That doesn't look like a WhatsApp chat export.",
+  "obFileTypes": "Choose an .xlsx, .csv or .txt file.",
+  "obFileUnreadable": "That file could not be read.",
+  "obPasteTitle": "Paste learners",
+  "obPasteHint": "Ahmed Musa, 0772 123 456\nFatuma Ali 0701 234 567",
+  "obContactsWhy": "To bring learners from this phone's contacts, Sidra needs to read your contacts. You then choose exactly who to bring in; Sidra keeps only the people you choose, and only their name and number.",
+  "obContactsAllow": "Allow access to contacts",
+  "obContactsCount": "{total} contacts · {picked} chosen",
+  "@obContactsCount": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      },
+      "picked": {
+        "type": "int"
+      }
+    }
+  },
+  "obContinueWithN": "Continue with {count}",
+  "@obContinueWithN": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "obStepChoose": "Who to bring",
+  "obStepMatch": "Check against Sidra",
+  "obStepPlace": "Course, group, teacher",
+  "obStepPositions": "Where each learner is",
+  "obStepDone": "Done",
+  "obBack": "Back",
+  "obNext": "Next",
+  "obCheck": "Check {count} against Sidra",
+  "@obCheck": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "obImportN": "Import {count}",
+  "@obImportN": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "obWarnColumns": "This file has no clear Name or Phone column. Check the rows below and fix them.",
+  "obWarnSeveralCourses": "This file lists several courses. Import one course at a time (choose the course in the next steps).",
+  "obWarnNoNumbers": "{count} have no phone number or email (in a WhatsApp export, people saved in your phone show by name only). Tap ✎ to add their number, or untick them.",
+  "@obWarnNoNumbers": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "obSelected": "{selected} of {total} chosen",
+  "@obSelected": {
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "obNoName": "(no name)",
+  "obNoNumber": "no number",
+  "obLastWrote": "last wrote {date}",
+  "@obLastWrote": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "obEdit": "Edit",
+  "obFix": "Fix and check again",
+  "obInclude": "Include",
+  "obSkip": "Skip",
+  "obPreviewTitle": "{count} checked",
+  "@obPreviewTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "obCountNew": "New",
+  "obCountExisting": "Already in Sidra",
+  "obCountDuplicate": "Possible duplicate",
+  "obCountRepeated": "Twice in the list",
+  "obCountInvalid": "Needs fixing",
+  "obDecideDuplicates": "Some look like learners already in Sidra. Choose for each: use the existing learner, create a separate one, or skip.",
+  "obMatch": "Matches {name} · {contact} ({why})",
+  "@obMatch": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "contact": {
+        "type": "String"
+      },
+      "why": {
+        "type": "String"
+      }
+    }
+  },
+  "obWhyPhone": "same number",
+  "obWhyEmail": "same email",
+  "obWhyName": "same name",
+  "obUseExisting": "Use {name}",
+  "@obUseExisting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "obCreateSeparate": "A different person: create",
+  "obReasonName": "missing name",
+  "obReasonPhone": "not a valid phone number",
+  "obReasonEmail": "not a valid email",
+  "obReasonNoContact": "needs a phone number or email",
+  "obReasonRepeated": "already earlier in this list",
+  "obCourse": "Course",
+  "obNoCourseYet": "No course yet",
+  "obNoCourseHint": "Without a course, learners are only added (and invited); you can enrol them and set their positions later.",
+  "obGroup": "Teaching group",
+  "obNewGroup": "A new group",
+  "obGroupName": "Group name",
+  "obExistingGroup": "An existing group",
+  "obTeacher": "Teacher",
+  "obTeacherLater": "Choose later",
+  "obWhereFrom": "Where they came from",
+  "obPrevPlatform": "Previous platform",
+  "obPrevGroup": "Previous group",
+  "obLastKnownOn": "Last known date",
+  "obNotSet": "Not set",
+  "obInvite": "Give each learner an invitation code",
+  "obInviteHint": "They use it once to join and choose their own password. No default passwords.",
+  "obPositionsNeedCourse": "Choose a course (previous step) to record where learners are.",
+  "obEveryone": "For everyone",
+  "obEveryoneHint": "Where most of this group is. Change individual learners below. \"Unknown\" is fine: you can confirm later.",
+  "obEachLearner": "Each learner (tap to change)",
+  "obSameAsEveryone": "as everyone ({where})",
+  "@obSameAsEveryone": {
+    "placeholders": {
+      "where": {
+        "type": "String"
+      }
+    }
+  },
+  "obUseEveryone": "Same as everyone",
+  "obLastFeedback": "Last teacher feedback",
+  "obConfirm": "Ready: {created} new learners, {linked} existing linked, {skipped} skipped.",
+  "@obConfirm": {
+    "placeholders": {
+      "created": {
+        "type": "int"
+      },
+      "linked": {
+        "type": "int"
+      },
+      "skipped": {
+        "type": "int"
+      }
+    }
+  },
+  "obPositionUnknown": "Unknown — needs confirming",
+  "obPositionUnknownShort": "Unknown",
+  "obPositionUnknownHint": "Sidra will show \"needs confirming\" until you set it. Nothing is guessed.",
+  "obPositionNeedsConfirm": "Position needs confirming",
+  "obPositionLesson": "A lesson",
+  "obAyah": "Ayah",
+  "obExercise": "Exercise",
+  "obLineOptional": "Line (optional)",
+  "obStatus": "Status",
+  "obStatusUnknown": "Status unknown",
+  "obStatusNotStarted": "Not started",
+  "obStatusInProgress": "In progress",
+  "obStatusCorrection": "Correction required",
+  "obStatusCompleted": "Completed",
+  "obDoneTitle": "Learners imported",
+  "obDoneCounts": "{created} created · {matched} linked · {skipped} skipped · {rejected} not imported",
+  "@obDoneCounts": {
+    "placeholders": {
+      "created": {
+        "type": "int"
+      },
+      "matched": {
+        "type": "int"
+      },
+      "skipped": {
+        "type": "int"
+      },
+      "rejected": {
+        "type": "int"
+      }
+    }
+  },
+  "obRejectedTitle": "Not imported, and why",
+  "obCopyErrors": "Copy the list of problems",
+  "obInvitationsTitle": "Invitations",
+  "obInvitationsHint": "Send each learner their code. Codes work once and expire in 30 days; you can make a new one any time.",
+  "obCopyAllInvites": "Copy all invitations",
+  "obSendWhatsApp": "Send on WhatsApp",
+  "obInviteMessage": "Assalamu alaikum {name}. Our class has moved to Sidra. Install the Sidra app, tap \"I have an invitation code\", enter your number {phone} and the code {code}, then choose your password.",
+  "@obInviteMessage": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "code": {
+        "type": "String"
+      },
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "obInvitationFor": "Invitation for {name}",
+  "@obInvitationFor": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "obInvitationHintOne": "Works once, for 30 days. Earlier codes for this learner no longer work.",
+  "obCopy": "Copy",
+  "obNewCode": "New invitation code",
+  "obHistoryTitle": "Import history",
+  "obHistoryHint": "Every import: who, when, from where, what happened — and undo",
+  "obHistoryEmpty": "Nothing imported yet",
+  "obBatchCounts": "{processed} rows · {created} new · {matched} linked · {rejected} not imported",
+  "@obBatchCounts": {
+    "placeholders": {
+      "processed": {
+        "type": "int"
+      },
+      "created": {
+        "type": "int"
+      },
+      "matched": {
+        "type": "int"
+      },
+      "rejected": {
+        "type": "int"
+      }
+    }
+  },
+  "obUndo": "Undo",
+  "obUndone": "Undone",
+  "obUndoTitle": "Undo this import?",
+  "obUndoBody": "Removes the learners this import created who have not signed in or done anything yet, and the course and group places it added to existing learners. Learners who already joined, and every learner who existed before, stay.",
+  "obUndoReport": "{removed} removed · {kept} kept (already active) · {unlinked} existing learners unlinked",
+  "@obUndoReport": {
+    "placeholders": {
+      "removed": {
+        "type": "int"
+      },
+      "kept": {
+        "type": "int"
+      },
+      "unlinked": {
+        "type": "int"
+      }
+    }
+  },
+  "obOutcomeCreated": "created",
+  "obOutcomeMatched": "linked to existing",
+  "obOutcomeSkipped": "skipped",
+  "obOutcomeRejected": "not imported",
+  "obStateImported": "not invited",
+  "obStateInvited": "invited",
+  "obStateActive": "joined",
+  "obBoardTitle": "Where learners are",
+  "obBoardHint": "Per course: each learner's position, who still needs setting up",
+  "obChooseCourse": "Choose a course",
+  "obBoardEmpty": "Everyone here is set up",
+  "obOnlyNeeds": "Only those needing something",
+  "obNeedsCount": "{count} still need their position",
+  "@obNeedsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "obSetPosition": "Set position",
+  "obSetPositionFor": "Set position for {count}",
+  "@obSetPositionFor": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "obWhereStopped": "Where did this learner stop?",
+  "obContinueTitle": "Continue where you left off",
+  "obLastPortion": "Last portion",
+  "obLastSubmission": "Last work sent",
+  "obNextAction": "Next step",
+  "obNextRepeat": "Repeat {where}",
+  "@obNextRepeat": {
+    "placeholders": {
+      "where": {
+        "type": "String"
+      }
+    }
+  },
+  "obNextContinue": "Continue from {where}",
+  "@obNextContinue": {
+    "placeholders": {
+      "where": {
+        "type": "String"
+      }
+    }
+  },
+  "obNextConfirm": "Confirm where this learner is",
+  "obMigrationSource": "Came from",
+  "obImported": "Imported",
+  "obNote": "Note",
+  "obHistoricalFrom": "Historical, from {source} · imported {date}",
+  "@obHistoricalFrom": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "obSourceContacts": "Contacts",
+  "obSourceManual": "Entered by hand",
+  "obSourceOtherLms": "Another system"
 }

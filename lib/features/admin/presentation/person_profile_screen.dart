@@ -14,6 +14,7 @@ import 'people_tab.dart';
 import 'sessions_screens.dart';
 import '../../profile/presentation/photo_editor.dart' show PhotoViewScreen;
 import '../../../shared/widgets/user_avatar.dart';
+import '../../onboarding/presentation/continuity_widgets.dart';
 
 final personProfileProvider = FutureProvider.autoDispose
     .family<PersonProfile, String>(
@@ -85,6 +86,8 @@ class _Profile extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(Space.md),
       children: [
+        // Where did this learner stop? (position, last work, where from)
+        WhereStoppedCard(userId: user.id),
         Card(
           child: Padding(
             padding: const EdgeInsets.all(Space.md),

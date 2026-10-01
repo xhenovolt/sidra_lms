@@ -1775,7 +1775,7 @@ abstract class AppLocalizations {
   /// No description provided for @authPhoneHint.
   ///
   /// In en, this message translates to:
-  /// **'Include your country code, e.g. +256 700 123 456'**
+  /// **'e.g. 0772 123 456, or +256 772 123 456'**
   String get authPhoneHint;
 
   /// No description provided for @authEmailLabel.
@@ -1925,7 +1925,7 @@ abstract class AppLocalizations {
   /// No description provided for @authPhoneInvalid.
   ///
   /// In en, this message translates to:
-  /// **'Start with + and your country code'**
+  /// **'Enter a mobile number like 0772 123 456, or with the country code (+…)'**
   String get authPhoneInvalid;
 
   /// No description provided for @authEmailInvalid.
@@ -9953,6 +9953,990 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Collect or send a real amount and see MarzPay\'s exact response'**
   String get ttEntryHint;
+
+  /// No description provided for @activateEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'I have an invitation code'**
+  String get activateEntry;
+
+  /// No description provided for @activateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Join with your invitation'**
+  String get activateTitle;
+
+  /// No description provided for @activateSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your teacher added you to Sidra. Enter your number, the code they sent you, and choose your own password.'**
+  String get activateSubtitle;
+
+  /// No description provided for @activateCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Invitation code'**
+  String get activateCode;
+
+  /// No description provided for @activateCodeInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The code has 8 letters and numbers, like ABCD-2345'**
+  String get activateCodeInvalid;
+
+  /// No description provided for @activateNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a password'**
+  String get activateNewPassword;
+
+  /// No description provided for @activateRepeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat the password'**
+  String get activateRepeat;
+
+  /// No description provided for @activateMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'The two passwords are not the same'**
+  String get activateMismatch;
+
+  /// No description provided for @activateButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Join Sidra'**
+  String get activateButton;
+
+  /// No description provided for @authErrorInvited.
+  ///
+  /// In en, this message translates to:
+  /// **'Your school already added this number. Tap \"I have an invitation code\" and use the code from your teacher.'**
+  String get authErrorInvited;
+
+  /// No description provided for @authErrorInvalidCode.
+  ///
+  /// In en, this message translates to:
+  /// **'That code is not right, or it has expired. Ask your teacher for a new one.'**
+  String get authErrorInvalidCode;
+
+  /// No description provided for @authErrorAlreadyActive.
+  ///
+  /// In en, this message translates to:
+  /// **'This account is already active. Sign in with your password.'**
+  String get authErrorAlreadyActive;
+
+  /// No description provided for @obCenterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Import & onboard learners'**
+  String get obCenterTitle;
+
+  /// No description provided for @obCenterEntryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'From WhatsApp, contacts, Excel/CSV or a list — keep where each learner is'**
+  String get obCenterEntryHint;
+
+  /// No description provided for @obCenterIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Bring a whole class into Sidra in one go. Sidra checks everyone against existing learners first, then places them in a course and group with their teacher, keeps where each one stopped, and gives each an invitation code. Nothing is saved until the last step.'**
+  String get obCenterIntro;
+
+  /// No description provided for @obFromWhatsApp.
+  ///
+  /// In en, this message translates to:
+  /// **'From a WhatsApp group'**
+  String get obFromWhatsApp;
+
+  /// No description provided for @obFromWhatsAppHint.
+  ///
+  /// In en, this message translates to:
+  /// **'In WhatsApp: open the group → ⋮ → More → Export chat → Without media. Save or share the file, then choose it here.'**
+  String get obFromWhatsAppHint;
+
+  /// No description provided for @obFromContacts.
+  ///
+  /// In en, this message translates to:
+  /// **'From this phone\'s contacts'**
+  String get obFromContacts;
+
+  /// No description provided for @obFromContactsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose exactly who to bring; nothing else is read or sent.'**
+  String get obFromContactsHint;
+
+  /// No description provided for @obFromFile.
+  ///
+  /// In en, this message translates to:
+  /// **'From an Excel or CSV file'**
+  String get obFromFile;
+
+  /// No description provided for @obFromFileHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Columns like Name, Phone, Email, Learner ID, Page, Line, Status, Notes.'**
+  String get obFromFileHint;
+
+  /// No description provided for @obFromPaste.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste a list'**
+  String get obFromPaste;
+
+  /// No description provided for @obFromPasteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'One learner per line: name and number in any order.'**
+  String get obFromPasteHint;
+
+  /// No description provided for @obFromOne.
+  ///
+  /// In en, this message translates to:
+  /// **'One learner'**
+  String get obFromOne;
+
+  /// No description provided for @obFromOneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add one learner with their course, group and current position.'**
+  String get obFromOneHint;
+
+  /// No description provided for @obWhatsAppTruth.
+  ///
+  /// In en, this message translates to:
+  /// **'About WhatsApp: WhatsApp does not let any app read your groups, members or messages, and Sidra never tries to. The exported chat is a file YOU create and choose; Sidra reads only the names and numbers of the people who wrote in it, and keeps the file with each learner as history.'**
+  String get obWhatsAppTruth;
+
+  /// No description provided for @obNothingFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No learners were found in that.'**
+  String get obNothingFound;
+
+  /// No description provided for @obNotAnExport.
+  ///
+  /// In en, this message translates to:
+  /// **'That doesn\'t look like a WhatsApp chat export.'**
+  String get obNotAnExport;
+
+  /// No description provided for @obFileTypes.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an .xlsx, .csv or .txt file.'**
+  String get obFileTypes;
+
+  /// No description provided for @obFileUnreadable.
+  ///
+  /// In en, this message translates to:
+  /// **'That file could not be read.'**
+  String get obFileUnreadable;
+
+  /// No description provided for @obPasteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste learners'**
+  String get obPasteTitle;
+
+  /// No description provided for @obPasteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Ahmed Musa, 0772 123 456\nFatuma Ali 0701 234 567'**
+  String get obPasteHint;
+
+  /// No description provided for @obContactsWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'To bring learners from this phone\'s contacts, Sidra needs to read your contacts. You then choose exactly who to bring in; Sidra keeps only the people you choose, and only their name and number.'**
+  String get obContactsWhy;
+
+  /// No description provided for @obContactsAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow access to contacts'**
+  String get obContactsAllow;
+
+  /// No description provided for @obContactsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{total} contacts · {picked} chosen'**
+  String obContactsCount(int total, int picked);
+
+  /// No description provided for @obContinueWithN.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with {count}'**
+  String obContinueWithN(int count);
+
+  /// No description provided for @obStepChoose.
+  ///
+  /// In en, this message translates to:
+  /// **'Who to bring'**
+  String get obStepChoose;
+
+  /// No description provided for @obStepMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Check against Sidra'**
+  String get obStepMatch;
+
+  /// No description provided for @obStepPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Course, group, teacher'**
+  String get obStepPlace;
+
+  /// No description provided for @obStepPositions.
+  ///
+  /// In en, this message translates to:
+  /// **'Where each learner is'**
+  String get obStepPositions;
+
+  /// No description provided for @obStepDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get obStepDone;
+
+  /// No description provided for @obBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get obBack;
+
+  /// No description provided for @obNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get obNext;
+
+  /// No description provided for @obCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Check {count} against Sidra'**
+  String obCheck(int count);
+
+  /// No description provided for @obImportN.
+  ///
+  /// In en, this message translates to:
+  /// **'Import {count}'**
+  String obImportN(int count);
+
+  /// No description provided for @obWarnColumns.
+  ///
+  /// In en, this message translates to:
+  /// **'This file has no clear Name or Phone column. Check the rows below and fix them.'**
+  String get obWarnColumns;
+
+  /// No description provided for @obWarnSeveralCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'This file lists several courses. Import one course at a time (choose the course in the next steps).'**
+  String get obWarnSeveralCourses;
+
+  /// No description provided for @obWarnNoNumbers.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} have no phone number or email (in a WhatsApp export, people saved in your phone show by name only). Tap ✎ to add their number, or untick them.'**
+  String obWarnNoNumbers(int count);
+
+  /// No description provided for @obSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{selected} of {total} chosen'**
+  String obSelected(int selected, int total);
+
+  /// No description provided for @obNoName.
+  ///
+  /// In en, this message translates to:
+  /// **'(no name)'**
+  String get obNoName;
+
+  /// No description provided for @obNoNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'no number'**
+  String get obNoNumber;
+
+  /// No description provided for @obLastWrote.
+  ///
+  /// In en, this message translates to:
+  /// **'last wrote {date}'**
+  String obLastWrote(String date);
+
+  /// No description provided for @obEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get obEdit;
+
+  /// No description provided for @obFix.
+  ///
+  /// In en, this message translates to:
+  /// **'Fix and check again'**
+  String get obFix;
+
+  /// No description provided for @obInclude.
+  ///
+  /// In en, this message translates to:
+  /// **'Include'**
+  String get obInclude;
+
+  /// No description provided for @obSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get obSkip;
+
+  /// No description provided for @obPreviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} checked'**
+  String obPreviewTitle(int count);
+
+  /// No description provided for @obCountNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get obCountNew;
+
+  /// No description provided for @obCountExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'Already in Sidra'**
+  String get obCountExisting;
+
+  /// No description provided for @obCountDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'Possible duplicate'**
+  String get obCountDuplicate;
+
+  /// No description provided for @obCountRepeated.
+  ///
+  /// In en, this message translates to:
+  /// **'Twice in the list'**
+  String get obCountRepeated;
+
+  /// No description provided for @obCountInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs fixing'**
+  String get obCountInvalid;
+
+  /// No description provided for @obDecideDuplicates.
+  ///
+  /// In en, this message translates to:
+  /// **'Some look like learners already in Sidra. Choose for each: use the existing learner, create a separate one, or skip.'**
+  String get obDecideDuplicates;
+
+  /// No description provided for @obMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Matches {name} · {contact} ({why})'**
+  String obMatch(String name, String contact, String why);
+
+  /// No description provided for @obWhyPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'same number'**
+  String get obWhyPhone;
+
+  /// No description provided for @obWhyEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'same email'**
+  String get obWhyEmail;
+
+  /// No description provided for @obWhyName.
+  ///
+  /// In en, this message translates to:
+  /// **'same name'**
+  String get obWhyName;
+
+  /// No description provided for @obUseExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'Use {name}'**
+  String obUseExisting(String name);
+
+  /// No description provided for @obCreateSeparate.
+  ///
+  /// In en, this message translates to:
+  /// **'A different person: create'**
+  String get obCreateSeparate;
+
+  /// No description provided for @obReasonName.
+  ///
+  /// In en, this message translates to:
+  /// **'missing name'**
+  String get obReasonName;
+
+  /// No description provided for @obReasonPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'not a valid phone number'**
+  String get obReasonPhone;
+
+  /// No description provided for @obReasonEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'not a valid email'**
+  String get obReasonEmail;
+
+  /// No description provided for @obReasonNoContact.
+  ///
+  /// In en, this message translates to:
+  /// **'needs a phone number or email'**
+  String get obReasonNoContact;
+
+  /// No description provided for @obReasonRepeated.
+  ///
+  /// In en, this message translates to:
+  /// **'already earlier in this list'**
+  String get obReasonRepeated;
+
+  /// No description provided for @obCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Course'**
+  String get obCourse;
+
+  /// No description provided for @obNoCourseYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No course yet'**
+  String get obNoCourseYet;
+
+  /// No description provided for @obNoCourseHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Without a course, learners are only added (and invited); you can enrol them and set their positions later.'**
+  String get obNoCourseHint;
+
+  /// No description provided for @obGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Teaching group'**
+  String get obGroup;
+
+  /// No description provided for @obNewGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'A new group'**
+  String get obNewGroup;
+
+  /// No description provided for @obGroupName.
+  ///
+  /// In en, this message translates to:
+  /// **'Group name'**
+  String get obGroupName;
+
+  /// No description provided for @obExistingGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'An existing group'**
+  String get obExistingGroup;
+
+  /// No description provided for @obTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher'**
+  String get obTeacher;
+
+  /// No description provided for @obTeacherLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose later'**
+  String get obTeacherLater;
+
+  /// No description provided for @obWhereFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Where they came from'**
+  String get obWhereFrom;
+
+  /// No description provided for @obPrevPlatform.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous platform'**
+  String get obPrevPlatform;
+
+  /// No description provided for @obPrevGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous group'**
+  String get obPrevGroup;
+
+  /// No description provided for @obLastKnownOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Last known date'**
+  String get obLastKnownOn;
+
+  /// No description provided for @obNotSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get obNotSet;
+
+  /// No description provided for @obInvite.
+  ///
+  /// In en, this message translates to:
+  /// **'Give each learner an invitation code'**
+  String get obInvite;
+
+  /// No description provided for @obInviteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'They use it once to join and choose their own password. No default passwords.'**
+  String get obInviteHint;
+
+  /// No description provided for @obPositionsNeedCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a course (previous step) to record where learners are.'**
+  String get obPositionsNeedCourse;
+
+  /// No description provided for @obEveryone.
+  ///
+  /// In en, this message translates to:
+  /// **'For everyone'**
+  String get obEveryone;
+
+  /// No description provided for @obEveryoneHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Where most of this group is. Change individual learners below. \"Unknown\" is fine: you can confirm later.'**
+  String get obEveryoneHint;
+
+  /// No description provided for @obEachLearner.
+  ///
+  /// In en, this message translates to:
+  /// **'Each learner (tap to change)'**
+  String get obEachLearner;
+
+  /// No description provided for @obSameAsEveryone.
+  ///
+  /// In en, this message translates to:
+  /// **'as everyone ({where})'**
+  String obSameAsEveryone(String where);
+
+  /// No description provided for @obUseEveryone.
+  ///
+  /// In en, this message translates to:
+  /// **'Same as everyone'**
+  String get obUseEveryone;
+
+  /// No description provided for @obLastFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Last teacher feedback'**
+  String get obLastFeedback;
+
+  /// No description provided for @obConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready: {created} new learners, {linked} existing linked, {skipped} skipped.'**
+  String obConfirm(int created, int linked, int skipped);
+
+  /// No description provided for @obPositionUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown — needs confirming'**
+  String get obPositionUnknown;
+
+  /// No description provided for @obPositionUnknownShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get obPositionUnknownShort;
+
+  /// No description provided for @obPositionUnknownHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Sidra will show \"needs confirming\" until you set it. Nothing is guessed.'**
+  String get obPositionUnknownHint;
+
+  /// No description provided for @obPositionNeedsConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Position needs confirming'**
+  String get obPositionNeedsConfirm;
+
+  /// No description provided for @obPositionLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'A lesson'**
+  String get obPositionLesson;
+
+  /// No description provided for @obAyah.
+  ///
+  /// In en, this message translates to:
+  /// **'Ayah'**
+  String get obAyah;
+
+  /// No description provided for @obExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise'**
+  String get obExercise;
+
+  /// No description provided for @obLineOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Line (optional)'**
+  String get obLineOptional;
+
+  /// No description provided for @obStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get obStatus;
+
+  /// No description provided for @obStatusUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Status unknown'**
+  String get obStatusUnknown;
+
+  /// No description provided for @obStatusNotStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Not started'**
+  String get obStatusNotStarted;
+
+  /// No description provided for @obStatusInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'In progress'**
+  String get obStatusInProgress;
+
+  /// No description provided for @obStatusCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Correction required'**
+  String get obStatusCorrection;
+
+  /// No description provided for @obStatusCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get obStatusCompleted;
+
+  /// No description provided for @obDoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Learners imported'**
+  String get obDoneTitle;
+
+  /// No description provided for @obDoneCounts.
+  ///
+  /// In en, this message translates to:
+  /// **'{created} created · {matched} linked · {skipped} skipped · {rejected} not imported'**
+  String obDoneCounts(int created, int matched, int skipped, int rejected);
+
+  /// No description provided for @obRejectedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Not imported, and why'**
+  String get obRejectedTitle;
+
+  /// No description provided for @obCopyErrors.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy the list of problems'**
+  String get obCopyErrors;
+
+  /// No description provided for @obInvitationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invitations'**
+  String get obInvitationsTitle;
+
+  /// No description provided for @obInvitationsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Send each learner their code. Codes work once and expire in 30 days; you can make a new one any time.'**
+  String get obInvitationsHint;
+
+  /// No description provided for @obCopyAllInvites.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy all invitations'**
+  String get obCopyAllInvites;
+
+  /// No description provided for @obSendWhatsApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Send on WhatsApp'**
+  String get obSendWhatsApp;
+
+  /// No description provided for @obInviteMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Assalamu alaikum {name}. Our class has moved to Sidra. Install the Sidra app, tap \"I have an invitation code\", enter your number {phone} and the code {code}, then choose your password.'**
+  String obInviteMessage(String name, String code, String phone);
+
+  /// No description provided for @obInvitationFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Invitation for {name}'**
+  String obInvitationFor(String name);
+
+  /// No description provided for @obInvitationHintOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Works once, for 30 days. Earlier codes for this learner no longer work.'**
+  String get obInvitationHintOne;
+
+  /// No description provided for @obCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get obCopy;
+
+  /// No description provided for @obNewCode.
+  ///
+  /// In en, this message translates to:
+  /// **'New invitation code'**
+  String get obNewCode;
+
+  /// No description provided for @obHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Import history'**
+  String get obHistoryTitle;
+
+  /// No description provided for @obHistoryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Every import: who, when, from where, what happened — and undo'**
+  String get obHistoryHint;
+
+  /// No description provided for @obHistoryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing imported yet'**
+  String get obHistoryEmpty;
+
+  /// No description provided for @obBatchCounts.
+  ///
+  /// In en, this message translates to:
+  /// **'{processed} rows · {created} new · {matched} linked · {rejected} not imported'**
+  String obBatchCounts(int processed, int created, int matched, int rejected);
+
+  /// No description provided for @obUndo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get obUndo;
+
+  /// No description provided for @obUndone.
+  ///
+  /// In en, this message translates to:
+  /// **'Undone'**
+  String get obUndone;
+
+  /// No description provided for @obUndoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo this import?'**
+  String get obUndoTitle;
+
+  /// No description provided for @obUndoBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Removes the learners this import created who have not signed in or done anything yet, and the course and group places it added to existing learners. Learners who already joined, and every learner who existed before, stay.'**
+  String get obUndoBody;
+
+  /// No description provided for @obUndoReport.
+  ///
+  /// In en, this message translates to:
+  /// **'{removed} removed · {kept} kept (already active) · {unlinked} existing learners unlinked'**
+  String obUndoReport(int removed, int kept, int unlinked);
+
+  /// No description provided for @obOutcomeCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'created'**
+  String get obOutcomeCreated;
+
+  /// No description provided for @obOutcomeMatched.
+  ///
+  /// In en, this message translates to:
+  /// **'linked to existing'**
+  String get obOutcomeMatched;
+
+  /// No description provided for @obOutcomeSkipped.
+  ///
+  /// In en, this message translates to:
+  /// **'skipped'**
+  String get obOutcomeSkipped;
+
+  /// No description provided for @obOutcomeRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'not imported'**
+  String get obOutcomeRejected;
+
+  /// No description provided for @obStateImported.
+  ///
+  /// In en, this message translates to:
+  /// **'not invited'**
+  String get obStateImported;
+
+  /// No description provided for @obStateInvited.
+  ///
+  /// In en, this message translates to:
+  /// **'invited'**
+  String get obStateInvited;
+
+  /// No description provided for @obStateActive.
+  ///
+  /// In en, this message translates to:
+  /// **'joined'**
+  String get obStateActive;
+
+  /// No description provided for @obBoardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where learners are'**
+  String get obBoardTitle;
+
+  /// No description provided for @obBoardHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Per course: each learner\'s position, who still needs setting up'**
+  String get obBoardHint;
+
+  /// No description provided for @obChooseCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a course'**
+  String get obChooseCourse;
+
+  /// No description provided for @obBoardEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Everyone here is set up'**
+  String get obBoardEmpty;
+
+  /// No description provided for @obOnlyNeeds.
+  ///
+  /// In en, this message translates to:
+  /// **'Only those needing something'**
+  String get obOnlyNeeds;
+
+  /// No description provided for @obNeedsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} still need their position'**
+  String obNeedsCount(int count);
+
+  /// No description provided for @obSetPosition.
+  ///
+  /// In en, this message translates to:
+  /// **'Set position'**
+  String get obSetPosition;
+
+  /// No description provided for @obSetPositionFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Set position for {count}'**
+  String obSetPositionFor(int count);
+
+  /// No description provided for @obWhereStopped.
+  ///
+  /// In en, this message translates to:
+  /// **'Where did this learner stop?'**
+  String get obWhereStopped;
+
+  /// No description provided for @obContinueTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue where you left off'**
+  String get obContinueTitle;
+
+  /// No description provided for @obLastPortion.
+  ///
+  /// In en, this message translates to:
+  /// **'Last portion'**
+  String get obLastPortion;
+
+  /// No description provided for @obLastSubmission.
+  ///
+  /// In en, this message translates to:
+  /// **'Last work sent'**
+  String get obLastSubmission;
+
+  /// No description provided for @obNextAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Next step'**
+  String get obNextAction;
+
+  /// No description provided for @obNextRepeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat {where}'**
+  String obNextRepeat(String where);
+
+  /// No description provided for @obNextContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue from {where}'**
+  String obNextContinue(String where);
+
+  /// No description provided for @obNextConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm where this learner is'**
+  String get obNextConfirm;
+
+  /// No description provided for @obMigrationSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Came from'**
+  String get obMigrationSource;
+
+  /// No description provided for @obImported.
+  ///
+  /// In en, this message translates to:
+  /// **'Imported'**
+  String get obImported;
+
+  /// No description provided for @obNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get obNote;
+
+  /// No description provided for @obHistoricalFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Historical, from {source} · imported {date}'**
+  String obHistoricalFrom(String source, String date);
+
+  /// No description provided for @obSourceContacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Contacts'**
+  String get obSourceContacts;
+
+  /// No description provided for @obSourceManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Entered by hand'**
+  String get obSourceManual;
+
+  /// No description provided for @obSourceOtherLms.
+  ///
+  /// In en, this message translates to:
+  /// **'Another system'**
+  String get obSourceOtherLms;
 }
 
 class _AppLocalizationsDelegate

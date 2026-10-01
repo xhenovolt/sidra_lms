@@ -165,6 +165,15 @@ class SidraAuthService extends ChangeNotifier implements AuthService {
   );
 
   @override
+  Future<void> activate({
+    required String identifier,
+    required String code,
+    required String password,
+  }) async => _apply(
+    await _backend.activate(identifier.trim(), code.trim(), password),
+  );
+
+  @override
   Future<void> changePassword({
     required String oldPassword,
     required String newPassword,

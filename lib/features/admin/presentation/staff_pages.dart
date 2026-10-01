@@ -13,6 +13,7 @@ import '../../auth/presentation/auth_providers.dart';
 import '../../profile/data/profile_repository.dart';
 import 'people_tab.dart';
 import 'sessions_screens.dart';
+import '../../onboarding/presentation/onboarding_center.dart';
 import '../../chat/chat_repository.dart' show unreadChatsProvider;
 import '../../profile/presentation/avatar_editor.dart';
 import '../../../app/router/learner_preview.dart';
@@ -83,6 +84,17 @@ class StaffMoreScreen extends ConsumerWidget {
             title: Text(l10n.chatsTitle),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => context.push('/chats'),
+          ),
+          // Bring learners in from WhatsApp, contacts, files; set where
+          // each one is.
+          ListTile(
+            leading: const Icon(Icons.group_add_outlined),
+            title: Text(l10n.obCenterTitle),
+            subtitle: Text(l10n.obCenterEntryHint),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const OnboardingCenterScreen()),
+            ),
           ),
           if (role == UserRole.teacher)
             ListTile(

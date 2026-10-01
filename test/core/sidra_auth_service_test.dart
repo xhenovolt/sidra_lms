@@ -84,6 +84,12 @@ class FakeBackend implements AuthBackend {
   Future<void> logout(String refreshToken, String? accessToken) async {
     await _net('logout');
   }
+
+  @override
+  Future<Map<String, dynamic>> activate(String i, String c, String p) async {
+    await _net('activate:$i');
+    return _session();
+  }
 }
 
 void main() {

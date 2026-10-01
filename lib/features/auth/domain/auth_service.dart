@@ -30,6 +30,14 @@ abstract interface class AuthService implements Listenable {
     required String newPassword,
   });
 
+  /// An imported learner's first sign-in: the school's invitation code and
+  /// their own new password (no default passwords anywhere).
+  Future<void> activate({
+    required String identifier,
+    required String code,
+    required String password,
+  });
+
   Future<void> signOut();
 
   void dispose();

@@ -27,10 +27,11 @@ void main() {
     await tester.pumpWidget(await buildTestApp(auth, authConfigured: true));
     await tester.pumpAndSettle();
 
-    await tester.enterText(field('identifier'), '0700 000001'); // no +code
+    // (0772… is fine since learners type local numbers; this is not a number)
+    await tester.enterText(field('identifier'), '12 345');
     await tester.tap(find.widgetWithText(FilledButton, 'Sign in'));
     await tester.pumpAndSettle();
-    expect(find.text('Start with + and your country code'), findsOneWidget);
+    expect(find.textContaining('Enter a mobile number like'), findsOneWidget);
     expect(find.text('Required'), findsOneWidget); // empty password
     expect(auth.calls, isEmpty);
 

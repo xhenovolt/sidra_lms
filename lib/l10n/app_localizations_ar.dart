@@ -923,7 +923,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get authPhoneLabel => 'رقم الهاتف';
 
   @override
-  String get authPhoneHint => 'أدخل رمز الدولة، مثل +256 700 123 456';
+  String get authPhoneHint => 'مثال: 0772 123 456 أو ‎+256 772 123 456';
 
   @override
   String get authEmailLabel => 'البريد الإلكتروني';
@@ -1004,7 +1004,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get authPasswordsDiffer => 'كلمتا المرور غير متطابقتين';
 
   @override
-  String get authPhoneInvalid => 'ابدأ بـ + ورمز الدولة';
+  String get authPhoneInvalid =>
+      'أدخل رقم هاتف مثل 0772 123 456، أو مع رمز الدولة (+…)';
 
   @override
   String get authEmailInvalid => 'أدخل بريدًا إلكترونيًا صحيحًا';
@@ -5631,4 +5632,564 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get ttEntryHint =>
       'حصّل أو أرسل مبلغاً حقيقياً واطلع على رد MarzPay الدقيق';
+
+  @override
+  String get activateEntry => 'لدي رمز دعوة';
+
+  @override
+  String get activateTitle => 'انضم بدعوتك';
+
+  @override
+  String get activateSubtitle =>
+      'أضافك معلمك إلى سدرة. أدخل رقمك والرمز الذي أرسله إليك واختر كلمة المرور الخاصة بك.';
+
+  @override
+  String get activateCode => 'رمز الدعوة';
+
+  @override
+  String get activateCodeInvalid => 'الرمز من 8 أحرف وأرقام، مثل ABCD-2345';
+
+  @override
+  String get activateNewPassword => 'اختر كلمة مرور';
+
+  @override
+  String get activateRepeat => 'أعد كتابة كلمة المرور';
+
+  @override
+  String get activateMismatch => 'كلمتا المرور غير متطابقتين';
+
+  @override
+  String get activateButton => 'انضم إلى سدرة';
+
+  @override
+  String get authErrorInvited =>
+      'أضافت مدرستك هذا الرقم بالفعل. اضغط \"لدي رمز دعوة\" واستخدم الرمز من معلمك.';
+
+  @override
+  String get authErrorInvalidCode =>
+      'الرمز غير صحيح أو انتهت صلاحيته. اطلب رمزاً جديداً من معلمك.';
+
+  @override
+  String get authErrorAlreadyActive =>
+      'هذا الحساب مفعّل بالفعل. سجّل الدخول بكلمة المرور.';
+
+  @override
+  String get obCenterTitle => 'استيراد المتعلمين وتسجيلهم';
+
+  @override
+  String get obCenterEntryHint =>
+      'من واتساب أو جهات الاتصال أو Excel/CSV أو قائمة — مع حفظ موضع كل متعلم';
+
+  @override
+  String get obCenterIntro =>
+      'أدخل صفاً كاملاً إلى سدرة دفعة واحدة. تتحقق سدرة أولاً من كل شخص مقابل المتعلمين الموجودين، ثم تضعهم في دورة ومجموعة مع معلمهم، وتحفظ أين توقف كل واحد، وتعطي كلاً منهم رمز دعوة. لا يُحفظ شيء حتى الخطوة الأخيرة.';
+
+  @override
+  String get obFromWhatsApp => 'من مجموعة واتساب';
+
+  @override
+  String get obFromWhatsAppHint =>
+      'في واتساب: افتح المجموعة ← ⋮ ← المزيد ← تصدير الدردشة ← بدون وسائط. احفظ الملف أو شاركه ثم اختره هنا.';
+
+  @override
+  String get obFromContacts => 'من جهات اتصال هذا الهاتف';
+
+  @override
+  String get obFromContactsHint =>
+      'اختر بالضبط من تريد إحضاره؛ لا يُقرأ أو يُرسل أي شيء آخر.';
+
+  @override
+  String get obFromFile => 'من ملف Excel أو CSV';
+
+  @override
+  String get obFromFileHint =>
+      'أعمدة مثل الاسم والهاتف والبريد ورقم المتعلم والصفحة والسطر والحالة والملاحظات.';
+
+  @override
+  String get obFromPaste => 'الصق قائمة';
+
+  @override
+  String get obFromPasteHint => 'متعلم في كل سطر: الاسم والرقم بأي ترتيب.';
+
+  @override
+  String get obFromOne => 'متعلم واحد';
+
+  @override
+  String get obFromOneHint =>
+      'أضف متعلماً واحداً مع دورته ومجموعته وموضعه الحالي.';
+
+  @override
+  String get obWhatsAppTruth =>
+      'عن واتساب: لا يسمح واتساب لأي تطبيق بقراءة مجموعاتك أو أعضائها أو رسائلها، ولا تحاول سدرة ذلك أبداً. الدردشة المُصدَّرة ملف تنشئه أنت وتختاره؛ تقرأ سدرة منه أسماء وأرقام من كتبوا فيه فقط، وتحفظ الملف مع كل متعلم كسجل.';
+
+  @override
+  String get obNothingFound => 'لم يُعثر على متعلمين في ذلك.';
+
+  @override
+  String get obNotAnExport => 'لا يبدو هذا ملف دردشة مُصدَّراً من واتساب.';
+
+  @override
+  String get obFileTypes => 'اختر ملف .xlsx أو .csv أو .txt.';
+
+  @override
+  String get obFileUnreadable => 'تعذرت قراءة هذا الملف.';
+
+  @override
+  String get obPasteTitle => 'الصق المتعلمين';
+
+  @override
+  String get obPasteHint => 'أحمد موسى، 0772 123 456\nفاطمة علي 0701 234 567';
+
+  @override
+  String get obContactsWhy =>
+      'لإحضار المتعلمين من جهات اتصال هذا الهاتف تحتاج سدرة إلى قراءة جهات الاتصال. ثم تختار بالضبط من تريد؛ تحتفظ سدرة فقط بمن تختارهم، وباسمهم ورقمهم فقط.';
+
+  @override
+  String get obContactsAllow => 'السماح بالوصول إلى جهات الاتصال';
+
+  @override
+  String obContactsCount(int total, int picked) {
+    return '$total جهة اتصال · $picked مختار';
+  }
+
+  @override
+  String obContinueWithN(int count) {
+    return 'متابعة مع $count';
+  }
+
+  @override
+  String get obStepChoose => 'من تريد إحضاره';
+
+  @override
+  String get obStepMatch => 'التحقق مع سدرة';
+
+  @override
+  String get obStepPlace => 'الدورة والمجموعة والمعلم';
+
+  @override
+  String get obStepPositions => 'أين يقف كل متعلم';
+
+  @override
+  String get obStepDone => 'تم';
+
+  @override
+  String get obBack => 'رجوع';
+
+  @override
+  String get obNext => 'التالي';
+
+  @override
+  String obCheck(int count) {
+    return 'تحقق من $count مع سدرة';
+  }
+
+  @override
+  String obImportN(int count) {
+    return 'استيراد $count';
+  }
+
+  @override
+  String get obWarnColumns =>
+      'لا يحتوي الملف على عمود واضح للاسم أو الهاتف. راجع الصفوف أدناه وأصلحها.';
+
+  @override
+  String get obWarnSeveralCourses =>
+      'يذكر الملف عدة دورات. استورد دورة واحدة في كل مرة (اختر الدورة في الخطوات التالية).';
+
+  @override
+  String obWarnNoNumbers(int count) {
+    return '$count بلا رقم هاتف أو بريد (في تصدير واتساب يظهر المحفوظون في هاتفك بالاسم فقط). اضغط ✎ لإضافة رقمهم أو ألغِ اختيارهم.';
+  }
+
+  @override
+  String obSelected(int selected, int total) {
+    return '$selected من $total مختار';
+  }
+
+  @override
+  String get obNoName => '(بلا اسم)';
+
+  @override
+  String get obNoNumber => 'بلا رقم';
+
+  @override
+  String obLastWrote(String date) {
+    return 'آخر رسالة $date';
+  }
+
+  @override
+  String get obEdit => 'تعديل';
+
+  @override
+  String get obFix => 'أصلح وتحقق مجدداً';
+
+  @override
+  String get obInclude => 'تضمين';
+
+  @override
+  String get obSkip => 'تخطي';
+
+  @override
+  String obPreviewTitle(int count) {
+    return 'تم التحقق من $count';
+  }
+
+  @override
+  String get obCountNew => 'جديد';
+
+  @override
+  String get obCountExisting => 'موجود في سدرة';
+
+  @override
+  String get obCountDuplicate => 'تكرار محتمل';
+
+  @override
+  String get obCountRepeated => 'مكرر في القائمة';
+
+  @override
+  String get obCountInvalid => 'يحتاج إصلاحاً';
+
+  @override
+  String get obDecideDuplicates =>
+      'بعضهم يشبه متعلمين موجودين في سدرة. اختر لكل واحد: استخدام المتعلم الموجود أو إنشاء متعلم منفصل أو التخطي.';
+
+  @override
+  String obMatch(String name, String contact, String why) {
+    return 'يطابق $name · $contact ($why)';
+  }
+
+  @override
+  String get obWhyPhone => 'الرقم نفسه';
+
+  @override
+  String get obWhyEmail => 'البريد نفسه';
+
+  @override
+  String get obWhyName => 'الاسم نفسه';
+
+  @override
+  String obUseExisting(String name) {
+    return 'استخدم $name';
+  }
+
+  @override
+  String get obCreateSeparate => 'شخص مختلف: أنشئ';
+
+  @override
+  String get obReasonName => 'الاسم مفقود';
+
+  @override
+  String get obReasonPhone => 'رقم هاتف غير صالح';
+
+  @override
+  String get obReasonEmail => 'بريد غير صالح';
+
+  @override
+  String get obReasonNoContact => 'يحتاج رقم هاتف أو بريداً';
+
+  @override
+  String get obReasonRepeated => 'مذكور سابقاً في هذه القائمة';
+
+  @override
+  String get obCourse => 'الدورة';
+
+  @override
+  String get obNoCourseYet => 'بلا دورة بعد';
+
+  @override
+  String get obNoCourseHint =>
+      'بدون دورة يُضاف المتعلمون فقط (ويُدعَون)؛ يمكنك تسجيلهم وتحديد مواضعهم لاحقاً.';
+
+  @override
+  String get obGroup => 'مجموعة التدريس';
+
+  @override
+  String get obNewGroup => 'مجموعة جديدة';
+
+  @override
+  String get obGroupName => 'اسم المجموعة';
+
+  @override
+  String get obExistingGroup => 'مجموعة موجودة';
+
+  @override
+  String get obTeacher => 'المعلم';
+
+  @override
+  String get obTeacherLater => 'اختر لاحقاً';
+
+  @override
+  String get obWhereFrom => 'من أين جاؤوا';
+
+  @override
+  String get obPrevPlatform => 'المنصة السابقة';
+
+  @override
+  String get obPrevGroup => 'المجموعة السابقة';
+
+  @override
+  String get obLastKnownOn => 'آخر تاريخ معروف';
+
+  @override
+  String get obNotSet => 'غير محدد';
+
+  @override
+  String get obInvite => 'أعطِ كل متعلم رمز دعوة';
+
+  @override
+  String get obInviteHint =>
+      'يستخدمونه مرة واحدة للانضمام واختيار كلمة المرور الخاصة بهم. بلا كلمات مرور افتراضية.';
+
+  @override
+  String get obPositionsNeedCourse =>
+      'اختر دورة (الخطوة السابقة) لتسجيل مواضع المتعلمين.';
+
+  @override
+  String get obEveryone => 'للجميع';
+
+  @override
+  String get obEveryoneHint =>
+      'أين يقف معظم هذه المجموعة. غيّر المتعلمين فرادى أدناه. \"غير معروف\" مقبول: يمكنك التأكيد لاحقاً.';
+
+  @override
+  String get obEachLearner => 'كل متعلم (اضغط للتغيير)';
+
+  @override
+  String obSameAsEveryone(String where) {
+    return 'كالجميع ($where)';
+  }
+
+  @override
+  String get obUseEveryone => 'كالجميع';
+
+  @override
+  String get obLastFeedback => 'آخر ملاحظة من المعلم';
+
+  @override
+  String obConfirm(int created, int linked, int skipped) {
+    return 'جاهز: $created متعلمين جدد، $linked موجودين مربوطين، $skipped متخطّين.';
+  }
+
+  @override
+  String get obPositionUnknown => 'غير معروف — يحتاج تأكيداً';
+
+  @override
+  String get obPositionUnknownShort => 'غير معروف';
+
+  @override
+  String get obPositionUnknownHint =>
+      'ستعرض سدرة \"يحتاج تأكيداً\" حتى تحدده. لا يُخمَّن شيء.';
+
+  @override
+  String get obPositionNeedsConfirm => 'الموضع يحتاج تأكيداً';
+
+  @override
+  String get obPositionLesson => 'درس';
+
+  @override
+  String get obAyah => 'آية';
+
+  @override
+  String get obExercise => 'تمرين';
+
+  @override
+  String get obLineOptional => 'السطر (اختياري)';
+
+  @override
+  String get obStatus => 'الحالة';
+
+  @override
+  String get obStatusUnknown => 'الحالة غير معروفة';
+
+  @override
+  String get obStatusNotStarted => 'لم يبدأ';
+
+  @override
+  String get obStatusInProgress => 'قيد التقدم';
+
+  @override
+  String get obStatusCorrection => 'يحتاج تصحيحاً';
+
+  @override
+  String get obStatusCompleted => 'مكتمل';
+
+  @override
+  String get obDoneTitle => 'تم استيراد المتعلمين';
+
+  @override
+  String obDoneCounts(int created, int matched, int skipped, int rejected) {
+    return '$created أُنشئ · $matched رُبط · $skipped تُخطّي · $rejected لم يُستورد';
+  }
+
+  @override
+  String get obRejectedTitle => 'لم يُستورد، ولماذا';
+
+  @override
+  String get obCopyErrors => 'انسخ قائمة المشكلات';
+
+  @override
+  String get obInvitationsTitle => 'الدعوات';
+
+  @override
+  String get obInvitationsHint =>
+      'أرسل لكل متعلم رمزه. الرموز تعمل مرة واحدة وتنتهي بعد 30 يوماً؛ يمكنك إنشاء رمز جديد في أي وقت.';
+
+  @override
+  String get obCopyAllInvites => 'انسخ كل الدعوات';
+
+  @override
+  String get obSendWhatsApp => 'أرسل عبر واتساب';
+
+  @override
+  String obInviteMessage(String name, String code, String phone) {
+    return 'السلام عليكم $name. انتقل صفنا إلى سدرة. ثبّت تطبيق سدرة، واضغط \"لدي رمز دعوة\"، وأدخل رقمك $phone والرمز $code، ثم اختر كلمة المرور.';
+  }
+
+  @override
+  String obInvitationFor(String name) {
+    return 'دعوة لـ $name';
+  }
+
+  @override
+  String get obInvitationHintOne =>
+      'يعمل مرة واحدة لمدة 30 يوماً. الرموز السابقة لهذا المتعلم لم تعد تعمل.';
+
+  @override
+  String get obCopy => 'نسخ';
+
+  @override
+  String get obNewCode => 'رمز دعوة جديد';
+
+  @override
+  String get obHistoryTitle => 'سجل الاستيراد';
+
+  @override
+  String get obHistoryHint =>
+      'كل عملية استيراد: من ومتى ومن أين وماذا حدث — مع التراجع';
+
+  @override
+  String get obHistoryEmpty => 'لم يُستورد شيء بعد';
+
+  @override
+  String obBatchCounts(int processed, int created, int matched, int rejected) {
+    return '$processed صف · $created جديد · $matched مربوط · $rejected لم يُستورد';
+  }
+
+  @override
+  String get obUndo => 'تراجع';
+
+  @override
+  String get obUndone => 'تم التراجع';
+
+  @override
+  String get obUndoTitle => 'التراجع عن هذا الاستيراد؟';
+
+  @override
+  String get obUndoBody =>
+      'يحذف المتعلمين الذين أنشأهم هذا الاستيراد ولم يسجلوا الدخول أو يفعلوا شيئاً بعد، والأماكن في الدورة والمجموعة التي أضافها لمتعلمين موجودين. يبقى من انضم بالفعل وكل متعلم كان موجوداً قبله.';
+
+  @override
+  String obUndoReport(int removed, int kept, int unlinked) {
+    return '$removed حُذف · $kept بقي (مفعّل بالفعل) · $unlinked متعلمين موجودين فُك ربطهم';
+  }
+
+  @override
+  String get obOutcomeCreated => 'أُنشئ';
+
+  @override
+  String get obOutcomeMatched => 'رُبط بموجود';
+
+  @override
+  String get obOutcomeSkipped => 'تُخطّي';
+
+  @override
+  String get obOutcomeRejected => 'لم يُستورد';
+
+  @override
+  String get obStateImported => 'غير مدعو';
+
+  @override
+  String get obStateInvited => 'مدعو';
+
+  @override
+  String get obStateActive => 'انضم';
+
+  @override
+  String get obBoardTitle => 'أين يقف المتعلمون';
+
+  @override
+  String get obBoardHint => 'لكل دورة: موضع كل متعلم ومن يحتاج إلى إعداد';
+
+  @override
+  String get obChooseCourse => 'اختر دورة';
+
+  @override
+  String get obBoardEmpty => 'الجميع هنا جاهزون';
+
+  @override
+  String get obOnlyNeeds => 'فقط من يحتاجون شيئاً';
+
+  @override
+  String obNeedsCount(int count) {
+    return '$count ما زالوا يحتاجون موضعهم';
+  }
+
+  @override
+  String get obSetPosition => 'حدد الموضع';
+
+  @override
+  String obSetPositionFor(int count) {
+    return 'حدد الموضع لـ $count';
+  }
+
+  @override
+  String get obWhereStopped => 'أين توقف هذا المتعلم؟';
+
+  @override
+  String get obContinueTitle => 'تابع من حيث توقفت';
+
+  @override
+  String get obLastPortion => 'آخر جزء';
+
+  @override
+  String get obLastSubmission => 'آخر عمل أُرسل';
+
+  @override
+  String get obNextAction => 'الخطوة التالية';
+
+  @override
+  String obNextRepeat(String where) {
+    return 'أعد $where';
+  }
+
+  @override
+  String obNextContinue(String where) {
+    return 'تابع من $where';
+  }
+
+  @override
+  String get obNextConfirm => 'أكّد أين يقف هذا المتعلم';
+
+  @override
+  String get obMigrationSource => 'جاء من';
+
+  @override
+  String get obImported => 'استُورد';
+
+  @override
+  String get obNote => 'ملاحظة';
+
+  @override
+  String obHistoricalFrom(String source, String date) {
+    return 'سجل سابق من $source · استُورد $date';
+  }
+
+  @override
+  String get obSourceContacts => 'جهات الاتصال';
+
+  @override
+  String get obSourceManual => 'أُدخل يدوياً';
+
+  @override
+  String get obSourceOtherLms => 'نظام آخر';
 }

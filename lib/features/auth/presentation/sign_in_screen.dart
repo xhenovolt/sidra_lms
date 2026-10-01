@@ -45,7 +45,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
       await ref
           .read(authServiceProvider)
           .signIn(
-            identifier: _identifier.text.trim(),
+            identifier: toInternationalPhone(_identifier.text),
             password: _password.text,
           );
     } catch (e) {
@@ -121,6 +121,13 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
                         : Text(l10n.authSignIn),
+                  ),
+                  // Learners the school added (from WhatsApp, a list…).
+                  const SizedBox(height: Space.sm),
+                  OutlinedButton.icon(
+                    onPressed: () => context.push(Routes.activate),
+                    icon: const Icon(Icons.vpn_key_outlined),
+                    label: Text(l10n.activateEntry),
                   ),
                   // Administrators can close public sign-up under Settings.
                   if (ref.watch(publicSettingsProvider).value?.allowSignup ??
