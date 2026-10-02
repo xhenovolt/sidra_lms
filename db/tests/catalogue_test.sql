@@ -56,6 +56,10 @@ select pg_temp.check(not exists (select 1 from courses where metadata->>'seed' =
   'unreviewed courses are invisible to learners');
 reset role;
 
+-- (This test is about the catalogue, not fees: the live course may be paid,
+-- and since 0048 a bulk enrolment alone no longer opens a paid course.)
+update courses set access = 'restricted', price_amount = null, price_currency = null
+where id = current_setting('t.beg')::uuid;
 -- The admin reviews, publishes, and enrols learner A only.
 select pg_temp.login_as('admin_1');
 set local role authenticated;

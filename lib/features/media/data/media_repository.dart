@@ -49,8 +49,13 @@ class MediaRepository {
       final f = File(row['local_path']! as String);
       if (f.existsSync()) return LocalMedia(f);
     }
-    if (transformation == null && row?['url'] != null) {
-      return RemoteMedia(row!['url']! as String);
+    // Links expire (two hours, 0049): a remembered one is reused only while
+    // it is fresh; after that the database is asked again — which also
+    // re-checks that the learner still has access.
+    if (transformation == null &&
+        row?['url'] != null &&
+        _fresh(row!['updated_at'])) {
+      return RemoteMedia(row['url']! as String);
     }
     final url = await _api.rpc(
       'media_url',
@@ -69,6 +74,24 @@ class MediaRepository {
       }, conflictAlgorithm: ConflictAlgorithm.replace);
     }
     return RemoteMedia(url);
+  }
+
+  static const _linkLife = Duration(minutes: 60);
+
+  static bool _fresh(Object? updatedAt) {
+    final at = DateTime.tryParse('${updatedAt ?? ''}');
+    return at != null &&
+        DateTime.now().toUtc().difference(at.toUtc()) < _linkLife;
+  }
+
+  /// The file's extension: from the path (old links), or the `format`
+  /// parameter of an expiring download link.
+  static String _extension(String url) {
+    final u = Uri.parse(url);
+    final fromPath = p.extension(u.path);
+    if (fromPath.isNotEmpty) return fromPath;
+    final format = u.queryParameters['format'];
+    return format == null || format.isEmpty ? '' : '.$format';
   }
 
   Future<Map<String, Object?>?> _row(String assetId) async {
@@ -98,7 +121,7 @@ class MediaRepository {
     final url = (source as RemoteMedia).url;
 
     await mediaDir.create(recursive: true);
-    final ext = p.extension(Uri.parse(url).path);
+    final ext = _extension(url);
     final target = File(p.join(mediaDir.path, '$assetId$ext'));
     final part = File('${target.path}.part');
     try {

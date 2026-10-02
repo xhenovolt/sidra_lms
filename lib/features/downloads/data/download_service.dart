@@ -205,6 +205,14 @@ class DownloadService {
     }
   }
 
+  /// Courses with something downloaded on this phone.
+  Future<List<String>> downloadedCourseIds() async => [
+    for (final r in await local.db.rawQuery(
+      'select distinct course_id from downloads where course_id is not null',
+    ))
+      r['course_id']! as String,
+  ];
+
   Future<void> remove(String courseId) async {
     await media.removeCourse(courseId);
     await local.db.delete(

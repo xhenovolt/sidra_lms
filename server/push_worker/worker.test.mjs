@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { generateKeyPairSync } from 'node:crypto';
-import { flush } from './worker.js';
+import { flush, verifyPayments } from './worker.js';
 
 const { privateKey } = generateKeyPairSync('rsa', { modulusLength: 2048 });
 const sa = {
@@ -74,4 +74,48 @@ test('nothing waiting: nothing sent, no Google call', async () => {
   );
   assert.deepEqual(r, { sent: 0, failed: 0, dropped: 0 });
   assert.equal(google, 0);
+});
+
+test('payments are verified at MarzPay itself, never guessed', async () => {
+  const settled = [];
+  const fakeFetch = async (url, init) => {
+    if (url.endsWith('/sql')) {
+      const q = JSON.parse(init.body);
+      assert.equal(init.headers['Neon-Connection-String'], 'postgresql://sidra_payments:pw@ep-x.neon.tech/db');
+      if (q.query.includes('to_reconcile')) {
+        return Response.json({ rows: [
+          { id: 'p1', provider_uuid: 'uuid-ok', reference: 'ref-1' },
+          { id: 'p2', provider_uuid: 'uuid-down', reference: 'ref-2' },
+        ] });
+      }
+      settled.push(q.params);
+      return Response.json({ rows: [{ outcome: 'verified' }] });
+    }
+    assert.equal(init.headers.authorization, 'Basic marz-key');
+    if (url.endsWith('/collect-money/uuid-ok')) {
+      return Response.json({ data: { transaction: { uuid: 'uuid-ok', status: 'successful', amount: { raw: 100000 },
+                                                    provider_reference: 'MTN-9' } } });
+    }
+    if (url.endsWith('/collect-money/uuid-down')) return Response.json({ message: 'busy' }, { status: 503 });
+    if (url.includes('/transactions?reference=ref-1')) {
+      return Response.json({ data: { transactions: [
+        { reference: 'ref-1', type: 'credit', amount: { raw: 100000 } },
+        { reference: 'ref-1', type: 'debit', amount: { raw: 5000 } },
+      ] } });
+    }
+    throw new Error('unexpected ' + url);
+  };
+  const r = await verifyPayments(
+    { PAYMENTS_DATABASE_URL: 'postgresql://sidra_payments:pw@ep-x.neon.tech/db', MARZPAY_AUTH_BASIC: 'marz-key' },
+    { fetchImpl: fakeFetch },
+  );
+  assert.deepEqual(r, { checked: 2, settled: 1 });
+  assert.equal(settled.length, 1, 'MarzPay did not answer for the second: nothing recorded');
+  const [uuid, status, amount, providerRef, , fee] = settled[0];
+  assert.deepEqual([uuid, status, amount, providerRef, fee], ['uuid-ok', 'successful', 100000, 'MTN-9', 5000]);
+});
+
+test('without the payments login nothing is checked', async () => {
+  const r = await verifyPayments({}, { fetchImpl: async () => { throw new Error('no calls'); } });
+  assert.equal(r.checked, 0);
 });

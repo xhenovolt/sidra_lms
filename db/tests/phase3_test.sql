@@ -88,7 +88,7 @@ select pg_temp.check((select language from lesson_content_blocks where block_typ
                           where id = '00000000-0000-0000-0000-0000000e0a01') = 'en',
   'Arabic content inside an English-delivered lesson');
 select pg_temp.check((select count(*) from resources) = 2, 'enrolled learner sees lesson resources');
-select pg_temp.check(public.media_url('00000000-0000-0000-0000-0000000e0f01') like 'https://res.cloudinary.com/%',
+select pg_temp.check(public.media_url('00000000-0000-0000-0000-0000000e0f01') ~ '^https://(res|api)\.cloudinary\.com/',
   'enrolled learner can open the PDF');
 select pg_temp.expect_error($q$select public.enrol_in_course('00000000-0000-0000-0000-0000000e0002')$q$,
   'finish P3 Beginner first');
@@ -143,7 +143,7 @@ set local role authenticated;
 select pg_temp.check((select count(*) from public.teacher_submissions()) = 1, 'teacher sees the work');
 select pg_temp.check((select x->'files'->0->>'file_name' from public.teacher_submissions() x) = 'letters.jpg',
   'with its photo');
-select pg_temp.check(public.media_url('00000000-0000-0000-0000-0000000e0f02') like 'https://res.cloudinary.com/%',
+select pg_temp.check(public.media_url('00000000-0000-0000-0000-0000000e0f02') ~ '^https://(res|api).cloudinary.com/',
   'teacher can open the photo');
 select pg_temp.expect_error($q$select public.review_submission('00000000-0000-0000-0000-0000000e05b1',
   'reviewed', 'x', 11)$q$, 'cannot exceed');

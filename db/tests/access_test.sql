@@ -174,9 +174,10 @@ select pg_temp.check(not exists (select 1 from lesson_content_blocks
                                  where lesson_id = '00000000-0000-0000-0000-000000001002'),
   'second lesson content hidden until teacher unlocks');
 
+-- (0049) files are download links that expire, not permanent signatures
 select pg_temp.check(public.media_url('00000000-0000-0000-0000-0000000000f2')
-  like 'https://res.cloudinary.com/testcloud/image/authenticated/s--%--/v7/sidra/l1/letters.png',
-  'signed URL for unlocked lesson image');
+  ~ '^https://api\.cloudinary\.com/v1_1/[^/]+/image/download\?expires_at=[0-9]+&format=png&public_id=sidra%2Fl1%2Fletters&timestamp=[0-9]+&type=authenticated&signature=[0-9a-f]{40}&api_key=',
+  'an expiring link for the unlocked lesson image');
 select pg_temp.check(public.media_url('00000000-0000-0000-0000-0000000000f1')
   = 'https://res.cloudinary.com/testcloud/image/upload/v1/sidra/thumbs/quran.jpg',
   'public thumbnail URL is unsigned');
@@ -306,8 +307,8 @@ select pg_temp.check((select count(*) from lesson_content_blocks
                       where lesson_id = '00000000-0000-0000-0000-000000001002') = 2,
   'learner can now read lesson 2 content');
 select pg_temp.check(public.media_url('00000000-0000-0000-0000-0000000000f3')
-  like '%/video/authenticated/s--%--/v9/sidra/l2/recitation.mp3',
-  'lesson 2 audio now signed');
+  ~ '/video/download\?expires_at=[0-9]+&format=mp3&public_id=sidra%2Fl2%2Frecitation&',
+  'lesson 2 audio now given (as an expiring link)');
 select pg_temp.check((select count(*) from lesson_reviews) = 1, 'learner sees own review');
 reset role;
 

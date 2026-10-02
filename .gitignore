@@ -66,3 +66,6 @@ config/*.json
 /auth-service/.wrangler/
 /auth-service/private-jwk.json
 *.jwk.json
+
+# local APK build log
+build_apk.log

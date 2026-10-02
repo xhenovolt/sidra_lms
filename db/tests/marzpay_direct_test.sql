@@ -28,12 +28,15 @@ select public.marzpay_submitted(current_setting('md.p')::uuid, 'md-uuid-1', 'air
 select pg_temp.expect_error($q$select public.marzpay_result(current_setting('md.p')::uuid, 'successful', 1000,
   'another-reference')$q$, 'belongs to another payment');
 select pg_temp.check((public.marzpay_result(current_setting('md.p')::uuid, 'successful', 1000,
-  current_setting('md.ref')))->>'status' = 'verified', 'reported success verifies the payment');
+  current_setting('md.ref')))->>'status' = 'processing', 'the payer''s report alone verifies nothing (0048)');
 reset role;
-select pg_temp.check((select verified_via = 'payer_app' and ledger_confirmed_at is null from payments
-                      where id = current_setting('md.p')::uuid), 'marked as reported by the payer, not yet confirmed');
-select pg_temp.check((select status from course_enrolments where user_id = current_setting('md.a')::uuid
-                      and course_id = '00000000-0000-0000-0000-0000000d0001') = 'active', 'the course opens at once');
+select pg_temp.check((select provider_payload->'payer_report'->>'status' = 'successful' from payments
+                      where id = current_setting('md.p')::uuid), 'the report is kept with the payment');
+select pg_temp.check(coalesce((select status::text from course_enrolments where user_id = current_setting('md.a')::uuid
+                      and course_id = '00000000-0000-0000-0000-0000000d0001'), 'none') <> 'active'
+                     or not (select has_access from course_enrolments where user_id = current_setting('md.a')::uuid
+                             and course_id = '00000000-0000-0000-0000-0000000d0001'),
+  'and the course stays closed');
 
 -- Other learners can't touch it or see the staff queue.
 select pg_temp.login_as_id(current_setting('md.b')::uuid);
@@ -46,17 +49,14 @@ select pg_temp.expect_error($q$select public.marzpay_confirm(current_setting('md
   current_setting('md.ref'))$q$, 'not allowed');
 reset role;
 
--- ------------------------------ staff phone: MarzPay disagrees → reverse --
+-- ------------------- a trusted check: MarzPay disagrees → it fails --
 select pg_temp.login_as('admin_1');
 set local role authenticated;
 select pg_temp.check(exists (select 1 from public.marzpay_to_confirm() j where j->>'id' = current_setting('md.p')),
-  'reported payments wait for a staff check');
+  'reported payments wait for a trusted check');
 select pg_temp.check(public.marzpay_confirm(current_setting('md.p')::uuid, 'failed', 1000,
-  current_setting('md.ref')) = 'reversed', 'a payment MarzPay does not confirm is reversed');
+  current_setting('md.ref')) = 'failed', 'MarzPay says failed: the payment fails (nothing was opened)');
 reset role;
-select pg_temp.check((select status from course_enrolments where user_id = current_setting('md.a')::uuid
-                      and course_id = '00000000-0000-0000-0000-0000000d0001') = 'suspended',
-  'and the course closes again');
 
 -- ------------------------ staff phone: confirms a waiting payment --
 select pg_temp.login_as_id(current_setting('md.b')::uuid);

@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/data/data_providers.dart';
 import '../../../core/data/repository_providers.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../auth/presentation/auth_providers.dart';
 import '../../media/presentation/media_widgets.dart';
 import '../data/download_service.dart';
 
@@ -136,3 +137,36 @@ class DownloadCourseButton extends ConsumerWidget {
     };
   }
 }
+
+/// Downloaded lessons and files must not outlive access (refund, reversal,
+/// unpaid period, suspension): when the course list says a downloaded
+/// course is no longer open, its offline copy is deleted. Watched by the
+/// app root while signed in.
+final downloadAccessGuardProvider = Provider<void>((ref) {
+  // Staff open courses they teach without being enrolled: learners only.
+  final role = ref.watch(authSessionProvider.select((s) => s.user?.role));
+  if (role != 'learner') return;
+  final courses = ref.watch(myCoursesProvider).value;
+  if (courses == null) return;
+  final closed = {
+    for (final c in courses)
+      if (!c.isActive) c.courseId,
+  };
+  final open = {
+    for (final c in courses)
+      if (c.isActive) c.courseId,
+  };
+  unawaited(() async {
+    try {
+      final service = await ref.read(downloadServiceProvider.future);
+      for (final id in await service.downloadedCourseIds()) {
+        // Closed, or no longer in a (non-empty) list of my courses.
+        if (closed.contains(id) || (courses.isNotEmpty && !open.contains(id))) {
+          await service.remove(id);
+        }
+      }
+    } catch (_) {
+      // signed out / no local database yet: nothing to guard
+    }
+  }());
+});

@@ -9,6 +9,8 @@ import '../core/settings/public_settings.dart';
 import '../core/settings/update_gate.dart';
 import '../core/theme/app_theme.dart';
 import '../l10n/app_localizations.dart';
+import '../features/downloads/presentation/download_button.dart'
+    show downloadAccessGuardProvider;
 import 'router/app_router.dart';
 
 /// Root widget.
@@ -24,6 +26,8 @@ class SidraApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
     ref.watch(phoneNotificationsProvider);
     ref.watch(presenceProvider);
+    // Offline copies end with access.
+    ref.watch(downloadAccessGuardProvider);
     // Organisation name, password rule and the like, as set by admins.
     final settings = ref.watch(publicSettingsProvider).value;
     if (settings != null) applyPublicSettings(settings);

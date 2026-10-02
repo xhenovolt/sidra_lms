@@ -42,8 +42,60 @@ export default {
   },
 };
 
+/// The trusted payment check (0048): payments waiting for MarzPay's answer
+/// are asked about at MarzPay itself, with Sidra's keys held here (never
+/// trusted from a payer's app), and recorded with payments_api.settle — which
+/// verifies, opens the course and notifies. Runs before the pushes so a
+/// verification's notification leaves in the same wake-up.
+/// Secrets: PAYMENTS_DATABASE_URL (sidra_payments login), MARZPAY_AUTH_BASIC.
+export async function verifyPayments(env, { fetchImpl = fetch } = {}) {
+  if (!env.PAYMENTS_DATABASE_URL || !env.MARZPAY_AUTH_BASIC) return { checked: 0, settled: 0, skipped: 'not configured' };
+  const base = env.MARZPAY_BASE_URL || 'https://wallet.wearemarz.com/api/v1';
+  const marz = async (path) => {
+    const res = await fetchImpl(base + path, {
+      headers: { authorization: `Basic ${env.MARZPAY_AUTH_BASIC}`, accept: 'application/json' },
+    });
+    const body = await res.json().catch(() => ({}));
+    return { ok: res.ok, status: res.status, body };
+  };
+  const rows = await sql(env.PAYMENTS_DATABASE_URL,
+    'select id, provider_uuid, reference from payments_api.to_reconcile($1)', [20], fetchImpl);
+  let checked = 0, settled = 0;
+  for (const r of rows) {
+    checked++;
+    const s = await marz(`/collect-money/${encodeURIComponent(r.provider_uuid)}`);
+    if (!s.ok) continue; // unknown: never guess; try again next time
+    const data = s.body.data || s.body;
+    const tx = data.transaction || data;
+    const col = data.collection || {};
+    const status = String(tx.status || 'unknown').toLowerCase();
+    const raw = (tx.amount && tx.amount.raw) ?? (col.amount && col.amount.raw);
+    const amount = raw == null ? null : Number(raw);
+    const succeeded = status === 'successful' || status === 'completed';
+    let fee = null;
+    if (succeeded) {
+      // MarzPay's own fee entries for our reference (informative).
+      const t = await marz(`/transactions?reference=${encodeURIComponent(r.reference)}`);
+      const list = (t.body.data && t.body.data.transactions) || [];
+      fee = list.filter((x) => x.reference === r.reference && String(x.type).toLowerCase() === 'debit')
+        .reduce((sum, x) => sum + Number((x.amount && x.amount.raw) || 0), 0);
+    }
+    const out = await sql(env.PAYMENTS_DATABASE_URL,
+      'select payments_api.settle($1, $2, $3::numeric, $4, $5::jsonb, $6::numeric) as outcome',
+      [r.provider_uuid, status, amount, tx.provider_reference || col.provider_transaction_id || null,
+       JSON.stringify(s.body), fee], fetchImpl);
+    if ((out[0] || {}).outcome && out[0].outcome !== 'processing') settled++;
+  }
+  return { checked, settled };
+}
+
 /// Sends everything waiting. Returns counts (also used by the local test).
 export async function flush(env, { fetchImpl = fetch } = {}) {
+  try {
+    await verifyPayments(env, { fetchImpl });
+  } catch (e) {
+    console.error('verify payments', e); // pushes still go out
+  }
   const sa = JSON.parse(env.FIREBASE_SERVICE_ACCOUNT);
   let sent = 0, failed = 0;
   const dead = [];

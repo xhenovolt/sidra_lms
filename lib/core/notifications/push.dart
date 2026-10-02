@@ -58,6 +58,10 @@ class Push {
     'submit_work',
     'work_reply',
     'send_test_notification',
+    // A MarzPay payment waiting for its trusted check (0048): wake the
+    // Worker so it asks MarzPay now, not on the next minute.
+    'marzpay_submitted',
+    'marzpay_result',
   };
 
   /// Start-up (main isolate). Safe to call when Firebase is missing: push
