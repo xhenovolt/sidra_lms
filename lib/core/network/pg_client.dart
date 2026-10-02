@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:io';
 
 import 'package:postgres/postgres.dart';
@@ -6,30 +7,41 @@ import 'package:postgres/postgres.dart';
 import '../errors/app_failure.dart';
 import '../logging/app_logger.dart';
 
-/// The app's single connection to PostgreSQL (Neon, pooled endpoint), as the
+/// The app's connections to PostgreSQL (Neon, pooled endpoint), as the
 /// low-privilege `sidra_app` login.
 ///
-/// * One transaction at a time (calls are queued), so the per-transaction
-///   session binding (`app_private.authenticate`) can't leak between calls.
-/// * Opens lazily and reconnects after network drops.
-/// * Every error comes out as a typed [AppFailure].
+/// * Speed (Phase 6): the database is far away (~300 ms a round trip from
+///   Uganda) and a call takes several round trips, so calls must not wait
+///   for each other: up to [maxConnections] connections share one queue
+///   and a screen's calls run side by side. Extra connections open only
+///   while calls are waiting.
+/// * Each call is its own transaction, so the session binding
+///   (`app_private.authenticate`) can't leak between calls.
+/// * Reconnects after network drops; every error comes out as a typed
+///   [AppFailure].
 class PgClient {
-  PgClient(String url, {this.connectTimeout, this.queryTimeout})
-    : _endpoint = _endpointFrom(url);
+  PgClient(
+    String url, {
+    this.connectTimeout,
+    this.queryTimeout,
+    this.maxConnections = 3,
+  }) : _endpoint = _endpointFrom(url);
 
   final Endpoint _endpoint;
   final Duration? connectTimeout;
   final Duration? queryTimeout;
+  final int maxConnections;
   static const _log = AppLogger('pg');
 
-  Connection? _conn;
-  Future<void> _tail = Future.value();
+  final _slots = <_Slot>[];
+  final _jobs = Queue<_Job>();
+  int _opening = 0;
+  bool _closed = false;
 
-  /// When the connection was last used. Phones drop idle sockets silently
-  /// (screen off, Wi-Fi to mobile data, Neon idle close): a dead socket
-  /// would make the next query hang until the query timeout, which is what
-  /// showed up as uploads "timing out".
-  DateTime _lastUsed = DateTime.fromMillisecondsSinceEpoch(0);
+  /// Phones drop idle sockets silently (screen off, Wi-Fi to mobile data,
+  /// Neon idle close): a dead socket would make the next query hang until
+  /// the query timeout, which is what showed up as uploads "timing out".
+  /// After this long unused, a connection is checked before use.
   static const _idleCheckAfter = Duration(seconds: 30);
   static const _pingTimeout = Duration(seconds: 5);
 
@@ -45,65 +57,117 @@ class PgClient {
     );
   }
 
-  /// Runs [body] in one transaction. Queued behind earlier calls.
-  Future<T> transaction<T>(Future<T> Function(TxSession tx) body) {
+  /// Opens the first connection ahead of need (app start), so the first
+  /// screen doesn't also pay for connecting (~3 s). Never throws.
+  void warmUp() {
+    if (_slots.isEmpty && _opening == 0 && !_closed) {
+      _opening++;
+      unawaited(_openSlot());
+    }
+  }
+
+  /// Runs [body] in one transaction. Queued until a connection is free.
+  Future<T> transaction<T>(Future<T> Function(TxSession tx) body) =>
+      _enqueue((c) => c.runTx(body));
+
+  Future<T> _enqueue<T>(Future<T> Function(Connection c) body) {
+    if (_closed) return Future.error(const OfflineFailure('Closed'));
     final done = Completer<T>();
-    _tail = _tail.then((_) async {
-      try {
-        final conn = await _open();
-        final result = await conn.runTx(body);
-        _lastUsed = DateTime.now();
-        done.complete(result);
-      } catch (e, st) {
-        final failure = mapPgError(e);
-        if (failure is OfflineFailure || failure is TimeoutFailure) {
-          await _drop();
-        }
-        done.completeError(failure, st);
-      }
-    });
+    _jobs.add(
+      _Job((c) async => done.complete(await body(c)), done.completeError),
+    );
+    _pump();
     return done.future;
   }
 
-  Future<Connection> _open() async {
-    final existing = _conn;
-    if (existing != null && existing.isOpen) {
-      if (DateTime.now().difference(_lastUsed) < _idleCheckAfter) {
-        return existing;
-      }
-      // Idle for a while: make sure it is still alive (one quick round
-      // trip), otherwise reconnect now instead of hanging.
-      try {
-        await existing.execute('select 1').timeout(_pingTimeout);
-        _lastUsed = DateTime.now();
-        return existing;
-      } catch (_) {
-        _log.debug('stale connection replaced');
-        await _drop();
-      }
+  /// Hands waiting calls to free connections; opens another connection
+  /// while calls are waiting and the limit allows.
+  void _pump() {
+    for (final s in _slots) {
+      if (_jobs.isEmpty) return;
+      if (!s.busy) unawaited(_runOn(s, _jobs.removeFirst()));
     }
-    _conn = await Connection.open(
-      _endpoint,
-      settings: ConnectionSettings(
-        sslMode: SslMode.require,
-        applicationName: 'sidra-app',
-        connectTimeout: connectTimeout ?? const Duration(seconds: 12),
-        queryTimeout: queryTimeout ?? const Duration(seconds: 25),
-      ),
-    );
-    _lastUsed = DateTime.now();
-    return _conn!;
+    if (_jobs.length > _opening && _slots.length + _opening < maxConnections) {
+      _opening++;
+      unawaited(_openSlot());
+    }
   }
 
-  Future<void> _drop() async {
-    final c = _conn;
-    _conn = null;
+  Future<void> _openSlot() async {
     try {
-      await c?.close(force: true);
+      final conn = await Connection.open(
+        _endpoint,
+        settings: ConnectionSettings(
+          sslMode: SslMode.require,
+          applicationName: 'sidra-app',
+          connectTimeout: connectTimeout ?? const Duration(seconds: 12),
+          queryTimeout: queryTimeout ?? const Duration(seconds: 25),
+        ),
+      );
+      if (_closed) {
+        await conn.close();
+        return;
+      }
+      _slots.add(_Slot(conn));
+    } catch (e, st) {
+      // Nothing can carry the waiting calls: they fail now (offline…)
+      // instead of waiting forever.
+      if (_slots.isEmpty && _opening == 1) {
+        final failure = mapPgError(e);
+        while (_jobs.isNotEmpty) {
+          _jobs.removeFirst().fail(failure, st);
+        }
+      }
+    } finally {
+      _opening--;
+      _pump();
+    }
+  }
+
+  Future<void> _runOn(_Slot slot, _Job job) async {
+    slot.busy = true;
+    try {
+      if (DateTime.now().difference(slot.lastUsed) >= _idleCheckAfter) {
+        // Idle for a while: make sure it is still alive (one quick round
+        // trip), otherwise replace it instead of hanging.
+        try {
+          await slot.conn.execute('select 1').timeout(_pingTimeout);
+        } catch (_) {
+          _log.debug('stale connection replaced');
+          await _drop(slot);
+          _jobs.addFirst(job);
+          return;
+        }
+      }
+      try {
+        await job.run(slot.conn);
+        slot.lastUsed = DateTime.now();
+      } catch (e, st) {
+        final failure = mapPgError(e);
+        if (failure is OfflineFailure || failure is TimeoutFailure) {
+          await _drop(slot);
+        }
+        job.fail(failure, st);
+      }
+    } finally {
+      slot.busy = false;
+      _pump();
+    }
+  }
+
+  Future<void> _drop(_Slot slot) async {
+    _slots.remove(slot);
+    try {
+      await slot.conn.close(force: true);
     } catch (_) {}
   }
 
-  Future<void> close() => _drop();
+  Future<void> close() async {
+    _closed = true;
+    for (final s in [..._slots]) {
+      await _drop(s);
+    }
+  }
 
   /// Maps driver/network errors to [AppFailure]. SQLSTATE `PTnnn` raised by
   /// Sidra's database functions become the matching HTTP-like failure.
@@ -141,4 +205,17 @@ class PgClient {
       _ => ServerFailure(msg, statusCode: 500),
     };
   }
+}
+
+class _Slot {
+  _Slot(this.conn);
+  final Connection conn;
+  bool busy = false;
+  DateTime lastUsed = DateTime.now();
+}
+
+class _Job {
+  _Job(this.run, this.fail);
+  final Future<void> Function(Connection c) run;
+  final void Function(Object error, StackTrace st) fail;
 }

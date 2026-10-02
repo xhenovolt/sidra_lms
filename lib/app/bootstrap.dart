@@ -35,6 +35,8 @@ Future<void> bootstrap() async {
   final PgClient? db = config.isDatabaseConfigured
       ? PgClient(config.appDatabaseUrl)
       : null;
+  // Connecting takes ~3 s from Uganda: start now, not on the first screen.
+  db?.warmUp();
   final AuthService auth;
   if (db != null) {
     final sidra = SidraAuthService(
