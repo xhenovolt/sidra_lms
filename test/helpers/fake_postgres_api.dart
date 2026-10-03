@@ -27,8 +27,63 @@ class FakePostgresApi implements PostgresApi {
     rpcCalls.add((function, params));
     if (failAll != null) throw failAll!;
     final h = rpcHandlers[function];
-    if (h == null) throw StateError('no rpc handler for $function');
-    return h(params);
+    if (h != null) return h(params);
+    // Screen bundles (0050) are built from the faked tables, as the real
+    // functions build them from the real ones.
+    if (function == 'course_outline' || function == 'course_builder_data') {
+      return _bundle(function, params['p_course_id'] as String);
+    }
+    throw StateError('no rpc handler for $function');
+  }
+
+  Future<Map<String, dynamic>?> _bundle(String function, String id) async {
+    final course = await selectOne('courses', filters: {'id': 'eq.$id'});
+    if (course == null) return null;
+    final by = {'course_id': 'eq.$id'};
+    final courseBooks = await select('course_books', filters: by);
+    final nodes = await select('curriculum_nodes', filters: by);
+    final bookIds = [for (final cb in courseBooks) cb['book_id']];
+    final levelIds = {
+      for (final n in nodes)
+        if (n['structure_level_id'] != null) n['structure_level_id'],
+    };
+    final bundle = <String, dynamic>{
+      'course': course,
+      'units': await select('course_units', filters: by),
+      'nodes': nodes,
+      'lessons': await select('lessons', filters: by),
+      'course_books': courseBooks,
+    };
+    if (function == 'course_outline') {
+      final order = rpcHandlers['course_lesson_order'];
+      return {
+        ...bundle,
+        'order': order == null ? const [] : order({'p_course_id': id}),
+        'books': bookIds.isEmpty
+            ? const []
+            : await select(
+                'books',
+                filters: {'id': 'in.(${bookIds.join(',')})'},
+              ),
+        'levels': levelIds.isEmpty
+            ? const []
+            : await select(
+                'book_structure_levels',
+                filters: {'id': 'in.(${levelIds.join(',')})'},
+              ),
+      };
+    }
+    return {
+      ...bundle,
+      'books': await select('books'),
+      'levels_by_book': {
+        for (final b in bookIds)
+          b: await select(
+            'book_structure_levels',
+            filters: {'book_id': 'eq.$b'},
+          ),
+      },
+    };
   }
 
   @override

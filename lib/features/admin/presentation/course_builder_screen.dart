@@ -8,7 +8,6 @@ import '../../../shared/models/json.dart';
 import '../../../shared/widgets/state_views.dart';
 import '../../curriculum/domain/curriculum_models.dart';
 import '../../curriculum/domain/curriculum_tree.dart';
-import '../../../core/network/postgres_api.dart';
 import '../../../core/data/repository_providers.dart';
 import 'admin_common.dart';
 import 'admin_shell.dart';
@@ -49,34 +48,36 @@ class BuilderData {
 final builderDataProvider = FutureProvider.autoDispose
     .family<BuilderData, String>((ref, courseId) async {
       final repo = ref.watch(adminRepositoryProvider);
-      final byCourse = {'course_id': Pg.eq(courseId)};
-      final courseRow = await repo.api.selectOne(
-        'courses',
-        filters: {'id': Pg.eq(courseId)},
+      // One call (0050) instead of 6 + one per linked book.
+      final data = await repo.api.rpc(
+        'course_builder_data',
+        params: {'p_course_id': courseId},
       );
-      if (courseRow == null) throw StateError('Course not found');
-      final results = await Future.wait([
-        repo.rows('course_units', filters: byCourse),
-        repo.rows('curriculum_nodes', filters: byCourse),
-        repo.rows('lessons', filters: byCourse),
-        repo.rows('course_books', filters: byCourse),
-      ]);
-      final allBooks = await repo.books();
+      if (data is! Map) throw StateError('Course not found');
+      List<Map<String, dynamic>> list(Object? v) => [
+        for (final r in v! as List) Map<String, dynamic>.from(r as Map),
+      ];
+      final allBooks = list(data['books']).map(Book.fromJson).toList();
       final bookById = {for (final b in allBooks) b.id: b};
       final linked = [
-        for (final cb in results[3])
+        for (final cb in list(data['course_books']))
           if (bookById[cb['book_id']] != null)
             (book: bookById[cb['book_id']]!, unitId: cb['unit_id'] as String?),
       ];
-      final levels = <String, List<BookStructureLevel>>{};
-      for (final l in linked) {
-        levels[l.book.id] = await repo.levelsForBook(l.book.id);
-      }
+      final byBook = data['levels_by_book'] as Map;
+      final levels = <String, List<BookStructureLevel>>{
+        for (final l in linked)
+          l.book.id: list(byBook[l.book.id] ?? const [])
+              .map(BookStructureLevel.fromJson)
+              .toList(),
+      };
       return BuilderData(
-        course: Course.fromJson(courseRow),
-        units: results[0].map(CourseUnit.fromJson).toList(),
-        nodes: results[1].map(CurriculumNode.fromJson).toList(),
-        lessons: results[2].map(Lesson.fromJson).toList(),
+        course: Course.fromJson(
+          Map<String, dynamic>.from(data['course'] as Map),
+        ),
+        units: list(data['units']).map(CourseUnit.fromJson).toList(),
+        nodes: list(data['nodes']).map(CurriculumNode.fromJson).toList(),
+        lessons: list(data['lessons']).map(Lesson.fromJson).toList(),
         linkedBooks: linked,
         allBooks: allBooks,
         levelsByBook: levels,

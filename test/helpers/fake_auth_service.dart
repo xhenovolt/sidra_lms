@@ -65,7 +65,8 @@ class FakeAuthService extends ChangeNotifier implements AuthService {
     _maybeFail();
     final key = identifier.replaceAll(RegExp(r'[\s-]'), '');
     // Like the database: case and dashes / spaces do not matter.
-    if (invitations[key] != code.toUpperCase().replaceAll(RegExp(r'[\s-]'), '')) {
+    if (invitations[key] !=
+        code.toUpperCase().replaceAll(RegExp(r'[\s-]'), '')) {
       throw const AuthFailure('invalid_code');
     }
     accounts[key] = password;

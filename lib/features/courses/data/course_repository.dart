@@ -255,17 +255,16 @@ class CourseRepository {
   }
 
   Future<CourseOutline> fetchOutline(String courseId) async {
-    final byCourse = {'course_id': Pg.eq(courseId)};
-    final results = await Future.wait([
-      _api.selectOne('courses', filters: {'id': Pg.eq(courseId)}),
-      _api.select('course_units', filters: byCourse, order: 'position'),
-      _api.select('curriculum_nodes', filters: byCourse, order: 'position'),
-      _api.select('lessons', filters: byCourse, order: 'position'),
-      _api.rpcRows('course_lesson_order', params: {'p_course_id': courseId}),
-      _api.select('course_books', filters: byCourse, order: 'position'),
-    ]);
-    final courseRow = results[0] as Map<String, dynamic>?;
-    if (courseRow == null) {
+    // One call (0050) instead of 6-8: the database is far away.
+    final data = await _api.rpc(
+      'course_outline',
+      params: {'p_course_id': courseId},
+    );
+    List<Map<String, dynamic>> list(String key) => [
+      for (final r in (data as Map)[key] as List)
+        Map<String, dynamic>.from(r as Map),
+    ];
+    if (data is! Map) {
       // Unpublished or no longer visible: drop stale cache.
       await _local.db.delete(
         'course_outlines',
@@ -274,42 +273,18 @@ class CourseRepository {
       );
       throw const NotFoundFailure('Course is not available');
     }
-    final nodes = (results[2] as List<Map<String, dynamic>>)
-        .map(CurriculumNode.fromJson)
-        .toList();
-
     final bookIds = [
-      for (final cb in results[5] as List<Map<String, dynamic>>)
-        cb['book_id'] as String,
+      for (final cb in list('course_books')) cb['book_id'] as String,
     ];
-    final bookRows = bookIds.isEmpty
-        ? const <Map<String, dynamic>>[]
-        : await _api.select('books', filters: {'id': Pg.inList(bookIds)});
-    final booksById = {for (final b in bookRows) b['id'] as String: b};
-
-    final levelIds = {
-      for (final n in nodes)
-        if (n.structureLevelId != null) n.structureLevelId!,
-    };
-    final levels = levelIds.isEmpty
-        ? const <Map<String, dynamic>>[]
-        : await _api.select(
-            'book_structure_levels',
-            filters: {'id': Pg.inList(levelIds)},
-          );
+    final booksById = {for (final b in list('books')) b['id'] as String: b};
+    final levels = list('levels');
 
     final outline = CourseOutline(
-      course: Course.fromJson(courseRow),
-      units: (results[1] as List<Map<String, dynamic>>)
-          .map(CourseUnit.fromJson)
-          .toList(),
-      nodes: nodes,
-      lessons: (results[3] as List<Map<String, dynamic>>)
-          .map(Lesson.fromJson)
-          .toList(),
-      order: (results[4] as List<Map<String, dynamic>>)
-          .map(LessonOrderEntry.fromJson)
-          .toList(),
+      course: Course.fromJson(Map<String, dynamic>.from(data['course'] as Map)),
+      units: list('units').map(CourseUnit.fromJson).toList(),
+      nodes: list('nodes').map(CurriculumNode.fromJson).toList(),
+      lessons: list('lessons').map(Lesson.fromJson).toList(),
+      order: list('order').map(LessonOrderEntry.fromJson).toList(),
       books: [
         for (final id in bookIds)
           if (booksById[id] != null) Book.fromJson(booksById[id]!),

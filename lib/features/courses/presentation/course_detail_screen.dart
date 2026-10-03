@@ -14,7 +14,8 @@ import '../../curriculum/domain/curriculum_tree.dart';
 import '../../content/data/content_repository.dart';
 import '../../content/presentation/resource_widgets.dart';
 import '../../downloads/presentation/download_button.dart';
-import '../../payments/data/payments_repository.dart' show courseBalanceProvider;
+import '../../payments/data/payments_repository.dart'
+    show courseBalanceProvider;
 import '../../payments/presentation/course_payment_card.dart';
 import '../../onboarding/presentation/continuity_widgets.dart';
 import '../../progress/domain/progress_models.dart';
