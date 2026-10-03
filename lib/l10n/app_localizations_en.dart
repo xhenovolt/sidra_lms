@@ -6248,4 +6248,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get obSourceOtherLms => 'Another system';
+
+  @override
+  String get aboutWhatItDoes => 'What Sidra does';
+
+  @override
+  String get aboutFeatureTeach =>
+      'Teachers give each day\'s portion once; every learner reads, listens, records and gets a personal correction.';
+
+  @override
+  String get aboutFeatureOffline =>
+      'Works on Wi-Fi, on mobile data and offline; your work is sent when you are back online.';
+
+  @override
+  String get aboutFeatureWhatsApp =>
+      'Moving from WhatsApp keeps each learner\'s place and recordings.';
+
+  @override
+  String get aboutFeaturePay =>
+      'Pay fees with MTN or Airtel mobile money; paid courses open once payment is confirmed.';
+
+  @override
+  String get aboutLatest => 'Latest';
+
+  @override
+  String aboutEarlier(int count) {
+    return 'Earlier versions ($count)';
+  }
 }

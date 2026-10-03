@@ -12,6 +12,95 @@ class Release {
 }
 
 final changelog = <Release>[
+  Release('2.39.1', DateTime(2026, 10, 3), 'Up-to-date About page', [
+    'This page now lists every release, with older ones folded away.',
+    'A short summary of what Sidra does.',
+  ]),
+  Release('2.39.0', DateTime(2026, 10, 3), 'Fast on every network', [
+    'Works on Wi-Fi: networks at schools, offices and some homes blocked Sidra\x27s connection, so it only worked on mobile data. Sidra now connects the same way websites do, on any Wi-Fi or mobile data.',
+    'Much faster: each screen\x27s information arrives in one quick request instead of many (about half a second instead of several seconds).',
+    'Sidra starts connecting the moment it opens, so the first screen waits less.',
+    'A course page and the course builder load in one go.',
+  ]),
+  Release('2.38.0', DateTime(2026, 10, 2), 'Paid courses and safer payments', [
+    'A paid course opens only after its payment is confirmed. Being enrolled is not enough.',
+    'Mobile money payments are confirmed with MarzPay by Sidra\x27s server, not by what the phone reports.',
+    'Fee waivers can have a start and an end date.',
+    'A refund closes the course; paying again reopens it.',
+    'Links to paid audio and video expire after a while, and offline copies are removed when a learner\x27s access ends.',
+  ]),
+  Release(
+    '2.37.0',
+    DateTime(2026, 10, 1),
+    'Bring your learners from WhatsApp',
+    [
+      'Import learners from the phone\x27s contacts, a spreadsheet (CSV or Excel), a pasted list or a WhatsApp group export. Check the list before importing, and undo an import.',
+      'Each learner gets an invitation code and activates their own account.',
+      'Keep every learner\x27s place: record where they had reached in the book on WhatsApp, and attach their old recordings.',
+      'Phone numbers written like 0772… are understood.',
+    ],
+  ),
+  Release('2.36.0', DateTime(2026, 9, 30), 'Instant notifications', [
+    'Notifications arrive within seconds, even when Sidra is closed.',
+    'Tapping a notification opens the page it is about.',
+  ]),
+  Release('2.35.0', DateTime(2026, 9, 30), 'Test transactions', [
+    'Finance staff can make real small MarzPay collections and payouts and watch each step as it happens, from the menu.',
+  ]),
+  Release(
+    '2.34.0',
+    DateTime(2026, 9, 30),
+    'Work as a conversation; repeating fees',
+    [
+      'Each piece of work is a thread: several attempts, the teacher\x27s replies and the learner\x27s answers in one place.',
+      'Uploads show real progress.',
+      'Fees can repeat: weekly, monthly, termly or over a set period, not only once.',
+      'Settings no longer jump while scrolling; the account menu opens again.',
+    ],
+  ),
+  Release(
+    '2.33.0',
+    DateTime(2026, 9, 29),
+    'Pay inside Sidra; import contacts',
+    [
+      'Pay course fees with mobile money without leaving the app.',
+      'Add learners from the phone\x27s contacts.',
+    ],
+  ),
+  Release('2.31.0', DateTime(2026, 9, 29), 'Control centre and dashboard', [
+    'A settings control centre, a MarzPay test centre and diagnostics for administrators.',
+    'Dashboard figures open to show the learners and items behind them.',
+  ]),
+  Release('2.30.0', DateTime(2026, 9, 29), 'Messages and profile photos', [
+    'Staff can message each other inside Sidra.',
+    'View a profile photo full size, and change it.',
+  ]),
+  Release('2.29.0', DateTime(2026, 9, 29), 'Problem reports and late work', [
+    'Learners can report a problem with their work; teachers answer it.',
+    'Rules for late work, and a notification when an upload has finished.',
+  ]),
+  Release('2.28.0', DateTime(2026, 9, 29), 'Devices and sign-in protection', [
+    'Administrators see which phones are signed in and can sign them out.',
+    'Protection against repeated password guessing.',
+  ]),
+  Release('2.27.0', DateTime(2026, 9, 29), 'Run Sidra without the developer', [
+    'Organisation settings can be changed in the app by administrators.',
+    'Security fix for internal database functions.',
+  ]),
+  Release('2.26.0', DateTime(2026, 9, 28), 'Teacher inbox', [
+    'Teachers get an inbox of work to review, with "review next".',
+    'The real Sidra logo on the launch screen.',
+  ]),
+  Release(
+    '2.24.0',
+    DateTime(2026, 9, 28),
+    'Course rules and word-by-word marking',
+    [
+      'Course rules decide how learners move forward.',
+      'Learners submit work from a lesson; teachers mark a recitation word by word.',
+      'Choose which notifications you receive.',
+    ],
+  ),
   Release('2.23.0', DateTime(2026, 9, 28), 'Capture, view and browse', [
     'Add course content straight from the phone: take a photo, record video or audio, scan many pages into one PDF, or paste text.',
     'See the size of every file before it is uploaded.',

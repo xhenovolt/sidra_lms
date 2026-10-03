@@ -10937,6 +10937,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Another system'**
   String get obSourceOtherLms;
+
+  /// No description provided for @aboutWhatItDoes.
+  ///
+  /// In en, this message translates to:
+  /// **'What Sidra does'**
+  String get aboutWhatItDoes;
+
+  /// No description provided for @aboutFeatureTeach.
+  ///
+  /// In en, this message translates to:
+  /// **'Teachers give each day\'s portion once; every learner reads, listens, records and gets a personal correction.'**
+  String get aboutFeatureTeach;
+
+  /// No description provided for @aboutFeatureOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Works on Wi-Fi, on mobile data and offline; your work is sent when you are back online.'**
+  String get aboutFeatureOffline;
+
+  /// No description provided for @aboutFeatureWhatsApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Moving from WhatsApp keeps each learner\'s place and recordings.'**
+  String get aboutFeatureWhatsApp;
+
+  /// No description provided for @aboutFeaturePay.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay fees with MTN or Airtel mobile money; paid courses open once payment is confirmed.'**
+  String get aboutFeaturePay;
+
+  /// No description provided for @aboutLatest.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest'**
+  String get aboutLatest;
+
+  /// No description provided for @aboutEarlier.
+  ///
+  /// In en, this message translates to:
+  /// **'Earlier versions ({count})'**
+  String aboutEarlier(int count);
 }
 
 class _AppLocalizationsDelegate

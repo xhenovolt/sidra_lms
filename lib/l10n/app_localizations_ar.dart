@@ -6192,4 +6192,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get obSourceOtherLms => 'نظام آخر';
+
+  @override
+  String get aboutWhatItDoes => 'ماذا تقدّم سدرة';
+
+  @override
+  String get aboutFeatureTeach =>
+      'يعطي المعلم ورد اليوم مرة واحدة، ويقرأ كل متعلم ويستمع ويسجّل ويحصل على تصحيح خاص.';
+
+  @override
+  String get aboutFeatureOffline =>
+      'تعمل على الواي فاي وبيانات الجوال ودون إنترنت؛ ويُرسل عملك عند عودة الاتصال.';
+
+  @override
+  String get aboutFeatureWhatsApp =>
+      'الانتقال من واتساب يحفظ موضع كل متعلم وتسجيلاته.';
+
+  @override
+  String get aboutFeaturePay =>
+      'ادفع الرسوم عبر MTN أو Airtel؛ تُفتح الدورات المدفوعة بعد تأكيد الدفع.';
+
+  @override
+  String get aboutLatest => 'الأحدث';
+
+  @override
+  String aboutEarlier(int count) {
+    return 'إصدارات سابقة ($count)';
+  }
 }

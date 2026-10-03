@@ -3444,5 +3444,19 @@
   },
   "obSourceContacts": "Contacts",
   "obSourceManual": "Entered by hand",
-  "obSourceOtherLms": "Another system"
+  "obSourceOtherLms": "Another system",
+  "aboutWhatItDoes": "What Sidra does",
+  "aboutFeatureTeach": "Teachers give each day's portion once; every learner reads, listens, records and gets a personal correction.",
+  "aboutFeatureOffline": "Works on Wi-Fi, on mobile data and offline; your work is sent when you are back online.",
+  "aboutFeatureWhatsApp": "Moving from WhatsApp keeps each learner's place and recordings.",
+  "aboutFeaturePay": "Pay fees with MTN or Airtel mobile money; paid courses open once payment is confirmed.",
+  "aboutLatest": "Latest",
+  "aboutEarlier": "Earlier versions ({count})",
+  "@aboutEarlier": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

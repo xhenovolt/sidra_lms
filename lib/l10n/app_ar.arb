@@ -1803,5 +1803,12 @@
   "obHistoricalFrom": "سجل سابق من {source} · استُورد {date}",
   "obSourceContacts": "جهات الاتصال",
   "obSourceManual": "أُدخل يدوياً",
-  "obSourceOtherLms": "نظام آخر"
+  "obSourceOtherLms": "نظام آخر",
+  "aboutWhatItDoes": "ماذا تقدّم سدرة",
+  "aboutFeatureTeach": "يعطي المعلم ورد اليوم مرة واحدة، ويقرأ كل متعلم ويستمع ويسجّل ويحصل على تصحيح خاص.",
+  "aboutFeatureOffline": "تعمل على الواي فاي وبيانات الجوال ودون إنترنت؛ ويُرسل عملك عند عودة الاتصال.",
+  "aboutFeatureWhatsApp": "الانتقال من واتساب يحفظ موضع كل متعلم وتسجيلاته.",
+  "aboutFeaturePay": "ادفع الرسوم عبر MTN أو Airtel؛ تُفتح الدورات المدفوعة بعد تأكيد الدفع.",
+  "aboutLatest": "الأحدث",
+  "aboutEarlier": "إصدارات سابقة ({count})"
 }

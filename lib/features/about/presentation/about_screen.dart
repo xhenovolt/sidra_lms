@@ -21,7 +21,7 @@ class AboutScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final info = ref.watch(packageInfoProvider).value;
-    final date = DateFormat.yMMMM(l10n.localeName);
+    final date = DateFormat.yMMMMd(l10n.localeName);
     return Scaffold(
       appBar: AppBar(title: Text(l10n.aboutTitle)),
       body: ListView(
@@ -56,42 +56,46 @@ class AboutScreen extends ConsumerWidget {
           Text(l10n.aboutBody(orgFor(l10n)), style: theme.textTheme.bodyLarge),
           const SizedBox(height: Space.sm),
           Text(l10n.aboutBy(orgFor(l10n)), style: theme.textTheme.bodyMedium),
+          const SizedBox(height: Space.lg),
+          Text(l10n.aboutWhatItDoes, style: theme.textTheme.titleLarge),
+          const SizedBox(height: Space.xs),
+          for (final (icon, text) in [
+            (Icons.record_voice_over_outlined, l10n.aboutFeatureTeach),
+            (Icons.wifi, l10n.aboutFeatureOffline),
+            (Icons.swap_horiz, l10n.aboutFeatureWhatsApp),
+            (Icons.payments_outlined, l10n.aboutFeaturePay),
+          ])
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: Icon(icon, color: theme.colorScheme.primary),
+              title: Text(text),
+            ),
           const Divider(height: Space.xl),
           Text(l10n.aboutWhatsNew, style: theme.textTheme.titleLarge),
           const SizedBox(height: Space.sm),
-          for (final r in changelog)
-            Padding(
-              padding: const EdgeInsets.only(bottom: Space.md),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Chip(
-                        label: Text('v${r.version}'),
-                        visualDensity: VisualDensity.compact,
-                      ),
-                      const SizedBox(width: Space.xs),
-                      Text(
-                        date.format(r.date),
-                        style: theme.textTheme.labelMedium,
-                      ),
-                    ],
-                  ),
-                  Text(r.title, style: theme.textTheme.titleMedium),
-                  for (final c in r.changes)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 2),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('•  '),
-                          Expanded(child: Text(c)),
-                        ],
-                      ),
-                    ),
-                ],
+          if (changelog.isNotEmpty)
+            Card(
+              margin: EdgeInsets.zero,
+              child: Padding(
+                padding: const EdgeInsets.all(Space.md),
+                child: _ReleaseBody(
+                  release: changelog.first,
+                  date: date,
+                  badge: l10n.aboutLatest,
+                ),
               ),
+            ),
+          if (changelog.length > 1)
+            ExpansionTile(
+              tilePadding: EdgeInsets.zero,
+              title: Text(l10n.aboutEarlier(changelog.length - 1)),
+              children: [
+                for (final r in changelog.skip(1))
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: Space.md),
+                    child: _ReleaseBody(release: r, date: date),
+                  ),
+              ],
             ),
           const SizedBox(height: Space.md),
           OutlinedButton.icon(
@@ -105,6 +109,53 @@ class AboutScreen extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// One release: version, date, title and its changes.
+class _ReleaseBody extends StatelessWidget {
+  const _ReleaseBody({required this.release, required this.date, this.badge});
+  final Release release;
+  final DateFormat date;
+  final String? badge;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Wrap(
+          spacing: Space.xs,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            Chip(
+              label: Text('v${release.version}'),
+              visualDensity: VisualDensity.compact,
+            ),
+            if (badge != null)
+              Chip(
+                label: Text(badge!),
+                visualDensity: VisualDensity.compact,
+                backgroundColor: theme.colorScheme.primaryContainer,
+              ),
+            Text(date.format(release.date), style: theme.textTheme.labelMedium),
+          ],
+        ),
+        Text(release.title, style: theme.textTheme.titleMedium),
+        for (final c in release.changes)
+          Padding(
+            padding: const EdgeInsets.only(top: 2),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('•  '),
+                Expanded(child: Text(c)),
+              ],
+            ),
+          ),
+      ],
     );
   }
 }

@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sidra_lms/features/about/domain/changelog.dart';
 import 'package:sidra_lms/features/auth/domain/auth_session.dart';
 import 'package:sidra_lms/features/profile/presentation/avatar_editor.dart';
 
@@ -218,13 +221,50 @@ void main() {
     GoRouter.of(tester.element(find.byType(NavigationBar))).push('/about');
     await tester.pumpAndSettle();
     expect(find.text('About Sidra'), findsOneWidget);
+    expect(find.text('What Sidra does'), findsOneWidget);
+    // The latest release is open; older ones are folded away.
+    await tester.scrollUntilVisible(
+      find.text(changelog.first.title),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.text('What\'s new'), findsOneWidget);
+    expect(find.text('Latest'), findsOneWidget);
+    expect(find.text('The beginning'), findsNothing);
+    final earlier = find.text('Earlier versions (${changelog.length - 1})');
+    await tester.scrollUntilVisible(
+      earlier,
+      400,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(earlier);
+    await tester.pumpAndSettle();
     await tester.scrollUntilVisible(
       find.text('The beginning'),
       400,
       scrollable: find.byType(Scrollable).first,
     );
     expect(find.text('The beginning'), findsOneWidget);
+  });
+
+  test('the changelog is up to date with the app version', () {
+    // Every feature release (2.39, 2.40…) has an entry; patches may share.
+    final pubspec = File('pubspec.yaml').readAsStringSync();
+    final version = RegExp(
+      r'^version:\s*(\d+\.\d+)\.',
+      multiLine: true,
+    ).firstMatch(pubspec)!.group(1);
+    expect(
+      changelog.first.version,
+      startsWith('$version.'),
+      reason: 'add this release to lib/features/about/domain/changelog.dart',
+    );
+    final dates = [for (final r in changelog) r.date];
+    expect(
+      dates,
+      [...dates]..sort((a, b) => b.compareTo(a)),
+      reason: 'newest first',
+    );
   });
 
   testWidgets('admin edits mistake categories', (tester) async {
