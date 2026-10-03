@@ -9,7 +9,8 @@ import '../core/notifications/phone_notifications.dart';
 import '../core/notifications/push.dart';
 import '../core/config/app_config.dart';
 import '../core/logging/app_logger.dart';
-import '../core/network/pg_client.dart';
+import '../core/data/data_providers.dart' show sqlRunnerProvider;
+import '../core/network/sql_runner.dart';
 import '../core/providers.dart';
 import '../features/auth/data/auth_backend.dart';
 import '../features/auth/data/sidra_auth_service.dart';
@@ -32,15 +33,18 @@ Future<void> bootstrap() async {
   final config = AppConfig.fromEnvironment();
   final prefs = await SharedPreferences.getInstance();
 
-  final PgClient? db = config.isDatabaseConfigured
-      ? PgClient(config.appDatabaseUrl)
+  // Every database call (sign-in included) goes over Neon's HTTPS endpoint:
+  // one round trip each, and port 443 gets through networks that block
+  // PostgreSQL's 5432. Connecting takes ~3 s from Uganda, so it starts now,
+  // not on the first screen.
+  final NeonHttpRunner? runner = config.isDatabaseConfigured
+      ? NeonHttpRunner(config.appDatabaseUrl)
       : null;
-  // Connecting takes ~3 s from Uganda: start now, not on the first screen.
-  db?.warmUp();
+  runner?.warmUp();
   final AuthService auth;
-  if (db != null) {
+  if (runner != null) {
     final sidra = SidraAuthService(
-      backend: PgAuthBackend(db, device: DeviceProfile.collect),
+      backend: PgAuthBackend(runner, device: DeviceProfile.collect),
       store: const FlutterSecureStore(),
     );
     await sidra.restore();
@@ -74,7 +78,7 @@ Future<void> bootstrap() async {
         appConfigProvider.overrideWithValue(config),
         sharedPreferencesProvider.overrideWithValue(prefs),
         authServiceProvider.overrideWithValue(auth),
-        if (db != null) pgClientProvider.overrideWithValue(db),
+        if (runner != null) sqlRunnerProvider.overrideWithValue(runner),
       ],
       child: const SidraApp(),
     ),

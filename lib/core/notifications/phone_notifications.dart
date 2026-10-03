@@ -16,10 +16,12 @@ import '../../features/teaching/data/teaching_repository.dart';
 import '../../features/teaching/data/work_thread.dart' show workThreadProvider;
 import '../config/app_config.dart';
 import '../data/data_providers.dart';
-import '../network/pg_client.dart';
+import '../network/sql_runner.dart';
 import '../network/postgres_api.dart';
 import '../../app/router/learner_preview.dart';
+
 import 'package:firebase_messaging/firebase_messaging.dart' show RemoteMessage;
+
 import 'push.dart';
 
 /// Notifications on the phone's notification bar, without Firebase.
@@ -181,7 +183,8 @@ class PhoneNotifications {
     final n = m.notification;
     if (n == null) return;
     await _plugin.show(
-      id: (m.data['notification_id'] ?? m.messageId ?? '${DateTime.now()}')
+      id:
+          (m.data['notification_id'] ?? m.messageId ?? '${DateTime.now()}')
               .hashCode &
           0x7fffffff,
       title: n.title,
@@ -205,17 +208,15 @@ class PhoneNotifications {
 void backgroundDispatcher() {
   Workmanager().executeTask((task, input) async {
     DartPluginRegistrant.ensureInitialized();
-    final client = PgClient(AppConfig.fromEnvironment().appDatabaseUrl);
+    final runner = NeonHttpRunner(AppConfig.fromEnvironment().appDatabaseUrl);
     try {
       await PhoneNotifications._initPlugin();
       await PhoneNotifications.check(
-        PgWireApi(client, ({bool forceRefresh = false}) async => null),
+        PgWireApi(runner, ({bool forceRefresh = false}) async => null),
       );
       return true;
     } catch (_) {
       return false; // WorkManager retries later
-    } finally {
-      await client.close();
     }
   });
 }

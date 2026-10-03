@@ -13,15 +13,21 @@ import '../../features/progress/data/progress_repository.dart';
 import '../../features/assessments/data/assessment_repository.dart';
 import '../database/local_database.dart';
 import '../network/postgres_api.dart';
+import '../network/sql_runner.dart';
 import '../providers.dart';
 import '../sync/sync_engine.dart';
 
-/// Tables and SQL functions, over the direct PostgreSQL connection. Each
-/// call carries the signed-in person's session token.
+/// Tables and SQL functions, over Neon's HTTPS endpoint: one round trip a
+/// call (Phase 6). Each call carries the signed-in person's session token.
 final postgresApiProvider = Provider<PostgresApi>((ref) {
   final auth = ref.watch(authServiceProvider);
-  return PgWireApi(ref.watch(pgClientProvider), auth.sessionToken);
+  return PgWireApi(ref.watch(sqlRunnerProvider), auth.sessionToken);
 });
+
+/// The HTTPS runner, made once (it keeps its connections open).
+final sqlRunnerProvider = Provider<SqlRunner>(
+  (ref) => NeonHttpRunner(ref.watch(appConfigProvider).appDatabaseUrl),
+);
 
 /// Opens the signed-in user's own SQLite file. Re-opens on user change and
 /// closes on sign-out. The file name is a hash, so it doesn't expose the id.

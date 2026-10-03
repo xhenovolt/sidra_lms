@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart' show CancelToken;
-import 'package:postgres/postgres.dart';
+
+import 'sql_runner.dart';
 
 import '../errors/app_failure.dart';
-import 'pg_client.dart';
+import 'pg_client.dart' show PgClient;
 
 /// Returns the signed-in user's session token (null when signed out).
 /// [forceRefresh] asks for a new one after the server rejected the old one.
@@ -63,7 +64,9 @@ abstract interface class PostgresApi {
   Future<void> delete(String table, {required Map<String, String> filters});
 }
 
-/// [PostgresApi] over a direct PostgreSQL connection ([PgClient]).
+/// [PostgresApi] over a [SqlRunner]: Neon's HTTPS endpoint in the app
+/// ([NeonHttpRunner], one round trip a call), or a direct PostgreSQL
+/// connection ([PgClient]).
 ///
 /// Every call is one transaction that first binds the learner's session
 /// (`app_private.authenticate(token)`), so Row Level Security and every
@@ -72,10 +75,11 @@ abstract interface class PostgresApi {
 ///
 /// SQL is built only from validated identifiers; every value is a bound
 /// parameter (sent untyped, so PostgreSQL applies the column/argument type).
+/// Each statement returns one text column (JSON), decoded here.
 class PgWireApi implements PostgresApi {
-  PgWireApi(this._client, this._token);
+  PgWireApi(this._runner, this._token);
 
-  final PgClient _client;
+  final SqlRunner _runner;
   final SessionTokenProvider _token;
 
   static final _ident = RegExp(r'^[a-z_][a-z0-9_]*$');
@@ -87,20 +91,12 @@ class PgWireApi implements PostgresApi {
     return '"$name"';
   }
 
-  /// Runs [body] in a transaction bound to the current session. If the
-  /// server says the session expired, refreshes the token once and retries.
-  Future<T> _run<T>(Future<T> Function(TxSession tx) body) async {
-    Future<T> attempt({required bool force}) async {
+  /// Runs [sql] bound to the current session. If the server says the
+  /// session expired, refreshes the token once and retries.
+  Future<List<String?>> _run(String sql, List<String?> params) async {
+    Future<List<String?>> attempt({required bool force}) async {
       final token = await _token(forceRefresh: force);
-      return _client.transaction((tx) async {
-        if (token != null) {
-          await tx.execute(
-            r'select app_private.authenticate($1)',
-            parameters: [TypedValue(Type.unspecified, token)],
-          );
-        }
-        return body(tx);
-      });
+      return _runner.run(token, sql, params);
     }
 
     try {
@@ -110,9 +106,14 @@ class PgWireApi implements PostgresApi {
     }
   }
 
+  /// Rows that are JSON objects.
+  static List<Map<String, dynamic>> _objects(List<String?> rows) => [
+    for (final r in rows) _row(jsonDecode(r!)),
+  ];
+
   // ------------------------------------------------------------ values --
 
-  static TypedValue _param(Object? v) => TypedValue(Type.unspecified, _text(v));
+  static String? _param(Object? v) => _text(v);
 
   /// Text form of a value; PostgreSQL casts it to the target type.
   static String? _text(Object? v) => switch (v) {
@@ -141,7 +142,7 @@ class PgWireApi implements PostgresApi {
 
   // ----------------------------------------------------------- filters --
 
-  static String _where(Map<String, String> filters, List<TypedValue> params) {
+  static String _where(Map<String, String> filters, List<String?> params) {
     if (filters.isEmpty) return '';
     final parts = <String>[];
     filters.forEach((column, expr) {
@@ -222,20 +223,17 @@ class PgWireApi implements PostgresApi {
     int? offset,
     CancelToken? cancelToken,
   }) {
-    final params = <TypedValue>[];
+    final params = <String?>[];
     final sql =
         StringBuffer(
-            'select to_jsonb(t) from (select ${_columns(columns)} from public.${_id(table)}',
+            'select to_jsonb(t)::text from (select ${_columns(columns)} from public.${_id(table)}',
           )
           ..write(_where(filters, params))
           ..write(_orderBy(order));
     if (limit != null) sql.write(' limit ${limit.abs()}');
     if (offset != null) sql.write(' offset ${offset.abs()}');
     sql.write(') t');
-    return _run((tx) async {
-      final r = await tx.execute(sql.toString(), parameters: params);
-      return [for (final row in r) _row(row.first)];
-    });
+    return _run(sql.toString(), params).then(_objects);
   }
 
   @override
@@ -254,8 +252,8 @@ class PgWireApi implements PostgresApi {
     return rows.isEmpty ? null : rows.first;
   }
 
-  (String, List<TypedValue>) _call(String function, Map<String, dynamic> p) {
-    final params = <TypedValue>[];
+  (String, List<String?>) _call(String function, Map<String, dynamic> p) {
+    final params = <String?>[];
     final args = p.entries.map((e) {
       params.add(_param(e.value));
       return '${_id(e.key)} => \$${params.length}';
@@ -271,25 +269,26 @@ class PgWireApi implements PostgresApi {
   }) {
     final (call, values) = _call(function, params);
     // ::text works for jsonb, text and void results alike.
-    return _run((tx) async {
-      final r = await tx.execute('select ($call)::text', parameters: values);
-      final text = r.first.first as String?;
-      if (text == null || text.isEmpty) return null;
-      final c = text[0];
-      if (c == '{' || c == '[') {
-        // JSON objects/arrays decode; a Postgres array literal ({a,b}) is
-        // not JSON and is returned as text (use rpcRows for arrays).
-        try {
-          return jsonDecode(text);
-        } on FormatException {
+    return _run('select ($call)::text', values)
+        .then((r) {
+          final text = r.first;
+          if (text == null || text.isEmpty) return null;
+          final c = text[0];
+          if (c == '{' || c == '[') {
+            // JSON objects/arrays decode; a Postgres array literal ({a,b}) is
+            // not JSON and is returned as text (use rpcRows for arrays).
+            try {
+              return jsonDecode(text);
+            } on FormatException {
+              return text;
+            }
+          }
           return text;
-        }
-      }
-      return text;
-    }).then((v) {
-      afterCall?.call(function);
-      return v;
-    });
+        })
+        .then((v) {
+          afterCall?.call(function);
+          return v;
+        });
   }
 
   /// Told the name of every database function that succeeded (e.g. so
@@ -303,22 +302,21 @@ class PgWireApi implements PostgresApi {
     CancelToken? cancelToken,
   }) {
     final (call, values) = _call(function, params);
-    return _run((tx) async {
-      final r = await tx.execute(
-        'select to_jsonb(r) from $call r',
-        parameters: values,
-      );
-      // A function returning a scalar or array (e.g. text[]) yields that
-      // value, not an object: expose it under the function name, the same
-      // shape a one-column table function has.
-      return [
-        for (final row in r)
-          if (row.first is Map) _row(row.first) else {function: row.first},
-      ];
-    }).then((v) {
-      afterCall?.call(function);
-      return v;
-    });
+    return _run('select to_jsonb(r)::text from $call r', values)
+        .then((rows) {
+          final r = [for (final t in rows) jsonDecode(t!)];
+          // A function returning a scalar or array (e.g. text[]) yields that
+          // value, not an object: expose it under the function name, the same
+          // shape a one-column table function has.
+          return [
+            for (final v in r)
+              if (v is Map) _row(v) else {function: v},
+          ];
+        })
+        .then((v) {
+          afterCall?.call(function);
+          return v;
+        });
   }
 
   @override
@@ -333,7 +331,7 @@ class PgWireApi implements PostgresApi {
         : [Map<String, dynamic>.from(rows as Map)];
     if (list.isEmpty) return Future.value(const []);
     final columns = {for (final r in list) ...r.keys}.toList();
-    final params = <TypedValue>[];
+    final params = <String?>[];
     final values = list.map((r) {
       final cells = columns.map((c) {
         if (!r.containsKey(c)) return 'default';
@@ -359,11 +357,8 @@ class PgWireApi implements PostgresApi {
         '${updates.isEmpty ? 'do nothing' : 'do update set ${updates.join(', ')}'}',
       );
     }
-    sql.write(' returning to_jsonb(t.*)');
-    return _run((tx) async {
-      final r = await tx.execute(sql.toString(), parameters: params);
-      return [for (final row in r) _row(row.first)];
-    });
+    sql.write(' returning to_jsonb(t.*)::text');
+    return _run(sql.toString(), params).then(_objects);
   }
 
   @override
@@ -375,7 +370,7 @@ class PgWireApi implements PostgresApi {
     if (filters.isEmpty) {
       throw ArgumentError('Refusing to update without filters');
     }
-    final params = <TypedValue>[];
+    final params = <String?>[];
     final sets = values.entries
         .map((e) {
           params.add(_param(e.value));
@@ -384,11 +379,8 @@ class PgWireApi implements PostgresApi {
         .join(', ');
     final sql =
         'update public.${_id(table)} as t set $sets'
-        '${_where(filters, params)} returning to_jsonb(t.*)';
-    return _run((tx) async {
-      final r = await tx.execute(sql, parameters: params);
-      return [for (final row in r) _row(row.first)];
-    });
+        '${_where(filters, params)} returning to_jsonb(t.*)::text';
+    return _run(sql, params).then(_objects);
   }
 
   @override
@@ -396,9 +388,9 @@ class PgWireApi implements PostgresApi {
     if (filters.isEmpty) {
       throw ArgumentError('Refusing to delete without filters');
     }
-    final params = <TypedValue>[];
+    final params = <String?>[];
     final sql = 'delete from public.${_id(table)}${_where(filters, params)}';
-    return _run((tx) => tx.execute(sql, parameters: params));
+    return _run(sql, params).then((_) {});
   }
 }
 

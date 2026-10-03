@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import 'package:postgres/postgres.dart';
-
 import '../../../core/errors/app_failure.dart';
-import '../../../core/network/pg_client.dart';
+import '../../../core/network/sql_runner.dart';
 
 /// Where sign-in requests go. Each call returns a session map
 /// `{access_token, expires_in, refresh_token, user}` or throws
@@ -32,13 +30,14 @@ abstract interface class AuthBackend {
   );
 }
 
-/// Sign-in handled entirely by PostgreSQL (`auth_api.app_*`), over the
-/// app's own low-privilege connection. Passwords are checked with bcrypt
+/// Sign-in handled entirely by PostgreSQL (`auth_api.app_*`), as the app's
+/// own low-privilege login — over HTTPS in the app ([NeonHttpRunner]; some
+/// networks block PostgreSQL's port). Passwords are checked with bcrypt
 /// inside the database; the app never sees a hash.
 class PgAuthBackend implements AuthBackend {
-  PgAuthBackend(this._client, {this.device});
+  PgAuthBackend(this._runner, {this.device});
 
-  final PgClient _client;
+  final SqlRunner _runner;
 
   /// This phone's facts (install id, model, app version…), sent with each
   /// sign-in and refresh so sessions belong to a device the administrators
@@ -56,16 +55,17 @@ class PgAuthBackend implements AuthBackend {
     }
   }
 
-  Future<Map<String, dynamic>> _call(String fn, List<Object?> args) async {
+  Future<Map<String, dynamic>> _call(String fn, List<String?> args) async {
     final placeholders = [for (var i = 1; i <= args.length; i++) '\$$i'];
-    final result = await _client.transaction((tx) async {
-      final r = await tx.execute(
-        'select auth_api.$fn(${placeholders.join(', ')})',
-        parameters: [for (final a in args) TypedValue(Type.unspecified, a)],
-      );
-      return r.first.first;
-    });
-    final map = Map<String, dynamic>.from((result ?? const {}) as Map);
+    final rows = await _runner.run(
+      null,
+      'select auth_api.$fn(${placeholders.join(', ')})::text',
+      args,
+    );
+    final text = rows.isEmpty ? null : rows.first;
+    final map = text == null
+        ? <String, dynamic>{}
+        : Map<String, dynamic>.from(jsonDecode(text) as Map);
     final error = map['error'];
     if (error is String) throw AuthFailure(error);
     return map;
@@ -94,7 +94,8 @@ class PgAuthBackend implements AuthBackend {
     String identifier,
     String code,
     String password,
-  ) async => _call('app_activate', [identifier, code, password, await _device()]);
+  ) async =>
+      _call('app_activate', [identifier, code, password, await _device()]);
 
   @override
   Future<Map<String, dynamic>> refresh(String refreshToken) async =>
@@ -113,14 +114,10 @@ class PgAuthBackend implements AuthBackend {
   ]);
 
   @override
-  Future<void> logout(String refreshToken, String? accessToken) =>
-      _client.transaction(
-        (tx) => tx.execute(
-          r'select auth_api.app_logout($1, $2)',
-          parameters: [
-            TypedValue(Type.unspecified, refreshToken),
-            TypedValue(Type.unspecified, accessToken),
-          ],
-        ),
-      );
+  Future<void> logout(String refreshToken, String? accessToken) => _runner
+      .run(null, r'select auth_api.app_logout($1, $2)::text', [
+        refreshToken,
+        accessToken,
+      ])
+      .then((_) {});
 }

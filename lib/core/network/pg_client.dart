@@ -6,6 +6,7 @@ import 'package:postgres/postgres.dart';
 
 import '../errors/app_failure.dart';
 import '../logging/app_logger.dart';
+import 'sql_runner.dart';
 
 /// The app's connections to PostgreSQL (Neon, pooled endpoint), as the
 /// low-privilege `sidra_app` login.
@@ -19,7 +20,7 @@ import '../logging/app_logger.dart';
 ///   (`app_private.authenticate`) can't leak between calls.
 /// * Reconnects after network drops; every error comes out as a typed
 ///   [AppFailure].
-class PgClient {
+class PgClient implements SqlRunner {
   PgClient(
     String url, {
     this.connectTimeout,
@@ -65,6 +66,22 @@ class PgClient {
       unawaited(_openSlot());
     }
   }
+
+  @override
+  Future<List<String?>> run(String? token, String sql, List<String?> params) =>
+      transaction((tx) async {
+        if (token != null) {
+          await tx.execute(
+            r'select app_private.authenticate($1)',
+            parameters: [TypedValue(Type.unspecified, token)],
+          );
+        }
+        final r = await tx.execute(
+          sql,
+          parameters: [for (final p in params) TypedValue(Type.unspecified, p)],
+        );
+        return [for (final row in r) row.first as String?];
+      });
 
   /// Runs [body] in one transaction. Queued until a connection is free.
   Future<T> transaction<T>(Future<T> Function(TxSession tx) body) =>
