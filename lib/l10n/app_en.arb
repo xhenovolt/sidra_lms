@@ -3458,5 +3458,327 @@
         "type": "int"
       }
     }
+  },
+  "lgFinanceHome": "Finance home",
+  "lgWhatWeHave": "What Almuntahha has",
+  "lgMarzPayShareNote": "MarzPay wallet is Almuntahha's own share: the MarzPay account is shared with DRAIS, so its dashboard total is not all ours.",
+  "lgEnterOpening": "Enter the starting amounts (cash, bank, MarzPay share) so these totals are real",
+  "lgNotInBooks": "{count, plural, =1{1 record is not in the books (another currency)} other{{count} records are not in the books (another currency)}}",
+  "@lgNotInBooks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "lgNeedsReview": "{amount} needs an account: fix it with a journal entry",
+  "@lgNeedsReview": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "lgTestMoneyHeld": "Test money held: {amount} (not income)",
+  "@lgTestMoneyHeld": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "lgMonthIn": "Income this month",
+  "lgMonthOut": "Expenses this month",
+  "lgOwedToUs": "Owed to us by learners",
+  "lgBillsToPay": "Bills to pay",
+  "lgClosedThrough": "Books closed up to {date}",
+  "@lgClosedThrough": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "lgDoSomething": "Record",
+  "lgPages": "Finance pages",
+  "lgPaymentsPage": "Payments and fees",
+  "lgPaymentsPageHint": "Check payments, who owes, waivers, refunds",
+  "lgAccounts": "Accounts",
+  "lgAccountsHint": "Every account and its balance; opening balances",
+  "lgAccountsIntro": "Every shilling is recorded twice: once where it went and once where it came from, so the books always balance. Tap an account to see its movements.",
+  "lgJournal": "Journal",
+  "lgJournalHint": "Every entry, debits and credits",
+  "lgBills": "Bills",
+  "lgBillsHint": "Bills received and what is still owed",
+  "lgAssets": "Assets",
+  "lgAssetsHint": "Equipment and furniture, and their value",
+  "lgReports": "Financial reports",
+  "lgReportsHint": "Income and expenses, balance sheet, cash flow, budget",
+  "lgCounts": "Counting money",
+  "lgCountsHint": "Check cash, bank and MarzPay against the books",
+  "lgTypeAsset": "What we own",
+  "lgTypeLiability": "What we owe",
+  "lgTypeEquity": "Capital",
+  "lgTypeIncome": "Income",
+  "lgTypeExpense": "Expenses",
+  "lgNoAccounts": "No suitable account",
+  "lgChoose": "Choose: {what}",
+  "@lgChoose": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "lgExpenseIntro": "What it was for and where the money came from.",
+  "lgWhatFor": "What it was for",
+  "lgPaidFrom": "Paid from",
+  "lgDate": "Date",
+  "lgMoneyIn": "Money in",
+  "lgMoneyInIntro": "Money received that is not a course fee: a donation, a loan, or money put in by the owners.",
+  "lgReceivedInto": "Received into",
+  "lgKindOfMoney": "Kind of money",
+  "lgDescription": "Description",
+  "lgMoneyOut": "Money out",
+  "lgMoneyOutIntro": "Money paid that is not a recorded expense or bill: repaying a loan, or buying something kept.",
+  "lgTransfer": "Move money",
+  "lgTransferIntro": "Between two of our own accounts, e.g. MarzPay withdrawn to the bank.",
+  "lgFromAccount": "From",
+  "lgToAccount": "To",
+  "lgTransferCharge": "Charge for the move (optional)",
+  "lgRecordBill": "Record a bill",
+  "lgBillIntro": "A bill received but not paid yet. Pay it later, in full or in parts.",
+  "lgSupplier": "Who it is from",
+  "lgBillDate": "Bill date",
+  "lgDueDate": "Due date (optional)",
+  "lgRecordAsset": "Record an asset",
+  "lgAssetIntro": "Something bought to use for years. Its cost is spread over its useful life.",
+  "lgAssetName": "Item",
+  "lgCost": "Cost (UGX)",
+  "lgPurchasedOn": "Bought on",
+  "lgPaidHow": "Paid how",
+  "lgUsefulLife": "Useful life in months (optional)",
+  "lgUsefulLifeHint": "e.g. 36 for a laptop",
+  "lgCountMoney": "Count money",
+  "lgCountIntro": "Enter what an account really holds (cash counted, bank statement, MarzPay share) to compare with the books.",
+  "lgMoneyAccount": "Money account",
+  "lgCounted": "Amount counted (UGX)",
+  "lgCountNote": "Explanation of any difference",
+  "lgPostDifference": "Post the difference",
+  "lgPostDifferenceHint": "Records it under Cash differences so the books match what was counted",
+  "lgCountResult": "Count result",
+  "lgCountMatches": "It matches the books ({books}).",
+  "@lgCountMatches": {
+    "placeholders": {
+      "books": {
+        "type": "String"
+      }
+    }
+  },
+  "lgCountDiffers": "The books say {books}; the difference is {difference}.",
+  "@lgCountDiffers": {
+    "placeholders": {
+      "books": {
+        "type": "String"
+      },
+      "difference": {
+        "type": "String"
+      }
+    }
+  },
+  "lgOpeningFor": "Opening balance: {account}",
+  "@lgOpeningFor": {
+    "placeholders": {
+      "account": {
+        "type": "String"
+      }
+    }
+  },
+  "lgOpeningIntro": "What this account held when Almuntahha started using these books, from a real record (cash count, bank statement, MarzPay). Changing it replaces the earlier one.",
+  "lgOpeningAmount": "Amount (UGX)",
+  "lgOpeningDate": "As of",
+  "lgPayBill": "Pay {supplier}",
+  "@lgPayBill": {
+    "placeholders": {
+      "supplier": {
+        "type": "String"
+      }
+    }
+  },
+  "lgStillOwed": "Still owed: {amount}",
+  "@lgStillOwed": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "lgSetBudget": "Set budget",
+  "lgBudgetIntro": "Plan how much you expect to receive or spend in a month, then compare with what really happened.",
+  "lgBudgetAccount": "Income or expense",
+  "lgBudgetMonth": "Month",
+  "lgAddAccount": "Add account",
+  "lgEditAccount": "Edit account",
+  "lgBuiltInNote": "A built-in account: its number and kind stay the same.",
+  "lgAccountCode": "Number",
+  "lgAccountCodeHint": "3 to 6 digits, e.g. 5250",
+  "lgAccountName": "Name",
+  "lgAccountType": "Kind",
+  "lgIsMoney": "Holds money",
+  "lgIsMoneyHint": "Cash, a bank account or a wallet: counted in what Almuntahha has",
+  "lgInUse": "In use",
+  "lgJournalEntry": "Journal entry",
+  "lgJournalIntro": "For corrections and anything the other forms don't cover. The debits must equal the credits.",
+  "lgChooseAccount": "Choose account",
+  "lgRemoveLine": "Remove line",
+  "lgDebit": "Debit",
+  "lgCredit": "Credit",
+  "lgAddLine": "Add line",
+  "lgTotals": "Debits {debits} · Credits {credits}",
+  "@lgTotals": {
+    "placeholders": {
+      "debits": {
+        "type": "String"
+      },
+      "credits": {
+        "type": "String"
+      }
+    }
+  },
+  "lgSetOpening": "Set opening balance",
+  "lgNoMovements": "Nothing recorded yet",
+  "lgBalanceNow": "Balance now",
+  "lgDr": "Dr {amount}",
+  "@lgDr": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "lgCr": "Cr {amount}",
+  "@lgCr": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "lgSrcPayment": "Payments",
+  "lgSrcRefund": "Refunds",
+  "lgSrcExpense": "Expenses",
+  "lgSrcTest": "MarzPay tests",
+  "lgSrcOpening": "Opening balances",
+  "lgSrcBill": "Bills",
+  "lgSrcBillPayment": "Bill payments",
+  "lgSrcAsset": "Assets",
+  "lgSrcDepreciation": "Depreciation",
+  "lgSrcManual": "Journal entries",
+  "lgSrcReversal": "Reversals",
+  "lgAll": "All",
+  "lgNoEntries": "No entries yet",
+  "lgReversed": "reversed",
+  "lgReverse": "Reverse this entry",
+  "lgEntryBalanced": "Debits equal credits.",
+  "lgNoBills": "No bills",
+  "lgDue": "due {date}",
+  "@lgDue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "lgOwed": "owed {amount}",
+  "@lgOwed": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "lgPaid": "paid",
+  "lgVoidBill": "Void this bill",
+  "lgRunDepreciation": "Write off last month's wear",
+  "lgRunDepreciationHint": "Spreads each asset's cost over its useful life; safe to run again",
+  "lgDepreciationPosted": "{count, plural, =0{Nothing to write off for {month}} =1{1 asset written off for {month}} other{{count} assets written off for {month}}}",
+  "@lgDepreciationPosted": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "lgNoAssets": "No assets recorded",
+  "lgBoughtFor": "{cost} on {date}",
+  "@lgBoughtFor": {
+    "placeholders": {
+      "cost": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "lgOverMonths": "over {months} months",
+  "@lgOverMonths": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "lgValueNow": "value now",
+  "lgNoCounts": "No counts yet",
+  "lgCountLine": "counted {counted}, books {books}",
+  "@lgCountLine": {
+    "placeholders": {
+      "counted": {
+        "type": "String"
+      },
+      "books": {
+        "type": "String"
+      }
+    }
+  },
+  "lgDifferencePosted": "difference posted",
+  "lgIncomeStatement": "Income and expenses",
+  "lgBalanceSheet": "Balance sheet",
+  "lgCashFlow": "Cash flow",
+  "lgTrialBalance": "Trial balance",
+  "lgBudget": "Budget",
+  "lgCloseBooks": "Close the books",
+  "lgCloseBooksHelp": "Close the books up to",
+  "lgCloseBooksConfirm": "No entry can then be dated on or before {date}. Payments confirmed later for those days are booked on the next open day. You can reopen if needed.",
+  "@lgCloseBooksConfirm": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "lgSurplus": "Surplus",
+  "lgDeficit": "Deficit",
+  "lgSurplusSoFar": "Surplus so far",
+  "lgBalanceSheetCheck": "What we own = what we owe + capital (including the surplus so far).",
+  "lgOpeningMoney": "Money at the start",
+  "lgMoneyCameIn": "Money in",
+  "lgMoneyWentOut": "Money out",
+  "lgClosingMoney": "Money at the end",
+  "lgNoBudget": "No budget for this period",
+  "lgBudgetLine": "{actual} of {budget}",
+  "@lgBudgetLine": {
+    "placeholders": {
+      "actual": {
+        "type": "String"
+      },
+      "budget": {
+        "type": "String"
+      }
+    }
   }
 }

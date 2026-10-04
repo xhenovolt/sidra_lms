@@ -5,9 +5,11 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router/routes.dart';
 import '../../../core/data/cache_first.dart';
 import '../../../core/data/data_providers.dart';
-import '../../../core/notifications/phone_notifications.dart' show signOutEverywhere;
+import '../../../core/notifications/phone_notifications.dart'
+    show signOutEverywhere;
 import '../../../core/data/repository_providers.dart' show profileProvider;
-import '../../../core/payments/direct_payments.dart' show marzPayConfirmLoopProvider;
+import '../../../core/payments/direct_payments.dart'
+    show marzPayConfirmLoopProvider;
 import '../../../shared/widgets/user_avatar.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
@@ -150,7 +152,49 @@ final adminSections = <AdminSection>[
     AdminDestination(
       Routes.adminFinance,
       Icons.account_balance_wallet_outlined,
-      (l) => l.drawerFinancePage,
+      (l) => l.lgFinanceHome,
+      {'finance.view'},
+    ),
+    AdminDestination(
+      Routes.adminFinancePayments,
+      Icons.payments_outlined,
+      (l) => l.lgPaymentsPage,
+      {'finance.view'},
+    ),
+    AdminDestination(
+      Routes.adminAccounts,
+      Icons.account_tree_outlined,
+      (l) => l.lgAccounts,
+      {'finance.view'},
+    ),
+    AdminDestination(
+      Routes.adminJournal,
+      Icons.menu_book_outlined,
+      (l) => l.lgJournal,
+      {'finance.view'},
+    ),
+    AdminDestination(
+      Routes.adminBills,
+      Icons.request_page_outlined,
+      (l) => l.lgBills,
+      {'finance.view'},
+    ),
+    AdminDestination(
+      Routes.adminAssets,
+      Icons.chair_outlined,
+      (l) => l.lgAssets,
+      {'finance.view'},
+    ),
+    AdminDestination(
+      Routes.adminFinanceReports,
+      Icons.insights_outlined,
+      (l) => l.lgReports,
+      {'finance.view'},
+    ),
+    AdminDestination(
+      Routes.adminCounts,
+      Icons.calculate_outlined,
+      (l) => l.lgCounts,
       {'finance.view'},
     ),
     AdminDestination(
@@ -304,10 +348,14 @@ class _AdminShellState extends ConsumerState<AdminShell> {
     final wide = MediaQuery.sizeOf(context).width >= 1000;
     final location = widget.location;
 
-    final current = adminSections
-        .expand((s) => s.items)
-        .where((d) => location.startsWith(d.path))
-        .firstOrNull;
+    // The most specific page (/admin/finance/bills before /admin/finance).
+    final current =
+        (adminSections
+                .expand((s) => s.items)
+                .where((d) => location.startsWith(d.path))
+                .toList()
+              ..sort((a, b) => b.path.length.compareTo(a.path.length)))
+            .firstOrNull;
 
     // Saved permissions (or the role's usual ones on a phone that has never
     // loaded them): the bar and menu never wait for the internet.
@@ -336,7 +384,10 @@ class _AdminShellState extends ConsumerState<AdminShell> {
                 appBar: AppBar(
                   title: Text(current?.label(l10n) ?? l10n.appName),
                   automaticallyImplyLeading: false,
-                  actions: const [_AccountMenu(), SizedBox(width: Space.sm)],
+                  actions: const [
+                    _AccountMenu(),
+                    SizedBox(width: Space.sm),
+                  ],
                 ),
                 body: page,
               ),
@@ -354,7 +405,10 @@ class _AdminShellState extends ConsumerState<AdminShell> {
     // Pages reached from the drawer highlight More.
     final selected = tabIndex >= 0 ? tabIndex : tabs.length;
     // The page's own name, for pages that are not a tab.
-    final subtitle = tabIndex < 0 ? current?.label(l10n) : null;
+    // (also a page inside a tab, e.g. Finance › Bills).
+    final subtitle = tabIndex < 0 || tabs[tabIndex].path != current?.path
+        ? current?.label(l10n)
+        : null;
 
     return Scaffold(
       key: _scaffold,
@@ -362,7 +416,10 @@ class _AdminShellState extends ConsumerState<AdminShell> {
       appBar: _HidingTopBar(
         visible: _barsVisible,
         title: _BrandTitle(subtitle: subtitle),
-        actions: const [_AccountMenu(), SizedBox(width: Space.xs)],
+        actions: const [
+          _AccountMenu(),
+          SizedBox(width: Space.xs),
+        ],
         leading: tabs.isEmpty
             ? IconButton(
                 tooltip: l10n.navMore,

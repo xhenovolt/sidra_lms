@@ -6219,4 +6219,547 @@ class AppLocalizationsAr extends AppLocalizations {
   String aboutEarlier(int count) {
     return 'إصدارات سابقة ($count)';
   }
+
+  @override
+  String get lgFinanceHome => 'الرئيسية المالية';
+
+  @override
+  String get lgWhatWeHave => 'ما تملكه المنتهى';
+
+  @override
+  String get lgMarzPayShareNote =>
+      'محفظة MarzPay هي حصة المنتهى فقط: الحساب مشترك مع DRAIS، فمجموعه في لوحة MarzPay ليس كله لنا.';
+
+  @override
+  String get lgEnterOpening =>
+      'أدخل المبالغ الابتدائية (النقد، البنك، حصة MarzPay) لتكون هذه المجاميع حقيقية';
+
+  @override
+  String lgNotInBooks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count سجلات خارج الدفاتر (عملة أخرى)',
+      one: 'سجل واحد خارج الدفاتر (عملة أخرى)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String lgNeedsReview(String amount) {
+    return '$amount يحتاج إلى حساب: صحّحه بقيد يومية';
+  }
+
+  @override
+  String lgTestMoneyHeld(String amount) {
+    return 'أموال الاختبار المحتجزة: $amount (ليست دخلاً)';
+  }
+
+  @override
+  String get lgMonthIn => 'دخل هذا الشهر';
+
+  @override
+  String get lgMonthOut => 'مصروفات هذا الشهر';
+
+  @override
+  String get lgOwedToUs => 'مستحق لنا على المتعلمين';
+
+  @override
+  String get lgBillsToPay => 'فواتير للدفع';
+
+  @override
+  String lgClosedThrough(String date) {
+    return 'الدفاتر مغلقة حتى $date';
+  }
+
+  @override
+  String get lgDoSomething => 'تسجيل';
+
+  @override
+  String get lgPages => 'صفحات المالية';
+
+  @override
+  String get lgPaymentsPage => 'المدفوعات والرسوم';
+
+  @override
+  String get lgPaymentsPageHint =>
+      'تحقق من المدفوعات، ومن عليه مستحقات، والإعفاءات، والاسترداد';
+
+  @override
+  String get lgAccounts => 'الحسابات';
+
+  @override
+  String get lgAccountsHint => 'كل حساب ورصيده؛ الأرصدة الافتتاحية';
+
+  @override
+  String get lgAccountsIntro =>
+      'كل مبلغ يُسجَّل مرتين: حيث ذهب ومن أين جاء، فتتوازن الدفاتر دائماً. اضغط على حساب لترى حركاته.';
+
+  @override
+  String get lgJournal => 'دفتر اليومية';
+
+  @override
+  String get lgJournalHint => 'كل القيود، المدين والدائن';
+
+  @override
+  String get lgBills => 'الفواتير';
+
+  @override
+  String get lgBillsHint => 'الفواتير المستلمة وما زال مستحقاً';
+
+  @override
+  String get lgAssets => 'الأصول';
+
+  @override
+  String get lgAssetsHint => 'المعدات والأثاث وقيمتها';
+
+  @override
+  String get lgReports => 'التقارير المالية';
+
+  @override
+  String get lgReportsHint =>
+      'الدخل والمصروفات، الميزانية العمومية، التدفق النقدي، الموازنة';
+
+  @override
+  String get lgCounts => 'عدّ الأموال';
+
+  @override
+  String get lgCountsHint => 'طابق النقد والبنك وMarzPay مع الدفاتر';
+
+  @override
+  String get lgTypeAsset => 'ما نملكه';
+
+  @override
+  String get lgTypeLiability => 'ما علينا';
+
+  @override
+  String get lgTypeEquity => 'رأس المال';
+
+  @override
+  String get lgTypeIncome => 'الدخل';
+
+  @override
+  String get lgTypeExpense => 'المصروفات';
+
+  @override
+  String get lgNoAccounts => 'لا يوجد حساب مناسب';
+
+  @override
+  String lgChoose(String what) {
+    return 'اختر: $what';
+  }
+
+  @override
+  String get lgExpenseIntro => 'ما الغرض منه ومن أين جاء المال.';
+
+  @override
+  String get lgWhatFor => 'الغرض';
+
+  @override
+  String get lgPaidFrom => 'دُفع من';
+
+  @override
+  String get lgDate => 'التاريخ';
+
+  @override
+  String get lgMoneyIn => 'مال وارد';
+
+  @override
+  String get lgMoneyInIntro =>
+      'مال مستلم ليس رسوم دورة: تبرع أو قرض أو مال وضعه المالكون.';
+
+  @override
+  String get lgReceivedInto => 'استُلم في';
+
+  @override
+  String get lgKindOfMoney => 'نوع المال';
+
+  @override
+  String get lgDescription => 'الوصف';
+
+  @override
+  String get lgMoneyOut => 'مال صادر';
+
+  @override
+  String get lgMoneyOutIntro =>
+      'مال مدفوع ليس مصروفاً أو فاتورة مسجلة: سداد قرض أو شراء شيء يُحتفظ به.';
+
+  @override
+  String get lgTransfer => 'نقل أموال';
+
+  @override
+  String get lgTransferIntro => 'بين حسابين لنا، مثل سحب MarzPay إلى البنك.';
+
+  @override
+  String get lgFromAccount => 'من';
+
+  @override
+  String get lgToAccount => 'إلى';
+
+  @override
+  String get lgTransferCharge => 'رسوم النقل (اختياري)';
+
+  @override
+  String get lgRecordBill => 'تسجيل فاتورة';
+
+  @override
+  String get lgBillIntro =>
+      'فاتورة مستلمة لم تُدفع بعد. ادفعها لاحقاً كاملة أو على أجزاء.';
+
+  @override
+  String get lgSupplier => 'من الجهة';
+
+  @override
+  String get lgBillDate => 'تاريخ الفاتورة';
+
+  @override
+  String get lgDueDate => 'تاريخ الاستحقاق (اختياري)';
+
+  @override
+  String get lgRecordAsset => 'تسجيل أصل';
+
+  @override
+  String get lgAssetIntro =>
+      'شيء اشتُري للاستخدام سنوات. تُوزَّع تكلفته على عمره الإنتاجي.';
+
+  @override
+  String get lgAssetName => 'الصنف';
+
+  @override
+  String get lgCost => 'التكلفة (UGX)';
+
+  @override
+  String get lgPurchasedOn => 'تاريخ الشراء';
+
+  @override
+  String get lgPaidHow => 'كيف دُفع';
+
+  @override
+  String get lgUsefulLife => 'العمر الإنتاجي بالأشهر (اختياري)';
+
+  @override
+  String get lgUsefulLifeHint => 'مثلاً 36 لحاسوب محمول';
+
+  @override
+  String get lgCountMoney => 'عدّ الأموال';
+
+  @override
+  String get lgCountIntro =>
+      'أدخل ما يحويه الحساب فعلاً (النقد المعدود، كشف البنك، حصة MarzPay) لمقارنته بالدفاتر.';
+
+  @override
+  String get lgMoneyAccount => 'حساب المال';
+
+  @override
+  String get lgCounted => 'المبلغ المعدود (UGX)';
+
+  @override
+  String get lgCountNote => 'تفسير أي فرق';
+
+  @override
+  String get lgPostDifference => 'قيد الفرق';
+
+  @override
+  String get lgPostDifferenceHint =>
+      'يسجّله في فروق النقد لتطابق الدفاتر ما عُدّ';
+
+  @override
+  String get lgCountResult => 'نتيجة العدّ';
+
+  @override
+  String lgCountMatches(String books) {
+    return 'يطابق الدفاتر ($books).';
+  }
+
+  @override
+  String lgCountDiffers(String books, String difference) {
+    return 'تقول الدفاتر $books؛ والفرق $difference.';
+  }
+
+  @override
+  String lgOpeningFor(String account) {
+    return 'الرصيد الافتتاحي: $account';
+  }
+
+  @override
+  String get lgOpeningIntro =>
+      'ما كان في هذا الحساب عند بدء استخدام هذه الدفاتر، من سجل حقيقي (عدّ النقد، كشف البنك، MarzPay). تغييره يحل محل السابق.';
+
+  @override
+  String get lgOpeningAmount => 'المبلغ (UGX)';
+
+  @override
+  String get lgOpeningDate => 'بتاريخ';
+
+  @override
+  String lgPayBill(String supplier) {
+    return 'ادفع لـ$supplier';
+  }
+
+  @override
+  String lgStillOwed(String amount) {
+    return 'ما زال مستحقاً: $amount';
+  }
+
+  @override
+  String get lgSetBudget => 'تحديد الموازنة';
+
+  @override
+  String get lgBudgetIntro =>
+      'خطّط لما تتوقع استلامه أو إنفاقه في شهر، ثم قارن بما حدث فعلاً.';
+
+  @override
+  String get lgBudgetAccount => 'دخل أو مصروف';
+
+  @override
+  String get lgBudgetMonth => 'الشهر';
+
+  @override
+  String get lgAddAccount => 'إضافة حساب';
+
+  @override
+  String get lgEditAccount => 'تعديل الحساب';
+
+  @override
+  String get lgBuiltInNote => 'حساب أساسي: رقمه ونوعه ثابتان.';
+
+  @override
+  String get lgAccountCode => 'الرقم';
+
+  @override
+  String get lgAccountCodeHint => 'من 3 إلى 6 أرقام، مثلاً 5250';
+
+  @override
+  String get lgAccountName => 'الاسم';
+
+  @override
+  String get lgAccountType => 'النوع';
+
+  @override
+  String get lgIsMoney => 'يحتفظ بمال';
+
+  @override
+  String get lgIsMoneyHint =>
+      'نقد أو حساب بنكي أو محفظة: يُحسب ضمن ما تملكه المنتهى';
+
+  @override
+  String get lgInUse => 'قيد الاستخدام';
+
+  @override
+  String get lgJournalEntry => 'قيد يومية';
+
+  @override
+  String get lgJournalIntro =>
+      'للتصحيحات وما لا تغطيه النماذج الأخرى. يجب أن يساوي المدين الدائن.';
+
+  @override
+  String get lgChooseAccount => 'اختر الحساب';
+
+  @override
+  String get lgRemoveLine => 'إزالة السطر';
+
+  @override
+  String get lgDebit => 'مدين';
+
+  @override
+  String get lgCredit => 'دائن';
+
+  @override
+  String get lgAddLine => 'إضافة سطر';
+
+  @override
+  String lgTotals(String debits, String credits) {
+    return 'المدين $debits · الدائن $credits';
+  }
+
+  @override
+  String get lgSetOpening => 'تحديد الرصيد الافتتاحي';
+
+  @override
+  String get lgNoMovements => 'لم يُسجَّل شيء بعد';
+
+  @override
+  String get lgBalanceNow => 'الرصيد الآن';
+
+  @override
+  String lgDr(String amount) {
+    return 'مدين $amount';
+  }
+
+  @override
+  String lgCr(String amount) {
+    return 'دائن $amount';
+  }
+
+  @override
+  String get lgSrcPayment => 'المدفوعات';
+
+  @override
+  String get lgSrcRefund => 'الاستردادات';
+
+  @override
+  String get lgSrcExpense => 'المصروفات';
+
+  @override
+  String get lgSrcTest => 'اختبارات MarzPay';
+
+  @override
+  String get lgSrcOpening => 'الأرصدة الافتتاحية';
+
+  @override
+  String get lgSrcBill => 'الفواتير';
+
+  @override
+  String get lgSrcBillPayment => 'سداد الفواتير';
+
+  @override
+  String get lgSrcAsset => 'الأصول';
+
+  @override
+  String get lgSrcDepreciation => 'الإهلاك';
+
+  @override
+  String get lgSrcManual => 'قيود يدوية';
+
+  @override
+  String get lgSrcReversal => 'عكس القيود';
+
+  @override
+  String get lgAll => 'الكل';
+
+  @override
+  String get lgNoEntries => 'لا توجد قيود بعد';
+
+  @override
+  String get lgReversed => 'معكوس';
+
+  @override
+  String get lgReverse => 'عكس هذا القيد';
+
+  @override
+  String get lgEntryBalanced => 'المدين يساوي الدائن.';
+
+  @override
+  String get lgNoBills => 'لا توجد فواتير';
+
+  @override
+  String lgDue(String date) {
+    return 'تستحق $date';
+  }
+
+  @override
+  String lgOwed(String amount) {
+    return 'مستحق $amount';
+  }
+
+  @override
+  String get lgPaid => 'مدفوعة';
+
+  @override
+  String get lgVoidBill => 'إلغاء هذه الفاتورة';
+
+  @override
+  String get lgRunDepreciation => 'قيد إهلاك الشهر الماضي';
+
+  @override
+  String get lgRunDepreciationHint =>
+      'يوزّع تكلفة كل أصل على عمره؛ آمن عند تكراره';
+
+  @override
+  String lgDepreciationPosted(int count, String month) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count أصول أُهلكت في $month',
+      one: 'أصل واحد أُهلك في $month',
+      zero: 'لا شيء للإهلاك في $month',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get lgNoAssets => 'لا توجد أصول مسجلة';
+
+  @override
+  String lgBoughtFor(String cost, String date) {
+    return '$cost في $date';
+  }
+
+  @override
+  String lgOverMonths(int months) {
+    return 'على $months شهراً';
+  }
+
+  @override
+  String get lgValueNow => 'القيمة الآن';
+
+  @override
+  String get lgNoCounts => 'لا توجد عمليات عدّ بعد';
+
+  @override
+  String lgCountLine(String counted, String books) {
+    return 'المعدود $counted، الدفاتر $books';
+  }
+
+  @override
+  String get lgDifferencePosted => 'قُيّد الفرق';
+
+  @override
+  String get lgIncomeStatement => 'الدخل والمصروفات';
+
+  @override
+  String get lgBalanceSheet => 'الميزانية العمومية';
+
+  @override
+  String get lgCashFlow => 'التدفق النقدي';
+
+  @override
+  String get lgTrialBalance => 'ميزان المراجعة';
+
+  @override
+  String get lgBudget => 'الموازنة';
+
+  @override
+  String get lgCloseBooks => 'إغلاق الدفاتر';
+
+  @override
+  String get lgCloseBooksHelp => 'إغلاق الدفاتر حتى';
+
+  @override
+  String lgCloseBooksConfirm(String date) {
+    return 'لن يمكن بعدها تأريخ أي قيد في $date أو قبله. المدفوعات المؤكدة لاحقاً لتلك الأيام تُقيَّد في أول يوم مفتوح. يمكنك إعادة الفتح عند الحاجة.';
+  }
+
+  @override
+  String get lgSurplus => 'فائض';
+
+  @override
+  String get lgDeficit => 'عجز';
+
+  @override
+  String get lgSurplusSoFar => 'الفائض حتى الآن';
+
+  @override
+  String get lgBalanceSheetCheck =>
+      'ما نملكه = ما علينا + رأس المال (مع الفائض حتى الآن).';
+
+  @override
+  String get lgOpeningMoney => 'المال في البداية';
+
+  @override
+  String get lgMoneyCameIn => 'مال وارد';
+
+  @override
+  String get lgMoneyWentOut => 'مال صادر';
+
+  @override
+  String get lgClosingMoney => 'المال في النهاية';
+
+  @override
+  String get lgNoBudget => 'لا موازنة لهذه الفترة';
+
+  @override
+  String lgBudgetLine(String actual, String budget) {
+    return '$actual من $budget';
+  }
 }

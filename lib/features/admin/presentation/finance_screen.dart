@@ -18,6 +18,7 @@ import 'admin_common.dart';
 import 'admin_shell.dart';
 import 'control/test_transactions_screen.dart';
 import 'courses_tab.dart';
+import '../../finance/presentation/ledger_forms.dart' show runLedgerAction, LedgerAction;
 
 /// A reporting period.
 enum FinancePeriod { thisMonth, lastMonth, thisYear, allTime }
@@ -907,7 +908,9 @@ class _Expenses extends ConsumerWidget {
           ? FloatingActionButton.extended(
               heroTag: 'record-expense',
               onPressed: () async {
-                if (await showExpenseSheet(context, ref)) _refreshFinance(ref);
+                if (await runLedgerAction(context, ref, LedgerAction.expense)) {
+                  _refreshFinance(ref);
+                }
               },
               icon: const Icon(Icons.add),
               label: Text(l10n.financeRecordExpense),

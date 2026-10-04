@@ -10,6 +10,8 @@ import '../../features/admin/presentation/courses_tab.dart';
 import '../../features/admin/presentation/control/test_transactions_screen.dart';
 import '../../features/auth/presentation/activate_screen.dart';
 import '../../features/admin/presentation/finance_screen.dart';
+import '../../features/finance/presentation/finance_home_screen.dart';
+import '../../features/finance/presentation/ledger_screens.dart';
 import '../../features/admin/presentation/learners_tab.dart';
 import '../../features/admin/presentation/lesson_editor_screen.dart';
 import '../../features/admin/presentation/people_tab.dart';
@@ -198,7 +200,35 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: Routes.adminFinance,
+            builder: (_, _) => const FinanceHomeScreen(),
+          ),
+          GoRoute(
+            path: Routes.adminFinancePayments,
             builder: (_, _) => const FinanceScreen(),
+          ),
+          GoRoute(
+            path: Routes.adminAccounts,
+            builder: (_, _) => const AccountsScreen(),
+          ),
+          GoRoute(
+            path: Routes.adminJournal,
+            builder: (_, _) => const JournalScreen(),
+          ),
+          GoRoute(
+            path: Routes.adminBills,
+            builder: (_, _) => const BillsScreen(),
+          ),
+          GoRoute(
+            path: Routes.adminAssets,
+            builder: (_, _) => const AssetsScreen(),
+          ),
+          GoRoute(
+            path: Routes.adminFinanceReports,
+            builder: (_, _) => const FinanceReportsScreen(),
+          ),
+          GoRoute(
+            path: Routes.adminCounts,
+            builder: (_, _) => const CountsScreen(),
           ),
           GoRoute(
             path: Routes.adminSettings,

@@ -10979,6 +10979,948 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Earlier versions ({count})'**
   String aboutEarlier(int count);
+
+  /// No description provided for @lgFinanceHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Finance home'**
+  String get lgFinanceHome;
+
+  /// No description provided for @lgWhatWeHave.
+  ///
+  /// In en, this message translates to:
+  /// **'What Almuntahha has'**
+  String get lgWhatWeHave;
+
+  /// No description provided for @lgMarzPayShareNote.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay wallet is Almuntahha\'s own share: the MarzPay account is shared with DRAIS, so its dashboard total is not all ours.'**
+  String get lgMarzPayShareNote;
+
+  /// No description provided for @lgEnterOpening.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the starting amounts (cash, bank, MarzPay share) so these totals are real'**
+  String get lgEnterOpening;
+
+  /// No description provided for @lgNotInBooks.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 record is not in the books (another currency)} other{{count} records are not in the books (another currency)}}'**
+  String lgNotInBooks(int count);
+
+  /// No description provided for @lgNeedsReview.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} needs an account: fix it with a journal entry'**
+  String lgNeedsReview(String amount);
+
+  /// No description provided for @lgTestMoneyHeld.
+  ///
+  /// In en, this message translates to:
+  /// **'Test money held: {amount} (not income)'**
+  String lgTestMoneyHeld(String amount);
+
+  /// No description provided for @lgMonthIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Income this month'**
+  String get lgMonthIn;
+
+  /// No description provided for @lgMonthOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Expenses this month'**
+  String get lgMonthOut;
+
+  /// No description provided for @lgOwedToUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Owed to us by learners'**
+  String get lgOwedToUs;
+
+  /// No description provided for @lgBillsToPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Bills to pay'**
+  String get lgBillsToPay;
+
+  /// No description provided for @lgClosedThrough.
+  ///
+  /// In en, this message translates to:
+  /// **'Books closed up to {date}'**
+  String lgClosedThrough(String date);
+
+  /// No description provided for @lgDoSomething.
+  ///
+  /// In en, this message translates to:
+  /// **'Record'**
+  String get lgDoSomething;
+
+  /// No description provided for @lgPages.
+  ///
+  /// In en, this message translates to:
+  /// **'Finance pages'**
+  String get lgPages;
+
+  /// No description provided for @lgPaymentsPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments and fees'**
+  String get lgPaymentsPage;
+
+  /// No description provided for @lgPaymentsPageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Check payments, who owes, waivers, refunds'**
+  String get lgPaymentsPageHint;
+
+  /// No description provided for @lgAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Accounts'**
+  String get lgAccounts;
+
+  /// No description provided for @lgAccountsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Every account and its balance; opening balances'**
+  String get lgAccountsHint;
+
+  /// No description provided for @lgAccountsIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Every shilling is recorded twice: once where it went and once where it came from, so the books always balance. Tap an account to see its movements.'**
+  String get lgAccountsIntro;
+
+  /// No description provided for @lgJournal.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal'**
+  String get lgJournal;
+
+  /// No description provided for @lgJournalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Every entry, debits and credits'**
+  String get lgJournalHint;
+
+  /// No description provided for @lgBills.
+  ///
+  /// In en, this message translates to:
+  /// **'Bills'**
+  String get lgBills;
+
+  /// No description provided for @lgBillsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Bills received and what is still owed'**
+  String get lgBillsHint;
+
+  /// No description provided for @lgAssets.
+  ///
+  /// In en, this message translates to:
+  /// **'Assets'**
+  String get lgAssets;
+
+  /// No description provided for @lgAssetsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Equipment and furniture, and their value'**
+  String get lgAssetsHint;
+
+  /// No description provided for @lgReports.
+  ///
+  /// In en, this message translates to:
+  /// **'Financial reports'**
+  String get lgReports;
+
+  /// No description provided for @lgReportsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Income and expenses, balance sheet, cash flow, budget'**
+  String get lgReportsHint;
+
+  /// No description provided for @lgCounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Counting money'**
+  String get lgCounts;
+
+  /// No description provided for @lgCountsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Check cash, bank and MarzPay against the books'**
+  String get lgCountsHint;
+
+  /// No description provided for @lgTypeAsset.
+  ///
+  /// In en, this message translates to:
+  /// **'What we own'**
+  String get lgTypeAsset;
+
+  /// No description provided for @lgTypeLiability.
+  ///
+  /// In en, this message translates to:
+  /// **'What we owe'**
+  String get lgTypeLiability;
+
+  /// No description provided for @lgTypeEquity.
+  ///
+  /// In en, this message translates to:
+  /// **'Capital'**
+  String get lgTypeEquity;
+
+  /// No description provided for @lgTypeIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Income'**
+  String get lgTypeIncome;
+
+  /// No description provided for @lgTypeExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Expenses'**
+  String get lgTypeExpense;
+
+  /// No description provided for @lgNoAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'No suitable account'**
+  String get lgNoAccounts;
+
+  /// No description provided for @lgChoose.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose: {what}'**
+  String lgChoose(String what);
+
+  /// No description provided for @lgExpenseIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'What it was for and where the money came from.'**
+  String get lgExpenseIntro;
+
+  /// No description provided for @lgWhatFor.
+  ///
+  /// In en, this message translates to:
+  /// **'What it was for'**
+  String get lgWhatFor;
+
+  /// No description provided for @lgPaidFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid from'**
+  String get lgPaidFrom;
+
+  /// No description provided for @lgDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get lgDate;
+
+  /// No description provided for @lgMoneyIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Money in'**
+  String get lgMoneyIn;
+
+  /// No description provided for @lgMoneyInIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Money received that is not a course fee: a donation, a loan, or money put in by the owners.'**
+  String get lgMoneyInIntro;
+
+  /// No description provided for @lgReceivedInto.
+  ///
+  /// In en, this message translates to:
+  /// **'Received into'**
+  String get lgReceivedInto;
+
+  /// No description provided for @lgKindOfMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Kind of money'**
+  String get lgKindOfMoney;
+
+  /// No description provided for @lgDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get lgDescription;
+
+  /// No description provided for @lgMoneyOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Money out'**
+  String get lgMoneyOut;
+
+  /// No description provided for @lgMoneyOutIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Money paid that is not a recorded expense or bill: repaying a loan, or buying something kept.'**
+  String get lgMoneyOutIntro;
+
+  /// No description provided for @lgTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'Move money'**
+  String get lgTransfer;
+
+  /// No description provided for @lgTransferIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Between two of our own accounts, e.g. MarzPay withdrawn to the bank.'**
+  String get lgTransferIntro;
+
+  /// No description provided for @lgFromAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get lgFromAccount;
+
+  /// No description provided for @lgToAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'To'**
+  String get lgToAccount;
+
+  /// No description provided for @lgTransferCharge.
+  ///
+  /// In en, this message translates to:
+  /// **'Charge for the move (optional)'**
+  String get lgTransferCharge;
+
+  /// No description provided for @lgRecordBill.
+  ///
+  /// In en, this message translates to:
+  /// **'Record a bill'**
+  String get lgRecordBill;
+
+  /// No description provided for @lgBillIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'A bill received but not paid yet. Pay it later, in full or in parts.'**
+  String get lgBillIntro;
+
+  /// No description provided for @lgSupplier.
+  ///
+  /// In en, this message translates to:
+  /// **'Who it is from'**
+  String get lgSupplier;
+
+  /// No description provided for @lgBillDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill date'**
+  String get lgBillDate;
+
+  /// No description provided for @lgDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Due date (optional)'**
+  String get lgDueDate;
+
+  /// No description provided for @lgRecordAsset.
+  ///
+  /// In en, this message translates to:
+  /// **'Record an asset'**
+  String get lgRecordAsset;
+
+  /// No description provided for @lgAssetIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Something bought to use for years. Its cost is spread over its useful life.'**
+  String get lgAssetIntro;
+
+  /// No description provided for @lgAssetName.
+  ///
+  /// In en, this message translates to:
+  /// **'Item'**
+  String get lgAssetName;
+
+  /// No description provided for @lgCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Cost (UGX)'**
+  String get lgCost;
+
+  /// No description provided for @lgPurchasedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Bought on'**
+  String get lgPurchasedOn;
+
+  /// No description provided for @lgPaidHow.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid how'**
+  String get lgPaidHow;
+
+  /// No description provided for @lgUsefulLife.
+  ///
+  /// In en, this message translates to:
+  /// **'Useful life in months (optional)'**
+  String get lgUsefulLife;
+
+  /// No description provided for @lgUsefulLifeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 36 for a laptop'**
+  String get lgUsefulLifeHint;
+
+  /// No description provided for @lgCountMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Count money'**
+  String get lgCountMoney;
+
+  /// No description provided for @lgCountIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter what an account really holds (cash counted, bank statement, MarzPay share) to compare with the books.'**
+  String get lgCountIntro;
+
+  /// No description provided for @lgMoneyAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Money account'**
+  String get lgMoneyAccount;
+
+  /// No description provided for @lgCounted.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount counted (UGX)'**
+  String get lgCounted;
+
+  /// No description provided for @lgCountNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Explanation of any difference'**
+  String get lgCountNote;
+
+  /// No description provided for @lgPostDifference.
+  ///
+  /// In en, this message translates to:
+  /// **'Post the difference'**
+  String get lgPostDifference;
+
+  /// No description provided for @lgPostDifferenceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Records it under Cash differences so the books match what was counted'**
+  String get lgPostDifferenceHint;
+
+  /// No description provided for @lgCountResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Count result'**
+  String get lgCountResult;
+
+  /// No description provided for @lgCountMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'It matches the books ({books}).'**
+  String lgCountMatches(String books);
+
+  /// No description provided for @lgCountDiffers.
+  ///
+  /// In en, this message translates to:
+  /// **'The books say {books}; the difference is {difference}.'**
+  String lgCountDiffers(String books, String difference);
+
+  /// No description provided for @lgOpeningFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening balance: {account}'**
+  String lgOpeningFor(String account);
+
+  /// No description provided for @lgOpeningIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'What this account held when Almuntahha started using these books, from a real record (cash count, bank statement, MarzPay). Changing it replaces the earlier one.'**
+  String get lgOpeningIntro;
+
+  /// No description provided for @lgOpeningAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount (UGX)'**
+  String get lgOpeningAmount;
+
+  /// No description provided for @lgOpeningDate.
+  ///
+  /// In en, this message translates to:
+  /// **'As of'**
+  String get lgOpeningDate;
+
+  /// No description provided for @lgPayBill.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay {supplier}'**
+  String lgPayBill(String supplier);
+
+  /// No description provided for @lgStillOwed.
+  ///
+  /// In en, this message translates to:
+  /// **'Still owed: {amount}'**
+  String lgStillOwed(String amount);
+
+  /// No description provided for @lgSetBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'Set budget'**
+  String get lgSetBudget;
+
+  /// No description provided for @lgBudgetIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan how much you expect to receive or spend in a month, then compare with what really happened.'**
+  String get lgBudgetIntro;
+
+  /// No description provided for @lgBudgetAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Income or expense'**
+  String get lgBudgetAccount;
+
+  /// No description provided for @lgBudgetMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get lgBudgetMonth;
+
+  /// No description provided for @lgAddAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Add account'**
+  String get lgAddAccount;
+
+  /// No description provided for @lgEditAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit account'**
+  String get lgEditAccount;
+
+  /// No description provided for @lgBuiltInNote.
+  ///
+  /// In en, this message translates to:
+  /// **'A built-in account: its number and kind stay the same.'**
+  String get lgBuiltInNote;
+
+  /// No description provided for @lgAccountCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Number'**
+  String get lgAccountCode;
+
+  /// No description provided for @lgAccountCodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'3 to 6 digits, e.g. 5250'**
+  String get lgAccountCodeHint;
+
+  /// No description provided for @lgAccountName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get lgAccountName;
+
+  /// No description provided for @lgAccountType.
+  ///
+  /// In en, this message translates to:
+  /// **'Kind'**
+  String get lgAccountType;
+
+  /// No description provided for @lgIsMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Holds money'**
+  String get lgIsMoney;
+
+  /// No description provided for @lgIsMoneyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash, a bank account or a wallet: counted in what Almuntahha has'**
+  String get lgIsMoneyHint;
+
+  /// No description provided for @lgInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'In use'**
+  String get lgInUse;
+
+  /// No description provided for @lgJournalEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal entry'**
+  String get lgJournalEntry;
+
+  /// No description provided for @lgJournalIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'For corrections and anything the other forms don\'t cover. The debits must equal the credits.'**
+  String get lgJournalIntro;
+
+  /// No description provided for @lgChooseAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose account'**
+  String get lgChooseAccount;
+
+  /// No description provided for @lgRemoveLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove line'**
+  String get lgRemoveLine;
+
+  /// No description provided for @lgDebit.
+  ///
+  /// In en, this message translates to:
+  /// **'Debit'**
+  String get lgDebit;
+
+  /// No description provided for @lgCredit.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit'**
+  String get lgCredit;
+
+  /// No description provided for @lgAddLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Add line'**
+  String get lgAddLine;
+
+  /// No description provided for @lgTotals.
+  ///
+  /// In en, this message translates to:
+  /// **'Debits {debits} · Credits {credits}'**
+  String lgTotals(String debits, String credits);
+
+  /// No description provided for @lgSetOpening.
+  ///
+  /// In en, this message translates to:
+  /// **'Set opening balance'**
+  String get lgSetOpening;
+
+  /// No description provided for @lgNoMovements.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing recorded yet'**
+  String get lgNoMovements;
+
+  /// No description provided for @lgBalanceNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance now'**
+  String get lgBalanceNow;
+
+  /// No description provided for @lgDr.
+  ///
+  /// In en, this message translates to:
+  /// **'Dr {amount}'**
+  String lgDr(String amount);
+
+  /// No description provided for @lgCr.
+  ///
+  /// In en, this message translates to:
+  /// **'Cr {amount}'**
+  String lgCr(String amount);
+
+  /// No description provided for @lgSrcPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments'**
+  String get lgSrcPayment;
+
+  /// No description provided for @lgSrcRefund.
+  ///
+  /// In en, this message translates to:
+  /// **'Refunds'**
+  String get lgSrcRefund;
+
+  /// No description provided for @lgSrcExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Expenses'**
+  String get lgSrcExpense;
+
+  /// No description provided for @lgSrcTest.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay tests'**
+  String get lgSrcTest;
+
+  /// No description provided for @lgSrcOpening.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening balances'**
+  String get lgSrcOpening;
+
+  /// No description provided for @lgSrcBill.
+  ///
+  /// In en, this message translates to:
+  /// **'Bills'**
+  String get lgSrcBill;
+
+  /// No description provided for @lgSrcBillPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill payments'**
+  String get lgSrcBillPayment;
+
+  /// No description provided for @lgSrcAsset.
+  ///
+  /// In en, this message translates to:
+  /// **'Assets'**
+  String get lgSrcAsset;
+
+  /// No description provided for @lgSrcDepreciation.
+  ///
+  /// In en, this message translates to:
+  /// **'Depreciation'**
+  String get lgSrcDepreciation;
+
+  /// No description provided for @lgSrcManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal entries'**
+  String get lgSrcManual;
+
+  /// No description provided for @lgSrcReversal.
+  ///
+  /// In en, this message translates to:
+  /// **'Reversals'**
+  String get lgSrcReversal;
+
+  /// No description provided for @lgAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get lgAll;
+
+  /// No description provided for @lgNoEntries.
+  ///
+  /// In en, this message translates to:
+  /// **'No entries yet'**
+  String get lgNoEntries;
+
+  /// No description provided for @lgReversed.
+  ///
+  /// In en, this message translates to:
+  /// **'reversed'**
+  String get lgReversed;
+
+  /// No description provided for @lgReverse.
+  ///
+  /// In en, this message translates to:
+  /// **'Reverse this entry'**
+  String get lgReverse;
+
+  /// No description provided for @lgEntryBalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Debits equal credits.'**
+  String get lgEntryBalanced;
+
+  /// No description provided for @lgNoBills.
+  ///
+  /// In en, this message translates to:
+  /// **'No bills'**
+  String get lgNoBills;
+
+  /// No description provided for @lgDue.
+  ///
+  /// In en, this message translates to:
+  /// **'due {date}'**
+  String lgDue(String date);
+
+  /// No description provided for @lgOwed.
+  ///
+  /// In en, this message translates to:
+  /// **'owed {amount}'**
+  String lgOwed(String amount);
+
+  /// No description provided for @lgPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'paid'**
+  String get lgPaid;
+
+  /// No description provided for @lgVoidBill.
+  ///
+  /// In en, this message translates to:
+  /// **'Void this bill'**
+  String get lgVoidBill;
+
+  /// No description provided for @lgRunDepreciation.
+  ///
+  /// In en, this message translates to:
+  /// **'Write off last month\'s wear'**
+  String get lgRunDepreciation;
+
+  /// No description provided for @lgRunDepreciationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Spreads each asset\'s cost over its useful life; safe to run again'**
+  String get lgRunDepreciationHint;
+
+  /// No description provided for @lgDepreciationPosted.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Nothing to write off for {month}} =1{1 asset written off for {month}} other{{count} assets written off for {month}}}'**
+  String lgDepreciationPosted(int count, String month);
+
+  /// No description provided for @lgNoAssets.
+  ///
+  /// In en, this message translates to:
+  /// **'No assets recorded'**
+  String get lgNoAssets;
+
+  /// No description provided for @lgBoughtFor.
+  ///
+  /// In en, this message translates to:
+  /// **'{cost} on {date}'**
+  String lgBoughtFor(String cost, String date);
+
+  /// No description provided for @lgOverMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'over {months} months'**
+  String lgOverMonths(int months);
+
+  /// No description provided for @lgValueNow.
+  ///
+  /// In en, this message translates to:
+  /// **'value now'**
+  String get lgValueNow;
+
+  /// No description provided for @lgNoCounts.
+  ///
+  /// In en, this message translates to:
+  /// **'No counts yet'**
+  String get lgNoCounts;
+
+  /// No description provided for @lgCountLine.
+  ///
+  /// In en, this message translates to:
+  /// **'counted {counted}, books {books}'**
+  String lgCountLine(String counted, String books);
+
+  /// No description provided for @lgDifferencePosted.
+  ///
+  /// In en, this message translates to:
+  /// **'difference posted'**
+  String get lgDifferencePosted;
+
+  /// No description provided for @lgIncomeStatement.
+  ///
+  /// In en, this message translates to:
+  /// **'Income and expenses'**
+  String get lgIncomeStatement;
+
+  /// No description provided for @lgBalanceSheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance sheet'**
+  String get lgBalanceSheet;
+
+  /// No description provided for @lgCashFlow.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash flow'**
+  String get lgCashFlow;
+
+  /// No description provided for @lgTrialBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Trial balance'**
+  String get lgTrialBalance;
+
+  /// No description provided for @lgBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'Budget'**
+  String get lgBudget;
+
+  /// No description provided for @lgCloseBooks.
+  ///
+  /// In en, this message translates to:
+  /// **'Close the books'**
+  String get lgCloseBooks;
+
+  /// No description provided for @lgCloseBooksHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Close the books up to'**
+  String get lgCloseBooksHelp;
+
+  /// No description provided for @lgCloseBooksConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'No entry can then be dated on or before {date}. Payments confirmed later for those days are booked on the next open day. You can reopen if needed.'**
+  String lgCloseBooksConfirm(String date);
+
+  /// No description provided for @lgSurplus.
+  ///
+  /// In en, this message translates to:
+  /// **'Surplus'**
+  String get lgSurplus;
+
+  /// No description provided for @lgDeficit.
+  ///
+  /// In en, this message translates to:
+  /// **'Deficit'**
+  String get lgDeficit;
+
+  /// No description provided for @lgSurplusSoFar.
+  ///
+  /// In en, this message translates to:
+  /// **'Surplus so far'**
+  String get lgSurplusSoFar;
+
+  /// No description provided for @lgBalanceSheetCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'What we own = what we owe + capital (including the surplus so far).'**
+  String get lgBalanceSheetCheck;
+
+  /// No description provided for @lgOpeningMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Money at the start'**
+  String get lgOpeningMoney;
+
+  /// No description provided for @lgMoneyCameIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Money in'**
+  String get lgMoneyCameIn;
+
+  /// No description provided for @lgMoneyWentOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Money out'**
+  String get lgMoneyWentOut;
+
+  /// No description provided for @lgClosingMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Money at the end'**
+  String get lgClosingMoney;
+
+  /// No description provided for @lgNoBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'No budget for this period'**
+  String get lgNoBudget;
+
+  /// No description provided for @lgBudgetLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{actual} of {budget}'**
+  String lgBudgetLine(String actual, String budget);
 }
 
 class _AppLocalizationsDelegate

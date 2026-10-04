@@ -202,6 +202,14 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
+    // Finance home → Payments and fees.
+    await tester.scrollUntilVisible(
+      find.text('Payments and fees'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(find.text('Payments and fees'));
+    await tester.pumpAndSettle();
 
     expect(
       find.text(

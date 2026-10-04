@@ -12,6 +12,14 @@ class Release {
 }
 
 final changelog = <Release>[
+  Release('2.40.0', DateTime(2026, 10, 4), 'Full finance: real double-entry books', [
+    'Finance home shows what Almuntahha has right now: cash, bank, MarzPay share and mobile money, with this month\x27s income and expenses, what learners owe and bills to pay.',
+    'Every payment, MarzPay fee (the real amount MarzPay charged), refund, reversal and expense is booked automatically as a balanced entry. Nothing can be edited afterwards; mistakes are reversed.',
+    'Record money in (donations, loans), money out, moves between accounts, bills (paid in full or in parts), equipment and its yearly wear.',
+    'Accounts with statements, the journal, and reports: income and expenses, balance sheet, cash flow, trial balance and budget against actual.',
+    'Count cash, bank and MarzPay against the books and explain any difference; close a month when it is final.',
+    'Starting amounts are entered by finance staff from real records; Sidra never guesses a balance.',
+  ]),
   Release('2.39.1', DateTime(2026, 10, 3), 'Up-to-date About page', [
     'This page now lists every release, with older ones folded away.',
     'A short summary of what Sidra does.',

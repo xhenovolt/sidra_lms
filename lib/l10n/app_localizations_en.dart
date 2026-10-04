@@ -6275,4 +6275,549 @@ class AppLocalizationsEn extends AppLocalizations {
   String aboutEarlier(int count) {
     return 'Earlier versions ($count)';
   }
+
+  @override
+  String get lgFinanceHome => 'Finance home';
+
+  @override
+  String get lgWhatWeHave => 'What Almuntahha has';
+
+  @override
+  String get lgMarzPayShareNote =>
+      'MarzPay wallet is Almuntahha\'s own share: the MarzPay account is shared with DRAIS, so its dashboard total is not all ours.';
+
+  @override
+  String get lgEnterOpening =>
+      'Enter the starting amounts (cash, bank, MarzPay share) so these totals are real';
+
+  @override
+  String lgNotInBooks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count records are not in the books (another currency)',
+      one: '1 record is not in the books (another currency)',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String lgNeedsReview(String amount) {
+    return '$amount needs an account: fix it with a journal entry';
+  }
+
+  @override
+  String lgTestMoneyHeld(String amount) {
+    return 'Test money held: $amount (not income)';
+  }
+
+  @override
+  String get lgMonthIn => 'Income this month';
+
+  @override
+  String get lgMonthOut => 'Expenses this month';
+
+  @override
+  String get lgOwedToUs => 'Owed to us by learners';
+
+  @override
+  String get lgBillsToPay => 'Bills to pay';
+
+  @override
+  String lgClosedThrough(String date) {
+    return 'Books closed up to $date';
+  }
+
+  @override
+  String get lgDoSomething => 'Record';
+
+  @override
+  String get lgPages => 'Finance pages';
+
+  @override
+  String get lgPaymentsPage => 'Payments and fees';
+
+  @override
+  String get lgPaymentsPageHint => 'Check payments, who owes, waivers, refunds';
+
+  @override
+  String get lgAccounts => 'Accounts';
+
+  @override
+  String get lgAccountsHint =>
+      'Every account and its balance; opening balances';
+
+  @override
+  String get lgAccountsIntro =>
+      'Every shilling is recorded twice: once where it went and once where it came from, so the books always balance. Tap an account to see its movements.';
+
+  @override
+  String get lgJournal => 'Journal';
+
+  @override
+  String get lgJournalHint => 'Every entry, debits and credits';
+
+  @override
+  String get lgBills => 'Bills';
+
+  @override
+  String get lgBillsHint => 'Bills received and what is still owed';
+
+  @override
+  String get lgAssets => 'Assets';
+
+  @override
+  String get lgAssetsHint => 'Equipment and furniture, and their value';
+
+  @override
+  String get lgReports => 'Financial reports';
+
+  @override
+  String get lgReportsHint =>
+      'Income and expenses, balance sheet, cash flow, budget';
+
+  @override
+  String get lgCounts => 'Counting money';
+
+  @override
+  String get lgCountsHint => 'Check cash, bank and MarzPay against the books';
+
+  @override
+  String get lgTypeAsset => 'What we own';
+
+  @override
+  String get lgTypeLiability => 'What we owe';
+
+  @override
+  String get lgTypeEquity => 'Capital';
+
+  @override
+  String get lgTypeIncome => 'Income';
+
+  @override
+  String get lgTypeExpense => 'Expenses';
+
+  @override
+  String get lgNoAccounts => 'No suitable account';
+
+  @override
+  String lgChoose(String what) {
+    return 'Choose: $what';
+  }
+
+  @override
+  String get lgExpenseIntro => 'What it was for and where the money came from.';
+
+  @override
+  String get lgWhatFor => 'What it was for';
+
+  @override
+  String get lgPaidFrom => 'Paid from';
+
+  @override
+  String get lgDate => 'Date';
+
+  @override
+  String get lgMoneyIn => 'Money in';
+
+  @override
+  String get lgMoneyInIntro =>
+      'Money received that is not a course fee: a donation, a loan, or money put in by the owners.';
+
+  @override
+  String get lgReceivedInto => 'Received into';
+
+  @override
+  String get lgKindOfMoney => 'Kind of money';
+
+  @override
+  String get lgDescription => 'Description';
+
+  @override
+  String get lgMoneyOut => 'Money out';
+
+  @override
+  String get lgMoneyOutIntro =>
+      'Money paid that is not a recorded expense or bill: repaying a loan, or buying something kept.';
+
+  @override
+  String get lgTransfer => 'Move money';
+
+  @override
+  String get lgTransferIntro =>
+      'Between two of our own accounts, e.g. MarzPay withdrawn to the bank.';
+
+  @override
+  String get lgFromAccount => 'From';
+
+  @override
+  String get lgToAccount => 'To';
+
+  @override
+  String get lgTransferCharge => 'Charge for the move (optional)';
+
+  @override
+  String get lgRecordBill => 'Record a bill';
+
+  @override
+  String get lgBillIntro =>
+      'A bill received but not paid yet. Pay it later, in full or in parts.';
+
+  @override
+  String get lgSupplier => 'Who it is from';
+
+  @override
+  String get lgBillDate => 'Bill date';
+
+  @override
+  String get lgDueDate => 'Due date (optional)';
+
+  @override
+  String get lgRecordAsset => 'Record an asset';
+
+  @override
+  String get lgAssetIntro =>
+      'Something bought to use for years. Its cost is spread over its useful life.';
+
+  @override
+  String get lgAssetName => 'Item';
+
+  @override
+  String get lgCost => 'Cost (UGX)';
+
+  @override
+  String get lgPurchasedOn => 'Bought on';
+
+  @override
+  String get lgPaidHow => 'Paid how';
+
+  @override
+  String get lgUsefulLife => 'Useful life in months (optional)';
+
+  @override
+  String get lgUsefulLifeHint => 'e.g. 36 for a laptop';
+
+  @override
+  String get lgCountMoney => 'Count money';
+
+  @override
+  String get lgCountIntro =>
+      'Enter what an account really holds (cash counted, bank statement, MarzPay share) to compare with the books.';
+
+  @override
+  String get lgMoneyAccount => 'Money account';
+
+  @override
+  String get lgCounted => 'Amount counted (UGX)';
+
+  @override
+  String get lgCountNote => 'Explanation of any difference';
+
+  @override
+  String get lgPostDifference => 'Post the difference';
+
+  @override
+  String get lgPostDifferenceHint =>
+      'Records it under Cash differences so the books match what was counted';
+
+  @override
+  String get lgCountResult => 'Count result';
+
+  @override
+  String lgCountMatches(String books) {
+    return 'It matches the books ($books).';
+  }
+
+  @override
+  String lgCountDiffers(String books, String difference) {
+    return 'The books say $books; the difference is $difference.';
+  }
+
+  @override
+  String lgOpeningFor(String account) {
+    return 'Opening balance: $account';
+  }
+
+  @override
+  String get lgOpeningIntro =>
+      'What this account held when Almuntahha started using these books, from a real record (cash count, bank statement, MarzPay). Changing it replaces the earlier one.';
+
+  @override
+  String get lgOpeningAmount => 'Amount (UGX)';
+
+  @override
+  String get lgOpeningDate => 'As of';
+
+  @override
+  String lgPayBill(String supplier) {
+    return 'Pay $supplier';
+  }
+
+  @override
+  String lgStillOwed(String amount) {
+    return 'Still owed: $amount';
+  }
+
+  @override
+  String get lgSetBudget => 'Set budget';
+
+  @override
+  String get lgBudgetIntro =>
+      'Plan how much you expect to receive or spend in a month, then compare with what really happened.';
+
+  @override
+  String get lgBudgetAccount => 'Income or expense';
+
+  @override
+  String get lgBudgetMonth => 'Month';
+
+  @override
+  String get lgAddAccount => 'Add account';
+
+  @override
+  String get lgEditAccount => 'Edit account';
+
+  @override
+  String get lgBuiltInNote =>
+      'A built-in account: its number and kind stay the same.';
+
+  @override
+  String get lgAccountCode => 'Number';
+
+  @override
+  String get lgAccountCodeHint => '3 to 6 digits, e.g. 5250';
+
+  @override
+  String get lgAccountName => 'Name';
+
+  @override
+  String get lgAccountType => 'Kind';
+
+  @override
+  String get lgIsMoney => 'Holds money';
+
+  @override
+  String get lgIsMoneyHint =>
+      'Cash, a bank account or a wallet: counted in what Almuntahha has';
+
+  @override
+  String get lgInUse => 'In use';
+
+  @override
+  String get lgJournalEntry => 'Journal entry';
+
+  @override
+  String get lgJournalIntro =>
+      'For corrections and anything the other forms don\'t cover. The debits must equal the credits.';
+
+  @override
+  String get lgChooseAccount => 'Choose account';
+
+  @override
+  String get lgRemoveLine => 'Remove line';
+
+  @override
+  String get lgDebit => 'Debit';
+
+  @override
+  String get lgCredit => 'Credit';
+
+  @override
+  String get lgAddLine => 'Add line';
+
+  @override
+  String lgTotals(String debits, String credits) {
+    return 'Debits $debits · Credits $credits';
+  }
+
+  @override
+  String get lgSetOpening => 'Set opening balance';
+
+  @override
+  String get lgNoMovements => 'Nothing recorded yet';
+
+  @override
+  String get lgBalanceNow => 'Balance now';
+
+  @override
+  String lgDr(String amount) {
+    return 'Dr $amount';
+  }
+
+  @override
+  String lgCr(String amount) {
+    return 'Cr $amount';
+  }
+
+  @override
+  String get lgSrcPayment => 'Payments';
+
+  @override
+  String get lgSrcRefund => 'Refunds';
+
+  @override
+  String get lgSrcExpense => 'Expenses';
+
+  @override
+  String get lgSrcTest => 'MarzPay tests';
+
+  @override
+  String get lgSrcOpening => 'Opening balances';
+
+  @override
+  String get lgSrcBill => 'Bills';
+
+  @override
+  String get lgSrcBillPayment => 'Bill payments';
+
+  @override
+  String get lgSrcAsset => 'Assets';
+
+  @override
+  String get lgSrcDepreciation => 'Depreciation';
+
+  @override
+  String get lgSrcManual => 'Journal entries';
+
+  @override
+  String get lgSrcReversal => 'Reversals';
+
+  @override
+  String get lgAll => 'All';
+
+  @override
+  String get lgNoEntries => 'No entries yet';
+
+  @override
+  String get lgReversed => 'reversed';
+
+  @override
+  String get lgReverse => 'Reverse this entry';
+
+  @override
+  String get lgEntryBalanced => 'Debits equal credits.';
+
+  @override
+  String get lgNoBills => 'No bills';
+
+  @override
+  String lgDue(String date) {
+    return 'due $date';
+  }
+
+  @override
+  String lgOwed(String amount) {
+    return 'owed $amount';
+  }
+
+  @override
+  String get lgPaid => 'paid';
+
+  @override
+  String get lgVoidBill => 'Void this bill';
+
+  @override
+  String get lgRunDepreciation => 'Write off last month\'s wear';
+
+  @override
+  String get lgRunDepreciationHint =>
+      'Spreads each asset\'s cost over its useful life; safe to run again';
+
+  @override
+  String lgDepreciationPosted(int count, String month) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count assets written off for $month',
+      one: '1 asset written off for $month',
+      zero: 'Nothing to write off for $month',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get lgNoAssets => 'No assets recorded';
+
+  @override
+  String lgBoughtFor(String cost, String date) {
+    return '$cost on $date';
+  }
+
+  @override
+  String lgOverMonths(int months) {
+    return 'over $months months';
+  }
+
+  @override
+  String get lgValueNow => 'value now';
+
+  @override
+  String get lgNoCounts => 'No counts yet';
+
+  @override
+  String lgCountLine(String counted, String books) {
+    return 'counted $counted, books $books';
+  }
+
+  @override
+  String get lgDifferencePosted => 'difference posted';
+
+  @override
+  String get lgIncomeStatement => 'Income and expenses';
+
+  @override
+  String get lgBalanceSheet => 'Balance sheet';
+
+  @override
+  String get lgCashFlow => 'Cash flow';
+
+  @override
+  String get lgTrialBalance => 'Trial balance';
+
+  @override
+  String get lgBudget => 'Budget';
+
+  @override
+  String get lgCloseBooks => 'Close the books';
+
+  @override
+  String get lgCloseBooksHelp => 'Close the books up to';
+
+  @override
+  String lgCloseBooksConfirm(String date) {
+    return 'No entry can then be dated on or before $date. Payments confirmed later for those days are booked on the next open day. You can reopen if needed.';
+  }
+
+  @override
+  String get lgSurplus => 'Surplus';
+
+  @override
+  String get lgDeficit => 'Deficit';
+
+  @override
+  String get lgSurplusSoFar => 'Surplus so far';
+
+  @override
+  String get lgBalanceSheetCheck =>
+      'What we own = what we owe + capital (including the surplus so far).';
+
+  @override
+  String get lgOpeningMoney => 'Money at the start';
+
+  @override
+  String get lgMoneyCameIn => 'Money in';
+
+  @override
+  String get lgMoneyWentOut => 'Money out';
+
+  @override
+  String get lgClosingMoney => 'Money at the end';
+
+  @override
+  String get lgNoBudget => 'No budget for this period';
+
+  @override
+  String lgBudgetLine(String actual, String budget) {
+    return '$actual of $budget';
+  }
 }
