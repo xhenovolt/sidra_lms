@@ -78,6 +78,19 @@ select pg_temp.check(pg_temp.bal('5000') = 1800, 'provider fees: the actual fee'
 update payments set provider_fee = 1800, updated_at = now() where id = '00000000-0000-0000-0000-000000102001';
 select pg_temp.check(pg_temp.bal('1020') = 58200, 'no double posting');
 
+-- A real-money MarzPay test that MarzPay's ledger proved: the money is in
+-- the wallet, held as Test money (not income); MarzPay's fee is a cost.
+insert into payment_tests (kind, params, real_money, result, status, evidence, finished_at)
+values ('collection', '{"amount": 1000, "currency": "UGX"}', true, 'verified_success', 'done',
+        '{"amount": 1000, "fee": 30}', now());
+select pg_temp.check(pg_temp.bal('2090') = 1000 and pg_temp.bal('1020') = 58200 + 970
+  and pg_temp.bal('5000') = 1830 and pg_temp.bal('4000') = 100000,
+  'test money: in the wallet, held as Test money, fee booked, income unchanged');
+-- A test that did not finish moves nothing.
+insert into payment_tests (kind, params, real_money, result, status)
+values ('collection', '{"amount": 500}', true, 'pending', 'done');
+select pg_temp.check(pg_temp.bal('2090') = 1000, 'an unfinished test books nothing');
+
 -- A payment in another currency stays out of the books (and is listed).
 insert into payments (user_id, course_id, amount, currency, method, status, verified_at)
 values (current_setting('lg.learner')::uuid, '00000000-0000-0000-0000-000000101001', 20, 'USD', 'bank',
@@ -94,7 +107,7 @@ select pg_temp.check(pg_temp.bal('1000') = 35000 and pg_temp.bal('4090') = -5000
 
 -- Reverse the MarzPay payment: the receipt is undone, the fee stays (MarzPay keeps it).
 select public.reverse_payment('00000000-0000-0000-0000-000000102001', 'chargeback');
-select pg_temp.check(pg_temp.bal('1020') = -1800 and pg_temp.bal('4000') = 40000,
+select pg_temp.check(pg_temp.bal('1020') = -1800 + 970 and pg_temp.bal('4000') = 40000,
   'reversed: wallet loses the 60,000, income back to 40,000, fee remains');
 
 -- Expenses: with an account and where the money came from.
@@ -120,7 +133,7 @@ select pg_temp.check((public.ledger_overview()->>'opening_entered')::boolean, 'o
 select public.ledger_transfer(pg_temp.acct('1010'), pg_temp.acct('1000'), 100000,
   current_date, 'Withdrawal', 1000);
 select pg_temp.check(pg_temp.bal('1010') = 299000 and pg_temp.bal('1000') = 135000
-  and pg_temp.bal('5000') = 2800, 'transfer with its charge');
+  and pg_temp.bal('5000') = 2830, 'transfer with its charge');
 select pg_temp.expect_error($q$select public.ledger_transfer(pg_temp.acct('1010'),
   pg_temp.acct('1010'), 1, current_date)$q$, 'different');
 

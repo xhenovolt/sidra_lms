@@ -353,6 +353,7 @@ class JournalScreen extends ConsumerWidget {
                 for (final s in [
                   null,
                   'payment',
+                  'test',
                   'expense',
                   'transfer',
                   'money_in',

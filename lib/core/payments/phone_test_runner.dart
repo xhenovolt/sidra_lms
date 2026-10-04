@@ -365,6 +365,11 @@ class PhoneTestRunner {
           : '${entry.type} ${entry.amount} UGX (${entry.status}). Wallet ${before ?? '?'} → ${after ?? '?'} UGX.',
     );
     final proven = end.succeeded && entry != null && entry.succeeded && (!collect || entry.amount == amount);
+    // MarzPay's own charge: the other debits for this reference (the books
+    // record exactly this, never an assumed rate).
+    final fee = ledger
+        .where((t) => t != entry && t.type == 'debit' && t.succeeded)
+        .fold<num>(0, (s, t) => s + (t.amount ?? 0));
     await _finish(
       result: proven
           ? 'verified_success'
@@ -392,6 +397,7 @@ class PhoneTestRunner {
         'provider': end.provider,
         'provider_reference': end.providerReference,
         'ledger_entry': entry?.uuid,
+        if (proven) 'fee': fee,
         'balance_before': before,
         'balance_after': after,
         // exactly what MarzPay answered: to the request, and at the end
