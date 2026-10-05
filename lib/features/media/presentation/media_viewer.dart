@@ -42,10 +42,13 @@ ViewerKind viewerKindFor({String? kind, String? mimeType, String? fileName}) {
   return ViewerKind.office;
 }
 
-/// Opens a file the way messaging apps do: inside Sidra (pictures, audio,
-/// video, PDF, text). Office documents are downloaded with progress and
-/// handed to the phone's document app. Web links open in an in-app browser
-/// page; YouTube / Telegram in their own apps.
+/// Opens a file the way messaging apps do, never as a browser page:
+/// * audio plays at once in a small player that slides up from the bottom
+///   (swipe down to close; the page stays visible);
+/// * pictures, video, PDF and text open full screen with a back arrow;
+/// * office documents are downloaded and handed to the phone's document app;
+/// * a link straight to such a file is treated the same way; only real web
+///   pages open in the in-app browser (YouTube / Telegram in their own apps).
 Future<void> openInApp(
   BuildContext context, {
   String? assetId,
@@ -56,12 +59,34 @@ Future<void> openInApp(
   String? localPath,
   required String title,
 }) async {
-  final type = viewerKindFor(
-    kind: kind,
-    mimeType: mimeType,
-    fileName: fileName,
-  );
-  if (type == ViewerKind.link || (assetId == null && localPath == null)) {
+  var type = viewerKindFor(kind: kind, mimeType: mimeType, fileName: fileName);
+  // A link straight to a media file (….mp3, ….pdf…) opens like the file.
+  String? fileUrl;
+  if (assetId == null && localPath == null && url != null) {
+    final uri = Uri.tryParse(url);
+    final direct = uri == null
+        ? ViewerKind.link
+        : viewerKindFor(fileName: uri.path.split('/').last);
+    if (uri != null &&
+        uri.path.contains('.') &&
+        direct != ViewerKind.office &&
+        linkProviderOf(uri) == LinkProvider.web) {
+      type = direct;
+      fileUrl = url;
+    }
+  }
+  if (type == ViewerKind.audio) {
+    await showAudioSheet(
+      context,
+      assetId: assetId,
+      url: fileUrl,
+      localPath: localPath,
+      title: title,
+    );
+    return;
+  }
+  if (fileUrl == null &&
+      (type == ViewerKind.link || (assetId == null && localPath == null))) {
     final uri = parseExternalLink(url ?? '');
     if (uri == null) return;
     final app = linkProviderOf(uri) != LinkProvider.web;
@@ -75,6 +100,7 @@ Future<void> openInApp(
     MaterialPageRoute<void>(
       builder: (_) => MediaViewerScreen(
         assetId: assetId,
+        url: fileUrl,
         localPath: localPath,
         type: type,
         title: title,
@@ -84,6 +110,29 @@ Future<void> openInApp(
     ),
   );
 }
+
+/// Plays audio in a bottom sheet over the current page: it starts at once,
+/// and closes with a swipe down or a tap outside — no new page to leave.
+Future<void> showAudioSheet(
+  BuildContext context, {
+  String? assetId,
+  String? url,
+  String? localPath,
+  required String title,
+}) => showModalBottomSheet<void>(
+  context: context,
+  showDragHandle: true,
+  useSafeArea: true,
+  builder: (sheet) => Padding(
+    padding: const EdgeInsets.fromLTRB(Space.md, 0, Space.md, Space.lg),
+    child: SidraAudioPlayer(
+      assetId: assetId,
+      url: url ?? (localPath == null ? null : Uri.file(localPath).toString()),
+      title: title,
+      autoPlay: true,
+    ),
+  ),
+);
 
 final _signedUrlProvider = FutureProvider.autoDispose.family<String, String>(
   (ref, assetId) async =>
@@ -97,6 +146,7 @@ class MediaViewerScreen extends ConsumerWidget {
   const MediaViewerScreen({
     super.key,
     this.assetId,
+    this.url,
     this.localPath,
     required this.type,
     required this.title,
@@ -105,6 +155,9 @@ class MediaViewerScreen extends ConsumerWidget {
   });
 
   final String? assetId;
+
+  /// A direct link to the file (when it is not stored by Sidra).
+  final String? url;
 
   /// A copy saved on the phone (offline downloads) is used first.
   final String? localPath;
@@ -137,16 +190,28 @@ class MediaViewerScreen extends ConsumerWidget {
       };
       return _frame(context, body);
     }
-    final url = ref.watch(_signedUrlProvider(assetId!));
+    final AsyncValue<String> url = assetId == null
+        ? AsyncData(this.url!)
+        : ref.watch(_signedUrlProvider(assetId!));
     body = switch (type) {
       // These players fetch their own signed URL.
       ViewerKind.audio => Center(
         child: Padding(
           padding: const EdgeInsets.all(Space.lg),
-          child: SidraAudioPlayer(assetId: assetId!, title: title),
+          child: SidraAudioPlayer(
+            assetId: assetId,
+            url: this.url,
+            title: title,
+          ),
         ),
       ),
-      ViewerKind.video => Center(child: SidraVideoPlayer(assetId: assetId!)),
+      ViewerKind.video => Center(
+        child: SidraVideoPlayer(
+          assetId: assetId,
+          url: this.url,
+          autoPlay: true,
+        ),
+      ),
       _ => switch (url) {
         AsyncData(:final value) => switch (type) {
           ViewerKind.image => InteractiveViewer(

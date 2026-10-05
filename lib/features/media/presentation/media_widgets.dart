@@ -131,9 +131,23 @@ class SidraImage extends ConsumerWidget {
 
 /// Compact audio player (recitations, explanations, voice notes).
 class SidraAudioPlayer extends ConsumerStatefulWidget {
-  const SidraAudioPlayer({super.key, required this.assetId, this.title});
-  final String assetId;
+  const SidraAudioPlayer({
+    super.key,
+    this.assetId,
+    this.url,
+    this.title,
+    this.autoPlay = false,
+  }) : assert(assetId != null || url != null);
+
+  /// A file stored by Sidra (signed and access-checked), or…
+  final String? assetId;
+
+  /// …a direct link to an audio file.
+  final String? url;
   final String? title;
+
+  /// Start playing as soon as it is loaded (opened from a list).
+  final bool autoPlay;
 
   @override
   ConsumerState<SidraAudioPlayer> createState() => _SidraAudioPlayerState();
@@ -164,6 +178,7 @@ class _SidraAudioPlayerState extends ConsumerState<SidraAudioPlayer> {
         case RemoteMedia(:final url):
           await _player.setUrl(url);
       }
+      if (widget.autoPlay) unawaited(_player.play());
     } catch (e) {
       if (mounted) setState(() => _error = e);
     }
@@ -177,9 +192,7 @@ class _SidraAudioPlayerState extends ConsumerState<SidraAudioPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    final source = ref.watch(
-      mediaSourceProvider((assetId: widget.assetId, transformation: null)),
-    );
+    final source = _sourceFor(ref, widget.assetId, widget.url);
     final scheme = Theme.of(context).colorScheme;
     if (source case AsyncData(:final value)) unawaited(_load(value));
     if (source is AsyncError || _error != null) {
@@ -290,8 +303,15 @@ class _SidraAudioPlayerState extends ConsumerState<SidraAudioPlayer> {
 
 /// Inline video player with tap-to-play.
 class SidraVideoPlayer extends ConsumerStatefulWidget {
-  const SidraVideoPlayer({super.key, required this.assetId});
-  final String assetId;
+  const SidraVideoPlayer({
+    super.key,
+    this.assetId,
+    this.url,
+    this.autoPlay = false,
+  }) : assert(assetId != null || url != null);
+  final String? assetId;
+  final String? url;
+  final bool autoPlay;
 
   @override
   ConsumerState<SidraVideoPlayer> createState() => _SidraVideoPlayerState();
@@ -318,6 +338,7 @@ class _SidraVideoPlayerState extends ConsumerState<SidraVideoPlayer> {
     _controller = c;
     try {
       await c.initialize();
+      if (widget.autoPlay) unawaited(c.play());
       if (mounted) setState(() {});
     } catch (_) {
       if (mounted) setState(() => _failed = true);
@@ -326,9 +347,7 @@ class _SidraVideoPlayerState extends ConsumerState<SidraVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    final source = ref.watch(
-      mediaSourceProvider((assetId: widget.assetId, transformation: null)),
-    );
+    final source = _sourceFor(ref, widget.assetId, widget.url);
     if (source case AsyncData(:final value)) unawaited(_init(value));
     if (source is AsyncError || _failed) {
       return const _MediaPlaceholder(
@@ -374,3 +393,13 @@ class _SidraVideoPlayerState extends ConsumerState<SidraVideoPlayer> {
     );
   }
 }
+
+/// Where a player reads from: Sidra's stored file (preferring the offline
+/// copy), or a direct link.
+AsyncValue<MediaSource> _sourceFor(
+  WidgetRef ref,
+  String? assetId,
+  String? url,
+) => assetId != null
+    ? ref.watch(mediaSourceProvider((assetId: assetId, transformation: null)))
+    : AsyncData(RemoteMedia(url!));

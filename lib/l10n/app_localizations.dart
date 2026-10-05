@@ -12425,6 +12425,378 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Every entry balances (debits = credits) and can never be edited or deleted. Mistakes are corrected with a reversing entry.'**
   String get arPermanent;
+
+  /// No description provided for @mvPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get mvPlay;
+
+  /// No description provided for @mvView.
+  ///
+  /// In en, this message translates to:
+  /// **'View'**
+  String get mvView;
+
+  /// No description provided for @apTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get apTitle;
+
+  /// No description provided for @apHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme, wallpaper and text size'**
+  String get apHint;
+
+  /// No description provided for @apMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Light or dark'**
+  String get apMode;
+
+  /// No description provided for @apModeOrg.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get apModeOrg;
+
+  /// No description provided for @apModeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow the phone'**
+  String get apModeSystem;
+
+  /// No description provided for @apModeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get apModeLight;
+
+  /// No description provided for @apModeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get apModeDark;
+
+  /// No description provided for @apThemes.
+  ///
+  /// In en, this message translates to:
+  /// **'Themes'**
+  String get apThemes;
+
+  /// No description provided for @apThemesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Themes with a lock come with premium themes.'**
+  String get apThemesHint;
+
+  /// No description provided for @apOrgDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Almuntahha\'s'**
+  String get apOrgDefault;
+
+  /// No description provided for @apAnyColour.
+  ///
+  /// In en, this message translates to:
+  /// **'Any colour'**
+  String get apAnyColour;
+
+  /// No description provided for @apPremiumOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'With premium themes'**
+  String get apPremiumOnly;
+
+  /// No description provided for @apWallpaper.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallpaper'**
+  String get apWallpaper;
+
+  /// No description provided for @apWallpaperHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your own photo stays on this phone.'**
+  String get apWallpaperHint;
+
+  /// No description provided for @apWpNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get apWpNone;
+
+  /// No description provided for @apWpPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Your photo'**
+  String get apWpPhoto;
+
+  /// No description provided for @apWpDawn.
+  ///
+  /// In en, this message translates to:
+  /// **'Dawn'**
+  String get apWpDawn;
+
+  /// No description provided for @apWpDunes.
+  ///
+  /// In en, this message translates to:
+  /// **'Dunes'**
+  String get apWpDunes;
+
+  /// No description provided for @apWpMint.
+  ///
+  /// In en, this message translates to:
+  /// **'Mint'**
+  String get apWpMint;
+
+  /// No description provided for @apWpSky.
+  ///
+  /// In en, this message translates to:
+  /// **'Sky'**
+  String get apWpSky;
+
+  /// No description provided for @apWpDusk.
+  ///
+  /// In en, this message translates to:
+  /// **'Dusk'**
+  String get apWpDusk;
+
+  /// No description provided for @apWpNightSky.
+  ///
+  /// In en, this message translates to:
+  /// **'Night sky'**
+  String get apWpNightSky;
+
+  /// No description provided for @apWpForest.
+  ///
+  /// In en, this message translates to:
+  /// **'Forest'**
+  String get apWpForest;
+
+  /// No description provided for @apWpRose.
+  ///
+  /// In en, this message translates to:
+  /// **'Rose garden'**
+  String get apWpRose;
+
+  /// No description provided for @apCover.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallpaper behind pages'**
+  String get apCover;
+
+  /// No description provided for @apCoverHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Left: more wallpaper, right: plainer pages'**
+  String get apCoverHint;
+
+  /// No description provided for @apTextSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Text size'**
+  String get apTextSize;
+
+  /// No description provided for @apFont.
+  ///
+  /// In en, this message translates to:
+  /// **'Heading font'**
+  String get apFont;
+
+  /// No description provided for @apFontSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone\'s font'**
+  String get apFontSystem;
+
+  /// No description provided for @apCorners.
+  ///
+  /// In en, this message translates to:
+  /// **'Rounded corners'**
+  String get apCorners;
+
+  /// No description provided for @apReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Almuntahha\'s look'**
+  String get apReset;
+
+  /// No description provided for @apPremiumTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium themes'**
+  String get apPremiumTitle;
+
+  /// No description provided for @apPremiumWhat.
+  ///
+  /// In en, this message translates to:
+  /// **'All themes, any colour, heading fonts, rounded corners and how much wallpaper shows. Paid once with mobile money; yours on every phone you sign in on.'**
+  String get apPremiumWhat;
+
+  /// No description provided for @apPremiumOffer.
+  ///
+  /// In en, this message translates to:
+  /// **'More themes, any colour and more: {price}, once'**
+  String apPremiumOffer(String price);
+
+  /// No description provided for @apPremiumNotOnSale.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium themes are not on sale yet.'**
+  String get apPremiumNotOnSale;
+
+  /// No description provided for @apUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get apUnlock;
+
+  /// No description provided for @apUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium themes are yours'**
+  String get apUnlocked;
+
+  /// No description provided for @apApprove.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve {price} on your phone'**
+  String apApprove(String price);
+
+  /// No description provided for @apPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay {price} with mobile money'**
+  String apPay(String price);
+
+  /// No description provided for @apOrgLook.
+  ///
+  /// In en, this message translates to:
+  /// **'Organisation look'**
+  String get apOrgLook;
+
+  /// No description provided for @apOrgLookHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What every phone shows (superadmin)'**
+  String get apOrgLookHint;
+
+  /// No description provided for @apOrgLookIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Everyone starts with this look. People may still choose the free themes and their own wallpaper; premium themes need payment.'**
+  String get apOrgLookIntro;
+
+  /// No description provided for @apMainColour.
+  ///
+  /// In en, this message translates to:
+  /// **'Main colour'**
+  String get apMainColour;
+
+  /// No description provided for @apAccentColour.
+  ///
+  /// In en, this message translates to:
+  /// **'Accent colour'**
+  String get apAccentColour;
+
+  /// No description provided for @apWallpaperLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Or a link to a picture (https)'**
+  String get apWallpaperLink;
+
+  /// No description provided for @apFreeThemes.
+  ///
+  /// In en, this message translates to:
+  /// **'Free themes'**
+  String get apFreeThemes;
+
+  /// No description provided for @apPremiumPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of premium themes'**
+  String get apPremiumPrice;
+
+  /// No description provided for @apPremiumPriceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty to keep them off sale'**
+  String get apPremiumPriceHint;
+
+  /// No description provided for @apThTeal.
+  ///
+  /// In en, this message translates to:
+  /// **'Sidra teal'**
+  String get apThTeal;
+
+  /// No description provided for @apThNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Night'**
+  String get apThNight;
+
+  /// No description provided for @apThSand.
+  ///
+  /// In en, this message translates to:
+  /// **'Sand'**
+  String get apThSand;
+
+  /// No description provided for @apThOcean.
+  ///
+  /// In en, this message translates to:
+  /// **'Ocean'**
+  String get apThOcean;
+
+  /// No description provided for @apThEmerald.
+  ///
+  /// In en, this message translates to:
+  /// **'Emerald'**
+  String get apThEmerald;
+
+  /// No description provided for @apThRoyal.
+  ///
+  /// In en, this message translates to:
+  /// **'Royal'**
+  String get apThRoyal;
+
+  /// No description provided for @apThRose.
+  ///
+  /// In en, this message translates to:
+  /// **'Rose'**
+  String get apThRose;
+
+  /// No description provided for @apThGoldNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Gold night'**
+  String get apThGoldNight;
+
+  /// No description provided for @apThOlive.
+  ///
+  /// In en, this message translates to:
+  /// **'Olive'**
+  String get apThOlive;
+
+  /// No description provided for @apThSky.
+  ///
+  /// In en, this message translates to:
+  /// **'Sky'**
+  String get apThSky;
+
+  /// No description provided for @apThCrimson.
+  ///
+  /// In en, this message translates to:
+  /// **'Crimson'**
+  String get apThCrimson;
+
+  /// No description provided for @apThSlate.
+  ///
+  /// In en, this message translates to:
+  /// **'Slate'**
+  String get apThSlate;
 }
 
 class _AppLocalizationsDelegate

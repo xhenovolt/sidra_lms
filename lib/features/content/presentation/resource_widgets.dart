@@ -13,6 +13,7 @@ import '../../lessons/domain/external_link.dart';
 import '../data/content_repository.dart';
 import '../data/link_preview.dart';
 import '../../media/presentation/media_viewer.dart';
+import '../../media/presentation/media_widgets.dart' show SidraAudioPlayer;
 import '../../media/presentation/capture_sheet.dart';
 
 typedef ResourceKey = ({ResourceTarget target, String id});
@@ -658,6 +659,9 @@ Future<void> showResourcePreview(
                   borderRadius: BorderRadius.circular(Radii.md),
                   child: CachedNetworkImage(imageUrl: imageUrl),
                 ),
+              // Audio plays right here, no page to open and close.
+              if (r.kind == 'audio' && r.mediaAssetId != null)
+                SidraAudioPlayer(assetId: r.mediaAssetId!, title: r.title),
               if (r.isLink && r.preview != null)
                 LinkPreviewCard(
                   preview: LinkPreview.fromJson(r.preview!, r.url ?? ''),
@@ -688,11 +692,21 @@ Future<void> showResourcePreview(
           onPressed: () => Navigator.pop(dialogContext),
           child: Text(l10n.close),
         ),
-        FilledButton.icon(
-          onPressed: () => openResource(context, ref, r),
-          icon: const Icon(Icons.open_in_new),
-          label: Text(l10n.resourceOpen),
-        ),
+        if (!(r.kind == 'audio' && r.mediaAssetId != null))
+          FilledButton.icon(
+            onPressed: () => openResource(context, ref, r),
+            icon: Icon(switch (r.kind) {
+              'video' => Icons.play_arrow,
+              'image' || 'document' => Icons.visibility_outlined,
+              _ when r.isLink => Icons.open_in_new,
+              _ => Icons.visibility_outlined,
+            }),
+            label: Text(switch (r.kind) {
+              'video' => l10n.mvPlay,
+              _ when r.isLink => l10n.resourceOpen,
+              _ => l10n.mvView,
+            }),
+          ),
       ],
     ),
   );

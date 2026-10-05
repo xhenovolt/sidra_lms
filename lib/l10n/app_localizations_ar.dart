@@ -7094,4 +7094,198 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get arPermanent =>
       'كل قيد متوازن (المدين = الدائن) ولا يمكن تعديله أو حذفه. تُصحَّح الأخطاء بقيد عكسي.';
+
+  @override
+  String get mvPlay => 'تشغيل';
+
+  @override
+  String get mvView => 'عرض';
+
+  @override
+  String get apTitle => 'المظهر';
+
+  @override
+  String get apHint => 'السمة والخلفية وحجم النص';
+
+  @override
+  String get apMode => 'فاتح أو داكن';
+
+  @override
+  String get apModeOrg => 'الافتراضي';
+
+  @override
+  String get apModeSystem => 'حسب الهاتف';
+
+  @override
+  String get apModeLight => 'فاتح';
+
+  @override
+  String get apModeDark => 'داكن';
+
+  @override
+  String get apThemes => 'السمات';
+
+  @override
+  String get apThemesHint => 'السمات المقفلة متاحة مع السمات المميزة.';
+
+  @override
+  String get apOrgDefault => 'سمة المنتهى';
+
+  @override
+  String get apAnyColour => 'أي لون';
+
+  @override
+  String get apPremiumOnly => 'مع السمات المميزة';
+
+  @override
+  String get apWallpaper => 'الخلفية';
+
+  @override
+  String get apWallpaperHint => 'صورتك تبقى على هذا الهاتف.';
+
+  @override
+  String get apWpNone => 'بلا';
+
+  @override
+  String get apWpPhoto => 'صورتك';
+
+  @override
+  String get apWpDawn => 'الفجر';
+
+  @override
+  String get apWpDunes => 'الكثبان';
+
+  @override
+  String get apWpMint => 'النعناع';
+
+  @override
+  String get apWpSky => 'السماء';
+
+  @override
+  String get apWpDusk => 'الغروب';
+
+  @override
+  String get apWpNightSky => 'سماء الليل';
+
+  @override
+  String get apWpForest => 'الغابة';
+
+  @override
+  String get apWpRose => 'حديقة الورد';
+
+  @override
+  String get apCover => 'الخلفية خلف الصفحات';
+
+  @override
+  String get apCoverHint => 'يساراً: خلفية أوضح، يميناً: صفحات أبسط';
+
+  @override
+  String get apTextSize => 'حجم النص';
+
+  @override
+  String get apFont => 'خط العناوين';
+
+  @override
+  String get apFontSystem => 'خط الهاتف';
+
+  @override
+  String get apCorners => 'استدارة الزوايا';
+
+  @override
+  String get apReset => 'العودة لمظهر المنتهى';
+
+  @override
+  String get apPremiumTitle => 'السمات المميزة';
+
+  @override
+  String get apPremiumWhat =>
+      'كل السمات وأي لون وخطوط العناوين واستدارة الزوايا ومقدار ظهور الخلفية. تُدفع مرة واحدة عبر الهاتف وتكون لك على كل هاتف تسجّل الدخول منه.';
+
+  @override
+  String apPremiumOffer(String price) {
+    return 'سمات أكثر وأي لون والمزيد: $price مرة واحدة';
+  }
+
+  @override
+  String get apPremiumNotOnSale => 'السمات المميزة غير معروضة للبيع بعد.';
+
+  @override
+  String get apUnlock => 'فتح';
+
+  @override
+  String get apUnlocked => 'أصبحت السمات المميزة لك';
+
+  @override
+  String apApprove(String price) {
+    return 'وافق على $price في هاتفك';
+  }
+
+  @override
+  String apPay(String price) {
+    return 'ادفع $price عبر الهاتف';
+  }
+
+  @override
+  String get apOrgLook => 'مظهر المؤسسة';
+
+  @override
+  String get apOrgLookHint => 'ما تعرضه كل الهواتف (المشرف العام)';
+
+  @override
+  String get apOrgLookIntro =>
+      'يبدأ الجميع بهذا المظهر. ويمكنهم اختيار السمات المجانية وخلفيتهم؛ السمات المميزة تحتاج إلى دفع.';
+
+  @override
+  String get apMainColour => 'اللون الرئيسي';
+
+  @override
+  String get apAccentColour => 'اللون المميِّز';
+
+  @override
+  String get apWallpaperLink => 'أو رابط صورة (https)';
+
+  @override
+  String get apFreeThemes => 'السمات المجانية';
+
+  @override
+  String get apPremiumPrice => 'سعر السمات المميزة';
+
+  @override
+  String get apPremiumPriceHint => 'اتركه فارغاً لعدم عرضها للبيع';
+
+  @override
+  String get apThTeal => 'أخضر سدرة';
+
+  @override
+  String get apThNight => 'الليل';
+
+  @override
+  String get apThSand => 'الرمل';
+
+  @override
+  String get apThOcean => 'المحيط';
+
+  @override
+  String get apThEmerald => 'الزمرد';
+
+  @override
+  String get apThRoyal => 'الملكي';
+
+  @override
+  String get apThRose => 'الوردي';
+
+  @override
+  String get apThGoldNight => 'الليل الذهبي';
+
+  @override
+  String get apThOlive => 'الزيتوني';
+
+  @override
+  String get apThSky => 'السماوي';
+
+  @override
+  String get apThCrimson => 'القرمزي';
+
+  @override
+  String get apThSlate => 'الرمادي';
 }

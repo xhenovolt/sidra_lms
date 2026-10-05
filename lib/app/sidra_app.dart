@@ -8,6 +8,7 @@ import '../core/notifications/push.dart';
 import '../core/settings/public_settings.dart';
 import '../core/settings/update_gate.dart';
 import '../core/theme/app_theme.dart';
+import '../core/theme/appearance.dart';
 import '../l10n/app_localizations.dart';
 import '../features/downloads/presentation/download_button.dart'
     show downloadAccessGuardProvider;
@@ -39,11 +40,14 @@ class SidraApp extends ConsumerWidget {
     // screens it concerns refresh at once.
     Push.onOpen = PhoneNotifications.onOpen;
     Push.onForeground = (m) => PhoneNotifications.showPush(m, ref);
+    // The organisation's look, with this person's choices on top.
+    final look = ref.watch(effectiveLookProvider);
     return MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context).appName,
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
+      theme: AppTheme.forLook(look, Brightness.light),
+      darkTheme: AppTheme.forLook(look, Brightness.dark),
+      themeMode: look.mode,
       locale: locale,
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
@@ -53,10 +57,20 @@ class SidraApp extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       routerConfig: router,
-      builder: (context, child) => Listener(
-        // "Active" for presence = someone touched the screen.
-        onPointerDown: (_) => DeviceActivity.touched = true,
-        child: UpdateGate(child: child ?? const SizedBox.shrink()),
+      builder: (context, child) => MediaQuery(
+        // Text size chosen in Appearance (on top of the phone's own).
+        data: MediaQuery.of(context).copyWith(
+          textScaler: TextScaler.linear(
+            MediaQuery.textScalerOf(context).scale(1) * look.textScale,
+          ),
+        ),
+        child: Listener(
+          // "Active" for presence = someone touched the screen.
+          onPointerDown: (_) => DeviceActivity.touched = true,
+          child: BackdropLayer(
+            child: UpdateGate(child: child ?? const SizedBox.shrink()),
+          ),
+        ),
       ),
     );
   }

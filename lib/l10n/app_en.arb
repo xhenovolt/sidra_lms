@@ -4010,5 +4010,88 @@
   "arCurrencyTitle": "One currency (UGX)",
   "arCurrency": "The books are kept in UGX. A record in another currency is listed on the finance home, not converted.",
   "arPermanentTitle": "Entries are permanent",
-  "arPermanent": "Every entry balances (debits = credits) and can never be edited or deleted. Mistakes are corrected with a reversing entry."
+  "arPermanent": "Every entry balances (debits = credits) and can never be edited or deleted. Mistakes are corrected with a reversing entry.",
+  "mvPlay": "Play",
+  "mvView": "View",
+  "apTitle": "Appearance",
+  "apHint": "Theme, wallpaper and text size",
+  "apMode": "Light or dark",
+  "apModeOrg": "Default",
+  "apModeSystem": "Follow the phone",
+  "apModeLight": "Light",
+  "apModeDark": "Dark",
+  "apThemes": "Themes",
+  "apThemesHint": "Themes with a lock come with premium themes.",
+  "apOrgDefault": "Almuntahha's",
+  "apAnyColour": "Any colour",
+  "apPremiumOnly": "With premium themes",
+  "apWallpaper": "Wallpaper",
+  "apWallpaperHint": "Your own photo stays on this phone.",
+  "apWpNone": "None",
+  "apWpPhoto": "Your photo",
+  "apWpDawn": "Dawn",
+  "apWpDunes": "Dunes",
+  "apWpMint": "Mint",
+  "apWpSky": "Sky",
+  "apWpDusk": "Dusk",
+  "apWpNightSky": "Night sky",
+  "apWpForest": "Forest",
+  "apWpRose": "Rose garden",
+  "apCover": "Wallpaper behind pages",
+  "apCoverHint": "Left: more wallpaper, right: plainer pages",
+  "apTextSize": "Text size",
+  "apFont": "Heading font",
+  "apFontSystem": "Phone's font",
+  "apCorners": "Rounded corners",
+  "apReset": "Back to Almuntahha's look",
+  "apPremiumTitle": "Premium themes",
+  "apPremiumWhat": "All themes, any colour, heading fonts, rounded corners and how much wallpaper shows. Paid once with mobile money; yours on every phone you sign in on.",
+  "apPremiumOffer": "More themes, any colour and more: {price}, once",
+  "@apPremiumOffer": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "apPremiumNotOnSale": "Premium themes are not on sale yet.",
+  "apUnlock": "Unlock",
+  "apUnlocked": "Premium themes are yours",
+  "apApprove": "Approve {price} on your phone",
+  "@apApprove": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "apPay": "Pay {price} with mobile money",
+  "@apPay": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "apOrgLook": "Organisation look",
+  "apOrgLookHint": "What every phone shows (superadmin)",
+  "apOrgLookIntro": "Everyone starts with this look. People may still choose the free themes and their own wallpaper; premium themes need payment.",
+  "apMainColour": "Main colour",
+  "apAccentColour": "Accent colour",
+  "apWallpaperLink": "Or a link to a picture (https)",
+  "apFreeThemes": "Free themes",
+  "apPremiumPrice": "Price of premium themes",
+  "apPremiumPriceHint": "Leave empty to keep them off sale",
+  "apThTeal": "Sidra teal",
+  "apThNight": "Night",
+  "apThSand": "Sand",
+  "apThOcean": "Ocean",
+  "apThEmerald": "Emerald",
+  "apThRoyal": "Royal",
+  "apThRose": "Rose",
+  "apThGoldNight": "Gold night",
+  "apThOlive": "Olive",
+  "apThSky": "Sky",
+  "apThCrimson": "Crimson",
+  "apThSlate": "Slate"
 }

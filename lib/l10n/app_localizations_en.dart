@@ -7147,4 +7147,198 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get arPermanent =>
       'Every entry balances (debits = credits) and can never be edited or deleted. Mistakes are corrected with a reversing entry.';
+
+  @override
+  String get mvPlay => 'Play';
+
+  @override
+  String get mvView => 'View';
+
+  @override
+  String get apTitle => 'Appearance';
+
+  @override
+  String get apHint => 'Theme, wallpaper and text size';
+
+  @override
+  String get apMode => 'Light or dark';
+
+  @override
+  String get apModeOrg => 'Default';
+
+  @override
+  String get apModeSystem => 'Follow the phone';
+
+  @override
+  String get apModeLight => 'Light';
+
+  @override
+  String get apModeDark => 'Dark';
+
+  @override
+  String get apThemes => 'Themes';
+
+  @override
+  String get apThemesHint => 'Themes with a lock come with premium themes.';
+
+  @override
+  String get apOrgDefault => 'Almuntahha\'s';
+
+  @override
+  String get apAnyColour => 'Any colour';
+
+  @override
+  String get apPremiumOnly => 'With premium themes';
+
+  @override
+  String get apWallpaper => 'Wallpaper';
+
+  @override
+  String get apWallpaperHint => 'Your own photo stays on this phone.';
+
+  @override
+  String get apWpNone => 'None';
+
+  @override
+  String get apWpPhoto => 'Your photo';
+
+  @override
+  String get apWpDawn => 'Dawn';
+
+  @override
+  String get apWpDunes => 'Dunes';
+
+  @override
+  String get apWpMint => 'Mint';
+
+  @override
+  String get apWpSky => 'Sky';
+
+  @override
+  String get apWpDusk => 'Dusk';
+
+  @override
+  String get apWpNightSky => 'Night sky';
+
+  @override
+  String get apWpForest => 'Forest';
+
+  @override
+  String get apWpRose => 'Rose garden';
+
+  @override
+  String get apCover => 'Wallpaper behind pages';
+
+  @override
+  String get apCoverHint => 'Left: more wallpaper, right: plainer pages';
+
+  @override
+  String get apTextSize => 'Text size';
+
+  @override
+  String get apFont => 'Heading font';
+
+  @override
+  String get apFontSystem => 'Phone\'s font';
+
+  @override
+  String get apCorners => 'Rounded corners';
+
+  @override
+  String get apReset => 'Back to Almuntahha\'s look';
+
+  @override
+  String get apPremiumTitle => 'Premium themes';
+
+  @override
+  String get apPremiumWhat =>
+      'All themes, any colour, heading fonts, rounded corners and how much wallpaper shows. Paid once with mobile money; yours on every phone you sign in on.';
+
+  @override
+  String apPremiumOffer(String price) {
+    return 'More themes, any colour and more: $price, once';
+  }
+
+  @override
+  String get apPremiumNotOnSale => 'Premium themes are not on sale yet.';
+
+  @override
+  String get apUnlock => 'Unlock';
+
+  @override
+  String get apUnlocked => 'Premium themes are yours';
+
+  @override
+  String apApprove(String price) {
+    return 'Approve $price on your phone';
+  }
+
+  @override
+  String apPay(String price) {
+    return 'Pay $price with mobile money';
+  }
+
+  @override
+  String get apOrgLook => 'Organisation look';
+
+  @override
+  String get apOrgLookHint => 'What every phone shows (superadmin)';
+
+  @override
+  String get apOrgLookIntro =>
+      'Everyone starts with this look. People may still choose the free themes and their own wallpaper; premium themes need payment.';
+
+  @override
+  String get apMainColour => 'Main colour';
+
+  @override
+  String get apAccentColour => 'Accent colour';
+
+  @override
+  String get apWallpaperLink => 'Or a link to a picture (https)';
+
+  @override
+  String get apFreeThemes => 'Free themes';
+
+  @override
+  String get apPremiumPrice => 'Price of premium themes';
+
+  @override
+  String get apPremiumPriceHint => 'Leave empty to keep them off sale';
+
+  @override
+  String get apThTeal => 'Sidra teal';
+
+  @override
+  String get apThNight => 'Night';
+
+  @override
+  String get apThSand => 'Sand';
+
+  @override
+  String get apThOcean => 'Ocean';
+
+  @override
+  String get apThEmerald => 'Emerald';
+
+  @override
+  String get apThRoyal => 'Royal';
+
+  @override
+  String get apThRose => 'Rose';
+
+  @override
+  String get apThGoldNight => 'Gold night';
+
+  @override
+  String get apThOlive => 'Olive';
+
+  @override
+  String get apThSky => 'Sky';
+
+  @override
+  String get apThCrimson => 'Crimson';
+
+  @override
+  String get apThSlate => 'Slate';
 }

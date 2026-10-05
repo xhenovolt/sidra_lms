@@ -12,6 +12,13 @@ class Release {
 }
 
 final changelog = <Release>[
+  Release('2.42.0', DateTime(2026, 10, 5), 'Your own look; media that just plays', [
+    'Audio plays at once in a small player that slides up from the bottom; swipe down to close. No more pages to close with an X.',
+    'Links straight to an audio, video, picture or PDF file open inside Sidra instead of the browser; previews play audio in place.',
+    'Appearance (Profile › Appearance): light or dark, free themes, your own wallpaper (a photo or a built-in one) and text size, for everyone.',
+    'Premium themes, paid once with mobile money: all themes, any colour, heading fonts, rounded corners and how much wallpaper shows.',
+    'The superadmin sets the look every phone starts with (colours, light or dark, font, corners, wallpaper), chooses which themes are free and sets the premium price.',
+  ]),
   Release('2.41.0', DateTime(2026, 10, 5), 'Pay ahead, receipts and refunds', [
     'Monthly, weekly or termly courses: pay for several periods at once (for example 5 months for 100,000) and learn without paying again until they end. Sidra shows the exact amount and the date it covers until.',
     'Every confirmed payment gets a numbered receipt, showing the months it pays for. Learners find all their payments and receipts under Profile › My payments, and can save a receipt as a PDF.',

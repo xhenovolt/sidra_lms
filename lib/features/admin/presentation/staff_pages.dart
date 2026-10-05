@@ -17,6 +17,7 @@ import '../../onboarding/presentation/onboarding_center.dart';
 import '../../chat/chat_repository.dart' show unreadChatsProvider;
 import '../../profile/presentation/avatar_editor.dart';
 import '../../../app/router/learner_preview.dart';
+import '../../profile/presentation/appearance_screen.dart';
 
 /// A staff tab page with its own title bar.
 class StaffPage extends StatelessWidget {
@@ -93,7 +94,9 @@ class StaffMoreScreen extends ConsumerWidget {
             subtitle: Text(l10n.obCenterEntryHint),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(builder: (_) => const OnboardingCenterScreen()),
+              MaterialPageRoute<void>(
+                builder: (_) => const OnboardingCenterScreen(),
+              ),
             ),
           ),
           if (role == UserRole.teacher)
@@ -169,6 +172,13 @@ class StaffMoreScreen extends ConsumerWidget {
             leading: const Icon(Icons.notifications_outlined),
             title: Text(l10n.notificationsTitle),
             onTap: () => context.push(Routes.notifications),
+          ),
+          ListTile(
+            leading: const Icon(Icons.palette_outlined),
+            title: Text(l10n.apTitle),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const AppearanceScreen()),
+            ),
           ),
           ListTile(
             leading: const Icon(Icons.info_outline),

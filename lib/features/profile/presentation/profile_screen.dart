@@ -15,6 +15,7 @@ import '../../auth/presentation/auth_providers.dart';
 import '../data/profile_repository.dart';
 import 'avatar_editor.dart';
 import '../../payments/presentation/receipts.dart';
+import 'appearance_screen.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -123,6 +124,16 @@ class ProfileScreen extends ConsumerWidget {
             trailing: const Icon(Icons.chevron_right),
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute<void>(builder: (_) => const MyPaymentsScreen()),
+            ),
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.palette_outlined),
+            title: Text(l10n.apTitle),
+            subtitle: Text(l10n.apHint),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const AppearanceScreen()),
             ),
           ),
           ListTile(
