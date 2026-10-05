@@ -101,9 +101,18 @@ set local role authenticated;
 select pg_temp.check((public.ledger_overview()->>'not_in_books')::int = current_setting('lg.nib')::int + 1,
   'the USD payment is listed as not in the books');
 
--- Refund part of the cash payment: refunds up, cash down.
-select public.record_refund(current_setting('lg.cash')::uuid, 5000, 'left the course');
-select pg_temp.check(pg_temp.bal('1000') = 35000 and pg_temp.bal('4090') = -5000, format('refund paid from cash, income reduced (cash %s, refunds %s, refund rows %s)', pg_temp.bal('1000'), pg_temp.bal('4090'), (select count(*) from refunds where payment_id = current_setting('lg.cash')::uuid)));
+-- Refund part of the cash payment: owed to the learner first (income down),
+-- then paid out from cash.
+select set_config('lg.refund', (public.record_refund(current_setting('lg.cash')::uuid, 5000, 'left the course'))->>'id', true);
+select pg_temp.check(pg_temp.bal('1000') = 40000 and pg_temp.bal('4090') = -5000 and pg_temp.bal('2050') = 5000,
+  'refund agreed: owed to the learner, cash not yet paid');
+select pg_temp.check((public.ledger_overview()->>'refunds_owed')::numeric >= 5000, 'owed refunds on the finance home');
+select pg_temp.expect_error($q$select public.pay_out_refund(current_setting('lg.refund')::uuid,
+  pg_temp.acct('1000'), 'cash', '')$q$, 'transaction ID');
+select public.pay_out_refund(current_setting('lg.refund')::uuid, pg_temp.acct('1000'), 'cash', 'Cash slip 12');
+select pg_temp.check(pg_temp.bal('1000') = 35000 and pg_temp.bal('2050') = 0, 'refund paid out from cash');
+select pg_temp.expect_error($q$select public.pay_out_refund(current_setting('lg.refund')::uuid,
+  pg_temp.acct('1000'), 'cash', 'again')$q$, 'already paid');
 
 -- Reverse the MarzPay payment: the receipt is undone, the fee stays (MarzPay keeps it).
 select public.reverse_payment('00000000-0000-0000-0000-000000102001', 'chargeback');

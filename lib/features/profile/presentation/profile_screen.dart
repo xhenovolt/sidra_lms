@@ -14,6 +14,7 @@ import '../../admin/presentation/sessions_screens.dart' show DevicesScreen;
 import '../../auth/presentation/auth_providers.dart';
 import '../data/profile_repository.dart';
 import 'avatar_editor.dart';
+import '../../payments/presentation/receipts.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -112,6 +113,16 @@ class ProfileScreen extends ConsumerWidget {
             title: Text(l10n.devicesMine),
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute<void>(builder: (_) => const DevicesScreen()),
+            ),
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: const Icon(Icons.receipt_long_outlined),
+            title: Text(l10n.rcMyPayments),
+            subtitle: Text(l10n.rcMyPaymentsHint),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const MyPaymentsScreen()),
             ),
           ),
           ListTile(

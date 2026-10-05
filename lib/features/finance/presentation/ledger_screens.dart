@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:intl/intl.dart';
 
+import '../../../core/export/documents.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../shared/models/json.dart';
@@ -310,6 +311,61 @@ String sourceLabel(AppLocalizations l10n, String s) => switch (s) {
   _ => l10n.lgSrcReversal,
 };
 
+/// The journal (up to 500 entries, current filter) as a spreadsheet or PDF:
+/// one row per line, so debits and credits can be totalled.
+Future<void> _exportJournal(
+  BuildContext context,
+  WidgetRef ref,
+  String? filter, {
+  required bool pdf,
+}) async {
+  final l10n = AppLocalizations.of(context);
+  final messenger = ScaffoldMessenger.of(context);
+  final entries = await ref
+      .read(ledgerRepositoryProvider)
+      .journal(sourceType: filter, limit: 500);
+  final table = DocTable(
+    title: l10n.lgJournal,
+    subtitle: filter == null ? null : sourceLabel(l10n, filter),
+    columns: [
+      l10n.lgDate,
+      '#',
+      l10n.lgDescription,
+      l10n.lgAccountCode,
+      l10n.lgAccountName,
+      l10n.lgDebit,
+      l10n.lgCredit,
+    ],
+    numeric: {5, 6},
+    rows: [
+      for (final e in entries.reversed)
+        for (final l in (e['lines'] as List? ?? const []))
+          [
+            e['entry_date'],
+            e['number'],
+            e['memo'],
+            (l as Map)['code'],
+            l['account'],
+            num.tryParse('${l['debit']}') == 0
+                ? null
+                : num.tryParse('${l['debit']}'),
+            num.tryParse('${l['credit']}') == 0
+                ? null
+                : num.tryParse('${l['credit']}'),
+          ],
+    ],
+  );
+  final name =
+      'sidra-journal-${DateTime.now().toIso8601String().substring(0, 10)}';
+  final ok = await saveDocument(
+    pdf ? '$name.pdf' : '$name.xlsx',
+    pdf
+        ? await tablesToPdf([table], header: l10n.exHeader)
+        : tablesToXlsx([table]),
+  );
+  if (ok) messenger.showSnackBar(SnackBar(content: Text(l10n.rcSaved)));
+}
+
 /// Every entry in the books, newest first, with its debit and credit lines.
 class JournalScreen extends ConsumerWidget {
   const JournalScreen({super.key});
@@ -373,6 +429,18 @@ class JournalScreen extends ConsumerWidget {
                           ref.read(_journalFilterProvider.notifier).state = s,
                     ),
                   ),
+                IconButton(
+                  tooltip: l10n.exDownloadExcel,
+                  icon: const Icon(Icons.table_view_outlined),
+                  onPressed: () =>
+                      _exportJournal(context, ref, filter, pdf: false),
+                ),
+                IconButton(
+                  tooltip: l10n.exDownloadPdf,
+                  icon: const Icon(Icons.picture_as_pdf_outlined),
+                  onPressed: () =>
+                      _exportJournal(context, ref, filter, pdf: true),
+                ),
               ],
             ),
           ),
@@ -752,6 +820,7 @@ class CountsScreen extends ConsumerWidget {
             if (list.isEmpty) {
               return ListView(
                 children: [
+                  const MarzPayCheckCard(),
                   EmptyView(
                     icon: Icons.calculate_outlined,
                     title: l10n.lgNoCounts,
@@ -762,10 +831,11 @@ class CountsScreen extends ConsumerWidget {
             }
             return ListView.separated(
               padding: const EdgeInsets.only(bottom: 96),
-              itemCount: list.length,
+              itemCount: list.length + 1,
               separatorBuilder: (_, _) => const Divider(height: 1),
               itemBuilder: (context, i) {
-                final r = list[i];
+                if (i == 0) return const MarzPayCheckCard();
+                final r = list[i - 1];
                 final diff = r.numOrNull('difference') ?? 0;
                 return ListTile(
                   leading: Icon(
@@ -846,6 +916,122 @@ class _FinanceReportsScreenState extends ConsumerState<FinanceReportsScreen> {
   }
 
   void _reload() => setState(() => _data = _load());
+
+  /// The report on screen as a PDF or an Excel workbook.
+  Future<void> _download(BuildContext context, {required bool pdf}) async {
+    final l10n = AppLocalizations.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final d = await _data;
+    final (from, to) = _range(_period);
+    final date = DateFormat.yMMMd(l10n.localeName);
+    final period = _tab == 1
+        ? l10n.exAsOf(date.format(to))
+        : '${date.format(from)} – ${date.format(to)}';
+    List<List<Object?>> items(
+      Object? list,
+      String label, {
+      String key = 'amount',
+    }) => [
+      for (final i in (list as List? ?? const []))
+        [(i as Map)[label], num.tryParse('${i[key]}')],
+    ];
+    final columns = [l10n.exItem, l10n.rcAmount];
+    final tables = switch (_tab) {
+      0 => [
+        DocTable(
+          title: l10n.lgIncomeStatement,
+          subtitle: period,
+          columns: columns,
+          numeric: {1},
+          rows: [
+            [l10n.lgTypeIncome, (d as Json).numOrNull('total_income')],
+            ...items(d['income'], 'name'),
+            [l10n.lgTypeExpense, d.numOrNull('total_expenses')],
+            ...items(d['expenses'], 'name'),
+            [l10n.lgSurplus, d.numOrNull('surplus')],
+          ],
+        ),
+      ],
+      1 => [
+        DocTable(
+          title: l10n.lgBalanceSheet,
+          subtitle: period,
+          columns: columns,
+          numeric: {1},
+          rows: [
+            [l10n.lgTypeAsset, (d as Json).numOrNull('total_assets')],
+            ...items(d['assets'], 'name'),
+            [l10n.lgTypeLiability, d.numOrNull('total_liabilities')],
+            ...items(d['liabilities'], 'name'),
+            [l10n.lgTypeEquity, d.numOrNull('total_equity')],
+            ...items(d['equity'], 'name'),
+            [l10n.lgSurplusSoFar, d.numOrNull('surplus')],
+          ],
+        ),
+      ],
+      2 => [
+        DocTable(
+          title: l10n.lgCashFlow,
+          subtitle: period,
+          columns: columns,
+          numeric: {1},
+          rows: [
+            [l10n.lgOpeningMoney, (d as Json).numOrNull('opening')],
+            [l10n.lgMoneyCameIn, d.numOrNull('total_in')],
+            ...items(d['in'], 'what'),
+            [l10n.lgMoneyWentOut, d.numOrNull('total_out')],
+            ...items(d['out'], 'what'),
+            [l10n.lgClosingMoney, d.numOrNull('closing')],
+          ],
+        ),
+      ],
+      3 => [
+        DocTable(
+          title: l10n.lgTrialBalance,
+          subtitle: period,
+          columns: [
+            l10n.lgAccountCode,
+            l10n.lgAccountName,
+            l10n.lgDebit,
+            l10n.lgCredit,
+          ],
+          numeric: {2, 3},
+          rows: [
+            for (final a in (d as List<LedgerAccount>).where(
+              (a) => a.balance != 0,
+            ))
+              if ((a.type == 'asset' || a.type == 'expense') ==
+                  (a.balance >= 0))
+                [a.code, a.name, a.balance.abs(), null]
+              else
+                [a.code, a.name, null, a.balance.abs()],
+          ],
+        ),
+      ],
+      _ => [
+        DocTable(
+          title: l10n.lgBudget,
+          subtitle: period,
+          columns: [l10n.lgAccountName, l10n.lgBudget, l10n.exActual],
+          numeric: {1, 2},
+          rows: [
+            for (final r in d as List<Json>)
+              [r['name'], r.numOrNull('budget'), r.numOrNull('actual')],
+          ],
+        ),
+      ],
+    };
+    final name =
+        'sidra-${tables.first.title.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]+'), '-')}'
+        '-${to.toIso8601String().substring(0, 10)}';
+    final ok = await saveDocument(
+      pdf ? '$name.pdf' : '$name.xlsx',
+      pdf
+          ? await tablesToPdf(tables, header: l10n.exHeader)
+          : tablesToXlsx(tables),
+    );
+    if (ok) messenger.showSnackBar(SnackBar(content: Text(l10n.rcSaved)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -939,6 +1125,16 @@ class _FinanceReportsScreenState extends ConsumerState<FinanceReportsScreen> {
                       }),
                     ),
                   ),
+                IconButton(
+                  tooltip: l10n.exDownloadPdf,
+                  icon: const Icon(Icons.picture_as_pdf_outlined),
+                  onPressed: () => _download(context, pdf: true),
+                ),
+                IconButton(
+                  tooltip: l10n.exDownloadExcel,
+                  icon: const Icon(Icons.table_view_outlined),
+                  onPressed: () => _download(context, pdf: false),
+                ),
                 if (canManage)
                   TextButton.icon(
                     icon: const Icon(Icons.lock_clock_outlined),
@@ -1156,5 +1352,289 @@ class _FinanceReportsScreenState extends ConsumerState<FinanceReportsScreen> {
     )) {
       refreshLedger(ref);
     }
+  }
+}
+
+// ------------------------------------------------------------- refunds --
+
+/// Refunds agreed for learners: owed until paid out from a money account
+/// (with the transaction ID), then shown as paid.
+class RefundsView extends ConsumerWidget {
+  const RefundsView({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final canPay = _perms(ref).contains('finance.verify_payment');
+    final rows = ref.watch(ledgerRefundsProvider);
+    final date = DateFormat.yMMMd(l10n.localeName);
+    return RefreshIndicator(
+      onRefresh: () => ref.refresh(ledgerRefundsProvider.future),
+      child: _async(ref, rows, () => ref.invalidate(ledgerRefundsProvider), (
+        list,
+      ) {
+        return ListView(
+          padding: const EdgeInsets.only(bottom: 96),
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(Space.md),
+              child: Text(l10n.rfIntro, style: theme.textTheme.bodySmall),
+            ),
+            if (list.isEmpty) EmptyView(icon: Icons.undo, title: l10n.rfNone),
+            for (final r in list)
+              ListTile(
+                leading: Icon(
+                  r['status'] == 'owed'
+                      ? Icons.schedule
+                      : Icons.check_circle_outline,
+                  color: r['status'] == 'owed'
+                      ? theme.colorScheme.error
+                      : Colors.green,
+                ),
+                title: Text(
+                  '${r.strOrNull('learner') ?? ''} · ${_m(r.numOrNull('amount') ?? 0)}',
+                ),
+                subtitle: Text(
+                  [
+                    ?r.strOrNull('course'),
+                    ?r.strOrNull('reason'),
+                    if (r['status'] == 'owed')
+                      l10n.rfOwedSince(
+                        date.format(DateTime.parse(r.str('agreed_on'))),
+                      )
+                    else
+                      l10n.rfPaidOut(
+                        date.format(DateTime.parse(r.str('paid_out_on'))),
+                        r.strOrNull('paid_from') ?? '',
+                        r.strOrNull('payout_reference') ?? '',
+                      ),
+                  ].join(' · '),
+                ),
+                trailing: canPay && r['status'] == 'owed'
+                    ? FilledButton(
+                        onPressed: () => _payOut(context, ref, r),
+                        child: Text(l10n.rfPayOut),
+                      )
+                    : null,
+              ),
+          ],
+        );
+      }),
+    );
+  }
+
+  Future<void> _payOut(BuildContext context, WidgetRef ref, Json r) async {
+    final l10n = AppLocalizations.of(context);
+    final saved = await showLedgerSheet(
+      context,
+      LedgerForm(
+        title: l10n.rfPayOutTitle(r.strOrNull('learner') ?? ''),
+        intro: l10n.rfPayOutIntro(
+          _m(r.numOrNull('amount') ?? 0),
+          r.strOrNull('phone') ?? '',
+        ),
+        fields: [
+          AccountField('from', l10n.lgPaidFrom, isMoneyAccount),
+          TextLedgerField('method', l10n.rfMethod, hint: l10n.rfMethodHint),
+          TextLedgerField('reference', l10n.rfReference, required: true),
+          DateField('date', l10n.lgDate),
+        ],
+        onSave: (v) => ref
+            .read(ledgerRepositoryProvider)
+            .payOutRefund(
+              refundId: r.str('id'),
+              fromAccount: (v['from']! as LedgerAccount).id,
+              method: (v['method'] as String?) ?? '',
+              reference: v['reference']! as String,
+              paidOn: (v['date'] as DateTime?) ?? DateTime.now(),
+            ),
+      ),
+    );
+    if (saved) refreshLedger(ref);
+  }
+}
+
+// -------------------------------------------------------- MarzPay check --
+
+/// How Sidra's MarzPay payments compare with MarzPay's own records (the
+/// payments Worker checks a few every minute).
+class MarzPayCheckCard extends ConsumerWidget {
+  const MarzPayCheckCard({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final check = ref.watch(marzpayCheckProvider);
+    final when = DateFormat.yMMMd(l10n.localeName).add_jm();
+    return Card(
+      margin: const EdgeInsets.all(Space.md),
+      child: Padding(
+        padding: const EdgeInsets.all(Space.md),
+        child: switch (check) {
+          AsyncData(value: final c) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(l10n.mkTitle, style: theme.textTheme.titleMedium),
+              Text(l10n.mkIntro, style: theme.textTheme.bodySmall),
+              const SizedBox(height: Space.xs),
+              Text(
+                l10n.mkCounts(
+                  c.intOrNull('matched') ?? 0,
+                  c.intOrNull('mismatched') ?? 0,
+                  c.intOrNull('waiting') ?? 0,
+                  c.intOrNull('not_checked') ?? 0,
+                ),
+              ),
+              if (c.strOrNull('last_checked') != null)
+                Text(
+                  l10n.mkLast(
+                    when.format(
+                      DateTime.parse(c.str('last_checked')).toLocal(),
+                    ),
+                  ),
+                  style: theme.textTheme.bodySmall,
+                ),
+              for (final p in (c['problems'] as List? ?? const []))
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(
+                    (p as Map)['result'] == 'mismatch'
+                        ? Icons.error_outline
+                        : Icons.schedule,
+                    color: p['result'] == 'mismatch'
+                        ? theme.colorScheme.error
+                        : null,
+                  ),
+                  title: Text(
+                    '${p['learner'] ?? ''} · ${_m(num.parse('${p['amount']}'))} · ${p['course'] ?? ''}',
+                  ),
+                  subtitle: Text('${p['detail'] ?? ''}'),
+                ),
+            ],
+          ),
+          AsyncError(:final error) => ErrorView(
+            error: error,
+            onRetry: () => ref.invalidate(marzpayCheckProvider),
+          ),
+          _ => const LinearProgressIndicator(),
+        },
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------- accounting rules --
+
+/// The rules the books follow, for the organisation's accountant to read and
+/// confirm (who confirmed, and when, is recorded).
+class AccountingRulesScreen extends ConsumerWidget {
+  const AccountingRulesScreen({super.key});
+
+  static List<(String, String)> rules(AppLocalizations l10n) => [
+    (l10n.arCashTitle, l10n.arCash),
+    (l10n.arOpeningTitle, l10n.arOpening),
+    (l10n.arMarzPayTitle, l10n.arMarzPay),
+    (l10n.arFeesTitle, l10n.arFees),
+    (l10n.arTestTitle, l10n.arTest),
+    (l10n.arRefundsTitle, l10n.arRefunds),
+    (l10n.arClosingTitle, l10n.arClosing),
+    (l10n.arAccountsTitle, l10n.arAccounts),
+    (l10n.arCurrencyTitle, l10n.arCurrency),
+    (l10n.arPermanentTitle, l10n.arPermanent),
+  ];
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final canConfirm = _perms(ref).contains('finance.manage_accounts');
+    final overview = ref.watch(ledgerOverviewProvider).value;
+    final confirmed = overview?['rules_confirmed'] as Map?;
+    final date = DateFormat.yMMMd(l10n.localeName);
+    final list = rules(l10n);
+    return ListView(
+      padding: const EdgeInsets.all(Space.md),
+      children: [
+        Text(l10n.arIntro, style: theme.textTheme.bodyMedium),
+        const SizedBox(height: Space.sm),
+        Card(
+          color: confirmed == null
+              ? theme.colorScheme.tertiaryContainer
+              : theme.colorScheme.primaryContainer,
+          child: ListTile(
+            leading: Icon(
+              confirmed == null
+                  ? Icons.pending_outlined
+                  : Icons.verified_outlined,
+            ),
+            title: Text(
+              confirmed == null
+                  ? l10n.arNotConfirmed
+                  : l10n.arConfirmed(
+                      '${confirmed['by']}',
+                      date.format(DateTime.parse('${confirmed['on']}')),
+                    ),
+            ),
+            subtitle: confirmed?['note'] == null
+                ? null
+                : Text('${confirmed!['note']}'),
+          ),
+        ),
+        for (final (i, (title, body)) in list.indexed)
+          ListTile(
+            leading: CircleAvatar(child: Text('${i + 1}')),
+            title: Text(title),
+            subtitle: Text(body),
+          ),
+        const SizedBox(height: Space.md),
+        OutlinedButton.icon(
+          onPressed: () async {
+            final bytes = await tablesToPdf([
+              DocTable(
+                title: l10n.arTitle,
+                subtitle: l10n.arIntro,
+                columns: ['#', l10n.arRule, l10n.arWhat],
+                rows: [
+                  for (final (i, (t, b)) in list.indexed) [i + 1, t, b],
+                ],
+              ),
+            ], header: l10n.arPdfHeader);
+            final ok = await saveDocument('sidra-accounting-rules.pdf', bytes);
+            if (ok && context.mounted) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(l10n.rcSaved)));
+            }
+          },
+          icon: const Icon(Icons.picture_as_pdf_outlined),
+          label: Text(l10n.arSendPdf),
+        ),
+        if (canConfirm) ...[
+          const SizedBox(height: Space.xs),
+          FilledButton.icon(
+            onPressed: () async {
+              final saved = await showLedgerSheet(
+                context,
+                LedgerForm(
+                  title: l10n.arConfirmTitle,
+                  intro: l10n.arConfirmIntro,
+                  fields: [
+                    TextLedgerField('by', l10n.arConfirmedBy, required: true),
+                    TextLedgerField('note', l10n.arNote),
+                  ],
+                  onSave: (v) => ref
+                      .read(ledgerRepositoryProvider)
+                      .confirmRules(v['by']! as String, v['note'] as String?),
+                ),
+              );
+              if (saved) refreshLedger(ref);
+            },
+            icon: const Icon(Icons.how_to_reg_outlined),
+            label: Text(l10n.arConfirmTitle),
+          ),
+        ],
+      ],
+    );
   }
 }

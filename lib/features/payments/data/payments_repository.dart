@@ -159,13 +159,44 @@ class PaymentsRepository {
 
   /// Creates the MarzPay payment for what is owed (the app then sends the
   /// prompt to [phone]; see DirectPayments). Returns the payment to watch.
-  Future<Payment> payWithMobileMoney(String courseId, String phone) async {
+  /// With [periods] (repeating fees): pays that many periods ahead.
+  Future<Payment> payWithMobileMoney(
+    String courseId,
+    String phone, {
+    int? periods,
+  }) async {
     final res = await api.rpc(
       'start_course_payment',
-      params: {'p_course_id': courseId, 'p_phone': phone},
+      params: {
+        'p_course_id': courseId,
+        'p_phone': phone,
+        'p_periods': ?periods,
+      },
     );
     return Payment.fromJson(Map<String, dynamic>.from(res as Map));
   }
+
+  /// What paying for [periods] periods costs and covers (from the database:
+  /// amount, covers_from, covers_until, min_periods, max_periods).
+  Future<Json> prepayQuote(String courseId, int periods) async =>
+      Map<String, dynamic>.from(
+        await api.rpc(
+          'prepay_quote',
+          params: {'p_course_id': courseId, 'p_periods': periods},
+        ) as Map,
+      );
+
+  /// Every payment the learner made, newest first (with course names).
+  Future<List<Json>> myPaymentHistory() async => [
+    for (final r in (await api.rpc('my_payment_history') as List? ?? const []))
+      Map<String, dynamic>.from(r as Map),
+  ];
+
+  /// A confirmed payment's receipt (the learner's own, or any for finance).
+  Future<Json> receipt(String paymentId) async => Map<String, dynamic>.from(
+    await api.rpc('payment_receipt', params: {'p_payment_id': paymentId})
+        as Map,
+  );
 
   /// "I paid by bank / mobile money": finance confirms it later.
   Future<Payment> reportPayment({

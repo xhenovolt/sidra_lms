@@ -6820,4 +6820,331 @@ class AppLocalizationsEn extends AppLocalizations {
   String lgBudgetLine(String actual, String budget) {
     return '$actual of $budget';
   }
+
+  @override
+  String get rcMyPayments => 'My payments';
+
+  @override
+  String get rcMyPaymentsHint => 'Payments and receipts';
+
+  @override
+  String get rcNoPayments => 'No payments yet';
+
+  @override
+  String rcCovers(String from, String until) {
+    return 'covers $from – $until';
+  }
+
+  @override
+  String rcRefunded(String amount) {
+    return '$amount refunded';
+  }
+
+  @override
+  String get rcReceipt => 'Receipt';
+
+  @override
+  String get rcCancelled =>
+      'This payment was reversed: the receipt is cancelled.';
+
+  @override
+  String get rcSavePdf => 'Save as PDF';
+
+  @override
+  String get rcSaved => 'Saved';
+
+  @override
+  String get rcIssuedNote => 'Issued by Sidra when the payment was confirmed.';
+
+  @override
+  String get rcReceivedFrom => 'Received from';
+
+  @override
+  String get rcPhone => 'Phone';
+
+  @override
+  String get rcFor => 'For';
+
+  @override
+  String get rcPeriod => 'Period paid for';
+
+  @override
+  String get rcAmount => 'Amount';
+
+  @override
+  String get rcRefundedLabel => 'Refunded';
+
+  @override
+  String get rcMethod => 'Paid by';
+
+  @override
+  String get rcTransactionId => 'Transaction ID';
+
+  @override
+  String get rcPaidOn => 'Paid on';
+
+  @override
+  String get rcConfirmedBy => 'Confirmed by';
+
+  @override
+  String get rcSidraRef => 'Sidra reference';
+
+  @override
+  String ppPayAhead(String periods) {
+    return 'Pay for several $periods at once';
+  }
+
+  @override
+  String get ppTitle => 'Pay ahead';
+
+  @override
+  String get ppIntro =>
+      'Pay for several periods now and learn without paying again until they end.';
+
+  @override
+  String ppCovers(String from, String until) {
+    return 'Covers $from to $until';
+  }
+
+  @override
+  String ppWeeks(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n weeks',
+      one: '1 week',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ppMonths(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n months',
+      one: '1 month',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ppTerms(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n terms',
+      one: '1 term',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ppPeriods(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n periods',
+      one: '1 period',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get rfTab => 'Refunds';
+
+  @override
+  String get rfIntro =>
+      'A refund is owed to the learner when agreed, and cleared when the money is sent back. Send it by mobile money, bank or cash, then record the transaction ID here.';
+
+  @override
+  String get rfNone => 'No refunds';
+
+  @override
+  String rfOwedSince(String date) {
+    return 'owed since $date';
+  }
+
+  @override
+  String rfPaidOut(String date, String account, String reference) {
+    return 'paid $date from $account ($reference)';
+  }
+
+  @override
+  String get rfPayOut => 'Pay out';
+
+  @override
+  String rfPayOutTitle(String learner) {
+    return 'Refund to $learner';
+  }
+
+  @override
+  String rfPayOutIntro(String amount, String phone) {
+    return 'Send $amount back (their number: $phone), then record it here.';
+  }
+
+  @override
+  String get rfMethod => 'Sent by';
+
+  @override
+  String get rfMethodHint => 'e.g. MTN, Airtel, bank, cash';
+
+  @override
+  String get rfReference => 'Transaction ID or receipt';
+
+  @override
+  String rfOwedAlert(String amount) {
+    return 'Refunds still to pay back: $amount';
+  }
+
+  @override
+  String get mkTitle => 'MarzPay check';
+
+  @override
+  String get mkIntro =>
+      'Sidra compares each of its MarzPay payments with MarzPay\'s own records (money in, amount, fee) every few minutes.';
+
+  @override
+  String mkCounts(int matched, int mismatched, int waiting, int notChecked) {
+    return '$matched agree · $mismatched differ · $waiting waiting · $notChecked not checked yet';
+  }
+
+  @override
+  String mkLast(String when) {
+    return 'Last checked $when';
+  }
+
+  @override
+  String get exDownloadPdf => 'Download PDF';
+
+  @override
+  String get exDownloadExcel => 'Download Excel';
+
+  @override
+  String exAsOf(String date) {
+    return 'as of $date';
+  }
+
+  @override
+  String get exItem => 'Item';
+
+  @override
+  String get exActual => 'Actual';
+
+  @override
+  String get exHeader => 'Almuntahha · Sidra financial records';
+
+  @override
+  String get arTitle => 'Accounting rules';
+
+  @override
+  String get arHint => 'How the books work, for the accountant to confirm';
+
+  @override
+  String get arIntro =>
+      'These are the rules Sidra\'s books follow. Whoever keeps Almuntahha\'s accounts should read them and confirm, or ask for a change.';
+
+  @override
+  String get arNotConfirmed =>
+      'The accounting rules are not yet confirmed by the accountant';
+
+  @override
+  String arConfirmed(String by, String date) {
+    return 'Confirmed by $by on $date';
+  }
+
+  @override
+  String get arSendPdf => 'Save as PDF for the accountant';
+
+  @override
+  String get arConfirmTitle => 'Record confirmation';
+
+  @override
+  String get arConfirmIntro =>
+      'Record who confirmed these rules (name of the accountant) and any comment.';
+
+  @override
+  String get arConfirmedBy => 'Confirmed by (name)';
+
+  @override
+  String get arNote => 'Comment (optional)';
+
+  @override
+  String get arRule => 'Rule';
+
+  @override
+  String get arWhat => 'What it means';
+
+  @override
+  String get arPdfHeader => 'Almuntahha · Sidra accounting rules for review';
+
+  @override
+  String get arCashTitle => 'Cash basis';
+
+  @override
+  String get arCash =>
+      'Income is counted when money is received. What learners still owe is shown separately and is not counted as income.';
+
+  @override
+  String get arOpeningTitle => 'Starting amounts from real records';
+
+  @override
+  String get arOpening =>
+      'Each money account starts at the amount staff enter from a real record (cash count, bank statement, MarzPay). Sidra never guesses a balance.';
+
+  @override
+  String get arMarzPayTitle => 'Almuntahha\'s MarzPay share only';
+
+  @override
+  String get arMarzPay =>
+      'The MarzPay account is shared with DRAIS. The books count only Almuntahha\'s own MarzPay payments, fees and payouts.';
+
+  @override
+  String get arFeesTitle => 'Actual provider fees';
+
+  @override
+  String get arFees =>
+      'Each payment\'s fee is the amount MarzPay actually charged on it, never an assumed rate. Fees are an expense.';
+
+  @override
+  String get arTestTitle => 'Test money is not income';
+
+  @override
+  String get arTest =>
+      'Real-money MarzPay tests are held in \'Test money\' (a liability), not counted as income. Their fees are an expense.';
+
+  @override
+  String get arRefundsTitle => 'Refunds';
+
+  @override
+  String get arRefunds =>
+      'An agreed refund reduces income at once and is owed to the learner until it is paid back from a money account.';
+
+  @override
+  String get arClosingTitle => 'Closing months';
+
+  @override
+  String get arClosing =>
+      'Finance staff close a month when it is final. Nothing can be dated into a closed month; late automatic entries go to the next open day.';
+
+  @override
+  String get arAccountsTitle => 'Accounts';
+
+  @override
+  String get arAccounts =>
+      'Staff may add accounts. Built-in accounts keep their number and kind; an account holding money cannot be retired.';
+
+  @override
+  String get arCurrencyTitle => 'One currency (UGX)';
+
+  @override
+  String get arCurrency =>
+      'The books are kept in UGX. A record in another currency is listed on the finance home, not converted.';
+
+  @override
+  String get arPermanentTitle => 'Entries are permanent';
+
+  @override
+  String get arPermanent =>
+      'Every entry balances (debits = credits) and can never be edited or deleted. Mistakes are corrected with a reversing entry.';
 }

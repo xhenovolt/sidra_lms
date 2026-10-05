@@ -22,7 +22,16 @@ export default {
     if (url.pathname === '/health') {
       // Which secrets are present (names only, never values).
       const missing = ['FIREBASE_SERVICE_ACCOUNT', 'DATABASE_URL'].filter((k) => !env[k]);
-      return json({ ok: true, configured: missing.length === 0, missing });
+      // Whether MarzPay answers this Worker at all (status code only).
+      let marzpay = null;
+      if (url.searchParams.has('marzpay') && env.MARZPAY_AUTH_BASIC) {
+        const base = env.MARZPAY_BASE_URL || 'https://wallet.wearemarz.com/api/v1';
+        const r = await fetch(`${base}/transactions?reference=sidra-health`, {
+          headers: { authorization: `Basic ${env.MARZPAY_AUTH_BASIC}`, accept: 'application/json' },
+        }).catch((e) => ({ status: 'unreachable: ' + e.message }));
+        marzpay = r.status;
+      }
+      return json({ ok: true, configured: missing.length === 0, missing, marzpay });
     }
     if (url.pathname === '/ping' && (request.method === 'POST' || request.method === 'GET')) {
       // At most one flush a second per Worker instance; the database hands
@@ -89,12 +98,52 @@ export async function verifyPayments(env, { fetchImpl = fetch } = {}) {
   return { checked, settled };
 }
 
+/// Compares Sidra's MarzPay payments with MarzPay's own records (a few each
+/// run): MarzPay's entries for each payment's reference are handed to the
+/// database, which judges match / mismatch / waiting. Records only.
+export async function checkStatement(env, { fetchImpl = fetch, limit = 10 } = {}) {
+  if (!env.PAYMENTS_DATABASE_URL || !env.MARZPAY_AUTH_BASIC) return { checked: 0, skipped: 'not configured' };
+  const base = env.MARZPAY_BASE_URL || 'https://wallet.wearemarz.com/api/v1';
+  const rows = await sql(env.PAYMENTS_DATABASE_URL,
+    'select id, reference from payments_api.statement_to_check($1)', [limit], fetchImpl);
+  let checked = 0;
+  for (const r of rows) {
+    const res = await fetchImpl(`${base}/transactions?reference=${encodeURIComponent(r.reference)}`, {
+      headers: { authorization: `Basic ${env.MARZPAY_AUTH_BASIC}`, accept: 'application/json' },
+    });
+    if (!res.ok) { // MarzPay unavailable: check again later, never guess
+      console.warn('marzpay check: MarzPay answered', res.status);
+      continue;
+    }
+    const body = await res.json().catch(() => null);
+    if (!body) continue;
+    const list = ((body.data && body.data.transactions) || [])
+      .filter((t) => t.reference === r.reference)
+      .map((t) => ({
+        type: String(t.type || '').toLowerCase(),
+        amount: Number((t.amount && t.amount.raw) ?? t.amount ?? 0),
+        status: String(t.status || '').toLowerCase(),
+      }));
+    await sql(env.PAYMENTS_DATABASE_URL,
+      'select payments_api.record_statement_check($1, $2::jsonb) as result',
+      [r.id, JSON.stringify(list)], fetchImpl);
+    checked++;
+  }
+  return { checked };
+}
+
 /// Sends everything waiting. Returns counts (also used by the local test).
 export async function flush(env, { fetchImpl = fetch } = {}) {
   try {
     await verifyPayments(env, { fetchImpl });
   } catch (e) {
     console.error('verify payments', e); // pushes still go out
+  }
+  try {
+    const r = await checkStatement(env, { fetchImpl });
+    if (r.checked > 0) console.log('marzpay check', JSON.stringify(r));
+  } catch (e) {
+    console.error('marzpay check', e);
   }
   const sa = JSON.parse(env.FIREBASE_SERVICE_ACCOUNT);
   let sent = 0, failed = 0;

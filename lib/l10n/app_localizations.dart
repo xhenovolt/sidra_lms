@@ -11921,6 +11921,510 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{actual} of {budget}'**
   String lgBudgetLine(String actual, String budget);
+
+  /// No description provided for @rcMyPayments.
+  ///
+  /// In en, this message translates to:
+  /// **'My payments'**
+  String get rcMyPayments;
+
+  /// No description provided for @rcMyPaymentsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments and receipts'**
+  String get rcMyPaymentsHint;
+
+  /// No description provided for @rcNoPayments.
+  ///
+  /// In en, this message translates to:
+  /// **'No payments yet'**
+  String get rcNoPayments;
+
+  /// No description provided for @rcCovers.
+  ///
+  /// In en, this message translates to:
+  /// **'covers {from} – {until}'**
+  String rcCovers(String from, String until);
+
+  /// No description provided for @rcRefunded.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} refunded'**
+  String rcRefunded(String amount);
+
+  /// No description provided for @rcReceipt.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt'**
+  String get rcReceipt;
+
+  /// No description provided for @rcCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'This payment was reversed: the receipt is cancelled.'**
+  String get rcCancelled;
+
+  /// No description provided for @rcSavePdf.
+  ///
+  /// In en, this message translates to:
+  /// **'Save as PDF'**
+  String get rcSavePdf;
+
+  /// No description provided for @rcSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get rcSaved;
+
+  /// No description provided for @rcIssuedNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Issued by Sidra when the payment was confirmed.'**
+  String get rcIssuedNote;
+
+  /// No description provided for @rcReceivedFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Received from'**
+  String get rcReceivedFrom;
+
+  /// No description provided for @rcPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get rcPhone;
+
+  /// No description provided for @rcFor.
+  ///
+  /// In en, this message translates to:
+  /// **'For'**
+  String get rcFor;
+
+  /// No description provided for @rcPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Period paid for'**
+  String get rcPeriod;
+
+  /// No description provided for @rcAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get rcAmount;
+
+  /// No description provided for @rcRefundedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Refunded'**
+  String get rcRefundedLabel;
+
+  /// No description provided for @rcMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid by'**
+  String get rcMethod;
+
+  /// No description provided for @rcTransactionId.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction ID'**
+  String get rcTransactionId;
+
+  /// No description provided for @rcPaidOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid on'**
+  String get rcPaidOn;
+
+  /// No description provided for @rcConfirmedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed by'**
+  String get rcConfirmedBy;
+
+  /// No description provided for @rcSidraRef.
+  ///
+  /// In en, this message translates to:
+  /// **'Sidra reference'**
+  String get rcSidraRef;
+
+  /// No description provided for @ppPayAhead.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay for several {periods} at once'**
+  String ppPayAhead(String periods);
+
+  /// No description provided for @ppTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay ahead'**
+  String get ppTitle;
+
+  /// No description provided for @ppIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay for several periods now and learn without paying again until they end.'**
+  String get ppIntro;
+
+  /// No description provided for @ppCovers.
+  ///
+  /// In en, this message translates to:
+  /// **'Covers {from} to {until}'**
+  String ppCovers(String from, String until);
+
+  /// No description provided for @ppWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 week} other{{n} weeks}}'**
+  String ppWeeks(int n);
+
+  /// No description provided for @ppMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 month} other{{n} months}}'**
+  String ppMonths(int n);
+
+  /// No description provided for @ppTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 term} other{{n} terms}}'**
+  String ppTerms(int n);
+
+  /// No description provided for @ppPeriods.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 period} other{{n} periods}}'**
+  String ppPeriods(int n);
+
+  /// No description provided for @rfTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Refunds'**
+  String get rfTab;
+
+  /// No description provided for @rfIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'A refund is owed to the learner when agreed, and cleared when the money is sent back. Send it by mobile money, bank or cash, then record the transaction ID here.'**
+  String get rfIntro;
+
+  /// No description provided for @rfNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No refunds'**
+  String get rfNone;
+
+  /// No description provided for @rfOwedSince.
+  ///
+  /// In en, this message translates to:
+  /// **'owed since {date}'**
+  String rfOwedSince(String date);
+
+  /// No description provided for @rfPaidOut.
+  ///
+  /// In en, this message translates to:
+  /// **'paid {date} from {account} ({reference})'**
+  String rfPaidOut(String date, String account, String reference);
+
+  /// No description provided for @rfPayOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay out'**
+  String get rfPayOut;
+
+  /// No description provided for @rfPayOutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Refund to {learner}'**
+  String rfPayOutTitle(String learner);
+
+  /// No description provided for @rfPayOutIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Send {amount} back (their number: {phone}), then record it here.'**
+  String rfPayOutIntro(String amount, String phone);
+
+  /// No description provided for @rfMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent by'**
+  String get rfMethod;
+
+  /// No description provided for @rfMethodHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. MTN, Airtel, bank, cash'**
+  String get rfMethodHint;
+
+  /// No description provided for @rfReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction ID or receipt'**
+  String get rfReference;
+
+  /// No description provided for @rfOwedAlert.
+  ///
+  /// In en, this message translates to:
+  /// **'Refunds still to pay back: {amount}'**
+  String rfOwedAlert(String amount);
+
+  /// No description provided for @mkTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'MarzPay check'**
+  String get mkTitle;
+
+  /// No description provided for @mkIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Sidra compares each of its MarzPay payments with MarzPay\'s own records (money in, amount, fee) every few minutes.'**
+  String get mkIntro;
+
+  /// No description provided for @mkCounts.
+  ///
+  /// In en, this message translates to:
+  /// **'{matched} agree · {mismatched} differ · {waiting} waiting · {notChecked} not checked yet'**
+  String mkCounts(int matched, int mismatched, int waiting, int notChecked);
+
+  /// No description provided for @mkLast.
+  ///
+  /// In en, this message translates to:
+  /// **'Last checked {when}'**
+  String mkLast(String when);
+
+  /// No description provided for @exDownloadPdf.
+  ///
+  /// In en, this message translates to:
+  /// **'Download PDF'**
+  String get exDownloadPdf;
+
+  /// No description provided for @exDownloadExcel.
+  ///
+  /// In en, this message translates to:
+  /// **'Download Excel'**
+  String get exDownloadExcel;
+
+  /// No description provided for @exAsOf.
+  ///
+  /// In en, this message translates to:
+  /// **'as of {date}'**
+  String exAsOf(String date);
+
+  /// No description provided for @exItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Item'**
+  String get exItem;
+
+  /// No description provided for @exActual.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual'**
+  String get exActual;
+
+  /// No description provided for @exHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Almuntahha · Sidra financial records'**
+  String get exHeader;
+
+  /// No description provided for @arTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Accounting rules'**
+  String get arTitle;
+
+  /// No description provided for @arHint.
+  ///
+  /// In en, this message translates to:
+  /// **'How the books work, for the accountant to confirm'**
+  String get arHint;
+
+  /// No description provided for @arIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'These are the rules Sidra\'s books follow. Whoever keeps Almuntahha\'s accounts should read them and confirm, or ask for a change.'**
+  String get arIntro;
+
+  /// No description provided for @arNotConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'The accounting rules are not yet confirmed by the accountant'**
+  String get arNotConfirmed;
+
+  /// No description provided for @arConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed by {by} on {date}'**
+  String arConfirmed(String by, String date);
+
+  /// No description provided for @arSendPdf.
+  ///
+  /// In en, this message translates to:
+  /// **'Save as PDF for the accountant'**
+  String get arSendPdf;
+
+  /// No description provided for @arConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Record confirmation'**
+  String get arConfirmTitle;
+
+  /// No description provided for @arConfirmIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Record who confirmed these rules (name of the accountant) and any comment.'**
+  String get arConfirmIntro;
+
+  /// No description provided for @arConfirmedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed by (name)'**
+  String get arConfirmedBy;
+
+  /// No description provided for @arNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment (optional)'**
+  String get arNote;
+
+  /// No description provided for @arRule.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule'**
+  String get arRule;
+
+  /// No description provided for @arWhat.
+  ///
+  /// In en, this message translates to:
+  /// **'What it means'**
+  String get arWhat;
+
+  /// No description provided for @arPdfHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Almuntahha · Sidra accounting rules for review'**
+  String get arPdfHeader;
+
+  /// No description provided for @arCashTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash basis'**
+  String get arCashTitle;
+
+  /// No description provided for @arCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Income is counted when money is received. What learners still owe is shown separately and is not counted as income.'**
+  String get arCash;
+
+  /// No description provided for @arOpeningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting amounts from real records'**
+  String get arOpeningTitle;
+
+  /// No description provided for @arOpening.
+  ///
+  /// In en, this message translates to:
+  /// **'Each money account starts at the amount staff enter from a real record (cash count, bank statement, MarzPay). Sidra never guesses a balance.'**
+  String get arOpening;
+
+  /// No description provided for @arMarzPayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Almuntahha\'s MarzPay share only'**
+  String get arMarzPayTitle;
+
+  /// No description provided for @arMarzPay.
+  ///
+  /// In en, this message translates to:
+  /// **'The MarzPay account is shared with DRAIS. The books count only Almuntahha\'s own MarzPay payments, fees and payouts.'**
+  String get arMarzPay;
+
+  /// No description provided for @arFeesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual provider fees'**
+  String get arFeesTitle;
+
+  /// No description provided for @arFees.
+  ///
+  /// In en, this message translates to:
+  /// **'Each payment\'s fee is the amount MarzPay actually charged on it, never an assumed rate. Fees are an expense.'**
+  String get arFees;
+
+  /// No description provided for @arTestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Test money is not income'**
+  String get arTestTitle;
+
+  /// No description provided for @arTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Real-money MarzPay tests are held in \'Test money\' (a liability), not counted as income. Their fees are an expense.'**
+  String get arTest;
+
+  /// No description provided for @arRefundsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Refunds'**
+  String get arRefundsTitle;
+
+  /// No description provided for @arRefunds.
+  ///
+  /// In en, this message translates to:
+  /// **'An agreed refund reduces income at once and is owed to the learner until it is paid back from a money account.'**
+  String get arRefunds;
+
+  /// No description provided for @arClosingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Closing months'**
+  String get arClosingTitle;
+
+  /// No description provided for @arClosing.
+  ///
+  /// In en, this message translates to:
+  /// **'Finance staff close a month when it is final. Nothing can be dated into a closed month; late automatic entries go to the next open day.'**
+  String get arClosing;
+
+  /// No description provided for @arAccountsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Accounts'**
+  String get arAccountsTitle;
+
+  /// No description provided for @arAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Staff may add accounts. Built-in accounts keep their number and kind; an account holding money cannot be retired.'**
+  String get arAccounts;
+
+  /// No description provided for @arCurrencyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'One currency (UGX)'**
+  String get arCurrencyTitle;
+
+  /// No description provided for @arCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'The books are kept in UGX. A record in another currency is listed on the finance home, not converted.'**
+  String get arCurrency;
+
+  /// No description provided for @arPermanentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Entries are permanent'**
+  String get arPermanentTitle;
+
+  /// No description provided for @arPermanent.
+  ///
+  /// In en, this message translates to:
+  /// **'Every entry balances (debits = credits) and can never be edited or deleted. Mistakes are corrected with a reversing entry.'**
+  String get arPermanent;
 }
 
 class _AppLocalizationsDelegate

@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { generateKeyPairSync } from 'node:crypto';
-import { flush, verifyPayments } from './worker.js';
+import { checkStatement, flush, verifyPayments } from './worker.js';
 
 const { privateKey } = generateKeyPairSync('rsa', { modulusLength: 2048 });
 const sa = {
@@ -118,4 +118,37 @@ test('payments are verified at MarzPay itself, never guessed', async () => {
 test('without the payments login nothing is checked', async () => {
   const r = await verifyPayments({}, { fetchImpl: async () => { throw new Error('no calls'); } });
   assert.equal(r.checked, 0);
+});
+
+test('the MarzPay check hands MarzPay\'s own entries to the database', async () => {
+  const recorded = [];
+  const fakeFetch = async (url, init) => {
+    if (url.endsWith('/sql')) {
+      const q = JSON.parse(init.body);
+      if (q.query.includes('statement_to_check')) {
+        return Response.json({ rows: [{ id: 'p1', reference: 'ref-1' }, { id: 'p2', reference: 'ref-2' }] });
+      }
+      recorded.push(q.params);
+      return Response.json({ rows: [{ result: 'match' }] });
+    }
+    assert.equal(init.headers.authorization, 'Basic marz-key');
+    if (url.includes('reference=ref-1')) {
+      return Response.json({ data: { transactions: [
+        { reference: 'ref-1', type: 'credit', amount: { raw: '100000' }, status: 'successful' },
+        { reference: 'ref-1', type: 'debit', amount: { raw: '3000' }, status: 'successful' },
+        { reference: 'other', type: 'credit', amount: { raw: '1' }, status: 'successful' },
+      ] } });
+    }
+    return Response.json({ message: 'busy' }, { status: 503 });
+  };
+  const r = await checkStatement(
+    { PAYMENTS_DATABASE_URL: 'postgresql://sidra_payments:pw@ep-x.neon.tech/db', MARZPAY_AUTH_BASIC: 'marz-key' },
+    { fetchImpl: fakeFetch },
+  );
+  assert.deepEqual(r, { checked: 1 }, 'MarzPay did not answer for ref-2: not judged');
+  assert.equal(recorded[0][0], 'p1');
+  assert.deepEqual(JSON.parse(recorded[0][1]), [
+    { type: 'credit', amount: 100000, status: 'successful' },
+    { type: 'debit', amount: 3000, status: 'successful' },
+  ]);
 });

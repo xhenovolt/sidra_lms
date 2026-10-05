@@ -231,6 +231,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             builder: (_, _) => const CountsScreen(),
           ),
           GoRoute(
+            path: Routes.adminAccountingRules,
+            builder: (_, _) => const AccountingRulesScreen(),
+          ),
+          GoRoute(
             path: Routes.adminSettings,
             builder: (_, _) => const SettingsScreen(),
           ),

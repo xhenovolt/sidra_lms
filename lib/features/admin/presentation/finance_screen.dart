@@ -18,7 +18,10 @@ import 'admin_common.dart';
 import 'admin_shell.dart';
 import 'control/test_transactions_screen.dart';
 import 'courses_tab.dart';
-import '../../finance/presentation/ledger_forms.dart' show runLedgerAction, LedgerAction;
+import '../../finance/presentation/ledger_screens.dart' show RefundsView;
+import '../../payments/presentation/receipts.dart' show ReceiptScreen;
+import '../../finance/presentation/ledger_forms.dart'
+    show runLedgerAction, LedgerAction;
 
 /// A reporting period.
 enum FinancePeriod { thisMonth, lastMonth, thisYear, allTime }
@@ -94,7 +97,7 @@ class FinanceScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     return DefaultTabController(
-      length: 5,
+      length: 6,
       child: Column(
         children: [
           TabBar(
@@ -106,6 +109,7 @@ class FinanceScreen extends ConsumerWidget {
               Tab(text: l10n.financeOwing),
               Tab(text: l10n.financeWaivers),
               Tab(text: l10n.financeExpenses),
+              Tab(text: l10n.rfTab),
             ],
           ),
           const Expanded(
@@ -116,6 +120,7 @@ class FinanceScreen extends ConsumerWidget {
                 _Owing(),
                 _Waivers(),
                 _Expenses(),
+                RefundsView(),
               ],
             ),
           ),
@@ -646,6 +651,16 @@ class _PaymentSheet extends ConsumerWidget {
               icon: const Icon(Icons.person_outline),
               label: Text(l10n.financeOpenLearner),
             ),
+            if (p.status == 'verified' || p.status == 'reversed')
+              TextButton.icon(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => ReceiptScreen(paymentId: p.id),
+                  ),
+                ),
+                icon: const Icon(Icons.receipt_long_outlined),
+                label: Text(l10n.rcReceipt),
+              ),
             if (canVerify && p.status == 'pending') ...[
               FilledButton.icon(
                 onPressed: () => act(() => repo.verify(p.id)),

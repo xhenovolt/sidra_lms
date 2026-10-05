@@ -3780,5 +3780,235 @@
         "type": "String"
       }
     }
-  }
+  },
+  "rcMyPayments": "My payments",
+  "rcMyPaymentsHint": "Payments and receipts",
+  "rcNoPayments": "No payments yet",
+  "rcCovers": "covers {from} – {until}",
+  "@rcCovers": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "until": {
+        "type": "String"
+      }
+    }
+  },
+  "rcRefunded": "{amount} refunded",
+  "@rcRefunded": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "rcReceipt": "Receipt",
+  "rcCancelled": "This payment was reversed: the receipt is cancelled.",
+  "rcSavePdf": "Save as PDF",
+  "rcSaved": "Saved",
+  "rcIssuedNote": "Issued by Sidra when the payment was confirmed.",
+  "rcReceivedFrom": "Received from",
+  "rcPhone": "Phone",
+  "rcFor": "For",
+  "rcPeriod": "Period paid for",
+  "rcAmount": "Amount",
+  "rcRefundedLabel": "Refunded",
+  "rcMethod": "Paid by",
+  "rcTransactionId": "Transaction ID",
+  "rcPaidOn": "Paid on",
+  "rcConfirmedBy": "Confirmed by",
+  "rcSidraRef": "Sidra reference",
+  "ppPayAhead": "Pay for several {periods} at once",
+  "@ppPayAhead": {
+    "placeholders": {
+      "periods": {
+        "type": "String"
+      }
+    }
+  },
+  "ppTitle": "Pay ahead",
+  "ppIntro": "Pay for several periods now and learn without paying again until they end.",
+  "ppCovers": "Covers {from} to {until}",
+  "@ppCovers": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "until": {
+        "type": "String"
+      }
+    }
+  },
+  "ppWeeks": "{n, plural, =1{1 week} other{{n} weeks}}",
+  "@ppWeeks": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "ppMonths": "{n, plural, =1{1 month} other{{n} months}}",
+  "@ppMonths": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "ppTerms": "{n, plural, =1{1 term} other{{n} terms}}",
+  "@ppTerms": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "ppPeriods": "{n, plural, =1{1 period} other{{n} periods}}",
+  "@ppPeriods": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "rfTab": "Refunds",
+  "rfIntro": "A refund is owed to the learner when agreed, and cleared when the money is sent back. Send it by mobile money, bank or cash, then record the transaction ID here.",
+  "rfNone": "No refunds",
+  "rfOwedSince": "owed since {date}",
+  "@rfOwedSince": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "rfPaidOut": "paid {date} from {account} ({reference})",
+  "@rfPaidOut": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "account": {
+        "type": "String"
+      },
+      "reference": {
+        "type": "String"
+      }
+    }
+  },
+  "rfPayOut": "Pay out",
+  "rfPayOutTitle": "Refund to {learner}",
+  "@rfPayOutTitle": {
+    "placeholders": {
+      "learner": {
+        "type": "String"
+      }
+    }
+  },
+  "rfPayOutIntro": "Send {amount} back (their number: {phone}), then record it here.",
+  "@rfPayOutIntro": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "rfMethod": "Sent by",
+  "rfMethodHint": "e.g. MTN, Airtel, bank, cash",
+  "rfReference": "Transaction ID or receipt",
+  "rfOwedAlert": "Refunds still to pay back: {amount}",
+  "@rfOwedAlert": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "mkTitle": "MarzPay check",
+  "mkIntro": "Sidra compares each of its MarzPay payments with MarzPay's own records (money in, amount, fee) every few minutes.",
+  "mkCounts": "{matched} agree · {mismatched} differ · {waiting} waiting · {notChecked} not checked yet",
+  "@mkCounts": {
+    "placeholders": {
+      "matched": {
+        "type": "int"
+      },
+      "mismatched": {
+        "type": "int"
+      },
+      "waiting": {
+        "type": "int"
+      },
+      "notChecked": {
+        "type": "int"
+      }
+    }
+  },
+  "mkLast": "Last checked {when}",
+  "@mkLast": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "exDownloadPdf": "Download PDF",
+  "exDownloadExcel": "Download Excel",
+  "exAsOf": "as of {date}",
+  "@exAsOf": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "exItem": "Item",
+  "exActual": "Actual",
+  "exHeader": "Almuntahha · Sidra financial records",
+  "arTitle": "Accounting rules",
+  "arHint": "How the books work, for the accountant to confirm",
+  "arIntro": "These are the rules Sidra's books follow. Whoever keeps Almuntahha's accounts should read them and confirm, or ask for a change.",
+  "arNotConfirmed": "The accounting rules are not yet confirmed by the accountant",
+  "arConfirmed": "Confirmed by {by} on {date}",
+  "@arConfirmed": {
+    "placeholders": {
+      "by": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "arSendPdf": "Save as PDF for the accountant",
+  "arConfirmTitle": "Record confirmation",
+  "arConfirmIntro": "Record who confirmed these rules (name of the accountant) and any comment.",
+  "arConfirmedBy": "Confirmed by (name)",
+  "arNote": "Comment (optional)",
+  "arRule": "Rule",
+  "arWhat": "What it means",
+  "arPdfHeader": "Almuntahha · Sidra accounting rules for review",
+  "arCashTitle": "Cash basis",
+  "arCash": "Income is counted when money is received. What learners still owe is shown separately and is not counted as income.",
+  "arOpeningTitle": "Starting amounts from real records",
+  "arOpening": "Each money account starts at the amount staff enter from a real record (cash count, bank statement, MarzPay). Sidra never guesses a balance.",
+  "arMarzPayTitle": "Almuntahha's MarzPay share only",
+  "arMarzPay": "The MarzPay account is shared with DRAIS. The books count only Almuntahha's own MarzPay payments, fees and payouts.",
+  "arFeesTitle": "Actual provider fees",
+  "arFees": "Each payment's fee is the amount MarzPay actually charged on it, never an assumed rate. Fees are an expense.",
+  "arTestTitle": "Test money is not income",
+  "arTest": "Real-money MarzPay tests are held in 'Test money' (a liability), not counted as income. Their fees are an expense.",
+  "arRefundsTitle": "Refunds",
+  "arRefunds": "An agreed refund reduces income at once and is owed to the learner until it is paid back from a money account.",
+  "arClosingTitle": "Closing months",
+  "arClosing": "Finance staff close a month when it is final. Nothing can be dated into a closed month; late automatic entries go to the next open day.",
+  "arAccountsTitle": "Accounts",
+  "arAccounts": "Staff may add accounts. Built-in accounts keep their number and kind; an account holding money cannot be retired.",
+  "arCurrencyTitle": "One currency (UGX)",
+  "arCurrency": "The books are kept in UGX. A record in another currency is listed on the finance home, not converted.",
+  "arPermanentTitle": "Entries are permanent",
+  "arPermanent": "Every entry balances (debits = credits) and can never be edited or deleted. Mistakes are corrected with a reversing entry."
 }

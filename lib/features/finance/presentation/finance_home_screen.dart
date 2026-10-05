@@ -145,6 +145,12 @@ class FinanceHomeScreen extends ConsumerWidget {
               l10n.lgCountsHint,
               Routes.adminCounts,
             ),
+            (
+              Icons.rule_outlined,
+              l10n.arTitle,
+              l10n.arHint,
+              Routes.adminAccountingRules,
+            ),
           ])
             Card(
               margin: const EdgeInsets.only(top: Space.xs),
@@ -246,6 +252,18 @@ class _Summary extends ConsumerWidget {
             Icons.flag_outlined,
             l10n.lgEnterOpening,
             onTap: () => context.push(Routes.adminAccounts),
+          ),
+        if ((o.numOrNull('refunds_owed') ?? 0) > 0)
+          alert(
+            Icons.undo,
+            l10n.rfOwedAlert(money('refunds_owed')),
+            onTap: () => context.push(Routes.adminFinancePayments),
+          ),
+        if (o['rules_confirmed'] == null)
+          alert(
+            Icons.rule_outlined,
+            l10n.arNotConfirmed,
+            onTap: () => context.push(Routes.adminAccountingRules),
           ),
         if (notInBooks > 0)
           alert(Icons.report_outlined, l10n.lgNotInBooks(notInBooks)),

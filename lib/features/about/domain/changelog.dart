@@ -12,6 +12,14 @@ class Release {
 }
 
 final changelog = <Release>[
+  Release('2.41.0', DateTime(2026, 10, 5), 'Pay ahead, receipts and refunds', [
+    'Monthly, weekly or termly courses: pay for several periods at once (for example 5 months for 100,000) and learn without paying again until they end. Sidra shows the exact amount and the date it covers until.',
+    'Every confirmed payment gets a numbered receipt, showing the months it pays for. Learners find all their payments and receipts under Profile › My payments, and can save a receipt as a PDF.',
+    'Refunds: an agreed refund is owed to the learner until finance pays it back and records the transaction ID (Payments and fees › Refunds).',
+    'Download financial reports and the journal as PDF or Excel.',
+    'Sidra compares its MarzPay payments with MarzPay\x27s own records (money in, amount, fee) and shows any difference.',
+    'Accounting rules page: the rules the books follow, a PDF for the accountant, and a record of who confirmed them.',
+  ]),
   Release('2.40.0', DateTime(2026, 10, 4), 'Full finance: real double-entry books', [
     'Finance home shows what Almuntahha has right now: cash, bank, MarzPay share and mobile money, with this month\x27s income and expenses, what learners owe and bills to pay.',
     'Every payment, MarzPay fee (the real amount MarzPay charged), refund, reversal and expense is booked automatically as a balanced entry. Nothing can be edited afterwards; mistakes are reversed.',

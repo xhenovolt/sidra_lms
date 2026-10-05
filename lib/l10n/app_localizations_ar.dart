@@ -6762,4 +6762,336 @@ class AppLocalizationsAr extends AppLocalizations {
   String lgBudgetLine(String actual, String budget) {
     return '$actual من $budget';
   }
+
+  @override
+  String get rcMyPayments => 'مدفوعاتي';
+
+  @override
+  String get rcMyPaymentsHint => 'المدفوعات والإيصالات';
+
+  @override
+  String get rcNoPayments => 'لا توجد مدفوعات بعد';
+
+  @override
+  String rcCovers(String from, String until) {
+    return 'يغطي $from – $until';
+  }
+
+  @override
+  String rcRefunded(String amount) {
+    return 'استُرد $amount';
+  }
+
+  @override
+  String get rcReceipt => 'إيصال';
+
+  @override
+  String get rcCancelled => 'عُكست هذه الدفعة: الإيصال ملغى.';
+
+  @override
+  String get rcSavePdf => 'حفظ بصيغة PDF';
+
+  @override
+  String get rcSaved => 'تم الحفظ';
+
+  @override
+  String get rcIssuedNote => 'أصدرته سدرة عند تأكيد الدفعة.';
+
+  @override
+  String get rcReceivedFrom => 'استُلم من';
+
+  @override
+  String get rcPhone => 'الهاتف';
+
+  @override
+  String get rcFor => 'مقابل';
+
+  @override
+  String get rcPeriod => 'الفترة المدفوعة';
+
+  @override
+  String get rcAmount => 'المبلغ';
+
+  @override
+  String get rcRefundedLabel => 'المسترد';
+
+  @override
+  String get rcMethod => 'طريقة الدفع';
+
+  @override
+  String get rcTransactionId => 'رقم المعاملة';
+
+  @override
+  String get rcPaidOn => 'تاريخ الدفع';
+
+  @override
+  String get rcConfirmedBy => 'أكّده';
+
+  @override
+  String get rcSidraRef => 'مرجع سدرة';
+
+  @override
+  String ppPayAhead(String periods) {
+    return 'ادفع عدة $periods مرة واحدة';
+  }
+
+  @override
+  String get ppTitle => 'الدفع المسبق';
+
+  @override
+  String get ppIntro => 'ادفع لعدة فترات الآن وتعلّم دون دفع مجدداً حتى تنتهي.';
+
+  @override
+  String ppCovers(String from, String until) {
+    return 'يغطي من $from إلى $until';
+  }
+
+  @override
+  String ppWeeks(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n أسبوعاً',
+      few: '$n أسابيع',
+      two: 'أسبوعان',
+      one: 'أسبوع واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ppMonths(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n شهراً',
+      few: '$n أشهر',
+      two: 'شهران',
+      one: 'شهر واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ppTerms(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n فصلاً',
+      few: '$n فصول',
+      two: 'فصلان',
+      one: 'فصل واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ppPeriods(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n فترة',
+      few: '$n فترات',
+      two: 'فترتان',
+      one: 'فترة واحدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get rfTab => 'الاستردادات';
+
+  @override
+  String get rfIntro =>
+      'يصبح الاسترداد ديناً للمتعلم عند الموافقة، ويُسدَّد عند إعادة المال. أرسله عبر الهاتف أو البنك أو نقداً، ثم سجّل رقم المعاملة هنا.';
+
+  @override
+  String get rfNone => 'لا توجد استردادات';
+
+  @override
+  String rfOwedSince(String date) {
+    return 'مستحق منذ $date';
+  }
+
+  @override
+  String rfPaidOut(String date, String account, String reference) {
+    return 'دُفع $date من $account ($reference)';
+  }
+
+  @override
+  String get rfPayOut => 'صرف';
+
+  @override
+  String rfPayOutTitle(String learner) {
+    return 'استرداد لـ$learner';
+  }
+
+  @override
+  String rfPayOutIntro(String amount, String phone) {
+    return 'أعد $amount (رقمه: $phone)، ثم سجّل ذلك هنا.';
+  }
+
+  @override
+  String get rfMethod => 'أُرسل عبر';
+
+  @override
+  String get rfMethodHint => 'مثلاً MTN، Airtel، بنك، نقد';
+
+  @override
+  String get rfReference => 'رقم المعاملة أو الإيصال';
+
+  @override
+  String rfOwedAlert(String amount) {
+    return 'استردادات لم تُدفع بعد: $amount';
+  }
+
+  @override
+  String get mkTitle => 'مطابقة MarzPay';
+
+  @override
+  String get mkIntro =>
+      'تقارن سدرة كل دفعة MarzPay بسجلات MarzPay نفسها (الوارد والمبلغ والرسوم) كل بضع دقائق.';
+
+  @override
+  String mkCounts(int matched, int mismatched, int waiting, int notChecked) {
+    return '$matched متطابقة · $mismatched مختلفة · $waiting قيد الانتظار · $notChecked لم تُفحص بعد';
+  }
+
+  @override
+  String mkLast(String when) {
+    return 'آخر فحص $when';
+  }
+
+  @override
+  String get exDownloadPdf => 'تنزيل PDF';
+
+  @override
+  String get exDownloadExcel => 'تنزيل Excel';
+
+  @override
+  String exAsOf(String date) {
+    return 'بتاريخ $date';
+  }
+
+  @override
+  String get exItem => 'البند';
+
+  @override
+  String get exActual => 'الفعلي';
+
+  @override
+  String get exHeader => 'المنتهى · السجلات المالية في سدرة';
+
+  @override
+  String get arTitle => 'قواعد المحاسبة';
+
+  @override
+  String get arHint => 'كيف تعمل الدفاتر، ليؤكدها المحاسب';
+
+  @override
+  String get arIntro =>
+      'هذه هي القواعد التي تتبعها دفاتر سدرة. على من يحفظ حسابات المنتهى قراءتها وتأكيدها أو طلب تغيير.';
+
+  @override
+  String get arNotConfirmed => 'لم يؤكد المحاسب قواعد المحاسبة بعد';
+
+  @override
+  String arConfirmed(String by, String date) {
+    return 'أكّدها $by في $date';
+  }
+
+  @override
+  String get arSendPdf => 'حفظ PDF للمحاسب';
+
+  @override
+  String get arConfirmTitle => 'تسجيل التأكيد';
+
+  @override
+  String get arConfirmIntro =>
+      'سجّل من أكّد هذه القواعد (اسم المحاسب) وأي ملاحظة.';
+
+  @override
+  String get arConfirmedBy => 'أكّدها (الاسم)';
+
+  @override
+  String get arNote => 'ملاحظة (اختياري)';
+
+  @override
+  String get arRule => 'القاعدة';
+
+  @override
+  String get arWhat => 'معناها';
+
+  @override
+  String get arPdfHeader => 'المنتهى · قواعد المحاسبة في سدرة للمراجعة';
+
+  @override
+  String get arCashTitle => 'الأساس النقدي';
+
+  @override
+  String get arCash =>
+      'يُحسب الدخل عند استلام المال. ما يزال على المتعلمين يُعرض منفصلاً ولا يُحسب دخلاً.';
+
+  @override
+  String get arOpeningTitle => 'المبالغ الابتدائية من سجلات حقيقية';
+
+  @override
+  String get arOpening =>
+      'يبدأ كل حساب مالي بالمبلغ الذي يدخله الموظفون من سجل حقيقي (عدّ النقد، كشف البنك، MarzPay). لا تخمّن سدرة أي رصيد.';
+
+  @override
+  String get arMarzPayTitle => 'حصة المنتهى فقط في MarzPay';
+
+  @override
+  String get arMarzPay =>
+      'حساب MarzPay مشترك مع DRAIS. تحسب الدفاتر مدفوعات المنتهى ورسومها ومصروفاتها في MarzPay فقط.';
+
+  @override
+  String get arFeesTitle => 'رسوم المزوّد الفعلية';
+
+  @override
+  String get arFees =>
+      'رسوم كل دفعة هي ما خصمه MarzPay فعلاً، وليست نسبة مفترضة. الرسوم مصروف.';
+
+  @override
+  String get arTestTitle => 'أموال الاختبار ليست دخلاً';
+
+  @override
+  String get arTest =>
+      'اختبارات MarzPay بأموال حقيقية تُحفظ في \'أموال الاختبار\' (التزام) ولا تُحسب دخلاً. رسومها مصروف.';
+
+  @override
+  String get arRefundsTitle => 'الاستردادات';
+
+  @override
+  String get arRefunds =>
+      'الاسترداد المتفق عليه يخفّض الدخل فوراً ويبقى ديناً للمتعلم حتى يُدفع من حساب مالي.';
+
+  @override
+  String get arClosingTitle => 'إغلاق الأشهر';
+
+  @override
+  String get arClosing =>
+      'يغلق الموظفون الماليون الشهر عند اكتماله. لا يمكن تأريخ أي قيد في شهر مغلق؛ القيود التلقائية المتأخرة تذهب لأول يوم مفتوح.';
+
+  @override
+  String get arAccountsTitle => 'الحسابات';
+
+  @override
+  String get arAccounts =>
+      'يمكن للموظفين إضافة حسابات. الحسابات الأساسية تحتفظ برقمها ونوعها؛ ولا يُوقف حساب فيه مال.';
+
+  @override
+  String get arCurrencyTitle => 'عملة واحدة (UGX)';
+
+  @override
+  String get arCurrency =>
+      'تُحفظ الدفاتر بالشلن الأوغندي. أي سجل بعملة أخرى يُعرض في الرئيسية المالية ولا يُحوَّل.';
+
+  @override
+  String get arPermanentTitle => 'القيود دائمة';
+
+  @override
+  String get arPermanent =>
+      'كل قيد متوازن (المدين = الدائن) ولا يمكن تعديله أو حذفه. تُصحَّح الأخطاء بقيد عكسي.';
 }

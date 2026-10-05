@@ -133,6 +133,38 @@ class LedgerRepository {
   Future<List<Json>> reconciliations() async =>
       _list(await api.rpc('ledger_reconciliations'));
 
+  /// Refunds: owed to learners first, then paid out.
+  Future<List<Json>> refunds({bool owedOnly = false}) async => _list(
+    await api.rpc('finance_refunds', params: {'p_owed_only': owedOnly}),
+  );
+
+  Future<void> payOutRefund({
+    required String refundId,
+    required String fromAccount,
+    required String method,
+    required String reference,
+    required DateTime paidOn,
+  }) => api.rpc(
+    'pay_out_refund',
+    params: {
+      'p_refund_id': refundId,
+      'p_from_account': fromAccount,
+      'p_method': method,
+      'p_reference': reference,
+      'p_paid_on': _d(paidOn),
+    },
+  );
+
+  /// How Sidra's MarzPay payments compare with MarzPay's own records.
+  Future<Json> marzpayCheck() async =>
+      Map<String, dynamic>.from(await api.rpc('marzpay_check_report') as Map);
+
+  /// Records who confirmed the books' rules (the organisation's accountant).
+  Future<void> confirmRules(String confirmedBy, String? note) => api.rpc(
+    'ledger_confirm_rules',
+    params: {'p_confirmed_by': confirmedBy, 'p_note': ?note},
+  );
+
   static List<Json> _list(Object? v) => [
     for (final r in (v as List?) ?? const [])
       Map<String, dynamic>.from(r as Map),
@@ -393,8 +425,18 @@ final ledgerReconciliationsProvider = FutureProvider.autoDispose<List<Json>>(
   (ref) => ref.watch(ledgerRepositoryProvider).reconciliations(),
 );
 
+final ledgerRefundsProvider = FutureProvider.autoDispose<List<Json>>(
+  (ref) => ref.watch(ledgerRepositoryProvider).refunds(),
+);
+
+final marzpayCheckProvider = FutureProvider.autoDispose<Json>(
+  (ref) => ref.watch(ledgerRepositoryProvider).marzpayCheck(),
+);
+
 /// Every screen showing the books, refreshed after a change.
 void refreshLedger(WidgetRef ref) {
+  ref.invalidate(ledgerRefundsProvider);
+  ref.invalidate(marzpayCheckProvider);
   ref.invalidate(ledgerOverviewProvider);
   ref.invalidate(ledgerAccountsProvider);
   ref.invalidate(ledgerBillsProvider);

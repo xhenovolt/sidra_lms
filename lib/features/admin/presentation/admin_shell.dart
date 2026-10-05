@@ -198,6 +198,12 @@ final adminSections = <AdminSection>[
       {'finance.view'},
     ),
     AdminDestination(
+      Routes.adminAccountingRules,
+      Icons.rule_outlined,
+      (l) => l.arTitle,
+      {'finance.view'},
+    ),
+    AdminDestination(
       Routes.testTransactions,
       Icons.swap_vert,
       (l) => l.ttTitle,

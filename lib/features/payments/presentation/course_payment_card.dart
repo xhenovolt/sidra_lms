@@ -11,6 +11,7 @@ import '../../../core/theme/app_tokens.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../auth/presentation/auth_providers.dart';
 import '../../curriculum/domain/curriculum_models.dart';
+import '../../../shared/models/json.dart';
 import '../data/payments_repository.dart';
 
 /// Shown on a paid course the learner has not unlocked: what it costs,
@@ -133,7 +134,8 @@ class _CoursePaymentCardState extends ConsumerState<CoursePaymentCard> {
     });
   }
 
-  Future<void> _pay() async {
+  /// [periods]: pay that many periods of a repeating fee ahead.
+  Future<void> _pay({int? periods}) async {
     final l10n = AppLocalizations.of(context);
     final phone = await _askPhone(
       context,
@@ -145,7 +147,11 @@ class _CoursePaymentCardState extends ConsumerState<CoursePaymentCard> {
       _payment = null;
     });
     try {
-      final p = await _repo.payWithMobileMoney(widget.course.id, phone);
+      final p = await _repo.payWithMobileMoney(
+        widget.course.id,
+        phone,
+        periods: periods,
+      );
       if (!mounted) return;
       _poll?.cancel();
       _poll = null;
@@ -203,12 +209,12 @@ class _CoursePaymentCardState extends ConsumerState<CoursePaymentCard> {
               if (b.recurring && b.pricePerPeriod != null)
                 Text(
                   priceWithPeriod(
-                    l10n,
-                    b.pricePerPeriod!,
-                    b.currency,
-                    b.billingPeriod,
-                    b.intervalDays,
-                  ) +
+                        l10n,
+                        b.pricePerPeriod!,
+                        b.currency,
+                        b.billingPeriod,
+                        b.intervalDays,
+                      ) +
                       (b.periodsTotal == null
                           ? ''
                           : ' · ${l10n.billPeriodsTotal(b.periodsTotal!)}'),
@@ -291,6 +297,25 @@ class _CoursePaymentCardState extends ConsumerState<CoursePaymentCard> {
                   icon: const Icon(Icons.phone_android),
                   label: Text(l10n.payWithMobileMoney),
                 ),
+                if (b.recurring) ...[
+                  const SizedBox(height: Space.xs),
+                  OutlinedButton.icon(
+                    onPressed: () async {
+                      final n = await showModalBottomSheet<int>(
+                        context: context,
+                        isScrollControlled: true,
+                        showDragHandle: true,
+                        builder: (_) =>
+                            PrepaySheet(course: widget.course, balance: b),
+                      );
+                      if (n != null) await _pay(periods: n);
+                    },
+                    icon: const Icon(Icons.event_repeat),
+                    label: Text(
+                      l10n.ppPayAhead(periodWord(l10n, b.billingPeriod, 2)),
+                    ),
+                  ),
+                ],
                 const SizedBox(height: Space.xs),
                 TextButton(
                   onPressed: () => _reportOtherPayment(b),
@@ -540,6 +565,148 @@ class _ReportPaymentSheetState extends ConsumerState<_ReportPaymentSheet> {
             Text(l10n.paySubmitReportHint, style: theme.textTheme.bodySmall),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// "week", "month", "term" or "period", for [n] of them.
+String periodWord(AppLocalizations l10n, String period, int n) =>
+    switch (period) {
+      'weekly' => l10n.ppWeeks(n),
+      'monthly' => l10n.ppMonths(n),
+      'termly' => l10n.ppTerms(n),
+      _ => l10n.ppPeriods(n),
+    };
+
+/// Choose how many periods to pay at once; the database says what that
+/// costs and until when it covers. Pops with the number chosen.
+class PrepaySheet extends ConsumerStatefulWidget {
+  const PrepaySheet({super.key, required this.course, required this.balance});
+  final Course course;
+  final CourseBalance balance;
+
+  @override
+  ConsumerState<PrepaySheet> createState() => _PrepaySheetState();
+}
+
+class _PrepaySheetState extends ConsumerState<PrepaySheet> {
+  int _n = 1;
+  Json? _quote;
+  Object? _error;
+  int _asked = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Start from what is already due (at least one period).
+    final behind =
+        widget.balance.periodsDue - (widget.balance.periodsCovered ?? 0);
+    _n = behind > 1 ? behind : 1;
+    _ask();
+  }
+
+  Future<void> _ask() async {
+    final ticket = ++_asked;
+    setState(() {
+      _quote = null;
+      _error = null;
+    });
+    try {
+      final q = await ref
+          .read(paymentsRepositoryProvider)
+          .prepayQuote(widget.course.id, _n);
+      if (mounted && ticket == _asked) setState(() => _quote = q);
+    } catch (e) {
+      if (mounted && ticket == _asked) setState(() => _error = e);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final b = widget.balance;
+    final q = _quote;
+    final max = q?.intOrNull('max_periods');
+    final min = q?.intOrNull('min_periods') ?? 1;
+    final date = DateFormat.yMMMd(l10n.localeName);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(Space.lg, 0, Space.lg, Space.lg),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(l10n.ppTitle, style: theme.textTheme.titleLarge),
+          Text(l10n.ppIntro, style: theme.textTheme.bodySmall),
+          const SizedBox(height: Space.md),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton.filledTonal(
+                onPressed: _n > min
+                    ? () {
+                        _n--;
+                        _ask();
+                      }
+                    : null,
+                icon: const Icon(Icons.remove),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: Space.lg),
+                child: Text(
+                  periodWord(l10n, b.billingPeriod, _n),
+                  style: theme.textTheme.headlineSmall,
+                ),
+              ),
+              IconButton.filledTonal(
+                onPressed: max == null || _n < max
+                    ? () {
+                        _n++;
+                        _ask();
+                      }
+                    : null,
+                icon: const Icon(Icons.add),
+              ),
+            ],
+          ),
+          const SizedBox(height: Space.md),
+          if (_error != null)
+            Text(
+              _error is AppFailure && (_error! as AppFailure).message.isNotEmpty
+                  ? (_error! as AppFailure).message
+                  : l10n.genericError,
+              style: TextStyle(color: theme.colorScheme.error),
+              textAlign: TextAlign.center,
+            )
+          else if (q == null)
+            const LinearProgressIndicator()
+          else ...[
+            Text(
+              formatMoney(
+                q.numOrNull('amount') ?? 0,
+                q.strOrNull('currency') ?? b.currency,
+              ),
+              style: theme.textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              l10n.ppCovers(
+                date.format(DateTime.parse(q.str('covers_from'))),
+                date.format(DateTime.parse(q.str('covers_until'))),
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+          const SizedBox(height: Space.md),
+          FilledButton.icon(
+            onPressed: q == null ? null : () => Navigator.pop(context, _n),
+            icon: const Icon(Icons.phone_android),
+            label: Text(l10n.payWithMobileMoney),
+          ),
+        ],
       ),
     );
   }
